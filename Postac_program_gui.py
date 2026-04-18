@@ -1,10 +1,23 @@
-import openpyxl
-import math
-import tkinter as tk
-from tkinter import ttk, messagebox
+"""
+Warhammer Fantasy Roleplay 4ed - Symulator Karty Postaci
+Program do zarządzania postacią RPG z obsługą cech, umiejętności i talentów.
+"""
 
-# Tabela kosztów rozwinięć: kluczem jest próg rozwinięć, a wartościami są krotki (koszt_cechy, koszt_umiejętności).
-cost_table = {
+import customtkinter as ctk
+import openpyxl
+import json
+import os
+from datetime import datetime
+from typing import Dict, List, Tuple, Optional
+from pathlib import Path
+import tkinter as tk
+from tkinter import filedialog, messagebox
+
+# ============================================================================
+# CONSTANTS
+# ============================================================================
+
+COST_TABLE = {
     5: (25, 10),
     10: (30, 15),
     15: (40, 20),
@@ -19,667 +32,1290 @@ cost_table = {
     60: (330, 270),
     65: (390, 320),
     70: (450, 380),
-    float("inf"): (520, 440)  # powyżej 70 rozwinięć koszt utrzymuje się na tym poziomie
+    float("inf"): (520, 440),
 }
 
-def load_data(file_name):
-    """Wczytuje dane postaci z pliku Excel i zwraca słowniki cech, umiejętności oraz doświadczenia."""
-    wb = openpyxl.load_workbook(file_name, data_only=True)
-    sheet = wb.active
-    cechy = {}
-    umiejetnosci = {}
-    exp = {}
+ATTRIBUTES = ["WW", "US", "S", "Wt", "I", "Zw", "Zr", "Int", "SW", "Ogd"]
+EXCEL_CHAR_COL_START = 2  # Kolumna B
+EXCEL_ATTR_NAME_ROW = 11
+EXCEL_ATTR_INITIAL_ROW = 12
+EXCEL_ATTR_ADVANCED_ROW = 13
+EXCEL_ATTR_CURRENT_ROW = 14
+EXCEL_SKILL_ROWS = range(18, 31)
+EXCEL_SKILL_BLOCKS = 3
+EXCEL_EXP_COL = "P"  # Aktualne PD
+EXCEL_SPENT_COL = "Q"  # Wydane PD
+EXCEL_TOTAL_COL = "R"  # Suma PD
 
-    # Wczytanie cech
-    col = 2
-    while True:
-        cecha_name = sheet.cell(row=11, column=col).value
-        if cecha_name is None:
-            break
-        poczatkowa_val = sheet.cell(row=12, column=col).value or 0
-        rozwinieta_val = sheet.cell(row=13, column=col).value or 0
-        wartosc_val = poczatkowa_val + rozwinieta_val
-        cechy[cecha_name] = {
-            "poczatkowa": poczatkowa_val,
-            "rozwinieta": rozwinieta_val,
-            "wartosc": wartosc_val
-        }
-        col += 1
+# Kolory do customtkinter
+COLOR_BG = "#1a1a1a"
+COLOR_FG_LIGHT = "#e0e0e0"
+COLOR_ACCENT = "#0084d1"
+COLOR_SUCCESS = "#26b552"
+COLOR_ERROR = "#d1214e"
+COLOR_WARNING = "#ff9500"
 
-    # Wczytanie umiejętności (podzielonych na 3 kolumny bloków)
-    for a in range(3):
-        for row in range(18, 31):
-            um_name = sheet.cell(row=row, column=1 + a*5).value
-            if um_name is None:
-                break  # koniec listy umiejętności w tym bloku
-            cecha_powiazana = sheet.cell(row=row, column=2 + a*5).value or ""
-            wartosc_um = sheet.cell(row=row, column=3 + a*5).value or 0
-            rozw_um = sheet.cell(row=row, column=4 + a*5).value or 0
-            suma_um = wartosc_um + rozw_um
-            umiejetnosci[um_name] = {
-                "cecha": cecha_powiazana,
-                "wartosc": wartosc_um,
-                "rozwinieta": rozw_um,
-                "suma": suma_um
-            }
+# ============================================================================
+# HELPER FUNCTIONS
+# ============================================================================
 
-    # Wczytanie doświadczenia (komórki P11, Q11, R11)
-    exp["aktualne"] = sheet["P11"].value or 0  # aktualne (dostępne) PD
-    exp["wydane"] = sheet["Q11"].value or 0    # wydane PD
-    exp["suma"] = sheet["R11"].value or (exp["aktualne"] + exp["wydane"])  # suma PD (aktualne + wydane)
-    wb.close()
-    return cechy, umiejetnosci, exp
-
-def save_data(file_name, cechy, umiejetnosci, exp):
-    """Zapisuje bieżące dane postaci do pliku Excel."""
-    wb = openpyxl.load_workbook(file_name)
-    sheet = wb.active
-
-    # Zapis cech
-    col = 2
-    while True:
-        cecha_name = sheet.cell(row=11, column=col).value
-        if cecha_name is None:
-            break
-        if cecha_name in cechy:
-            sheet.cell(row=12, column=col, value=cechy[cecha_name]["poczatkowa"])
-            sheet.cell(row=13, column=col, value=cechy[cecha_name]["rozwinieta"])
-            sheet.cell(row=14, column=col, value=cechy[cecha_name]["wartosc"])
-        col += 1
-
-    # Zapis umiejętności
-    for a in range(3):
-        for row in range(18, 31):
-            name = sheet.cell(row=row, column=1 + a*5).value
-            if name is None:
-                break
-            if name in umiejetnosci:
-                sheet.cell(row=row, column=2 + a*5, value=umiejetnosci[name].get("cecha", ""))
-                sheet.cell(row=row, column=3 + a*5, value=umiejetnosci[name]["wartosc"])
-                sheet.cell(row=row, column=4 + a*5, value=umiejetnosci[name]["rozwinieta"])
-                sheet.cell(row=row, column=5 + a*5, value=umiejetnosci[name]["suma"])
-
-    # Zapis doświadczenia
-    sheet["P11"] = exp["aktualne"]
-    sheet["Q11"] = exp["wydane"]
-    sheet["R11"] = exp["suma"]
-
-    wb.save(file_name)
-    wb.close()
-
-def calculate_total_experience(advancement_type, current_advancements, desired_advancements):
-    """Oblicza całkowity koszt PD dla uzyskania `desired_advancements` rozwinięć danego typu od bieżącego poziomu."""
-    total_experience = 0
+def calculate_advancement_cost(
+    advancement_type: str, current_advancements: int, desired_advancements: int
+) -> int:
+    """Oblicza całkowity koszt PD dla rozwinięć."""
+    total_cost = 0
     remaining = desired_advancements
     current_threshold = current_advancements
 
-    # Sumujemy koszty kolejnych rozwinięć, uwzględniając zmiany kosztu na progach z cost_table
     while remaining > 0:
-        for threshold, (char_cost, skill_cost) in cost_table.items():
+        for threshold in sorted(COST_TABLE.keys()):
             if current_threshold < threshold:
-                # Liczba rozwinięć do osiągnięcia kolejnego progu (lub mniejsza, jeśli mniej pozostało)
+                char_cost, skill_cost = COST_TABLE[threshold]
                 to_threshold = min(remaining, threshold - current_threshold)
+                
                 if advancement_type == "cecha":
-                    total_experience += char_cost * to_threshold
+                    total_cost += char_cost * to_threshold
                 elif advancement_type == "umiejetnosc":
-                    total_experience += skill_cost * to_threshold
+                    total_cost += skill_cost * to_threshold
+                elif advancement_type == "talent":
+                    # Koszt talentu: 100 * poziom
+                    total_cost = desired_advancements * 100
+                    return total_cost
+
                 remaining -= to_threshold
                 current_threshold += to_threshold
                 if remaining == 0:
                     break
-    return total_experience
+    
+    return total_cost
 
-class CharacterSheetGUI:
-    def __init__(self, file_name="karta_postaci.xlsx"):
-        # Wczytanie danych z pliku Excel
+
+# ============================================================================
+# DATA MANAGEMENT
+# ============================================================================
+
+class DataManager:
+    """Zarządza ładowaniem i zapisywaniem danych postaci."""
+
+    def __init__(self):
+        self.file_path: Optional[str] = None
+        self.attributes: Dict = {}
+        self.skills: Dict = {}
+        self.talents: Dict = {}
+        self.experience: Dict = {"available": 0, "spent": 0, "total": 0}
+        self.character_name: str = "Nowa Postać"
+
+    def load_from_excel(self, file_path: str) -> bool:
+        """Ładuje dane z pliku Excel. Zwraca True jeśli sukces."""
         try:
-            self.cechy, self.umiejetnosci, self.exp = load_data(file_name)
+            self.file_path = file_path
+            wb = openpyxl.load_workbook(file_path, data_only=True)
+            ws = wb.active
+
+            # Odczyt charakteru postaci
+            self.character_name = ws.cell(5, 2).value or "Brak Imienia"
+
+            # Odczyt cech
+            self.attributes = {}
+            for col_idx, attr_name in enumerate(ATTRIBUTES, start=EXCEL_CHAR_COL_START):
+                cell_name = ws.cell(EXCEL_ATTR_NAME_ROW, col_idx).value
+                if not cell_name:
+                    continue
+
+                initial = ws.cell(EXCEL_ATTR_INITIAL_ROW, col_idx).value or 0
+                advanced = ws.cell(EXCEL_ATTR_ADVANCED_ROW, col_idx).value or 0
+                current = ws.cell(EXCEL_ATTR_CURRENT_ROW, col_idx).value or (initial + advanced)
+
+                self.attributes[attr_name] = {
+                    "initial": int(initial),
+                    "advanced": int(advanced),
+                    "current": int(current),
+                    "base_advanced": int(advanced),  # Do resetu
+                }
+
+            # Odczyt umiejętności
+            self.skills = {}
+            for block in range(EXCEL_SKILL_BLOCKS):
+                col_offset = block * 5
+                for row in EXCEL_SKILL_ROWS:
+                    skill_name = ws.cell(row, 1 + col_offset).value
+                    if not skill_name:
+                        continue
+
+                    attribute = ws.cell(row, 2 + col_offset).value or ""
+                    initial = ws.cell(row, 3 + col_offset).value or 0
+                    advanced = ws.cell(row, 4 + col_offset).value or 0
+                    current = ws.cell(row, 5 + col_offset).value or (initial + advanced)
+
+                    self.skills[skill_name] = {
+                        "attribute": str(attribute).strip("()"),
+                        "initial": int(initial),
+                        "advanced": int(advanced),
+                        "current": int(current),
+                        "base_advanced": int(advanced),
+                    }
+
+            # Odczyt doświadczenia
+            self.experience["available"] = ws[f"{EXCEL_EXP_COL}11"].value or 0
+            self.experience["spent"] = ws[f"{EXCEL_SPENT_COL}11"].value or 0
+            self.experience["total"] = (
+                self.experience["available"] + self.experience["spent"]
+            )
+
+            wb.close()
+            return True
+
         except Exception as e:
-            messagebox.showerror("Błąd", f"Nie udało się wczytać pliku {file_name}:\n{e}")
-            self.cechy, self.umiejetnosci, self.exp = {}, {}, {"aktualne": 0, "wydane": 0, "suma": 0}
-            file_name = None
-        self.file_name = file_name
+            print(f"Błąd przy ładowaniu pliku: {e}")
+            return False
 
-        # Główne okno aplikacji
-        self.root = tk.Tk()
-        self.root.title("Karta Postaci RPG")
-        self.root.geometry("1200x800")
+    def save_to_excel(self, file_path: str = None) -> bool:
+        """Zapisuje dane do Excel. Zwraca True jeśli sukces."""
+        if not file_path and not self.file_path:
+            return False
 
-        # Styl ttk (opcjonalnie można zmienić temat dla lepszego wyglądu)
-        style = ttk.Style(self.root)
+        file_path = file_path or self.file_path
+
         try:
-            style.theme_use("clam")
-        except:
-            pass
+            wb = openpyxl.load_workbook(file_path)
+            ws = wb.active
 
-        # Ramka górna z polem PD oraz przyciskami "Zapisz" i "Reset"
-        top_frame = ttk.Frame(self.root, padding="10 5 10 5")
-        top_frame.pack(side=tk.TOP, fill=tk.X)
-        ttk.Label(top_frame, text="Doświadczenie (PD):").pack(side=tk.LEFT, padx=(5, 2))
-        self.pd_var = tk.StringVar(value=str(self.exp.get("aktualne", 0)))
-        self.last_valid_pd = self.exp.get("aktualne", 0)
-        pd_entry = ttk.Entry(top_frame, textvariable=self.pd_var, width=10)
-        pd_entry.pack(side=tk.LEFT)
-        # Powiązanie zdarzeń Enter i utraty fokusu z funkcją aktualizującą PD
-        pd_entry.bind("<Return>", self.on_pd_change)
-        pd_entry.bind("<FocusOut>", self.on_pd_change)
-        # Przyciski Zapisz i Reset
-        save_btn = ttk.Button(top_frame, text="Zapisz", command=self.on_save)
-        save_btn.pack(side=tk.RIGHT, padx=5)
-        reset_btn = ttk.Button(top_frame, text="Reset", command=self.on_reset)
-        reset_btn.pack(side=tk.RIGHT)
+            # Zapis cech
+            for col_idx, attr_name in enumerate(ATTRIBUTES, start=EXCEL_CHAR_COL_START):
+                if attr_name in self.attributes:
+                    attr_data = self.attributes[attr_name]
+                    ws.cell(EXCEL_ATTR_INITIAL_ROW, col_idx, attr_data["initial"])
+                    ws.cell(EXCEL_ATTR_ADVANCED_ROW, col_idx, attr_data["advanced"])
+                    ws.cell(
+                        EXCEL_ATTR_CURRENT_ROW,
+                        col_idx,
+                        attr_data["initial"] + attr_data["advanced"],
+                    )
+
+            # Zapis umiejętności
+            for block in range(EXCEL_SKILL_BLOCKS):
+                col_offset = block * 5
+                row_idx = 18
+                for skill_name, skill_data in self.skills.items():
+                    if row_idx > 30:
+                        break
+                    ws.cell(row_idx, 1 + col_offset, skill_name)
+                    ws.cell(row_idx, 2 + col_offset, f"({skill_data['attribute']})")
+                    ws.cell(row_idx, 3 + col_offset, skill_data["initial"])
+                    ws.cell(row_idx, 4 + col_offset, skill_data["advanced"])
+                    ws.cell(
+                        row_idx, 5 + col_offset,
+                        skill_data["initial"] + skill_data["advanced"],
+                    )
+                    row_idx += 1
+
+            # Zapis doświadczenia
+            ws[f"{EXCEL_EXP_COL}11"] = self.experience["available"]
+            ws[f"{EXCEL_SPENT_COL}11"] = self.experience["spent"]
+            ws[f"{EXCEL_TOTAL_COL}11"] = self.experience["total"]
+
+            wb.save(file_path)
+            wb.close()
+            return True
+
+        except Exception as e:
+            print(f"Błąd przy zapisie pliku: {e}")
+            return False
+
+    def add_skill(
+        self, skill_name: str, attribute: str, initial: int = 0, advanced: int = 0
+    ) -> bool:
+        """Dodaje nową umiejętność."""
+        if skill_name in self.skills:
+            return False
+
+        self.skills[skill_name] = {
+            "attribute": attribute,
+            "initial": initial,
+            "advanced": advanced,
+            "current": initial + advanced,
+            "base_advanced": advanced,
+        }
+        return True
+
+    def reset_character(self) -> None:
+        """Resetuje postać do wartości z pliku."""
+        for attr in self.attributes.values():
+            attr["advanced"] = attr["base_advanced"]
+
+        for skill in self.skills.values():
+            skill["advanced"] = skill["base_advanced"]
+
+    def create_new_character(self, name: str = "Nowa Postać") -> None:
+        """Tworzy nową postać z wartościami domyślnymi."""
+        self.character_name = name
+        self.file_path = None
+        self.attributes = {
+            attr: {"initial": 30, "advanced": 0, "current": 30, "base_advanced": 0}
+            for attr in ATTRIBUTES
+        }
+        self.skills = {}
+        self.experience = {"available": 0, "spent": 0, "total": 0}
+        self.talents = {}
+
+
+
+# ============================================================================
+# HISTORY MANAGEMENT
+# ============================================================================
+
+class HistoryManager:
+    """Zarządza historią działań w formacie JSON."""
+
+    def __init__(self, json_file: str = "history.json"):
+        self.json_file = json_file
+        self.history: List[Dict] = []
+        self.load_history()
+
+    def load_history(self) -> None:
+        """Ładuje historię z pliku JSON."""
+        try:
+            if os.path.exists(self.json_file):
+                with open(self.json_file, "r", encoding="utf-8") as f:
+                    self.history = json.load(f)
+        except Exception as e:
+            print(f"Błąd przy ładowaniu historii: {e}")
+            self.history = []
+
+    def save_history(self) -> None:
+        """Zapisuje historię do pliku JSON."""
+        try:
+            with open(self.json_file, "w", encoding="utf-8") as f:
+                json.dump(self.history, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            print(f"Błąd przy zapisie historii: {e}")
+
+    def add_entry(self, action: str, details: str = "") -> None:
+        """Dodaje wpis do historii."""
+        entry = {
+            "timestamp": datetime.now().isoformat(),
+            "action": action,
+            "details": details,
+        }
+        self.history.append(entry)
+        self.save_history()
+
+    def get_history_text(self) -> str:
+        """Zwraca historię jako sformatowany tekst."""
+        text = ""
+        for entry in self.history[-50:]:  # Ostatnie 50 wpisów
+            timestamp = entry.get("timestamp", "")
+            action = entry.get("action", "")
+            details = entry.get("details", "")
+            text += f"[{timestamp}] {action}"
+            if details:
+                text += f" - {details}"
+            text += "\n"
+        return text
+
+
+# ============================================================================
+# GUI - MAIN APPLICATION
+# ============================================================================
+
+class CharacterSheetApp(ctk.CTk):
+    """Główna aplikacja GUI."""
+
+    def __init__(self):
+        super().__init__()
+
+        self.title("Warhammer Fantasy Roleplay 4ed - Karta Postaci")
+        self.geometry("1400x900")
+
+        ctk.set_appearance_mode("dark")
+        ctk.set_default_color_theme("blue")
+
+        self.data_manager = DataManager()
+        self.history_manager = HistoryManager()
+
+        self.pending_changes: Dict = {
+            "attribute_changes": {},
+            "skill_changes": {},
+            "talent_changes": {},
+        }
+        
+        # Cache widgetów do szybkiego updatu bez destroy/recreate
+        self.attribute_rows: Dict = {}  # {attr_name: {"row": Frame, "labels": [...], "buttons": [...]}}
+        self.skill_rows: Dict = {}      # {skill_name: {"row": Frame, "labels": [...], "buttons": [...]}}
+        self.initialized_attrs = False
+        self.initialized_skills = False
+
+        self.setup_ui()
+
+    def setup_ui(self) -> None:
+        """Konfiguruje interfejs użytkownika."""
+        # Górny pasek z informacjami
+        self.top_frame = ctk.CTkFrame(self)
+        self.top_frame.pack(side="top", fill="x", padx=10, pady=10)
+
+        ctk.CTkLabel(
+            self.top_frame, text="Imię postaci:", font=("Arial", 15, "bold")
+        ).pack(side="left", padx=5)
+
+        self.char_name_label = ctk.CTkLabel(
+            self.top_frame, text="Nowa Postać", font=("Arial", 15)
+        )
+        self.char_name_label.pack(side="left", padx=5)
+
+        ctk.CTkLabel(
+            self.top_frame, text="Doświadczenie (PD):", font=("Arial", 15, "bold")
+        ).pack(side="left", padx=(20, 5))
+
+        self.exp_label = ctk.CTkLabel(
+            self.top_frame, text="0/0", font=("Arial", 15, "bold"), text_color=COLOR_ACCENT
+        )
+        self.exp_label.pack(side="left", padx=5)
+
+        # Przyciski górne
+        button_frame = ctk.CTkFrame(self.top_frame)
+        button_frame.pack(side="right", padx=5)
+
+        ctk.CTkButton(
+            button_frame, text="Wczytaj", command=self.on_load_character, width=100
+        ).pack(side="left", padx=2)
+
+        ctk.CTkButton(
+            button_frame, text="Nowa", command=self.on_new_character, width=100
+        ).pack(side="left", padx=2)
+
+        ctk.CTkButton(
+            button_frame, text="Zapisz", command=self.on_save_character, width=100
+        ).pack(side="left", padx=2)
+
+        ctk.CTkButton(
+            button_frame, text="Zatwierdź Zmiany", command=self.on_confirm_changes,
+            width=130, fg_color=COLOR_SUCCESS
+        ).pack(side="left", padx=2)
+
+        ctk.CTkButton(
+            button_frame, text="Cofnij Zmiany", command=self.on_revert_changes,
+            width=130, fg_color=COLOR_ERROR
+        ).pack(side="left", padx=2)
 
         # Notebook z zakładkami
-        self.notebook = ttk.Notebook(self.root)
-        self.notebook.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
+        self.notebook = ctk.CTkTabview(self)
+        self.notebook.pack(fill="both", expand=True, padx=10, pady=10)
 
-        # Zakładka 1: Wyświetlanie danych postaci
-        tab1 = ttk.Frame(self.notebook, padding=10)
-        self.notebook.add(tab1, text="Dane postaci")
-        ttk.Label(tab1, text="CECHY:").pack(anchor=tk.W)
-        # Ramka dla listy cech z plus/minus
-        attr_frame = ttk.Frame(tab1)
-        attr_frame.pack(fill=tk.X, pady=5)
-        # Nagłówki dla cech
-        ttk.Label(attr_frame, text="Cecha").grid(row=0, column=0, sticky=tk.W)
-        ttk.Label(attr_frame, text="Początkowa").grid(row=0, column=1)
-        ttk.Label(attr_frame, text="Rozwinięta").grid(row=0, column=2)
-        ttk.Label(attr_frame, text="Wartość").grid(row=0, column=3)
-        # Kolumny 4 i 5 przeznaczone na przyciski [+] [-]
-        self.attr_labels = {}
-        self.attr_buttons = {}
-        row_index = 1
-        for cecha, vals in self.cechy.items():
-            ttk.Label(attr_frame, text=cecha).grid(row=row_index, column=0, sticky=tk.W)
-            lbl_pocz = ttk.Label(attr_frame, text=str(vals["poczatkowa"]))
-            lbl_pocz.grid(row=row_index, column=1)
-            lbl_rozw = ttk.Label(attr_frame, text=str(vals["rozwinieta"]))
-            lbl_rozw.grid(row=row_index, column=2)
-            lbl_wart = ttk.Label(attr_frame, text=str(vals["wartosc"]))
-            lbl_wart.grid(row=row_index, column=3)
-            btn_plus = tk.Button(attr_frame, text="+", width=3, command=lambda n=cecha: self.on_increase("cecha", n))
-            btn_plus.grid(row=row_index, column=4)
-            btn_minus = tk.Button(attr_frame, text="-", width=3, command=lambda n=cecha: self.on_decrease("cecha", n))
-            btn_minus.grid(row=row_index, column=5)
-            self.attr_labels[cecha] = {"poczatkowa": lbl_pocz, "rozwinieta": lbl_rozw, "wartosc": lbl_wart}
-            self.attr_buttons[cecha] = {"plus": btn_plus, "minus": btn_minus}
-            row_index += 1
+        self.create_character_tab()
+        self.create_skills_tab()
+        self.create_talents_tab()
+        self.create_costs_tab()
+        self.create_add_skill_tab()
+        self.create_experience_tab()
+        self.create_history_tab()
 
-        ttk.Label(tab1, text="UMIEJĘTNOŚCI:").pack(anchor=tk.W, pady=(10, 0))
-        # Ramka dla listy umiejętności z plus/minus
-        skill_frame = ttk.Frame(tab1)
-        skill_frame.pack(fill=tk.BOTH, expand=True, pady=5)
-        # Nagłówki dla umiejętności
-        ttk.Label(skill_frame, text="Umiejętność").grid(row=0, column=0, sticky=tk.W)
-        ttk.Label(skill_frame, text="Cecha").grid(row=0, column=1)
-        ttk.Label(skill_frame, text="Wartość").grid(row=0, column=2)
-        ttk.Label(skill_frame, text="Rozwinięcia").grid(row=0, column=3)
-        ttk.Label(skill_frame, text="Suma").grid(row=0, column=4)
-        self.skill_labels = {}
-        self.skill_buttons = {}
-        row_index = 1
-        for um, vals in self.umiejetnosci.items():
-            ttk.Label(skill_frame, text=um).grid(row=row_index, column=0, sticky=tk.W)
-            ttk.Label(skill_frame, text=str(vals["cecha"])).grid(row=row_index, column=1)
-            lbl_wart = ttk.Label(skill_frame, text=str(vals["wartosc"]))
-            lbl_wart.grid(row=row_index, column=2)
-            lbl_rozw = ttk.Label(skill_frame, text=str(vals["rozwinieta"]))
-            lbl_rozw.grid(row=row_index, column=3)
-            lbl_suma = ttk.Label(skill_frame, text=str(vals["suma"]))
-            lbl_suma.grid(row=row_index, column=4)
-            btn_plus = tk.Button(skill_frame, text="+", width=3, command=lambda n=um: self.on_increase("umiejetnosc", n))
-            btn_plus.grid(row=row_index, column=5)
-            btn_minus = tk.Button(skill_frame, text="-", width=3, command=lambda n=um: self.on_decrease("umiejetnosc", n))
-            btn_minus.grid(row=row_index, column=6)
-            self.skill_labels[um] = {"wartosc": lbl_wart, "rozwinieta": lbl_rozw, "suma": lbl_suma}
-            self.skill_buttons[um] = {"plus": btn_plus, "minus": btn_minus}
-            row_index += 1
+    def create_character_tab(self) -> None:
+        """Zakładka: Cechy postaci."""
+        tab = self.notebook.add("Cechy")
 
-        # Etykieta z podsumowaniem doświadczenia
-        self.exp_label_tab1 = ttk.Label(tab1, text="")
-        self.exp_label_tab1.pack(anchor=tk.W, pady=(5, 0))
+        # Nagłówek
+        header = ctk.CTkFrame(tab)
+        header.pack(fill="x", padx=10, pady=10)
 
-        # Zakładka 2: Zakup rozwinięć
-        tab2 = ttk.Frame(self.notebook, padding=10)
-        self.notebook.add(tab2, text="Zakup rozwinięć")
-        ttk.Label(tab2, text="Wybierz cechę lub umiejętność:").grid(row=0, column=0, sticky=tk.W)
-        all_names = list(self.cechy.keys()) + list(self.umiejetnosci.keys())
-        self.selection_var = tk.StringVar()
-        self.combo = ttk.Combobox(tab2, textvariable=self.selection_var, values=all_names, state="readonly")
-        self.combo.grid(row=0, column=1, padx=5, pady=2, sticky=tk.W)
-        self.combo.bind("<<ComboboxSelected>>", self.update_cost_label)
-        ttk.Label(tab2, text="Ilość rozwinięć:").grid(row=1, column=0, sticky=tk.W, pady=(5, 0))
-        self.num_var = tk.IntVar(value=1)
-        # Spinbox do wyboru liczby rozwinięć (od 1 do 100, można wpisać ręcznie większą)
-        self.num_spin = ttk.Spinbox(tab2, from_=1, to=100, textvariable=self.num_var, width=5)
-        self.num_spin.grid(row=1, column=1, sticky=tk.W, pady=(5, 0))
-        try:
-            self.num_spin.config(command=self.update_cost_label)
-        except:
-            self.num_var.trace_add("write", lambda *args: self.update_cost_label())
-        # Etykieta wyświetlająca koszt wybranych rozwinięć
-        self.cost_label = ttk.Label(tab2, text="Koszt: -")
-        self.cost_label.grid(row=2, column=0, columnspan=2, sticky=tk.W, pady=(5, 0))
-        # Przycisk zakupu
-        buy_btn = ttk.Button(tab2, text="Kup rozwinięcia", command=self.on_buy)
-        buy_btn.grid(row=3, column=0, columnspan=2, pady=10)
+        ctk.CTkLabel(header, text="CECHY", font=("Arial", 14, "bold")).pack(
+            side="left"
+        )
 
-        # Zakładka 3: Dodawanie doświadczenia
-        tab3 = ttk.Frame(self.notebook, padding=10)
-        self.notebook.add(tab3, text="Dodaj doświadczenie")
-        ttk.Label(tab3, text="Ilość doświadczenia do dodania:").grid(row=0, column=0, sticky=tk.W)
-        self.add_exp_var = tk.StringVar()
-        add_entry = ttk.Entry(tab3, textvariable=self.add_exp_var, width=10)
-        add_entry.grid(row=0, column=1, pady=5, sticky=tk.W)
-        add_btn = ttk.Button(tab3, text="Dodaj", command=self.on_add_experience)
-        add_btn.grid(row=1, column=0, columnspan=2, pady=5)
-        add_entry.bind("<Return>", lambda e: self.on_add_experience())
+        # Ramka dla cech
+        self.attributes_frame = ctk.CTkScrollableFrame(tab)
+        self.attributes_frame.pack(fill="both", expand=True, padx=10, pady=5)
 
-        # Zakładka 4: Wyświetlanie maksymalnych rozwinięć
-        tab4 = ttk.Frame(self.notebook, padding=10)
-        self.notebook.add(tab4, text="Maksymalne rozwinięcia")
-        ttk.Label(tab4, text="CECHY:").pack(anchor=tk.W)
-        columns_max_attr = ("Cecha", "Wartość", "Rozwinięcia", "Maks. rozwinięć")
-        self.max_attr_tree = ttk.Treeview(tab4, columns=columns_max_attr, show="headings")
-        for col in columns_max_attr:
-            self.max_attr_tree.heading(col, text=col)
-            self.max_attr_tree.column(col, width=120 if col == "Cecha" else 110, anchor=tk.CENTER)
-        self.max_attr_tree.pack(fill=tk.X, pady=5)
-        ttk.Label(tab4, text="UMIEJĘTNOŚCI:").pack(anchor=tk.W, pady=(10, 0))
-        columns_max_skill = ("Umiejętność", "Wartość", "Rozwinięcia", "Maks. rozwinięć")
-        self.max_skill_tree = ttk.Treeview(tab4, columns=columns_max_skill, show="headings")
-        for col in columns_max_skill:
-            self.max_skill_tree.heading(col, text=col)
-            self.max_skill_tree.column(col, width=180 if col == "Umiejętność" else 110, anchor=tk.CENTER)
-        self.max_skill_tree.pack(fill=tk.BOTH, expand=True, pady=5)
-        ttk.Label(tab4, text="Maksymalne rozwinięcia uwzględniają posiadane rozwinięcia oraz koszt kolejnych rozwinięć.").pack(anchor=tk.W, pady=(5, 0))
+        self.refresh_attributes_display()
 
-        # Zakładka 5: Historia działań
-        tab5 = ttk.Frame(self.notebook, padding=10)
-        self.notebook.add(tab5, text="Historia")
-        self.history_text = tk.Text(tab5, height=15, width=100)
-        self.history_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-        scroll = ttk.Scrollbar(tab5, orient=tk.VERTICAL, command=self.history_text.yview)
-        scroll.pack(side=tk.RIGHT, fill=tk.Y)
-        self.history_text.configure(yscrollcommand=scroll.set, state="disabled")
+    def create_skills_tab(self) -> None:
+        """Zakładka: Umiejętności."""
+        tab = self.notebook.add("Umiejętności")
 
-        # Zachowanie bazowych wartości rozwinięć (do cofania)
-        for cecha, data in self.cechy.items():
-            data["base_rozw"] = data["rozwinieta"]
-        for um, data in self.umiejetnosci.items():
-            data["base_rozw"] = data["rozwinieta"]
+        # Nagłówek
+        header = ctk.CTkFrame(tab)
+        header.pack(fill="x", padx=10, pady=10)
 
-        # Inicjalizacja wyświetlanych danych
-        self.refresh_tab1_display()
-        self.refresh_tab4_display()
+        ctk.CTkLabel(
+            header, text="UMIEJĘTNOŚCI", font=("Arial", 14, "bold")
+        ).pack(side="left")
 
-        # Dodanie podpowiedzi (tooltipów) do elementów
-        ToolTip(pd_entry, "Aktualne dostępne PD postaci")
-        ToolTip(save_btn, "Zapisz zmiany do pliku")
-        ToolTip(reset_btn, "Przywróć dane z pliku (odrzuć niezapisane zmiany)")
-        ToolTip(self.combo, "Wybierz cechę lub umiejętność do rozwinięcia")
-        ToolTip(self.num_spin, "Wybierz liczbę rozwinięć do zakupu")
-        ToolTip(buy_btn, "Zakup wybraną liczbę rozwinięć")
-        ToolTip(add_entry, "Wpisz ilość PD do dodania")
-        ToolTip(add_btn, "Dodaj PD")
-        for cecha, buttons in self.attr_buttons.items():
-            ToolTip(buttons["plus"], f"Dodaj rozwinięcie cechy {cecha}")
-            ToolTip(buttons["minus"], f"Cofnij rozwinięcie cechy {cecha} (tylko bieżącej sesji)")
-        for um, buttons in self.skill_buttons.items():
-            ToolTip(buttons["plus"], f"Dodaj rozwinięcie umiejętności {um}")
-            ToolTip(buttons["minus"], f"Cofnij rozwinięcie umiejętności {um} (tylko bieżącej sesji)")
+        # Ramka dla umiejętności
+        self.skills_frame = ctk.CTkScrollableFrame(tab)
+        self.skills_frame.pack(fill="both", expand=True, padx=10, pady=5)
 
-    def update_button_states(self):
-        """Aktualizuje kolory przycisków plus/minus w zakładce Dane postaci."""
-        for cecha, buttons in self.attr_buttons.items():
-            current_adv = self.cechy[cecha]["rozwinieta"]
-            cost = calculate_total_experience("cecha", current_adv, 1)
-            if self.exp["aktualne"] >= cost and cost > 0:
-                buttons["plus"].config(fg="green")
-            else:
-                buttons["plus"].config(fg="red")
-            if self.cechy[cecha]["rozwinieta"] > self.cechy[cecha]["base_rozw"]:
-                buttons["minus"].config(fg="green")
-            else:
-                buttons["minus"].config(fg="red")
-        for um, buttons in self.skill_buttons.items():
-            current_adv = self.umiejetnosci[um]["rozwinieta"]
-            cost = calculate_total_experience("umiejetnosc", current_adv, 1)
-            if self.exp["aktualne"] >= cost and cost > 0:
-                buttons["plus"].config(fg="green")
-            else:
-                buttons["plus"].config(fg="red")
-            if self.umiejetnosci[um]["rozwinieta"] > self.umiejetnosci[um]["base_rozw"]:
-                buttons["minus"].config(fg="green")
-            else:
-                buttons["minus"].config(fg="red")
+        self.refresh_skills_display()
 
-    def update_cost_label(self, event=None):
-        """Aktualizuje etykietę kosztu rozwinięć na zakładce Zakup rozwinięć."""
-        name = self.selection_var.get()
-        try:
-            count = int(self.num_var.get())
-        except:
-            count = 0
-        if not name or count <= 0:
-            self.cost_label.config(text="Koszt: -")
+    def create_talents_tab(self) -> None:
+        """Zakładka: Talenty (przygotowana na przyszłość)."""
+        tab = self.notebook.add("Talenty")
+
+        ctk.CTkLabel(
+            tab,
+            text="Talenty - Funkcjonalność dostępna po dodaniu tabelki w Excel",
+            font=("Arial", 12),
+        ).pack(pady=20)
+
+    def create_costs_tab(self) -> None:
+        """Zakładka: Tabela kosztów rozwinięć."""
+        tab = self.notebook.add("Koszty Rozwinięć")
+
+        # Tytuł
+        title = ctk.CTkLabel(
+            tab,
+            text="TABELA KOSZTÓW ROZWINIĘĆ",
+            font=("Arial", 14, "bold"),
+            text_color=COLOR_ACCENT,
+        )
+        title.pack(pady=10)
+
+        # Rama z tabelą kosztów (będzie się odświeżać)
+        self.costs_frame = ctk.CTkScrollableFrame(tab)
+        self.costs_frame.pack(fill="both", expand=True, padx=10, pady=5)
+
+    def refresh_costs_display(self) -> None:
+        """Odświeża tabelę kosztów."""
+        # Wyczyść ramkę
+        for widget in self.costs_frame.winfo_children():
+            widget.destroy()
+
+        # Nagłówek tabeli
+        header = ctk.CTkFrame(self.costs_frame)
+        header.pack(fill="x", pady=5)
+        ctk.CTkLabel(header, text="Cecha/Umiejętność", font=("Arial", 14, "bold"), width=180).pack(side="left", padx=2)
+        ctk.CTkLabel(header, text="5 rozw.", font=("Arial", 14, "bold"), width=80).pack(side="left", padx=2)
+        ctk.CTkLabel(header, text="10 rozw.", font=("Arial", 14, "bold"), width=80).pack(side="left", padx=2)
+        ctk.CTkLabel(header, text="15 rozw.", font=("Arial", 14, "bold"), width=80).pack(side="left", padx=2)
+        ctk.CTkLabel(header, text="20 rozw.", font=("Arial", 14, "bold"), width=80).pack(side="left", padx=2)
+
+        # Koszty dla cech
+        ctk.CTkLabel(self.costs_frame, text="─ CECHY ─", font=("Arial", 13, "bold"), text_color=COLOR_SUCCESS).pack(anchor="w", padx=5, pady=5)
+
+        for attr_name in self.data_manager.attributes.keys():
+            row = ctk.CTkFrame(self.costs_frame)
+            row.pack(fill="x", pady=2)
+            ctk.CTkLabel(row, text=attr_name, font=("Arial", 13), width=180).pack(side="left", padx=2)
+
+            current_adv = self.data_manager.attributes[attr_name]["advanced"]
+
+            for num_adv in [5, 10, 15, 20]:
+                cost = calculate_advancement_cost("cecha", current_adv, num_adv)
+                ctk.CTkLabel(row, text=str(cost), width=80, text_color=COLOR_ACCENT).pack(side="left", padx=2)
+
+        # Koszty dla umiejętności
+        ctk.CTkLabel(self.costs_frame, text="─ UMIEJĘTNOŚCI ─", font=("Arial", 13, "bold"), text_color=COLOR_SUCCESS).pack(anchor="w", padx=5, pady=(10, 5))
+
+        for skill_name in self.data_manager.skills.keys():
+            row = ctk.CTkFrame(self.costs_frame)
+            row.pack(fill="x", pady=2)
+            ctk.CTkLabel(row, text=skill_name, font=("Arial", 13), width=180).pack(side="left", padx=2)
+
+            current_adv = self.data_manager.skills[skill_name]["advanced"]
+
+            for num_adv in [5, 10, 15, 20]:
+                cost = calculate_advancement_cost("umiejetnosc", current_adv, num_adv)
+                ctk.CTkLabel(row, text=str(cost), width=80, text_color=COLOR_ACCENT).pack(side="left", padx=2)
+
+    def create_add_skill_tab(self) -> None:
+        """Zakładka: Dodaj umiejętność."""
+        tab = self.notebook.add("Dodaj Umiejętność")
+
+        frame = ctk.CTkFrame(tab)
+        frame.pack(fill="both", expand=True, padx=20, pady=20)
+
+        ctk.CTkLabel(frame, text="Dodaj nową umiejętność", font=("Arial", 17, "bold")).pack(pady=10)
+
+        # Nazwa umiejętności
+        ctk.CTkLabel(frame, text="Nazwa umiejętności:").pack(anchor="w", pady=(10, 0))
+        self.skill_name_entry = ctk.CTkEntry(frame, placeholder_text="np. Atakowanie mieczem")
+        self.skill_name_entry.pack(fill="x", pady=5)
+
+        # Wybór atrybutu
+        ctk.CTkLabel(frame, text="Atrybut:").pack(anchor="w", pady=(10, 0))
+        self.skill_attr_combo = ctk.CTkComboBox(
+            frame, values=ATTRIBUTES
+        )
+        self.skill_attr_combo.pack(fill="x", pady=5)
+
+        # Rozwinięcia
+        ctk.CTkLabel(frame, text="Rozwinięcia:").pack(anchor="w", pady=(10, 0))
+        self.skill_advanced_spinbox = ctk.CTkEntry(frame, placeholder_text="0", width=100)
+        self.skill_advanced_spinbox.insert(0, "0")
+        self.skill_advanced_spinbox.pack(fill="x", pady=5)
+
+        # Przycisk
+        ctk.CTkButton(
+            frame, text="Dodaj Umiejętność", command=self.on_add_skill,
+            fg_color=COLOR_SUCCESS, height=40
+        ).pack(fill="x", pady=20)
+
+        # Info
+        info = ctk.CTkLabel(
+            frame,
+            text="Nowa umiejętność zostanie dodana do postaci.\nWartość początkowa będzie równa wartości przypisanej cechy.",
+            text_color="#888888"
+        )
+        info.pack(pady=10)
+
+    def create_experience_tab(self) -> None:
+        """Zakładka: Zarządzanie doświadczeniem."""
+        tab = self.notebook.add("Doświadczenie")
+
+        frame = ctk.CTkFrame(tab)
+        frame.pack(fill="both", expand=True, padx=20, pady=20)
+
+        ctk.CTkLabel(frame, text="Zarządzanie doświadczeniem", font=("Arial", 14, "bold")).pack(pady=10)
+
+        # Aktualne doświadczenie
+        ctk.CTkLabel(frame, text="Dostępne PD:", font=("Arial", 12)).pack(anchor="w", pady=(10, 0))
+        self.exp_entry = ctk.CTkEntry(frame)
+        self.exp_entry.pack(fill="x", pady=5)
+
+        # Dodaj doświadczenie
+        ctk.CTkLabel(frame, text="Dodaj doświadczenie:").pack(anchor="w", pady=(10, 0))
+        add_frame = ctk.CTkFrame(frame)
+        add_frame.pack(fill="x", pady=5)
+
+        self.exp_add_entry = ctk.CTkEntry(add_frame, placeholder_text="Ilość PD")
+        self.exp_add_entry.pack(side="left", fill="x", expand=True, padx=(0, 5))
+
+        ctk.CTkButton(
+            add_frame, text="Dodaj", command=self.on_add_experience, width=100
+        ).pack(side="left")
+
+        # Przyciski szybkie
+        quick_frame = ctk.CTkFrame(frame)
+        quick_frame.pack(fill="x", pady=10)
+
+        for amount in [10, 25, 50, 100]:
+            ctk.CTkButton(
+                quick_frame, text=f"+{amount}", width=80,
+                command=lambda a=amount: self.on_quick_experience(a)
+            ).pack(side="left", padx=2)
+
+    def create_history_tab(self) -> None:
+        """Zakładka: Historia działań."""
+        tab = self.notebook.add("Historia")
+
+        self.history_text = ctk.CTkTextbox(tab)
+        self.history_text.pack(fill="both", expand=True, padx=10, pady=10)
+        self.history_text.configure(state="disabled")
+
+    # ========================================================================
+    # EVENT HANDLERS
+    # ========================================================================
+
+    def initialize_attributes_display(self) -> None:
+        """Tworzy wiersze cech jeden raz (bez destroy). Wywoływane przy ładowaniu danych."""
+        if self.initialized_attrs:
+            self._update_all_attribute_labels()
             return
-        if name in self.cechy:
-            current_adv = self.cechy[name]["rozwinieta"]
-            cost = calculate_total_experience("cecha", current_adv, count)
-        elif name in self.umiejetnosci:
-            current_adv = self.umiejetnosci[name]["rozwinieta"]
-            cost = calculate_total_experience("umiejetnosc", current_adv, count)
+            
+        # Wyczyść starą cache jeśli jest
+        for widget in self.attributes_frame.winfo_children():
+            widget.destroy()
+        self.attribute_rows.clear()
+
+        for attr_name, attr_data in self.data_manager.attributes.items():
+            self._create_attribute_row_cached(attr_name, attr_data)
+
+        self.initialized_attrs = True
+
+    def _create_attribute_row_cached(self, attr_name: str, attr_data: Dict) -> None:
+        """Tworzy wiersz cechy i przechowuje referencje do widgetów."""
+        row = ctk.CTkFrame(self.attributes_frame)
+        row.pack(fill="x", pady=5, padx=10)
+
+        labels = []
+        buttons = []
+
+        # Nazwa cechy
+        lbl_name = ctk.CTkLabel(
+            row, text=attr_name, font=("Arial", 11, "bold"), width=60
+        )
+        lbl_name.pack(side="left", padx=5)
+        labels.append(("name", lbl_name))
+
+        # Wartość początkowa
+        lbl_initial = ctk.CTkLabel(
+            row, text=f"Pocz: {attr_data['initial']}", width=60
+        )
+        lbl_initial.pack(side="left", padx=2)
+        labels.append(("initial", lbl_initial))
+
+        # Rozwinięcia
+        current_adv = attr_data["advanced"]
+        lbl_adv = ctk.CTkLabel(
+            row, text=f"Rozw: {current_adv}", width=60, text_color=COLOR_ACCENT
+        )
+        lbl_adv.pack(side="left", padx=2)
+        labels.append(("adv", lbl_adv))
+
+        # Bieżąca wartość
+        lbl_current = ctk.CTkLabel(
+            row, text=f"Wartość: {attr_data['initial'] + current_adv}", width=80
+        )
+        lbl_current.pack(side="left", padx=2)
+        labels.append(("current", lbl_current))
+
+        # Maksymalne rozwinięcia
+        max_adv = self.get_max_advancements("cecha", attr_name)
+        lbl_max = ctk.CTkLabel(
+            row, text=f"Maks: {max_adv}", width=60, text_color=COLOR_WARNING
+        )
+        lbl_max.pack(side="left", padx=2)
+        labels.append(("max", lbl_max))
+
+        # Przyciski
+        btn_plus1 = ctk.CTkButton(
+            row, text="+1", width=40,
+            command=lambda: self.on_increase_attribute(attr_name, 1),
+            fg_color=COLOR_SUCCESS if self.can_afford_attribute(attr_name) else COLOR_ERROR
+        )
+        btn_plus1.pack(side="left", padx=1)
+        buttons.append(("plus1", btn_plus1))
+
+        btn_plus5 = ctk.CTkButton(
+            row, text="+5", width=40,
+            command=lambda: self.on_increase_attribute(attr_name, 5),
+            fg_color=COLOR_SUCCESS if max_adv >= 5 else COLOR_ERROR
+        )
+        btn_plus5.pack(side="left", padx=1)
+        buttons.append(("plus5", btn_plus5))
+
+        btn_minus1 = ctk.CTkButton(
+            row, text="-1", width=40,
+            command=lambda: self.on_decrease_attribute(attr_name, 1),
+            fg_color=COLOR_WARNING if current_adv > attr_data["base_advanced"] else "#555555"
+        )
+        btn_minus1.pack(side="left", padx=1)
+        buttons.append(("minus1", btn_minus1))
+
+        btn_minus5 = ctk.CTkButton(
+            row, text="-5", width=40,
+            command=lambda: self.on_decrease_attribute(attr_name, 5),
+            fg_color=COLOR_WARNING if current_adv > attr_data["base_advanced"] else "#555555"
+        )
+        btn_minus5.pack(side="left", padx=1)
+        buttons.append(("minus5", btn_minus5))
+
+        self.attribute_rows[attr_name] = {
+            "row": row,
+            "labels": labels,
+            "buttons": buttons,
+        }
+
+    def _update_all_attribute_labels(self) -> None:
+        """Aktualizuje tylko tekst labelek bez tworzenia nowych widgetów. SZYBKIE."""
+        for attr_name, attr_data in self.data_manager.attributes.items():
+            if attr_name in self.attribute_rows:
+                row_data = self.attribute_rows[attr_name]
+                labels = dict(row_data["labels"])
+                
+                current_adv = attr_data["advanced"]
+                max_adv = self.get_max_advancements("cecha", attr_name)
+                
+                # Aktualizuj wartości
+                labels["adv"].configure(text=f"Rozw: {current_adv}")
+                labels["current"].configure(text=f"Wartość: {attr_data['initial'] + current_adv}")
+                labels["max"].configure(text=f"Maks: {max_adv}")
+                
+                # Aktualizuj kolory przycisków
+                buttons = dict(row_data["buttons"])
+                buttons["plus1"].configure(fg_color=COLOR_SUCCESS if self.can_afford_attribute(attr_name) else COLOR_ERROR)
+                buttons["plus5"].configure(fg_color=COLOR_SUCCESS if max_adv >= 5 else COLOR_ERROR)
+                buttons["minus1"].configure(fg_color=COLOR_WARNING if current_adv > attr_data["base_advanced"] else "#555555")
+                buttons["minus5"].configure(fg_color=COLOR_WARNING if current_adv > attr_data["base_advanced"] else "#555555")
+
+    def refresh_attributes_display(self) -> None:
+        """Compatibility wrapper - teraz tylko aktualizuje, nie niszczy widgety."""
+        if self.initialized_attrs:
+            self._update_all_attribute_labels()
         else:
-            self.cost_label.config(text="Koszt: -")
-            return
-        self.cost_label.config(text=f"Koszt: {cost} PD")
+            self.initialize_attributes_display()
 
-    def on_buy(self):
-        """Obsługa zakupu rozwinięć po kliknięciu przycisku 'Kup rozwinięcia'."""
-        name = self.selection_var.get()
-        if not name:
-            messagebox.showwarning("Brak wyboru", "Wybierz najpierw cechę lub umiejętność do rozwinięcia.")
+    def initialize_skills_display(self) -> None:
+        """Tworzy wiersze umiejętności jeden raz (bez destroy). Wywoływane przy ładowaniu danych."""
+        if self.initialized_skills:
+            self._update_all_skill_labels()
             return
-        try:
-            ilosc_rozw = int(self.num_var.get())
-        except:
-            messagebox.showerror("Błędna wartość", "Podaj poprawną liczbę rozwinięć.")
-            return
-        if ilosc_rozw <= 0:
-            messagebox.showerror("Błędna wartość", "Ilość rozwinięć musi być co najmniej 1.")
-            return
+            
+        # Wyczyść starą cache jeśli jest
+        for widget in self.skills_frame.winfo_children():
+            widget.destroy()
+        self.skill_rows.clear()
 
-        if name in self.cechy:
-            typ = "cecha"
-            current_adv = self.cechy[name]["rozwinieta"]
-        elif name in self.umiejetnosci:
-            typ = "umiejetnosc"
-            current_adv = self.umiejetnosci[name]["rozwinieta"]
+        for skill_name, skill_data in self.data_manager.skills.items():
+            self._create_skill_row_cached(skill_name, skill_data)
+
+        self.initialized_skills = True
+
+    def _create_skill_row_cached(self, skill_name: str, skill_data: Dict) -> None:
+        """Tworzy wiersz umiejętności i przechowuje referencje do widgetów."""
+        row = ctk.CTkFrame(self.skills_frame)
+        row.pack(fill="x", pady=5, padx=10)
+
+        labels = []
+        buttons = []
+
+        # Nazwa umiejętności
+        lbl_name = ctk.CTkLabel(
+            row, text=skill_name, font=("Arial", 11, "bold"), width=120
+        )
+        lbl_name.pack(side="left", padx=2)
+        labels.append(("name", lbl_name))
+
+        # Atrybut
+        lbl_attr = ctk.CTkLabel(row, text=f"({skill_data['attribute']})", width=40)
+        lbl_attr.pack(side="left", padx=2)
+        labels.append(("attr", lbl_attr))
+
+        # Wartość początkowa
+        lbl_initial = ctk.CTkLabel(
+            row, text=f"Pocz: {skill_data['initial']}", width=50
+        )
+        lbl_initial.pack(side="left", padx=2)
+        labels.append(("initial", lbl_initial))
+
+        # Rozwinięcia
+        current_adv = skill_data["advanced"]
+        lbl_adv = ctk.CTkLabel(
+            row, text=f"Rozw: {current_adv}", width=50, text_color=COLOR_ACCENT
+        )
+        lbl_adv.pack(side="left", padx=2)
+        labels.append(("adv", lbl_adv))
+
+        # Bieżąca wartość
+        lbl_current = ctk.CTkLabel(
+            row, text=f"Suma: {skill_data['initial'] + current_adv}", width=50
+        )
+        lbl_current.pack(side="left", padx=2)
+        labels.append(("current", lbl_current))
+
+        # Maksymalne rozwinięcia
+        max_adv = self.get_max_advancements("umiejetnosc", skill_name)
+        lbl_max = ctk.CTkLabel(
+            row, text=f"Maks: {max_adv}", width=50, text_color=COLOR_WARNING
+        )
+        lbl_max.pack(side="left", padx=2)
+        labels.append(("max", lbl_max))
+
+        # Przyciski
+        btn_plus1 = ctk.CTkButton(
+            row, text="+1", width=40,
+            command=lambda: self.on_increase_skill(skill_name, 1),
+            fg_color=COLOR_SUCCESS if self.can_afford_skill(skill_name) else COLOR_ERROR
+        )
+        btn_plus1.pack(side="left", padx=1)
+        buttons.append(("plus1", btn_plus1))
+
+        btn_plus5 = ctk.CTkButton(
+            row, text="+5", width=40,
+            command=lambda: self.on_increase_skill(skill_name, 5),
+            fg_color=COLOR_SUCCESS if max_adv >= 5 else COLOR_ERROR
+        )
+        btn_plus5.pack(side="left", padx=1)
+        buttons.append(("plus5", btn_plus5))
+
+        btn_minus1 = ctk.CTkButton(
+            row, text="-1", width=40,
+            command=lambda: self.on_decrease_skill(skill_name, 1),
+            fg_color=COLOR_WARNING if current_adv > skill_data["base_advanced"] else "#555555"
+        )
+        btn_minus1.pack(side="left", padx=1)
+        buttons.append(("minus1", btn_minus1))
+
+        btn_minus5 = ctk.CTkButton(
+            row, text="-5", width=40,
+            command=lambda: self.on_decrease_skill(skill_name, 5),
+            fg_color=COLOR_WARNING if current_adv > skill_data["base_advanced"] else "#555555"
+        )
+        btn_minus5.pack(side="left", padx=1)
+        buttons.append(("minus5", btn_minus5))
+
+        self.skill_rows[skill_name] = {
+            "row": row,
+            "labels": labels,
+            "buttons": buttons,
+        }
+
+    def _update_all_skill_labels(self) -> None:
+        """Aktualizuje tylko tekst labelek bez tworzenia nowych widgetów. SZYBKIE."""
+        for skill_name, skill_data in self.data_manager.skills.items():
+            if skill_name in self.skill_rows:
+                row_data = self.skill_rows[skill_name]
+                labels = dict(row_data["labels"])
+                
+                current_adv = skill_data["advanced"]
+                max_adv = self.get_max_advancements("umiejetnosc", skill_name)
+                
+                # Aktualizuj wartości
+                labels["adv"].configure(text=f"Rozw: {current_adv}")
+                labels["current"].configure(text=f"Suma: {skill_data['initial'] + current_adv}")
+                labels["max"].configure(text=f"Maks: {max_adv}")
+                
+                # Aktualizuj kolory przycisków
+                buttons = dict(row_data["buttons"])
+                buttons["plus1"].configure(fg_color=COLOR_SUCCESS if self.can_afford_skill(skill_name) else COLOR_ERROR)
+                buttons["plus5"].configure(fg_color=COLOR_SUCCESS if max_adv >= 5 else COLOR_ERROR)
+                buttons["minus1"].configure(fg_color=COLOR_WARNING if current_adv > skill_data["base_advanced"] else "#555555")
+                buttons["minus5"].configure(fg_color=COLOR_WARNING if current_adv > skill_data["base_advanced"] else "#555555")
+
+    def refresh_skills_display(self) -> None:
+        """Compatibility wrapper - teraz tylko aktualizuje, nie niszczy widgety."""
+        if self.initialized_skills:
+            self._update_all_skill_labels()
         else:
-            messagebox.showerror("Nie znaleziono", f"'{name}' nie jest poprawną nazwą cechy ani umiejętności.")
-            return
+            self.initialize_skills_display()
 
-        koszt = calculate_total_experience(typ, current_adv, ilosc_rozw)
-        if self.exp["aktualne"] < koszt:
-            messagebox.showerror("Za mało PD", "Brak wystarczającej ilości doświadczenia na zakup tylu rozwinięć.")
-            return
+    def on_increase_attribute(self, attr_name: str, amount: int = 1) -> None:
+        """Zwiększa rozwinięcie cechy (pokazowe, do zatwierdzenia)."""
+        self._increase_advancement("cecha", attr_name, amount)
 
-        self.exp["wydane"] += koszt
-        self.exp["aktualne"] -= koszt
-        self.exp["suma"] = self.exp["aktualne"] + self.exp["wydane"]
+    def on_increase_skill(self, skill_name: str, amount: int = 1) -> None:
+        """Zwiększa rozwinięcie umiejętności (pokazowe, do zatwierdzenia)."""
+        self._increase_advancement("umiejetnosc", skill_name, amount)
 
-        if typ == "cecha":
-            self.cechy[name]["rozwinieta"] += ilosc_rozw
-            self.cechy[name]["wartosc"] += ilosc_rozw
-            for um, data in self.umiejetnosci.items():
-                if data["cecha"].strip("()") == name:
-                    data["wartosc"] += ilosc_rozw
-                    data["suma"] += ilosc_rozw
+    def on_decrease_attribute(self, attr_name: str, amount: int = 1) -> None:
+        """Zmniejsza rozwinięcie cechy (cofanie zmian)."""
+        self._decrease_advancement("cecha", attr_name, amount)
+
+    def on_decrease_skill(self, skill_name: str, amount: int = 1) -> None:
+        """Zmniejsza rozwinięcie umiejętności (cofanie zmian)."""
+        self._decrease_advancement("umiejetnosc", skill_name, amount)
+
+    def _increase_advancement(self, advancement_type: str, item_name: str, amount: int) -> None:
+        """Helper do zwiększania rozwiniec."""
+        if advancement_type == "cecha":
+            data = self.data_manager.attributes[item_name]
+            pending_key = "attribute_changes"
         else:
-            self.umiejetnosci[name]["rozwinieta"] += ilosc_rozw
-            self.umiejetnosci[name]["suma"] += ilosc_rozw
+            data = self.data_manager.skills[item_name]
+            pending_key = "skill_changes"
+        
+        cost = calculate_advancement_cost(advancement_type, data["advanced"], amount)
 
-        # messagebox.showinfo("Zakupiono", f"Zakupiono {ilosc_rozw} rozwinięć dla \"{name}\".")
-        self.add_history(f"Zakupiono {ilosc_rozw} rozwinięć dla {name} (koszt: {koszt} PD).")
-        self.pd_var.set(str(self.exp["aktualne"]))
-        self.last_valid_pd = self.exp["aktualne"]
-        self.refresh_tab1_display()
-        self.refresh_tab4_display()
-        self.update_cost_label()
-
-    def on_add_experience(self):
-        """Obsługa dodawania doświadczenia po kliknięciu 'Dodaj'."""
-        try:
-            amount = int(self.add_exp_var.get())
-        except:
-            messagebox.showerror("Błędna wartość", "Podaj poprawną liczbę doświadczenia do dodania.")
+        if self.data_manager.experience["available"] < cost:
+            messagebox.showerror("Za mało PD", f"Brak wystarczającego doświadczenia. Potrzebujesz {cost} PD, masz {self.data_manager.experience['available']} PD.")
             return
+
+        if item_name not in self.pending_changes[pending_key]:
+            self.pending_changes[pending_key][item_name] = 0
+
+        self.pending_changes[pending_key][item_name] += amount
+        data["advanced"] += amount
+        self.data_manager.experience["available"] -= cost
+
+        self.refresh_attributes_display() if advancement_type == "cecha" else self.refresh_skills_display()
+        self.update_experience_display()
+
+    def _decrease_advancement(self, advancement_type: str, item_name: str, amount: int) -> None:
+        """Helper do zmniejszania rozwiniec."""
+        if advancement_type == "cecha":
+            data = self.data_manager.attributes[item_name]
+            pending_key = "attribute_changes"
+        else:
+            data = self.data_manager.skills[item_name]
+            pending_key = "skill_changes"
+        
+        base_adv = data["base_advanced"]
+        current_adv = data["advanced"]
+
+        if current_adv - amount < base_adv:
+            messagebox.showwarning("Nie można cofnąć", f"Nie można cofnąć poniżej wartości z pliku ({base_adv} rozw.).")
+            return
+
+        refund = calculate_advancement_cost(advancement_type, current_adv - amount, amount)
+
+        if item_name not in self.pending_changes[pending_key]:
+            self.pending_changes[pending_key][item_name] = 0
+
+        self.pending_changes[pending_key][item_name] -= amount
+        data["advanced"] -= amount
+        self.data_manager.experience["available"] += refund
+
+        self.refresh_attributes_display() if advancement_type == "cecha" else self.refresh_skills_display()
+        self.update_experience_display()
+
+    def can_afford_attribute(self, attr_name: str) -> bool:
+        """Sprawdza, czy stać postać na rozwinięcie cechy."""
+        current_adv = self.data_manager.attributes[attr_name]["advanced"]
+        cost = calculate_advancement_cost("cecha", current_adv, 1)
+        return self.data_manager.experience["available"] >= cost
+
+    def can_afford_skill(self, skill_name: str) -> bool:
+        """Sprawdza, czy stać postać na rozwinięcie umiejętności."""
+        current_adv = self.data_manager.skills[skill_name]["advanced"]
+        cost = calculate_advancement_cost("umiejetnosc", current_adv, 1)
+        return self.data_manager.experience["available"] >= cost
+
+    def get_max_advancements(self, advancement_type: str, attr_name_or_skill: str) -> int:
+        """Oblicza maksymalną liczbę rozwinięć możliwych przy aktualnym PD."""
+        if advancement_type == "cecha":
+            current_adv = self.data_manager.attributes[attr_name_or_skill]["advanced"]
+        else:
+            current_adv = self.data_manager.skills[attr_name_or_skill]["advanced"]
+        
+        max_adv = 0
+        available = self.data_manager.experience["available"]
+        
+        while True:
+            cost = calculate_advancement_cost(advancement_type, current_adv, max_adv + 1)
+            if available >= cost:
+                max_adv += 1
+            else:
+                break
+        
+        return max_adv
+    
+    def _get_button_color_for_increase(self, advancement_type: str, item_name: str, amount: int) -> str:
+        """Zwraca kolor przycisku +X na podstawie możliwości."""
+        if advancement_type == "cecha":
+            can_afford = self.can_afford_attribute(item_name)
+        else:
+            can_afford = self.can_afford_skill(item_name)
+        
+        if not can_afford:
+            return COLOR_ERROR
+        
+        max_adv = self.get_max_advancements(advancement_type, item_name)
+        return COLOR_SUCCESS if max_adv >= amount else COLOR_ERROR
+    
+    def _get_button_color_for_decrease(self, advancement_type: str, item_name: str) -> str:
+        """Zwraca kolor przycisku -X na podstawie możliwości cofnięcia."""
+        if advancement_type == "cecha":
+            current_adv = self.data_manager.attributes[item_name]["advanced"]
+            base_adv = self.data_manager.attributes[item_name]["base_advanced"]
+        else:
+            current_adv = self.data_manager.skills[item_name]["advanced"]
+            base_adv = self.data_manager.skills[item_name]["base_advanced"]
+        
+        return COLOR_WARNING if current_adv > base_adv else "#555555"
+
+    def on_confirm_changes(self) -> None:
+        """Potwierdza wszystkie oczekujące zmiany."""
+        has_changes = (
+            self.pending_changes["attribute_changes"]
+            or self.pending_changes["skill_changes"]
+            or self.pending_changes["talent_changes"]
+        )
+
+        if not has_changes:
+            messagebox.showinfo("Brak zmian", "Nie ma żadnych oczekujących zmian do zatwierdzenia.")
+            return
+
+        # Kalkulacja całkowitego kosztu
+        total_cost = 0
+        details = []
+
+        for attr_name, change_count in self.pending_changes["attribute_changes"].items():
+            if change_count > 0:
+                current_adv = (
+                    self.data_manager.attributes[attr_name]["advanced"] - change_count
+                )
+                cost = calculate_advancement_cost("cecha", current_adv, change_count)
+                total_cost += cost
+                details.append(f"Cecha {attr_name}: +{change_count} rozwinięć ({cost} PD)")
+
+        for skill_name, change_count in self.pending_changes["skill_changes"].items():
+            if change_count > 0:
+                current_adv = (
+                    self.data_manager.skills[skill_name]["advanced"] - change_count
+                )
+                cost = calculate_advancement_cost("umiejetnosc", current_adv, change_count)
+                total_cost += cost
+                details.append(f"Umiejętność {skill_name}: +{change_count} rozwinięć ({cost} PD)")
+
+        if self.data_manager.experience["available"] < total_cost:
+            messagebox.showerror("Za mało PD", f"Całkowity koszt zmian: {total_cost} PD.\nDostępne: {self.data_manager.experience['available']} PD.")
+            return
+
+        # Potwierdzenie
+        details_text = "\n".join(details)
+        result = messagebox.askyesno(
+            "Potwierdzenie zmian",
+            f"Koszt zmian: {total_cost} PD\n\n{details_text}\n\nCzy zatwierdzić zmiany?"
+        )
+
+        if result:
+            self.data_manager.experience["available"] -= total_cost
+            self.data_manager.experience["spent"] += total_cost
+            self.data_manager.experience["total"] = (
+                self.data_manager.experience["available"]
+                + self.data_manager.experience["spent"]
+            )
+
+            # Reset oczekujących zmian
+            for attr_name in self.pending_changes["attribute_changes"]:
+                self.data_manager.attributes[attr_name]["base_advanced"] = (
+                    self.data_manager.attributes[attr_name]["advanced"]
+                )
+
+            for skill_name in self.pending_changes["skill_changes"]:
+                self.data_manager.skills[skill_name]["base_advanced"] = (
+                    self.data_manager.skills[skill_name]["advanced"]
+                )
+
+            self.pending_changes = {
+                "attribute_changes": {},
+                "skill_changes": {},
+                "talent_changes": {},
+            }
+
+            # Zapisz do Excel
+            if self.data_manager.file_path:
+                self.data_manager.save_to_excel()
+
+            self.history_manager.add_entry("Zatwierdzono zmiany", f"Koszt: {total_cost} PD")
+
+            messagebox.showinfo("Sukces", "Zmiany zatwierdzone!")
+            self.refresh_attributes_display()
+            self.refresh_skills_display()
+            self.update_experience_display()
+            self.refresh_history_display()
+
+    def on_revert_changes(self) -> None:
+        """Cofa wszystkie oczekujące zmiany."""
+        if not any(self.pending_changes.values()):
+            messagebox.showinfo("Brak zmian", "Nie ma żadnych zmian do cofnięcia.")
+            return
+
+        result = messagebox.askyesno(
+            "Potwierdzenie cofnięcia",
+            "Czy na pewno chcesz cofnąć wszystkie oczekujące zmiany?"
+        )
+
+        if result:
+            # Przywróć wartości do bazy
+            for attr_name in self.pending_changes["attribute_changes"]:
+                self.data_manager.attributes[attr_name]["advanced"] = (
+                    self.data_manager.attributes[attr_name]["base_advanced"]
+                )
+
+            for skill_name in self.pending_changes["skill_changes"]:
+                self.data_manager.skills[skill_name]["advanced"] = (
+                    self.data_manager.skills[skill_name]["base_advanced"]
+                )
+
+            self.pending_changes = {
+                "attribute_changes": {},
+                "skill_changes": {},
+                "talent_changes": {},
+            }
+
+            self.history_manager.add_entry("Cofnięto zmiany", "")
+
+            messagebox.showinfo("Sukces", "Zmiany cofnięte!")
+            self.refresh_attributes_display()
+            self.refresh_skills_display()
+            self.update_experience_display()
+
+    def on_add_skill(self) -> None:
+        """Dodaje nową umiejętność."""
+        skill_name = self.skill_name_entry.get().strip()
+        attribute = self.skill_attr_combo.get()
+        
+        # Walidacja
+        validation_error = self._validate_skill_form(skill_name, attribute)
+        if validation_error:
+            messagebox.showerror("Błąd", validation_error)
+            return
+        
+        try:
+            advanced = int(self.skill_advanced_spinbox.get())
+        except ValueError:
+            messagebox.showerror("Błąd", "Wartość numeryczna musi być liczbą.")
+            return
+
+        # Wartość początkowa to wartość przypisanej cechy
+        initial = self.data_manager.attributes[attribute]["initial"]
+        
+        self.data_manager.add_skill(skill_name, attribute, initial, advanced)
+
+        # Wyczyść formularz
+        self.skill_name_entry.delete(0, "end")
+        self.skill_attr_combo.set("")
+        self.skill_advanced_spinbox.delete(0, "end")
+        self.skill_advanced_spinbox.insert(0, "0")
+
+        self.history_manager.add_entry(
+            "Dodano umiejętność",
+            f"{skill_name} ({attribute}) - Pocz: {initial}, Rozw: {advanced}"
+        )
+
+        messagebox.showinfo("Sukces", f"Umiejętność '{skill_name}' dodana!")
+
+        # Aktualizuj widoki - dodaj nowy wiersz do składowanej cache
+        skill_data = self.data_manager.skills[skill_name]
+        self._create_skill_row_cached(skill_name, skill_data)
+        self.refresh_history_display()
+    
+    def _validate_skill_form(self, skill_name: str, attribute: str) -> Optional[str]:
+        """Waliduje formularz dodania umiejętności. Zwraca None jeśli OK, inaczej komunikat błędu."""
+        if not skill_name:
+            return "Wpisz nazwę umiejętności."
+        
+        if not attribute:
+            return "Wybierz atrybut."
+        
+        if skill_name in self.data_manager.skills:
+            return "Umiejętność o tej nazwie już istnieje."
+        
+        return None
+
+    def on_add_experience(self) -> None:
+        """Dodaje doświadczenie."""
+        try:
+            amount = int(self.exp_add_entry.get())
+        except ValueError:
+            messagebox.showerror("Błąd", "Wpisz poprawną liczbę.")
+            return
+
         if amount <= 0:
-            messagebox.showerror("Błędna wartość", "Ilość dodawanego doświadczenia musi być większa od 0.")
+            messagebox.showerror("Błąd", "Ilość musi być większa od 0.")
             return
 
-        self.exp["aktualne"] += amount
-        self.exp["suma"] = self.exp["aktualne"] + self.exp["wydane"]
-        messagebox.showinfo("Doświadczenie dodane", f"Dodano {amount} PD.\nAktualne dostępne doświadczenie: {self.exp['aktualne']}.\nAktualna suma doświadczenia: {self.exp['suma']}.")
-        self.add_history(f"Dodano {amount} PD (aktualne PD: {self.exp['aktualne']}, suma PD: {self.exp['suma']}).")
-        self.pd_var.set(str(self.exp["aktualne"]))
-        self.last_valid_pd = self.exp["aktualne"]
-        self.refresh_tab1_display()
-        self.refresh_tab4_display()
-        self.add_exp_var.set("")
+        self.data_manager.experience["available"] += amount
+        self.data_manager.experience["total"] += amount
 
-    def on_pd_change(self, event=None):
-        """Aktualizacja danych przy ręcznej zmianie pola PD na górze okna."""
-        text = self.pd_var.get().strip()
-        if text == "":
-            return
+        self.exp_add_entry.delete(0, "end")
+
+        self.history_manager.add_entry("Dodano doświadczenie", f"+{amount} PD")
+
+        messagebox.showinfo("Sukces", f"Dodano {amount} PD!")
+        self.update_experience_display()
+        self.refresh_history_display()
+
+    def on_quick_experience(self, amount: int) -> None:
+        """Szybkie dodanie doświadczenia."""
+        self.data_manager.experience["available"] += amount
+        self.data_manager.experience["total"] += amount
+
+        self.history_manager.add_entry("Dodano doświadczenie", f"+{amount} PD")
+
+        self.update_experience_display()
+        self.refresh_history_display()
+
+    def on_calculate_cost(self) -> None:
+        """Oblicza koszt rozwinięć dla wybranej cechy/umiejętności."""
+        selection = self.cost_combo.get()
         try:
-            new_val = int(text)
-        except:
-            messagebox.showerror("Błędna wartość", "Wartość doświadczenia musi być liczbą całkowitą.")
-            self.pd_var.set(str(self.last_valid_pd))
-            return
-        if new_val < 0:
-            messagebox.showerror("Błędna wartość", "Wartość doświadczenia nie może być ujemna.")
-            self.pd_var.set(str(self.last_valid_pd))
+            advancements = int(self.cost_spinbox.get())
+        except ValueError:
+            self.cost_result_label.configure(text="Koszt: -")
             return
 
-        self.exp["aktualne"] = new_val
-        self.exp["suma"] = self.exp["aktualne"] + self.exp["wydane"]
-        self.last_valid_pd = new_val
-        self.refresh_tab1_display()
-        self.refresh_tab4_display()
-
-    def on_save(self):
-        """Zapisuje aktualny stan do pliku Excel."""
-        if not self.file_name:
-            messagebox.showerror("Błąd zapisu", "Brak pliku danych – nie można zapisać zmian.")
+        if not selection:
+            self.cost_result_label.configure(text="Koszt: -")
             return
-        try:
-            save_data(self.file_name, self.cechy, self.umiejetnosci, self.exp)
-        except Exception as e:
-            messagebox.showerror("Błąd zapisu", f"Wystąpił błąd podczas zapisu pliku:\n{e}")
-            return
-        messagebox.showinfo("Zapisano", f"Pomyślnie zapisano zmiany do pliku \"{self.file_name}\".")
-        self.add_history("Zapisano zmiany do pliku.")
 
-    def on_reset(self):
-        """Przywraca dane pierwotne z pliku (odrzuca niezapisane zmiany)."""
-        if not self.file_name:
-            return
-        confirm = messagebox.askyesno("Potwierdzenie resetu", "Czy na pewno przywrócić dane z pliku? Wszystkie niezapisane zmiany zostaną utracone.")
-        if not confirm:
-            return
-        try:
-            self.cechy, self.umiejetnosci, self.exp = load_data(self.file_name)
-        except Exception as e:
-            messagebox.showerror("Błąd", f"Nie udało się ponownie wczytać pliku:\n{e}")
-            return
-        for cecha, data in self.cechy.items():
-            data["base_rozw"] = data["rozwinieta"]
-        for um, data in self.umiejetnosci.items():
-            data["base_rozw"] = data["rozwinieta"]
-        self.pd_var.set(str(self.exp.get("aktualne", 0)))
-        self.last_valid_pd = self.exp.get("aktualne", 0)
-        self.refresh_tab1_display()
-        self.refresh_tab4_display()
-        self.selection_var.set("")
-        self.combo.set("")
-        self.num_var.set(1)
-        self.cost_label.config(text="Koszt: -")
-        self.add_exp_var.set("")
-        self.add_history("Przywrócono dane z pliku (reset).")
-
-    def refresh_tab1_display(self):
-        """Odświeża wyświetlaną listę cech, umiejętności i doświadczenia na zakładce 'Dane postaci'."""
-        for cecha, vals in self.cechy.items():
-            if cecha in self.attr_labels:
-                self.attr_labels[cecha]["poczatkowa"].config(text=str(vals["poczatkowa"]))
-                self.attr_labels[cecha]["rozwinieta"].config(text=str(vals["rozwinieta"]))
-                self.attr_labels[cecha]["wartosc"].config(text=str(vals["wartosc"]))
-        for um, vals in self.umiejetnosci.items():
-            if um in self.skill_labels:
-                self.skill_labels[um]["wartosc"].config(text=str(vals["wartosc"]))
-                self.skill_labels[um]["rozwinieta"].config(text=str(vals["rozwinieta"]))
-                self.skill_labels[um]["suma"].config(text=str(vals["suma"]))
-        self.exp_label_tab1.config(text=f"DOŚWIADCZENIE: Aktualne: {self.exp['aktualne']}, Wydane: {self.exp['wydane']}, Suma: {self.exp['suma']}")
-        self.update_button_states()
-
-    def refresh_tab4_display(self):
-        """Odświeża wyświetlaną listę maksymalnych możliwych rozwinięć na zakładce 'Maksymalne rozwinięcia'."""
-        for item in self.max_attr_tree.get_children():
-            self.max_attr_tree.delete(item)
-        for item in self.max_skill_tree.get_children():
-            self.max_skill_tree.delete(item)
-        for cecha, vals in self.cechy.items():
-            max_adv = 0
-            available = self.exp["aktualne"]
-            current_adv = vals["rozwinieta"]
-            while True:
-                cost = calculate_total_experience("cecha", current_adv, max_adv + 1)
-                if available >= cost:
-                    max_adv += 1
-                else:
-                    break
-            self.max_attr_tree.insert("", tk.END, values=(cecha, vals["wartosc"], vals["rozwinieta"], max_adv))
-        for um, vals in self.umiejetnosci.items():
-            max_adv = 0
-            available = self.exp["aktualne"]
-            current_adv = vals["rozwinieta"]
-            while True:
-                cost = calculate_total_experience("umiejetnosc", current_adv, max_adv + 1)
-                if available >= cost:
-                    max_adv += 1
-                else:
-                    break
-            self.max_skill_tree.insert("", tk.END, values=(um, vals["wartosc"], vals["rozwinieta"], max_adv))
-
-    def on_increase(self, category, name):
-        """Dodaje jedno rozwinięcie do podanej cechy lub umiejętności, jeśli to możliwe."""
-        if category == "cecha":
-            current_adv = self.cechy[name]["rozwinieta"]
-            cost = calculate_total_experience("cecha", current_adv, 1)
-            if cost == 0:
-                return
-            if self.exp["aktualne"] < cost:
-                messagebox.showerror("Za mało PD", "Brak wystarczającej ilości doświadczenia na rozwinięcie tej cechy.")
-                return
-            self.exp["wydane"] += cost
-            self.exp["aktualne"] -= cost
-            self.exp["suma"] = self.exp["aktualne"] + self.exp["wydane"]
-            self.cechy[name]["rozwinieta"] += 1
-            self.cechy[name]["wartosc"] += 1
-            for um, data in self.umiejetnosci.items():
-                if data["cecha"].strip("()") == name:
-                    data["wartosc"] += 1
-                    data["suma"] += 1
-            # messagebox.showinfo("Zakupiono", f"Zakupiono 1 rozwinięcie cechy \"{name}\".")
-            self.add_history(f"Zakupiono 1 rozwinięcie cechy {name} (koszt: {cost} PD).")
-        elif category == "umiejetnosc":
-            current_adv = self.umiejetnosci[name]["rozwinieta"]
-            cost = calculate_total_experience("umiejetnosc", current_adv, 1)
-            if cost == 0:
-                return
-            if self.exp["aktualne"] < cost:
-                messagebox.showerror("Za mało PD", "Brak wystarczającej ilości doświadczenia na rozwinięcie tej umiejętności.")
-                return
-            self.exp["wydane"] += cost
-            self.exp["aktualne"] -= cost
-            self.exp["suma"] = self.exp["aktualne"] + self.exp["wydane"]
-            self.umiejetnosci[name]["rozwinieta"] += 1
-            self.umiejetnosci[name]["suma"] += 1
-            # messagebox.showinfo("Zakupiono", f"Zakupiono 1 rozwinięcie umiejętności \"{name}\".")
-            self.add_history(f"Zakupiono 1 rozwinięcie umiejętności {name} (koszt: {cost} PD).")
+        if selection in self.data_manager.attributes:
+            current_adv = self.data_manager.attributes[selection]["advanced"]
+            cost = calculate_advancement_cost("cecha", current_adv, advancements)
+        elif selection in self.data_manager.skills:
+            current_adv = self.data_manager.skills[selection]["advanced"]
+            cost = calculate_advancement_cost("umiejetnosc", current_adv, advancements)
         else:
+            self.cost_result_label.configure(text="Koszt: -")
             return
-        self.pd_var.set(str(self.exp["aktualne"]))
-        self.last_valid_pd = self.exp["aktualne"]
-        self.refresh_tab1_display()
-        self.refresh_tab4_display()
-        self.update_cost_label()
 
-    def on_decrease(self, category, name):
-        """Cofa jedno rozwinięcie dodane w bieżącej sesji z podanej cechy lub umiejętności."""
-        if category == "cecha":
-            current_adv = self.cechy[name]["rozwinieta"]
-            base_adv = self.cechy[name]["base_rozw"]
-            if current_adv <= base_adv:
-                messagebox.showerror("Nie można cofnąć", "Nie można cofnąć rozwinięcia poniżej wartości z pliku.")
-                return
-            prev_adv = current_adv - 1
-            refund = calculate_total_experience("cecha", prev_adv, 1)
-            self.exp["wydane"] -= refund
-            self.exp["aktualne"] += refund
-            self.exp["suma"] = self.exp["aktualne"] + self.exp["wydane"]
-            self.cechy[name]["rozwinieta"] -= 1
-            self.cechy[name]["wartosc"] -= 1
-            for um, data in self.umiejetnosci.items():
-                if data["cecha"].strip("()") == name:
-                    data["wartosc"] -= 1
-                    data["suma"] -= 1
-            # messagebox.showinfo("Cofnięto", f"Cofnięto rozwinięcie cechy \"{name}\".")
-            self.add_history(f"Cofnięto 1 rozwinięcie cechy {name} (zwrócono {refund} PD).")
-        elif category == "umiejetnosc":
-            current_adv = self.umiejetnosci[name]["rozwinieta"]
-            base_adv = self.umiejetnosci[name]["base_rozw"]
-            if current_adv <= base_adv:
-                messagebox.showerror("Nie można cofnąć", "Nie można cofnąć rozwinięcia poniżej wartości z pliku.")
-                return
-            prev_adv = current_adv - 1
-            refund = calculate_total_experience("umiejetnosc", prev_adv, 1)
-            self.exp["wydane"] -= refund
-            self.exp["aktualne"] += refund
-            self.exp["suma"] = self.exp["aktualne"] + self.exp["wydane"]
-            self.umiejetnosci[name]["rozwinieta"] -= 1
-            self.umiejetnosci[name]["suma"] -= 1
-            # messagebox.showinfo("Cofnięto", f"Cofnięto rozwinięcie umiejętności \"{name}\".")
-            self.add_history(f"Cofnięto 1 rozwinięcie umiejętności {name} (zwrócono {refund} PD).")
+        self.cost_result_label.configure(text=f"Koszt: {cost} PD")
+
+    def on_load_character(self) -> None:
+        """Ładuje postać z pliku Excel."""
+        file_path = filedialog.askopenfilename(
+            filetypes=[("Excel files", "*.xlsx"), ("All files", "*.*")]
+        )
+
+        if not file_path:
+            return
+
+        if self.data_manager.load_from_excel(file_path):
+            self.pending_changes = {
+                "attribute_changes": {},
+                "skill_changes": {},
+                "talent_changes": {},
+            }
+            self.history_manager.add_entry("Wczytano postać", Path(file_path).name)
+            messagebox.showinfo("Sukces", "Postać wczytana!")
+            self.initialize_attributes_display()
+            self.initialize_skills_display()
+            self.update_experience_display()
+            self.refresh_history_display()
+            self.update_character_info()
+            self.refresh_costs_display()
         else:
-            return
-        self.pd_var.set(str(self.exp["aktualne"]))
-        self.last_valid_pd = self.exp["aktualne"]
-        self.refresh_tab1_display()
-        self.refresh_tab4_display()
-        self.update_cost_label()
+            messagebox.showerror("Błąd", "Nie można wczytać pliku.")
 
-    def add_history(self, text):
-        """Dodaje wpis do historii działań."""
-        self.history_text.config(state="normal")
-        self.history_text.insert(tk.END, text + "\n")
-        self.history_text.see(tk.END)
-        self.history_text.config(state="disabled")
+    def on_save_character(self) -> None:
+        """Zapisuje postać do pliku Excel."""
+        if not self.data_manager.file_path:
+            file_path = filedialog.asksaveasfilename(
+                defaultextension=".xlsx",
+                filetypes=[("Excel files", "*.xlsx"), ("All files", "*.*")]
+            )
+            if not file_path:
+                return
+        else:
+            file_path = self.data_manager.file_path
 
-    def run(self):
-        """Uruchamia pętlę główną tkinter (start GUI)."""
-        self.root.mainloop()
+        if self.data_manager.save_to_excel(file_path):
+            self.history_manager.add_entry("Zapisano postać", Path(file_path).name)
+            messagebox.showinfo("Sukces", "Postać zapisana!")
+            self.refresh_history_display()
+        else:
+            messagebox.showerror("Błąd", "Nie można zapisać pliku.")
 
-class ToolTip:
-    def __init__(self, widget, text):
-        self.widget = widget
-        self.text = text
-        self.tipwindow = None
-        widget.bind("<Enter>", self.show_tip)
-        widget.bind("<Leave>", self.hide_tip)
+    def on_new_character(self) -> None:
+        """Tworzy nową postać."""
+        result = messagebox.askyesno(
+            "Nowa postać",
+            "Czy chcesz stworzyć nową postać? Niezapisane zmiany zostaną utracone."
+        )
 
-    def show_tip(self, event=None):
-        if self.tipwindow or not self.text:
-            return
-        x = self.widget.winfo_rootx() + self.widget.winfo_width() + 3
-        y = self.widget.winfo_rooty() + self.widget.winfo_height() // 2
-        self.tipwindow = tw = tk.Toplevel(self.widget)
-        tw.wm_overrideredirect(True)
-        tw.wm_geometry(f"+{x}+{y}")
-        label = tk.Label(tw, text=self.text, background="#ffffe0", relief=tk.SOLID, borderwidth=1, font=("TkDefaultFont", 9))
-        label.pack(ipadx=1)
+        if result:
+            self.data_manager.create_new_character()
+            self.pending_changes = {
+                "attribute_changes": {},
+                "skill_changes": {},
+                "talent_changes": {},
+            }
+            self.history_manager.add_entry("Utworzono nową postać", "")
+            messagebox.showinfo("Sukces", "Nowa postać gotowa!")
+            self.initialized_attrs = False
+            self.initialized_skills = False
+            self.initialize_attributes_display()
+            self.initialize_skills_display()
+            self.update_experience_display()
+            self.refresh_history_display()
+            self.update_character_info()
+            self.refresh_costs_display()
 
-    def hide_tip(self, event=None):
-        tw = self.tipwindow
-        self.tipwindow = None
-        if tw:
-            tw.destroy()
+    def update_experience_display(self) -> None:
+        """Aktualizuje wyświetlanie doświadczenia."""
+        available = self.data_manager.experience["available"]
+        spent = self.data_manager.experience["spent"]
+        total = self.data_manager.experience["total"]
 
-# Uruchomienie aplikacji (jeśli plik wykonywany bezpośrednio)
+        self.exp_label.configure(text=f"{available}/{total}")
+        self.exp_entry.delete(0, "end")
+        self.exp_entry.insert(0, str(available))
+
+    def update_character_info(self) -> None:
+        """Aktualizuje informacje o postaci."""
+        self.char_name_label.configure(text=self.data_manager.character_name)
+
+    def refresh_history_display(self) -> None:
+        """Odświeża wyświetlanie historii."""
+        self.history_text.configure(state="normal")
+        self.history_text.delete("1.0", "end")
+        self.history_text.insert("1.0", self.history_manager.get_history_text())
+        self.history_text.configure(state="disabled")
+
+
+# ============================================================================
+# MAIN
+# ============================================================================
+
 if __name__ == "__main__":
-    app = CharacterSheetGUI("karta_postaci.xlsx")
-    app.run()
+    app = CharacterSheetApp()
+    app.mainloop()
