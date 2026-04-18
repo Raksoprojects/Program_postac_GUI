@@ -108,5 +108,55 @@
     "timestamp": "2026-04-18T11:08:22.017471",
     "action": "Cofnięto zmiany",
     "details": ""
+  },
+  {
+    "timestamp": "2026-04-18T11:22:57.774541",
+    "action": "Test",
+    "details": "Testowy wpis"
+  },
+  {
+    "timestamp": "2026-04-18T11:22:57.775541",
+    "action": "Zatwierdzono zmiany",
+    "details": "Koszt: 50 PD"
+  },
+  {
+    "timestamp": "2026-04-18T11:22:57.775541",
+    "action": "Dodano doświadczenie",
+    "details": "+100 PD"
+  },
+  {
+    "timestamp": "2026-04-18T11:27:01.783760",
+    "action": "Dodano umiejętność",
+    "details": "Test Umiejętność (WW) - Pocz: 33, Rozw: 1"
+  },
+  {
+    "timestamp": "2026-04-18T11:27:12.584231",
+    "action": "Usunięto umiejętność",
+    "details": "Test Umiejętność"
+  },
+  {
+    "timestamp": "2026-04-18T11:28:09.433113",
+    "action": "Dodano umiejętność",
+    "details": "Test Umiejetnosc (WW) - Pocz: 33, Rozw: 1"
+  },
+  {
+    "timestamp": "2026-04-18T11:29:25.006769",
+    "action": "Test",
+    "details": "Testowy wpis"
+  },
+  {
+    "timestamp": "2026-04-18T11:29:25.008288",
+    "action": "Zatwierdzono zmiany",
+    "details": "Koszt: 50 PD"
+  },
+  {
+    "timestamp": "2026-04-18T11:29:25.010286",
+    "action": "Dodano doświadczenie",
+    "details": "+100 PD"
+  },
+  {
+    "timestamp": "2026-04-18T11:40:11.621396",
+    "action": "Wczytano postać",
+    "details": "karta_postaci.xlsx"
   }
 ]

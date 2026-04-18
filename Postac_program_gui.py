@@ -425,8 +425,6 @@ class CharacterSheetApp(ctk.CTk):
         self.attributes_frame = ctk.CTkScrollableFrame(tab)
         self.attributes_frame.pack(fill="both", expand=True, padx=10, pady=5)
 
-        self.refresh_attributes_display()
-
     def create_skills_tab(self) -> None:
         """Zakładka: Umiejętności."""
         tab = self.notebook.add("Umiejętności")
@@ -442,8 +440,6 @@ class CharacterSheetApp(ctk.CTk):
         # Ramka dla umiejętności
         self.skills_frame = ctk.CTkScrollableFrame(tab)
         self.skills_frame.pack(fill="both", expand=True, padx=10, pady=5)
-
-        self.refresh_skills_display()
 
     def create_talents_tab(self) -> None:
         """Zakładka: Talenty (przygotowana na przyszłość)."""
@@ -831,6 +827,16 @@ class CharacterSheetApp(ctk.CTk):
         )
         btn_minus5.pack(side="left", padx=1)
         buttons.append(("minus5", btn_minus5))
+        
+        # Przycisk usuń - tylko dla umiejętności dodanych
+        if skill_data["base_advanced"] == -1:
+            btn_delete = ctk.CTkButton(
+                row, text="Usuń", width=50,
+                command=lambda: self.on_delete_skill(skill_name),
+                fg_color=COLOR_ERROR
+            )
+            btn_delete.pack(side="left", padx=2)
+            buttons.append(("delete", btn_delete))
 
         self.skill_rows[skill_name] = {
             "row": row,
@@ -1085,29 +1091,88 @@ class CharacterSheetApp(ctk.CTk):
         )
 
         if result:
-            # Przywróć wartości do bazy
+            # Oblicz całkowity koszt do przywrócenia
+            total_refund = 0
+            
+            # Przywróć cechy i oblicz refund
             for attr_name in self.pending_changes["attribute_changes"]:
+                change_count = self.pending_changes["attribute_changes"][attr_name]
+                if change_count > 0:
+                    current_adv = self.data_manager.attributes[attr_name]["advanced"]
+                    refund = calculate_advancement_cost("cecha", current_adv - change_count, change_count)
+                    total_refund += refund
+                
                 self.data_manager.attributes[attr_name]["advanced"] = (
                     self.data_manager.attributes[attr_name]["base_advanced"]
                 )
 
+            # Przywróć umiejętności i oblicz refund
             for skill_name in self.pending_changes["skill_changes"]:
+                change_count = self.pending_changes["skill_changes"][skill_name]
+                if change_count > 0:
+                    current_adv = self.data_manager.skills[skill_name]["advanced"]
+                    refund = calculate_advancement_cost("umiejetnosc", current_adv - change_count, change_count)
+                    total_refund += refund
+                
                 self.data_manager.skills[skill_name]["advanced"] = (
                     self.data_manager.skills[skill_name]["base_advanced"]
                 )
+            
+            # Usuń umiejętności, które były dodane (nie mają base_advanced)
+            skills_to_remove = []
+            for skill_name, skill_data in self.data_manager.skills.items():
+                if skill_data["base_advanced"] == -1:  # Oznaka że była dodana
+                    skills_to_remove.append(skill_name)
+                    if skill_name in self.skill_rows:
+                        self.skill_rows[skill_name]["row"].destroy()
+                        del self.skill_rows[skill_name]
+            
+            for skill_name in skills_to_remove:
+                del self.data_manager.skills[skill_name]
 
+            # Przywróć doświadczenie
+            self.data_manager.experience["available"] += total_refund
+            
             self.pending_changes = {
                 "attribute_changes": {},
                 "skill_changes": {},
                 "talent_changes": {},
             }
 
-            self.history_manager.add_entry("Cofnięto zmiany", "")
+            self.history_manager.add_entry("Cofnięto zmiany", f"Przywrócono {total_refund} PD")
 
             messagebox.showinfo("Sukces", "Zmiany cofnięte!")
             self.refresh_attributes_display()
             self.refresh_skills_display()
             self.update_experience_display()
+
+    def on_delete_skill(self, skill_name: str) -> None:
+        """Usuwa umiejętność (tylko dodane)."""
+        if skill_name not in self.data_manager.skills:
+            return
+        
+        skill_data = self.data_manager.skills[skill_name]
+        if skill_data["base_advanced"] != -1:
+            messagebox.showerror("Błąd", "Można usuwać tylko umiejętności dodane przez gracza.")
+            return
+        
+        result = messagebox.askyesno(
+            "Potwierdzenie usunięcia",
+            f"Czy chcesz usunąć umiejętność '{skill_name}'?"
+        )
+        
+        if result:
+            del self.data_manager.skills[skill_name]
+            if skill_name in self.skill_rows:
+                self.skill_rows[skill_name]["row"].destroy()
+                del self.skill_rows[skill_name]
+            
+            self.history_manager.add_entry(
+                "Usunięto umiejętność",
+                skill_name
+            )
+            messagebox.showinfo("Sukces", f"Umiejętność '{skill_name}' usunięta!")
+            self.refresh_skills_display()
 
     def on_add_skill(self) -> None:
         """Dodaje nową umiejętność."""
@@ -1130,6 +1195,8 @@ class CharacterSheetApp(ctk.CTk):
         initial = self.data_manager.attributes[attribute]["initial"]
         
         self.data_manager.add_skill(skill_name, attribute, initial, advanced)
+        # Oznacz że umiejętność była dodana (nie ma base_advanced)
+        self.data_manager.skills[skill_name]["base_advanced"] = -1
 
         # Wyczyść formularz
         self.skill_name_entry.delete(0, "end")
@@ -1144,9 +1211,9 @@ class CharacterSheetApp(ctk.CTk):
 
         messagebox.showinfo("Sukces", f"Umiejętność '{skill_name}' dodana!")
 
-        # Aktualizuj widoki - dodaj nowy wiersz do składowanej cache
-        skill_data = self.data_manager.skills[skill_name]
-        self._create_skill_row_cached(skill_name, skill_data)
+        # Odśwież wyświetlanie umiejętności
+        self.initialized_skills = False
+        self.initialize_skills_display()
         self.refresh_history_display()
     
     def _validate_skill_form(self, skill_name: str, attribute: str) -> Optional[str]:
@@ -1235,6 +1302,9 @@ class CharacterSheetApp(ctk.CTk):
                 "skill_changes": {},
                 "talent_changes": {},
             }
+            # Reset flag aby reinicjalizować widgety z nowymi danymi
+            self.initialized_attrs = False
+            self.initialized_skills = False
             self.history_manager.add_entry("Wczytano postać", Path(file_path).name)
             messagebox.showinfo("Sukces", "Postać wczytana!")
             self.initialize_attributes_display()
