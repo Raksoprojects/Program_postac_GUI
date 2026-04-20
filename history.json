@@ -158,5 +158,15 @@
     "timestamp": "2026-04-18T11:40:11.621396",
     "action": "Wczytano postać",
     "details": "karta_postaci.xlsx"
+  },
+  {
+    "timestamp": "2026-04-20T18:03:45.825606",
+    "action": "Zatwierdzono zmiany",
+    "details": "Koszt: 30 PD"
+  },
+  {
+    "timestamp": "2026-04-20T18:04:00.916475",
+    "action": "Zatwierdzono zmiany",
+    "details": "Koszt: 0 PD"
   }
 ]

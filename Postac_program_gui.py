@@ -43,6 +43,7 @@ EXCEL_ATTR_ADVANCED_ROW = 13
 EXCEL_ATTR_CURRENT_ROW = 14
 EXCEL_SKILL_ROWS = range(18, 31)
 EXCEL_SKILL_BLOCKS = 3
+EXCEL_SKILLS_PER_BLOCK = len(EXCEL_SKILL_ROWS)
 EXCEL_EXP_COL = "P"  # Aktualne PD
 EXCEL_SPENT_COL = "Q"  # Wydane PD
 EXCEL_TOTAL_COL = "R"  # Suma PD
@@ -131,6 +132,7 @@ class DataManager:
                     "advanced": int(advanced),
                     "current": int(current),
                     "base_advanced": int(advanced),  # Do resetu
+                    "is_new": False,
                 }
 
             # Odczyt umiejętności
@@ -153,6 +155,7 @@ class DataManager:
                         "advanced": int(advanced),
                         "current": int(current),
                         "base_advanced": int(advanced),
+                        "is_new": False,
                     }
 
             # Odczyt doświadczenia
@@ -180,6 +183,13 @@ class DataManager:
             wb = openpyxl.load_workbook(file_path)
             ws = wb.active
 
+            if len(self.skills) > EXCEL_SKILL_BLOCKS * EXCEL_SKILLS_PER_BLOCK:
+                raise ValueError(
+                    "Za dużo umiejętności, aby zapisać je do aktualnego układu Excela."
+                )
+
+            ws.cell(5, 2, self.character_name)
+
             # Zapis cech
             for col_idx, attr_name in enumerate(ATTRIBUTES, start=EXCEL_CHAR_COL_START):
                 if attr_name in self.attributes:
@@ -192,22 +202,29 @@ class DataManager:
                         attr_data["initial"] + attr_data["advanced"],
                     )
 
-            # Zapis umiejętności
+            # Wyczyść wszystkie sloty umiejętności przed zapisem
             for block in range(EXCEL_SKILL_BLOCKS):
                 col_offset = block * 5
-                row_idx = 18
-                for skill_name, skill_data in self.skills.items():
-                    if row_idx > 30:
-                        break
-                    ws.cell(row_idx, 1 + col_offset, skill_name)
-                    ws.cell(row_idx, 2 + col_offset, f"({skill_data['attribute']})")
-                    ws.cell(row_idx, 3 + col_offset, skill_data["initial"])
-                    ws.cell(row_idx, 4 + col_offset, skill_data["advanced"])
-                    ws.cell(
-                        row_idx, 5 + col_offset,
-                        skill_data["initial"] + skill_data["advanced"],
-                    )
-                    row_idx += 1
+                for row_idx in EXCEL_SKILL_ROWS:
+                    for column_offset in range(5):
+                        ws.cell(row_idx, 1 + col_offset + column_offset, None)
+
+            # Zapis umiejętności
+            for skill_index, (skill_name, skill_data) in enumerate(self.skills.items()):
+                block = skill_index // EXCEL_SKILLS_PER_BLOCK
+                row_offset = skill_index % EXCEL_SKILLS_PER_BLOCK
+                col_offset = block * 5
+                row_idx = EXCEL_SKILL_ROWS.start + row_offset
+
+                ws.cell(row_idx, 1 + col_offset, skill_name)
+                ws.cell(row_idx, 2 + col_offset, f"({skill_data['attribute']})")
+                ws.cell(row_idx, 3 + col_offset, skill_data["initial"])
+                ws.cell(row_idx, 4 + col_offset, skill_data["advanced"])
+                ws.cell(
+                    row_idx,
+                    5 + col_offset,
+                    skill_data["initial"] + skill_data["advanced"],
+                )
 
             # Zapis doświadczenia
             ws[f"{EXCEL_EXP_COL}11"] = self.experience["available"]
@@ -223,7 +240,12 @@ class DataManager:
             return False
 
     def add_skill(
-        self, skill_name: str, attribute: str, initial: int = 0, advanced: int = 0
+        self,
+        skill_name: str,
+        attribute: str,
+        initial: int = 0,
+        advanced: int = 0,
+        is_new: bool = False,
     ) -> bool:
         """Dodaje nową umiejętność."""
         if skill_name in self.skills:
@@ -235,6 +257,7 @@ class DataManager:
             "advanced": advanced,
             "current": initial + advanced,
             "base_advanced": advanced,
+            "is_new": is_new,
         }
         return True
 
@@ -251,7 +274,13 @@ class DataManager:
         self.character_name = name
         self.file_path = None
         self.attributes = {
-            attr: {"initial": 30, "advanced": 0, "current": 30, "base_advanced": 0}
+            attr: {
+                "initial": 30,
+                "advanced": 0,
+                "current": 30,
+                "base_advanced": 0,
+                "is_new": False,
+            }
             for attr in ATTRIBUTES
         }
         self.skills = {}
@@ -333,11 +362,7 @@ class CharacterSheetApp(ctk.CTk):
         self.data_manager = DataManager()
         self.history_manager = HistoryManager()
 
-        self.pending_changes: Dict = {
-            "attribute_changes": {},
-            "skill_changes": {},
-            "talent_changes": {},
-        }
+        self.pending_changes: Dict = self._create_empty_pending_changes()
         
         # Cache widgetów do szybkiego updatu bez destroy/recreate
         self.attribute_rows: Dict = {}  # {attr_name: {"row": Frame, "labels": [...], "buttons": [...]}}
@@ -346,6 +371,19 @@ class CharacterSheetApp(ctk.CTk):
         self.initialized_skills = False
 
         self.setup_ui()
+
+    def _create_empty_pending_changes(self) -> Dict:
+        """Tworzy nowy kontener oczekujących zmian."""
+        return {
+            "attribute_changes": {},
+            "skill_changes": {},
+            "talent_changes": {},
+            "new_skills": set(),
+        }
+
+    def has_pending_changes(self) -> bool:
+        """Sprawdza, czy istnieją niezakończone zmiany."""
+        return any(bool(value) for value in self.pending_changes.values())
 
     def setup_ui(self) -> None:
         """Konfiguruje interfejs użytkownika."""
@@ -455,6 +493,63 @@ class CharacterSheetApp(ctk.CTk):
         """Zakładka: Tabela kosztów rozwinięć."""
         tab = self.notebook.add("Koszty Rozwinięć")
 
+        calculator_frame = ctk.CTkFrame(tab)
+        calculator_frame.pack(fill="x", padx=10, pady=(10, 5))
+
+        ctk.CTkLabel(
+            calculator_frame,
+            text="KALKULATOR DOWOLNYCH ROZWINIĘĆ",
+            font=("Arial", 14, "bold"),
+            text_color=COLOR_ACCENT,
+        ).pack(anchor="w", padx=12, pady=(10, 6))
+
+        ctk.CTkLabel(
+            calculator_frame,
+            text="Wybierz cechę albo umiejętność i wpisz liczbę rozwinięć. Koszt aktualizuje się na żywo.",
+            font=("Arial", 12),
+        ).pack(anchor="w", padx=12, pady=(0, 8))
+
+        calculator_inputs = ctk.CTkFrame(calculator_frame)
+        calculator_inputs.pack(fill="x", padx=12, pady=(0, 10))
+
+        ctk.CTkLabel(calculator_inputs, text="Cecha / Umiejętność:").pack(
+            side="left", padx=(8, 6), pady=8
+        )
+        self.cost_combo = ctk.CTkComboBox(
+            calculator_inputs,
+            values=[],
+            width=260,
+            command=lambda _choice: self.on_calculate_cost(),
+        )
+        self.cost_combo.pack(side="left", padx=(0, 10), pady=8)
+
+        ctk.CTkLabel(calculator_inputs, text="Liczba rozwinięć:").pack(
+            side="left", padx=(8, 6), pady=8
+        )
+        self.cost_spinbox = ctk.CTkEntry(calculator_inputs, width=120)
+        self.cost_spinbox.insert(0, "1")
+        self.cost_spinbox.pack(side="left", padx=(0, 10), pady=8)
+        self.cost_spinbox.bind("<KeyRelease>", lambda _event: self.on_calculate_cost())
+
+        calculator_status = ctk.CTkFrame(calculator_frame)
+        calculator_status.pack(fill="x", padx=12, pady=(0, 12))
+
+        self.cost_type_label = ctk.CTkLabel(calculator_status, text="Typ: -")
+        self.cost_type_label.pack(side="left", padx=(8, 12), pady=8)
+
+        self.cost_current_label = ctk.CTkLabel(
+            calculator_status, text="Aktualne rozwinięcia: -"
+        )
+        self.cost_current_label.pack(side="left", padx=(0, 12), pady=8)
+
+        self.cost_result_label = ctk.CTkLabel(
+            calculator_status,
+            text="Koszt: -",
+            font=("Arial", 13, "bold"),
+            text_color=COLOR_SUCCESS,
+        )
+        self.cost_result_label.pack(side="right", padx=(12, 8), pady=8)
+
         # Tytuł
         title = ctk.CTkLabel(
             tab,
@@ -468,8 +563,52 @@ class CharacterSheetApp(ctk.CTk):
         self.costs_frame = ctk.CTkScrollableFrame(tab)
         self.costs_frame.pack(fill="both", expand=True, padx=10, pady=5)
 
+        self.refresh_cost_options()
+
+    def refresh_cost_options(self) -> None:
+        """Odświeża listę pozycji dostępnych w kalkulatorze kosztów."""
+        options = list(self.data_manager.attributes.keys()) + sorted(
+            self.data_manager.skills.keys(),
+            key=str.casefold,
+        )
+
+        self.cost_combo.configure(values=options or [""])
+
+        current_selection = self.cost_combo.get().strip()
+        if current_selection not in options:
+            self.cost_combo.set(options[0] if options else "")
+
+        self.on_calculate_cost()
+
+    def get_cost_preview(self, selection: str, advancements: int) -> Optional[Dict[str, int | str]]:
+        """Zwraca dane do podglądu kosztu dla wybranej cechy lub umiejętności."""
+        if advancements <= 0:
+            return None
+
+        if selection in self.data_manager.attributes:
+            current_adv = self.data_manager.attributes[selection]["advanced"]
+            return {
+                "type": "Cecha",
+                "current_adv": current_adv,
+                "cost": calculate_advancement_cost("cecha", current_adv, advancements),
+            }
+
+        if selection in self.data_manager.skills:
+            current_adv = self.data_manager.skills[selection]["advanced"]
+            return {
+                "type": "Umiejętność",
+                "current_adv": current_adv,
+                "cost": calculate_advancement_cost(
+                    "umiejetnosc", current_adv, advancements
+                ),
+            }
+
+        return None
+
     def refresh_costs_display(self) -> None:
         """Odświeża tabelę kosztów."""
+        self.refresh_cost_options()
+
         # Wyczyść ramkę
         for widget in self.costs_frame.winfo_children():
             widget.destroy()
@@ -752,6 +891,7 @@ class CharacterSheetApp(ctk.CTk):
 
         labels = []
         buttons = []
+        minimum_advancement = self._get_minimum_skill_advancement(skill_data)
 
         # Nazwa umiejętności
         lbl_name = ctk.CTkLabel(
@@ -815,7 +955,7 @@ class CharacterSheetApp(ctk.CTk):
         btn_minus1 = ctk.CTkButton(
             row, text="-1", width=40,
             command=lambda: self.on_decrease_skill(skill_name, 1),
-            fg_color=COLOR_WARNING if current_adv > skill_data["base_advanced"] else "#555555"
+            fg_color=COLOR_WARNING if current_adv > minimum_advancement else "#555555"
         )
         btn_minus1.pack(side="left", padx=1)
         buttons.append(("minus1", btn_minus1))
@@ -823,13 +963,13 @@ class CharacterSheetApp(ctk.CTk):
         btn_minus5 = ctk.CTkButton(
             row, text="-5", width=40,
             command=lambda: self.on_decrease_skill(skill_name, 5),
-            fg_color=COLOR_WARNING if current_adv > skill_data["base_advanced"] else "#555555"
+            fg_color=COLOR_WARNING if current_adv > minimum_advancement else "#555555"
         )
         btn_minus5.pack(side="left", padx=1)
         buttons.append(("minus5", btn_minus5))
         
         # Przycisk usuń - tylko dla umiejętności dodanych
-        if skill_data["base_advanced"] == -1:
+        if skill_data.get("is_new", False):
             btn_delete = ctk.CTkButton(
                 row, text="Usuń", width=50,
                 command=lambda: self.on_delete_skill(skill_name),
@@ -853,6 +993,7 @@ class CharacterSheetApp(ctk.CTk):
                 
                 current_adv = skill_data["advanced"]
                 max_adv = self.get_max_advancements("umiejetnosc", skill_name)
+                minimum_advancement = self._get_minimum_skill_advancement(skill_data)
                 
                 # Aktualizuj wartości
                 labels["adv"].configure(text=f"Rozw: {current_adv}")
@@ -863,8 +1004,14 @@ class CharacterSheetApp(ctk.CTk):
                 buttons = dict(row_data["buttons"])
                 buttons["plus1"].configure(fg_color=COLOR_SUCCESS if self.can_afford_skill(skill_name) else COLOR_ERROR)
                 buttons["plus5"].configure(fg_color=COLOR_SUCCESS if max_adv >= 5 else COLOR_ERROR)
-                buttons["minus1"].configure(fg_color=COLOR_WARNING if current_adv > skill_data["base_advanced"] else "#555555")
-                buttons["minus5"].configure(fg_color=COLOR_WARNING if current_adv > skill_data["base_advanced"] else "#555555")
+                buttons["minus1"].configure(fg_color=COLOR_WARNING if current_adv > minimum_advancement else "#555555")
+                buttons["minus5"].configure(fg_color=COLOR_WARNING if current_adv > minimum_advancement else "#555555")
+
+    def _get_minimum_skill_advancement(self, skill_data: Dict) -> int:
+        """Zwraca minimalny dozwolony poziom rozwinięcia dla umiejętności."""
+        if skill_data.get("is_new", False):
+            return 0
+        return skill_data["base_advanced"]
 
     def refresh_skills_display(self) -> None:
         """Compatibility wrapper - teraz tylko aktualizuje, nie niszczy widgety."""
@@ -913,21 +1060,26 @@ class CharacterSheetApp(ctk.CTk):
 
         self.refresh_attributes_display() if advancement_type == "cecha" else self.refresh_skills_display()
         self.update_experience_display()
+        self.refresh_costs_display()
 
     def _decrease_advancement(self, advancement_type: str, item_name: str, amount: int) -> None:
         """Helper do zmniejszania rozwiniec."""
         if advancement_type == "cecha":
             data = self.data_manager.attributes[item_name]
             pending_key = "attribute_changes"
+            minimum_advancement = data["base_advanced"]
         else:
             data = self.data_manager.skills[item_name]
             pending_key = "skill_changes"
-        
-        base_adv = data["base_advanced"]
+            minimum_advancement = self._get_minimum_skill_advancement(data)
+
         current_adv = data["advanced"]
 
-        if current_adv - amount < base_adv:
-            messagebox.showwarning("Nie można cofnąć", f"Nie można cofnąć poniżej wartości z pliku ({base_adv} rozw.).")
+        if current_adv - amount < minimum_advancement:
+            messagebox.showwarning(
+                "Nie można cofnąć",
+                f"Nie można cofnąć poniżej wartości minimalnej ({minimum_advancement} rozw.).",
+            )
             return
 
         refund = calculate_advancement_cost(advancement_type, current_adv - amount, amount)
@@ -941,6 +1093,7 @@ class CharacterSheetApp(ctk.CTk):
 
         self.refresh_attributes_display() if advancement_type == "cecha" else self.refresh_skills_display()
         self.update_experience_display()
+        self.refresh_costs_display()
 
     def can_afford_attribute(self, attr_name: str) -> bool:
         """Sprawdza, czy stać postać na rozwinięcie cechy."""
@@ -993,19 +1146,15 @@ class CharacterSheetApp(ctk.CTk):
             base_adv = self.data_manager.attributes[item_name]["base_advanced"]
         else:
             current_adv = self.data_manager.skills[item_name]["advanced"]
-            base_adv = self.data_manager.skills[item_name]["base_advanced"]
+            base_adv = self._get_minimum_skill_advancement(
+                self.data_manager.skills[item_name]
+            )
         
         return COLOR_WARNING if current_adv > base_adv else "#555555"
 
     def on_confirm_changes(self) -> None:
         """Potwierdza wszystkie oczekujące zmiany."""
-        has_changes = (
-            self.pending_changes["attribute_changes"]
-            or self.pending_changes["skill_changes"]
-            or self.pending_changes["talent_changes"]
-        )
-
-        if not has_changes:
+        if not self.has_pending_changes():
             messagebox.showinfo("Brak zmian", "Nie ma żadnych oczekujących zmian do zatwierdzenia.")
             return
 
@@ -1031,9 +1180,12 @@ class CharacterSheetApp(ctk.CTk):
                 total_cost += cost
                 details.append(f"Umiejętność {skill_name}: +{change_count} rozwinięć ({cost} PD)")
 
-        if self.data_manager.experience["available"] < total_cost:
-            messagebox.showerror("Za mało PD", f"Całkowity koszt zmian: {total_cost} PD.\nDostępne: {self.data_manager.experience['available']} PD.")
-            return
+        for skill_name in sorted(self.pending_changes["new_skills"], key=str.casefold):
+            skill_data = self.data_manager.skills.get(skill_name)
+            if skill_data:
+                details.append(
+                    f"Nowa umiejętność {skill_name} ({skill_data['attribute']})"
+                )
 
         # Potwierdzenie
         details_text = "\n".join(details)
@@ -1043,7 +1195,6 @@ class CharacterSheetApp(ctk.CTk):
         )
 
         if result:
-            self.data_manager.experience["available"] -= total_cost
             self.data_manager.experience["spent"] += total_cost
             self.data_manager.experience["total"] = (
                 self.data_manager.experience["available"]
@@ -1061,11 +1212,14 @@ class CharacterSheetApp(ctk.CTk):
                     self.data_manager.skills[skill_name]["advanced"]
                 )
 
-            self.pending_changes = {
-                "attribute_changes": {},
-                "skill_changes": {},
-                "talent_changes": {},
-            }
+            for skill_name in self.pending_changes["new_skills"]:
+                if skill_name in self.data_manager.skills:
+                    self.data_manager.skills[skill_name]["base_advanced"] = (
+                        self.data_manager.skills[skill_name]["advanced"]
+                    )
+                    self.data_manager.skills[skill_name]["is_new"] = False
+
+            self.pending_changes = self._create_empty_pending_changes()
 
             # Zapisz do Excel
             if self.data_manager.file_path:
@@ -1078,10 +1232,11 @@ class CharacterSheetApp(ctk.CTk):
             self.refresh_skills_display()
             self.update_experience_display()
             self.refresh_history_display()
+            self.refresh_costs_display()
 
     def on_revert_changes(self) -> None:
         """Cofa wszystkie oczekujące zmiany."""
-        if not any(self.pending_changes.values()):
+        if not self.has_pending_changes():
             messagebox.showinfo("Brak zmian", "Nie ma żadnych zmian do cofnięcia.")
             return
 
@@ -1119,25 +1274,20 @@ class CharacterSheetApp(ctk.CTk):
                 )
             
             # Usuń umiejętności, które były dodane (nie mają base_advanced)
-            skills_to_remove = []
-            for skill_name, skill_data in self.data_manager.skills.items():
-                if skill_data["base_advanced"] == -1:  # Oznaka że była dodana
-                    skills_to_remove.append(skill_name)
-                    if skill_name in self.skill_rows:
-                        self.skill_rows[skill_name]["row"].destroy()
-                        del self.skill_rows[skill_name]
+            skills_to_remove = list(self.pending_changes["new_skills"])
+            for skill_name in skills_to_remove:
+                if skill_name in self.skill_rows:
+                    self.skill_rows[skill_name]["row"].destroy()
+                    del self.skill_rows[skill_name]
             
             for skill_name in skills_to_remove:
-                del self.data_manager.skills[skill_name]
+                if skill_name in self.data_manager.skills:
+                    del self.data_manager.skills[skill_name]
 
             # Przywróć doświadczenie
             self.data_manager.experience["available"] += total_refund
             
-            self.pending_changes = {
-                "attribute_changes": {},
-                "skill_changes": {},
-                "talent_changes": {},
-            }
+            self.pending_changes = self._create_empty_pending_changes()
 
             self.history_manager.add_entry("Cofnięto zmiany", f"Przywrócono {total_refund} PD")
 
@@ -1145,6 +1295,8 @@ class CharacterSheetApp(ctk.CTk):
             self.refresh_attributes_display()
             self.refresh_skills_display()
             self.update_experience_display()
+            self.refresh_history_display()
+            self.refresh_costs_display()
 
     def on_delete_skill(self, skill_name: str) -> None:
         """Usuwa umiejętność (tylko dodane)."""
@@ -1152,7 +1304,7 @@ class CharacterSheetApp(ctk.CTk):
             return
         
         skill_data = self.data_manager.skills[skill_name]
-        if skill_data["base_advanced"] != -1:
+        if not skill_data.get("is_new", False):
             messagebox.showerror("Błąd", "Można usuwać tylko umiejętności dodane przez gracza.")
             return
         
@@ -1163,6 +1315,8 @@ class CharacterSheetApp(ctk.CTk):
         
         if result:
             del self.data_manager.skills[skill_name]
+            self.pending_changes["new_skills"].discard(skill_name)
+            self.pending_changes["skill_changes"].pop(skill_name, None)
             if skill_name in self.skill_rows:
                 self.skill_rows[skill_name]["row"].destroy()
                 del self.skill_rows[skill_name]
@@ -1173,6 +1327,8 @@ class CharacterSheetApp(ctk.CTk):
             )
             messagebox.showinfo("Sukces", f"Umiejętność '{skill_name}' usunięta!")
             self.refresh_skills_display()
+            self.refresh_history_display()
+            self.refresh_costs_display()
 
     def on_add_skill(self) -> None:
         """Dodaje nową umiejętność."""
@@ -1191,12 +1347,15 @@ class CharacterSheetApp(ctk.CTk):
             messagebox.showerror("Błąd", "Wartość numeryczna musi być liczbą.")
             return
 
+        if advanced < 0:
+            messagebox.showerror("Błąd", "Liczba rozwinięć nie może być ujemna.")
+            return
+
         # Wartość początkowa to wartość przypisanej cechy
         initial = self.data_manager.attributes[attribute]["initial"]
         
-        self.data_manager.add_skill(skill_name, attribute, initial, advanced)
-        # Oznacz że umiejętność była dodana (nie ma base_advanced)
-        self.data_manager.skills[skill_name]["base_advanced"] = -1
+        self.data_manager.add_skill(skill_name, attribute, initial, advanced, is_new=True)
+        self.pending_changes["new_skills"].add(skill_name)
 
         # Wyczyść formularz
         self.skill_name_entry.delete(0, "end")
@@ -1215,6 +1374,7 @@ class CharacterSheetApp(ctk.CTk):
         self.initialized_skills = False
         self.initialize_skills_display()
         self.refresh_history_display()
+        self.refresh_costs_display()
     
     def _validate_skill_form(self, skill_name: str, attribute: str) -> Optional[str]:
         """Waliduje formularz dodania umiejętności. Zwraca None jeśli OK, inaczej komunikat błędu."""
@@ -1250,7 +1410,10 @@ class CharacterSheetApp(ctk.CTk):
 
         messagebox.showinfo("Sukces", f"Dodano {amount} PD!")
         self.update_experience_display()
+        self.refresh_attributes_display()
+        self.refresh_skills_display()
         self.refresh_history_display()
+        self.refresh_costs_display()
 
     def on_quick_experience(self, amount: int) -> None:
         """Szybkie dodanie doświadczenia."""
@@ -1260,32 +1423,40 @@ class CharacterSheetApp(ctk.CTk):
         self.history_manager.add_entry("Dodano doświadczenie", f"+{amount} PD")
 
         self.update_experience_display()
+        self.refresh_attributes_display()
+        self.refresh_skills_display()
         self.refresh_history_display()
+        self.refresh_costs_display()
 
     def on_calculate_cost(self) -> None:
         """Oblicza koszt rozwinięć dla wybranej cechy/umiejętności."""
-        selection = self.cost_combo.get()
+        selection = self.cost_combo.get().strip()
         try:
             advancements = int(self.cost_spinbox.get())
         except ValueError:
+            self.cost_type_label.configure(text="Typ: -")
+            self.cost_current_label.configure(text="Aktualne rozwinięcia: -")
             self.cost_result_label.configure(text="Koszt: -")
             return
 
-        if not selection:
+        if not selection or advancements <= 0:
+            self.cost_type_label.configure(text="Typ: -")
+            self.cost_current_label.configure(text="Aktualne rozwinięcia: -")
             self.cost_result_label.configure(text="Koszt: -")
             return
 
-        if selection in self.data_manager.attributes:
-            current_adv = self.data_manager.attributes[selection]["advanced"]
-            cost = calculate_advancement_cost("cecha", current_adv, advancements)
-        elif selection in self.data_manager.skills:
-            current_adv = self.data_manager.skills[selection]["advanced"]
-            cost = calculate_advancement_cost("umiejetnosc", current_adv, advancements)
-        else:
+        preview = self.get_cost_preview(selection, advancements)
+        if not preview:
+            self.cost_type_label.configure(text="Typ: -")
+            self.cost_current_label.configure(text="Aktualne rozwinięcia: -")
             self.cost_result_label.configure(text="Koszt: -")
             return
 
-        self.cost_result_label.configure(text=f"Koszt: {cost} PD")
+        self.cost_type_label.configure(text=f"Typ: {preview['type']}")
+        self.cost_current_label.configure(
+            text=f"Aktualne rozwinięcia: {preview['current_adv']}"
+        )
+        self.cost_result_label.configure(text=f"Koszt: {preview['cost']} PD")
 
     def on_load_character(self) -> None:
         """Ładuje postać z pliku Excel."""
@@ -1297,11 +1468,7 @@ class CharacterSheetApp(ctk.CTk):
             return
 
         if self.data_manager.load_from_excel(file_path):
-            self.pending_changes = {
-                "attribute_changes": {},
-                "skill_changes": {},
-                "talent_changes": {},
-            }
+            self.pending_changes = self._create_empty_pending_changes()
             # Reset flag aby reinicjalizować widgety z nowymi danymi
             self.initialized_attrs = False
             self.initialized_skills = False
@@ -1318,6 +1485,13 @@ class CharacterSheetApp(ctk.CTk):
 
     def on_save_character(self) -> None:
         """Zapisuje postać do pliku Excel."""
+        if self.has_pending_changes():
+            messagebox.showwarning(
+                "Oczekujące zmiany",
+                "Najpierw zatwierdź albo cofnij oczekujące zmiany, a dopiero potem zapisz plik.",
+            )
+            return
+
         if not self.data_manager.file_path:
             file_path = filedialog.asksaveasfilename(
                 defaultextension=".xlsx",
@@ -1344,11 +1518,7 @@ class CharacterSheetApp(ctk.CTk):
 
         if result:
             self.data_manager.create_new_character()
-            self.pending_changes = {
-                "attribute_changes": {},
-                "skill_changes": {},
-                "talent_changes": {},
-            }
+            self.pending_changes = self._create_empty_pending_changes()
             self.history_manager.add_entry("Utworzono nową postać", "")
             messagebox.showinfo("Sukces", "Nowa postać gotowa!")
             self.initialized_attrs = False
