@@ -158,5 +158,20 @@
     "timestamp": "2026-04-18T11:40:11.621396",
     "action": "Wczytano postać",
     "details": "karta_postaci.xlsx"
+  },
+  {
+    "timestamp": "2026-04-18T12:44:11.131292",
+    "action": "Wczytano postać",
+    "details": "karta_postaci.xlsx"
+  },
+  {
+    "timestamp": "2026-04-18T12:44:37.517274",
+    "action": "Zapisano postać",
+    "details": "karta_postaci.xlsx"
+  },
+  {
+    "timestamp": "2026-04-18T12:44:41.432479",
+    "action": "Cofnięto zmiany",
+    "details": "Przywrócono 180 PD"
   }
 ]
