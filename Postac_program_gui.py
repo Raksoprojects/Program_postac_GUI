@@ -7,11 +7,15 @@ import customtkinter as ctk
 import openpyxl
 import json
 import os
+import re
+import unicodedata
 from datetime import datetime
 from typing import Dict, List, Tuple, Optional
 from pathlib import Path
 import tkinter as tk
 from tkinter import filedialog, messagebox
+
+from pdf_character_io import extract_pdf_character_data, write_pdf_character_data
 
 # ============================================================================
 # CONSTANTS
@@ -55,6 +59,71 @@ COLOR_ACCENT = "#0084d1"
 COLOR_SUCCESS = "#26b552"
 COLOR_ERROR = "#d1214e"
 COLOR_WARNING = "#ff9500"
+COLOR_SURFACE = "#22252b"
+COLOR_SURFACE_ALT = "#2c3138"
+COLOR_SURFACE_SOFT = "#343a43"
+COLOR_TEXT_MUTED = "#aab3c0"
+COLOR_BORDER = "#404856"
+COLOR_HIGHLIGHT = "#f0c44c"
+
+FONT_DISPLAY = ("Bahnschrift SemiBold", 26)
+FONT_TITLE = ("Bahnschrift SemiBold", 18)
+FONT_SECTION = ("Bahnschrift SemiBold", 15)
+FONT_BODY = ("Segoe UI", 13)
+FONT_BODY_BOLD = ("Segoe UI Semibold", 13)
+FONT_SMALL = ("Segoe UI", 11)
+
+FILE_TYPE_EXCEL = "excel"
+FILE_TYPE_PDF = "pdf"
+
+ATTRIBUTE_DETAILS = {
+    "WW": "Walka Wręcz",
+    "US": "Umiejętności Strzeleckie",
+    "S": "Siła",
+    "Wt": "Wytrzymałość",
+    "I": "Inicjatywa",
+    "Zw": "Zwinność",
+    "Zr": "Zręczność",
+    "Int": "Inteligencja",
+    "SW": "Siła Woli",
+    "Ogd": "Ogłada",
+}
+
+BASIC_SKILL_PATTERNS = [
+    "Atletyka",
+    "Broń Biała",
+    "Charyzma",
+    "Dowodzenie",
+    "Hazard",
+    "Intuicja",
+    "Jeździectwo",
+    "Mocna głowa",
+    "Nawigacja",
+    "Odporność",
+    "Opanowanie",
+    "Oswajanie",
+    "Percepcja",
+    "Plotkowanie",
+    "Powożenie",
+    "Przekupstwo",
+    "Skradanie",
+    "Sztuka",
+    "Sztuka Przetrwania",
+    "Targowanie",
+    "Unik",
+    "Wioślarstwo",
+    "Wspinaczka",
+    "Występy",
+    "Zastraszanie",
+]
+
+ATTRIBUTE_FILTER_ALL = "Wszystkie cechy"
+SKILL_CATEGORY_BASIC = "Podstawowa"
+SKILL_CATEGORY_ADVANCED = "Zaawansowana / grupowa"
+SKILL_CATEGORY_SHORT = {
+    SKILL_CATEGORY_BASIC: "Podst",
+    SKILL_CATEGORY_ADVANCED: "Zw/grup",
+}
 
 # ============================================================================
 # HELPER FUNCTIONS
@@ -91,6 +160,51 @@ def calculate_advancement_cost(
     return total_cost
 
 
+def normalize_search_text(text: str) -> str:
+    """Normalizuje tekst do wyszukiwania niezależnie od wielkości liter i polskich znaków."""
+    normalized = unicodedata.normalize("NFKD", text)
+    normalized = "".join(
+        character for character in normalized if not unicodedata.combining(character)
+    )
+    normalized = re.sub(r"\s+", " ", normalized)
+    return normalized.strip().casefold()
+
+
+def normalize_skill_name(text: str) -> str:
+    """Upraszcza nazwę umiejętności do porównań antyduplikacyjnych."""
+    normalized = normalize_search_text(text)
+    normalized = re.sub(r"\s*\(\s*", "(", normalized)
+    normalized = re.sub(r"\s*\)\s*", ")", normalized)
+    return normalized
+
+
+def get_skill_category(skill_name: str) -> str:
+    """Klasyfikuje umiejętność jako podstawową albo zaawansowaną/grupową."""
+    normalized = normalize_search_text(skill_name)
+    for pattern in BASIC_SKILL_PATTERNS:
+        if normalized.startswith(normalize_search_text(pattern)):
+            return SKILL_CATEGORY_BASIC
+    return SKILL_CATEGORY_ADVANCED
+
+
+def get_skill_category_short(skill_name: str) -> str:
+    """Zwraca skróconą etykietę kategorii umiejętności."""
+    return SKILL_CATEGORY_SHORT[get_skill_category(skill_name)]
+
+
+def get_attribute_filter_label(attribute_code: str) -> str:
+    """Buduje czytelną etykietę filtra cechy."""
+    return f"{ATTRIBUTE_DETAILS[attribute_code]} ({attribute_code})"
+
+
+def get_attribute_code_from_filter_label(filter_label: str) -> Optional[str]:
+    """Zwraca kod cechy na podstawie etykiety z comboboxa."""
+    for attribute_code in ATTRIBUTES:
+        if filter_label == get_attribute_filter_label(attribute_code):
+            return attribute_code
+    return None
+
+
 # ============================================================================
 # DATA MANAGEMENT
 # ============================================================================
@@ -100,16 +214,20 @@ class DataManager:
 
     def __init__(self):
         self.file_path: Optional[str] = None
+        self.source_type: str = FILE_TYPE_EXCEL
         self.attributes: Dict = {}
         self.skills: Dict = {}
         self.talents: Dict = {}
         self.experience: Dict = {"available": 0, "spent": 0, "total": 0}
         self.character_name: str = "Nowa Postać"
+        self.pdf_mapping: Dict = {}
 
     def load_from_excel(self, file_path: str) -> bool:
         """Ładuje dane z pliku Excel. Zwraca True jeśli sukces."""
         try:
             self.file_path = file_path
+            self.source_type = FILE_TYPE_EXCEL
+            self.pdf_mapping = {}
             wb = openpyxl.load_workbook(file_path, data_only=True)
             ws = wb.active
 
@@ -133,6 +251,7 @@ class DataManager:
                     "current": int(current),
                     "base_advanced": int(advanced),  # Do resetu
                     "is_new": False,
+                    "profession_available": False,
                 }
 
             # Odczyt umiejętności
@@ -156,6 +275,7 @@ class DataManager:
                         "current": int(current),
                         "base_advanced": int(advanced),
                         "is_new": False,
+                        "profession_available": False,
                     }
 
             # Odczyt doświadczenia
@@ -170,6 +290,23 @@ class DataManager:
 
         except Exception as e:
             print(f"Błąd przy ładowaniu pliku: {e}")
+            return False
+
+    def load_from_pdf(self, file_path: str) -> bool:
+        """Ładuje dane z formularza PDF. Zwraca True jeśli sukces."""
+        try:
+            payload = extract_pdf_character_data(file_path)
+            self.file_path = file_path
+            self.source_type = FILE_TYPE_PDF
+            self.character_name = payload["character_name"]
+            self.attributes = payload["attributes"]
+            self.skills = payload["skills"]
+            self.talents = payload["talents"]
+            self.experience = payload["experience"]
+            self.pdf_mapping = payload["pdf_mapping"]
+            return True
+        except Exception as e:
+            print(f"Błąd przy ładowaniu PDF: {e}")
             return False
 
     def save_to_excel(self, file_path: str = None) -> bool:
@@ -239,6 +376,34 @@ class DataManager:
             print(f"Błąd przy zapisie pliku: {e}")
             return False
 
+    def save_to_pdf(self, file_path: str = None) -> bool:
+        """Zapisuje dane do formularza PDF. Zwraca True jeśli sukces."""
+        if not file_path and not self.file_path:
+            return False
+
+        file_path = file_path or self.file_path
+
+        try:
+            if not self.pdf_mapping:
+                return False
+
+            write_pdf_character_data(
+                self.file_path,
+                file_path,
+                {
+                    "character_name": self.character_name,
+                    "attributes": self.attributes,
+                    "skills": self.skills,
+                    "talents": self.talents,
+                    "experience": self.experience,
+                },
+                self.pdf_mapping,
+            )
+            return True
+        except Exception as e:
+            print(f"Błąd przy zapisie PDF: {e}")
+            return False
+
     def add_skill(
         self,
         skill_name: str,
@@ -258,6 +423,7 @@ class DataManager:
             "current": initial + advanced,
             "base_advanced": advanced,
             "is_new": is_new,
+            "profession_available": False,
         }
         return True
 
@@ -273,6 +439,8 @@ class DataManager:
         """Tworzy nową postać z wartościami domyślnymi."""
         self.character_name = name
         self.file_path = None
+        self.source_type = FILE_TYPE_EXCEL
+        self.pdf_mapping = {}
         self.attributes = {
             attr: {
                 "initial": 30,
@@ -280,6 +448,7 @@ class DataManager:
                 "current": 30,
                 "base_advanced": 0,
                 "is_new": False,
+                "profession_available": False,
             }
             for attr in ATTRIBUTES
         }
@@ -355,9 +524,11 @@ class CharacterSheetApp(ctk.CTk):
 
         self.title("Warhammer Fantasy Roleplay 4ed - Karta Postaci")
         self.geometry("1400x900")
+        self.minsize(1180, 760)
 
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("blue")
+        self.configure(fg_color=COLOR_BG)
 
         self.data_manager = DataManager()
         self.history_manager = HistoryManager()
@@ -369,8 +540,17 @@ class CharacterSheetApp(ctk.CTk):
         self.skill_rows: Dict = {}      # {skill_name: {"row": Frame, "labels": [...], "buttons": [...]}}
         self.initialized_attrs = False
         self.initialized_skills = False
+        self.skill_filter_var = tk.StringVar(value="")
+        self.skill_summary_var = tk.StringVar(value="Wyświetlane umiejętności: 0 / 0")
+        self.cost_filter_var = tk.StringVar(value="")
+        self.skill_attribute_filter_var = tk.StringVar(value=ATTRIBUTE_FILTER_ALL)
+        self.resize_refresh_after_id: Optional[str] = None
+        self.cost_layout_mode: Optional[bool] = None
+        self.cost_options_dirty = True
+        self.skills_group_frames: Dict[str, Dict] = {}
 
         self.setup_ui()
+        self.bind("<Configure>", self.on_window_resize)
 
     def _create_empty_pending_changes(self) -> Dict:
         """Tworzy nowy kontener oczekujących zmian."""
@@ -379,65 +559,171 @@ class CharacterSheetApp(ctk.CTk):
             "skill_changes": {},
             "talent_changes": {},
             "new_skills": set(),
+            "experience_delta": 0,
         }
 
     def has_pending_changes(self) -> bool:
         """Sprawdza, czy istnieją niezakończone zmiany."""
         return any(bool(value) for value in self.pending_changes.values())
 
+    def on_window_resize(self, event) -> None:
+        """Odświeża zależne od szerokości układy po zmianie rozmiaru okna."""
+        if event.widget is not self:
+            return
+        if self.resize_refresh_after_id is not None:
+            self.after_cancel(self.resize_refresh_after_id)
+        self.resize_refresh_after_id = self.after(120, self._refresh_responsive_sections)
+
+    def _refresh_responsive_sections(self) -> None:
+        """Debounced refresh dla układów zależnych od szerokości."""
+        self.resize_refresh_after_id = None
+        if hasattr(self, "costs_frame") and self._should_refresh_costs_on_resize():
+            self.refresh_costs_display()
+
+    def _is_costs_tab_active(self) -> bool:
+        """Sprawdza, czy aktywna jest zakładka kosztów."""
+        return hasattr(self, "notebook") and self.notebook.get() == "Koszty Rozwinięć"
+
+    def _should_refresh_costs_on_resize(self) -> bool:
+        """Ogranicza kosztowne przebudowy tabeli tylko do istotnych zmian szerokości."""
+        if not self._is_costs_tab_active():
+            return False
+        current_layout_mode = max(self.winfo_width(), self.costs_frame.winfo_width()) >= 1500
+        if self.cost_layout_mode is None:
+            return True
+        return current_layout_mode != self.cost_layout_mode
+
+    def refresh_costs_if_visible(self, force: bool = False) -> None:
+        """Odświeża tabelę kosztów tylko wtedy, gdy ma to sens dla użytkownika."""
+        if force or self._is_costs_tab_active():
+            self.refresh_costs_display()
+
     def setup_ui(self) -> None:
         """Konfiguruje interfejs użytkownika."""
-        # Górny pasek z informacjami
-        self.top_frame = ctk.CTkFrame(self)
-        self.top_frame.pack(side="top", fill="x", padx=10, pady=10)
+        self.top_frame = ctk.CTkFrame(
+            self,
+            fg_color=COLOR_SURFACE,
+            corner_radius=18,
+            border_width=1,
+            border_color=COLOR_BORDER,
+        )
+        self.top_frame.pack(side="top", fill="x", padx=14, pady=(14, 10))
+
+        header_row = ctk.CTkFrame(self.top_frame, fg_color="transparent")
+        header_row.pack(fill="x", padx=18, pady=(16, 10))
+
+        title_block = ctk.CTkFrame(header_row, fg_color="transparent")
+        title_block.pack(side="left", fill="x", expand=True)
 
         ctk.CTkLabel(
-            self.top_frame, text="Imię postaci:", font=("Arial", 15, "bold")
-        ).pack(side="left", padx=5)
-
-        self.char_name_label = ctk.CTkLabel(
-            self.top_frame, text="Nowa Postać", font=("Arial", 15)
-        )
-        self.char_name_label.pack(side="left", padx=5)
-
+            title_block,
+            text="Warhammer Fantasy Roleplay 4ed",
+            font=FONT_DISPLAY,
+            text_color=COLOR_FG_LIGHT,
+        ).pack(anchor="w")
         ctk.CTkLabel(
-            self.top_frame, text="Doświadczenie (PD):", font=("Arial", 15, "bold")
-        ).pack(side="left", padx=(20, 5))
+            title_block,
+            text="Kalkulator rozwinięć, doświadczenia i planowania postaci",
+            font=FONT_BODY,
+            text_color=COLOR_TEXT_MUTED,
+        ).pack(anchor="w", pady=(2, 0))
 
-        self.exp_label = ctk.CTkLabel(
-            self.top_frame, text="0/0", font=("Arial", 15, "bold"), text_color=COLOR_ACCENT
+        button_frame = ctk.CTkFrame(header_row, fg_color="transparent")
+        button_frame.pack(side="right", padx=(12, 0))
+
+        ctk.CTkButton(
+            button_frame,
+            text="Wczytaj",
+            command=self.on_load_character,
+            width=110,
+            height=38,
+            fg_color=COLOR_ACCENT,
+            hover_color="#0f96ea",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left", padx=4)
+
+        ctk.CTkButton(
+            button_frame,
+            text="Nowa",
+            command=self.on_new_character,
+            width=110,
+            height=38,
+            fg_color=COLOR_SURFACE_SOFT,
+            hover_color="#48505e",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left", padx=4)
+
+        ctk.CTkButton(
+            button_frame,
+            text="Zapisz",
+            command=self.on_save_character,
+            width=110,
+            height=38,
+            fg_color=COLOR_SURFACE_SOFT,
+            hover_color="#48505e",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left", padx=4)
+
+        ctk.CTkButton(
+            button_frame,
+            text="Zatwierdź zmiany",
+            command=self.on_confirm_changes,
+            width=150,
+            height=38,
+            fg_color=COLOR_SUCCESS,
+            hover_color="#2dcc62",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left", padx=4)
+
+        ctk.CTkButton(
+            button_frame,
+            text="Cofnij zmiany",
+            command=self.on_revert_changes,
+            width=140,
+            height=38,
+            fg_color=COLOR_ERROR,
+            hover_color="#ee3b6c",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left", padx=4)
+
+        stats_row = ctk.CTkFrame(self.top_frame, fg_color="transparent")
+        stats_row.pack(fill="x", padx=18, pady=(0, 18))
+
+        self.character_card = self._create_summary_card(
+            stats_row, "Postać", "Nowa Postać", COLOR_ACCENT
         )
-        self.exp_label.pack(side="left", padx=5)
+        self.character_card["frame"].pack(side="left", fill="x", expand=True, padx=(0, 8))
 
-        # Przyciski górne
-        button_frame = ctk.CTkFrame(self.top_frame)
-        button_frame.pack(side="right", padx=5)
+        self.available_card = self._create_summary_card(
+            stats_row, "Dostępne PD", "0", COLOR_SUCCESS
+        )
+        self.available_card["frame"].pack(side="left", fill="x", expand=True, padx=8)
 
-        ctk.CTkButton(
-            button_frame, text="Wczytaj", command=self.on_load_character, width=100
-        ).pack(side="left", padx=2)
+        self.spent_card = self._create_summary_card(
+            stats_row, "Wydane PD", "0", COLOR_HIGHLIGHT
+        )
+        self.spent_card["frame"].pack(side="left", fill="x", expand=True, padx=8)
 
-        ctk.CTkButton(
-            button_frame, text="Nowa", command=self.on_new_character, width=100
-        ).pack(side="left", padx=2)
+        self.pending_card = self._create_summary_card(
+            stats_row, "Oczekujące zmiany", "Brak", COLOR_WARNING
+        )
+        self.pending_card["frame"].pack(side="left", fill="x", expand=True, padx=(8, 0))
 
-        ctk.CTkButton(
-            button_frame, text="Zapisz", command=self.on_save_character, width=100
-        ).pack(side="left", padx=2)
-
-        ctk.CTkButton(
-            button_frame, text="Zatwierdź Zmiany", command=self.on_confirm_changes,
-            width=130, fg_color=COLOR_SUCCESS
-        ).pack(side="left", padx=2)
-
-        ctk.CTkButton(
-            button_frame, text="Cofnij Zmiany", command=self.on_revert_changes,
-            width=130, fg_color=COLOR_ERROR
-        ).pack(side="left", padx=2)
+        self.char_name_label = self.character_card["value_label"]
+        self.exp_label = self.available_card["value_label"]
 
         # Notebook z zakładkami
-        self.notebook = ctk.CTkTabview(self)
-        self.notebook.pack(fill="both", expand=True, padx=10, pady=10)
+        self.notebook = ctk.CTkTabview(
+            self,
+            fg_color=COLOR_SURFACE,
+            segmented_button_fg_color=COLOR_SURFACE_SOFT,
+            segmented_button_selected_color=COLOR_ACCENT,
+            segmented_button_selected_hover_color="#0f96ea",
+            segmented_button_unselected_color=COLOR_SURFACE_SOFT,
+            segmented_button_unselected_hover_color="#48505e",
+            text_color=COLOR_FG_LIGHT,
+        )
+        self.notebook.pack(fill="both", expand=True, padx=14, pady=(0, 14))
 
         self.create_character_tab()
         self.create_skills_tab()
@@ -446,67 +732,435 @@ class CharacterSheetApp(ctk.CTk):
         self.create_add_skill_tab()
         self.create_experience_tab()
         self.create_history_tab()
+        self.refresh_header_summary()
+
+    def _create_summary_card(self, parent, title: str, value: str, accent_color: str) -> Dict:
+        """Buduje kartę podsumowania w górnym nagłówku."""
+        card = ctk.CTkFrame(
+            parent,
+            fg_color=COLOR_SURFACE_ALT,
+            corner_radius=16,
+            border_width=1,
+            border_color=COLOR_BORDER,
+        )
+        ctk.CTkLabel(
+            card,
+            text=title,
+            font=FONT_SMALL,
+            text_color=COLOR_TEXT_MUTED,
+        ).pack(anchor="w", padx=14, pady=(12, 2))
+        value_label = ctk.CTkLabel(
+            card,
+            text=value,
+            font=FONT_TITLE,
+            text_color=COLOR_FG_LIGHT,
+        )
+        value_label.pack(anchor="w", padx=14)
+        badge = ctk.CTkLabel(
+            card,
+            text="",
+            width=18,
+            height=18,
+            corner_radius=9,
+            fg_color=accent_color,
+        )
+        badge.pack(anchor="w", padx=14, pady=(8, 12))
+        return {"frame": card, "value_label": value_label, "badge": badge}
+
+    def _create_tab_shell(self, tab_name: str, title: str, subtitle: str):
+        """Tworzy spójny kontener sekcji dla zakładek."""
+        tab = self.notebook.add(tab_name)
+        wrapper = ctk.CTkFrame(tab, fg_color="transparent")
+        wrapper.pack(fill="both", expand=True, padx=14, pady=14)
+
+        hero = ctk.CTkFrame(
+            wrapper,
+            fg_color=COLOR_SURFACE_ALT,
+            corner_radius=18,
+            border_width=1,
+            border_color=COLOR_BORDER,
+        )
+        hero.pack(fill="x", pady=(0, 10))
+        ctk.CTkLabel(
+            hero,
+            text=title,
+            font=FONT_TITLE,
+            text_color=COLOR_FG_LIGHT,
+        ).pack(anchor="w", padx=18, pady=(16, 4))
+        ctk.CTkLabel(
+            hero,
+            text=subtitle,
+            font=FONT_BODY,
+            text_color=COLOR_TEXT_MUTED,
+            wraplength=1080,
+            justify="left",
+        ).pack(anchor="w", padx=18, pady=(0, 16))
+        return tab, wrapper
+
+    def _create_info_chip(self, parent, text: str, fg_color: str, text_color: str = COLOR_FG_LIGHT):
+        """Tworzy krótki znacznik informacyjny."""
+        chip = ctk.CTkLabel(
+            parent,
+            text=text,
+            font=FONT_SMALL,
+            text_color=text_color,
+            fg_color=fg_color,
+            corner_radius=14,
+            padx=10,
+            pady=5,
+        )
+        chip.pack(side="left", padx=(0, 8))
+        return chip
+
+    def _create_collapsible_section(
+        self,
+        parent,
+        title: str,
+        subtitle: str = "",
+        default_open: bool = True,
+        expand: bool = False,
+    ) -> Dict:
+        """Tworzy sekcję, którą można zwinąć i rozwinąć."""
+        section = ctk.CTkFrame(
+            parent,
+            fg_color=COLOR_SURFACE_ALT,
+            corner_radius=18,
+            border_width=1,
+            border_color=COLOR_BORDER,
+        )
+        section.pack(fill="both" if expand else "x", expand=expand, pady=(0, 10))
+
+        header = ctk.CTkFrame(section, fg_color="transparent")
+        header.pack(fill="x", padx=14, pady=(12, 8))
+
+        icon_label = ctk.CTkLabel(
+            header,
+            text="▼" if default_open else "▶",
+            font=FONT_BODY_BOLD,
+            width=18,
+        )
+        icon_label.pack(side="left", padx=(0, 8))
+
+        title_block = ctk.CTkFrame(header, fg_color="transparent")
+        title_block.pack(side="left", fill="x", expand=True)
+
+        ctk.CTkLabel(
+            title_block,
+            text=title,
+            font=FONT_SECTION,
+            text_color=COLOR_FG_LIGHT,
+        ).pack(anchor="w")
+        if subtitle:
+            ctk.CTkLabel(
+                title_block,
+                text=subtitle,
+                font=FONT_SMALL,
+                text_color=COLOR_TEXT_MUTED,
+            ).pack(anchor="w")
+
+        content = ctk.CTkFrame(section, fg_color="transparent")
+        if default_open:
+            content.pack(
+                fill="both" if expand else "x",
+                expand=expand,
+                padx=14,
+                pady=(0, 12),
+            )
+
+        state = {"open": default_open}
+
+        def toggle_section() -> None:
+            state["open"] = not state["open"]
+            icon_label.configure(text="▼" if state["open"] else "▶")
+            if state["open"]:
+                content.pack(
+                    fill="both" if expand else "x",
+                    expand=expand,
+                    padx=14,
+                    pady=(0, 12),
+                )
+            else:
+                content.pack_forget()
+
+        toggle_button = ctk.CTkButton(
+            header,
+            text="Pokaż / ukryj",
+            command=toggle_section,
+            width=120,
+            height=32,
+            fg_color=COLOR_SURFACE_SOFT,
+            hover_color="#48505e",
+            font=FONT_SMALL,
+        )
+        toggle_button.pack(side="right")
+
+        return {
+            "frame": section,
+            "content": content,
+            "toggle": toggle_section,
+            "state": state,
+        }
+
+    def _get_pending_change_count(self) -> int:
+        """Zlicza wszystkie oczekujące zmiany do pokazania w UI."""
+        count = 0
+        for pending_key in ("attribute_changes", "skill_changes", "talent_changes"):
+            count += sum(abs(change) for change in self.pending_changes[pending_key].values())
+        count += len(self.pending_changes["new_skills"])
+        if self.pending_changes["experience_delta"]:
+            count += 1
+        return count
+
+    def refresh_header_summary(self) -> None:
+        """Odświeża karty stanu w nagłówku."""
+        available = self.data_manager.experience["available"]
+        spent = self.data_manager.experience["spent"]
+        total = self.data_manager.experience["total"]
+        pending_count = self._get_pending_change_count()
+
+        self.char_name_label.configure(text=self.data_manager.character_name)
+        self.exp_label.configure(text=str(available))
+        self.spent_card["value_label"].configure(text=str(spent))
+        pending_text = f"{pending_count} pozycji" if pending_count else "Brak"
+        self.pending_card["value_label"].configure(text=pending_text)
+
+        self.available_card["badge"].configure(fg_color=COLOR_SUCCESS if available > 0 else COLOR_BORDER)
+        self.spent_card["badge"].configure(fg_color=COLOR_HIGHLIGHT if spent > 0 else COLOR_BORDER)
+        self.pending_card["badge"].configure(
+            fg_color=COLOR_WARNING if pending_count else COLOR_BORDER
+        )
+
+        if hasattr(self, "exp_total_label"):
+            self.exp_total_label.configure(text=f"Łączna pula postaci: {total} PD")
+        if hasattr(self, "status_chip"):
+            status_text = "Masz oczekujące zmiany" if pending_count else "Brak oczekujących zmian"
+            status_color = COLOR_WARNING if pending_count else COLOR_SUCCESS
+            self.status_chip.configure(text=status_text, fg_color=status_color)
+        if hasattr(self, "source_chip"):
+            source_label = "Źródło: PDF" if self.data_manager.source_type == FILE_TYPE_PDF else "Źródło: Excel"
+            source_color = COLOR_ACCENT if self.data_manager.source_type == FILE_TYPE_PDF else COLOR_SURFACE_SOFT
+            self.source_chip.configure(text=source_label, fg_color=source_color)
+
+    def _format_attribute_display_name(self, attr_name: str) -> str:
+        """Buduje etykietę cechy z markerem profesji."""
+        attr_data = self.data_manager.attributes.get(attr_name, {})
+        suffix = " +" if attr_data.get("profession_available") else ""
+        return f"{attr_name}{suffix}"
+
+    def _format_skill_display_name(self, skill_name: str) -> str:
+        """Buduje etykietę umiejętności z markerem profesji."""
+        skill_data = self.data_manager.skills.get(skill_name, {})
+        suffix = " +" if skill_data.get("profession_available") else ""
+        return f"{skill_name}{suffix}"
+
+    def _format_attribute_display_name(self, attr_name: str) -> str:
+        """Buduje etykietę cechy z markerem profesji."""
+        attr_data = self.data_manager.attributes.get(attr_name, {})
+        suffix = " +" if attr_data.get("profession_available") else ""
+        return f"{attr_name}{suffix}"
+
+    def _format_skill_display_name(self, skill_name: str) -> str:
+        """Buduje etykietę umiejętności z markerem profesji."""
+        skill_data = self.data_manager.skills.get(skill_name, {})
+        suffix = " +" if skill_data.get("profession_available") else ""
+        return f"{skill_name}{suffix}"
 
     def create_character_tab(self) -> None:
         """Zakładka: Cechy postaci."""
-        tab = self.notebook.add("Cechy")
-
-        # Nagłówek
-        header = ctk.CTkFrame(tab)
-        header.pack(fill="x", padx=10, pady=10)
-
-        ctk.CTkLabel(header, text="CECHY", font=("Arial", 14, "bold")).pack(
-            side="left"
+        _, wrapper = self._create_tab_shell(
+            "Cechy",
+            "Cechy postaci",
+            "Podgląd bieżących wartości, rezerwacji PD i maksymalnych możliwych rozwinięć dla każdej cechy.",
         )
 
-        # Ramka dla cech
-        self.attributes_frame = ctk.CTkScrollableFrame(tab)
-        self.attributes_frame.pack(fill="both", expand=True, padx=10, pady=5)
+        legend = ctk.CTkFrame(wrapper, fg_color="transparent")
+        legend.pack(fill="x", pady=(0, 10))
+        self._create_info_chip(legend, "Niebieski: aktualne rozwinięcia", COLOR_ACCENT)
+        self._create_info_chip(legend, "Pomarańczowy: maksymalny zakup", COLOR_WARNING)
+        self._create_info_chip(legend, "Zielony: możesz kupić", COLOR_SUCCESS)
+
+        self.attributes_frame = ctk.CTkScrollableFrame(
+            wrapper,
+            fg_color=COLOR_SURFACE,
+            corner_radius=16,
+            border_width=1,
+            border_color=COLOR_BORDER,
+        )
+        self.attributes_frame.pack(fill="both", expand=True)
 
     def create_skills_tab(self) -> None:
         """Zakładka: Umiejętności."""
-        tab = self.notebook.add("Umiejętności")
+        _, wrapper = self._create_tab_shell(
+            "Umiejętności",
+            "Umiejętności postaci",
+            "Filtruj listę po nazwie albo atrybucie i szybko sprawdzaj, ile rozwinięć da się jeszcze kupić.",
+        )
 
-        # Nagłówek
-        header = ctk.CTkFrame(tab)
-        header.pack(fill="x", padx=10, pady=10)
+        controls = ctk.CTkFrame(
+            wrapper,
+            fg_color=COLOR_SURFACE_ALT,
+            corner_radius=16,
+            border_width=1,
+            border_color=COLOR_BORDER,
+        )
+        controls.pack(fill="x", pady=(0, 10))
 
         ctk.CTkLabel(
-            header, text="UMIEJĘTNOŚCI", font=("Arial", 14, "bold")
-        ).pack(side="left")
+            controls,
+            text="Filtr umiejętności:",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left", padx=(16, 8), pady=14)
+        self.skill_filter_entry = ctk.CTkEntry(
+            controls,
+            textvariable=self.skill_filter_var,
+            placeholder_text="Wpisz fragment nazwy lub atrybut, np. Int albo Plotkowanie",
+            width=300,
+            height=36,
+        )
+        self.skill_filter_entry.pack(side="left", padx=(0, 12), pady=14)
+        self.skill_filter_entry.bind("<KeyRelease>", lambda _event: self.apply_skill_filter())
 
-        # Ramka dla umiejętności
-        self.skills_frame = ctk.CTkScrollableFrame(tab)
-        self.skills_frame.pack(fill="both", expand=True, padx=10, pady=5)
+        self.skill_attribute_filter_combo = ctk.CTkComboBox(
+            controls,
+            values=[ATTRIBUTE_FILTER_ALL] + [get_attribute_filter_label(attr) for attr in ATTRIBUTES],
+            variable=self.skill_attribute_filter_var,
+            width=220,
+            height=36,
+            command=lambda _value: self.apply_skill_filter(),
+        )
+        self.skill_attribute_filter_combo.pack(side="left", padx=(0, 12), pady=14)
+
+        ctk.CTkButton(
+            controls,
+            text="Wyczyść filtr",
+            command=self.clear_skill_filter,
+            width=120,
+            height=36,
+            fg_color=COLOR_SURFACE_SOFT,
+            hover_color="#48505e",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left", padx=(0, 12), pady=14)
+
+        self.skill_filter_hint_button = ctk.CTkButton(
+            controls,
+            text="",
+            command=self.apply_suggested_attribute_filter,
+            width=200,
+            height=36,
+            fg_color=COLOR_ACCENT,
+            hover_color="#0f96ea",
+            font=FONT_SMALL,
+        )
+
+        self.skills_summary_label = ctk.CTkLabel(
+            controls,
+            textvariable=self.skill_summary_var,
+            font=FONT_SMALL,
+            text_color=COLOR_TEXT_MUTED,
+        )
+        self.skills_summary_label.pack(side="right", padx=16, pady=14)
+
+        self.skills_frame = ctk.CTkScrollableFrame(
+            wrapper,
+            fg_color=COLOR_SURFACE,
+            corner_radius=16,
+            border_width=1,
+            border_color=COLOR_BORDER,
+        )
+        self.skills_frame.pack(fill="both", expand=True)
+        self._build_skill_sections()
+
+    def _build_skill_sections(self) -> None:
+        """Tworzy stałe sekcje dla umiejętności podstawowych i zaawansowanych."""
+        for widget in self.skills_frame.winfo_children():
+            widget.destroy()
+
+        self.skills_group_frames = {}
+        for category_key, title in (
+            (SKILL_CATEGORY_BASIC, "Podstawowe"),
+            (SKILL_CATEGORY_ADVANCED, "Zaawansowane / grupowe"),
+        ):
+            section = ctk.CTkFrame(
+                self.skills_frame,
+                fg_color=COLOR_SURFACE_SOFT,
+                corner_radius=16,
+                border_width=1,
+                border_color=COLOR_BORDER,
+            )
+            section.pack(fill="x", padx=10, pady=(8, 6))
+            header = ctk.CTkLabel(
+                section,
+                text=title,
+                font=FONT_SECTION,
+                text_color=COLOR_FG_LIGHT,
+            )
+            header.pack(anchor="w", padx=14, pady=(10, 6))
+            content = ctk.CTkFrame(section, fg_color="transparent")
+            content.pack(fill="x", padx=8, pady=(0, 8))
+
+            self.skills_group_frames[category_key] = {
+                "section": section,
+                "header": header,
+                "content": content,
+            }
 
     def create_talents_tab(self) -> None:
         """Zakładka: Talenty (przygotowana na przyszłość)."""
-        tab = self.notebook.add("Talenty")
+        _, wrapper = self._create_tab_shell(
+            "Talenty",
+            "Talenty",
+            "Ta sekcja jest przygotowana pod kolejny etap. Docelowo pojawi się tutaj zakup talentów z kosztem narastającym o 100 PD za każdy kolejny poziom.",
+        )
 
+        placeholder = ctk.CTkFrame(
+            wrapper,
+            fg_color=COLOR_SURFACE_ALT,
+            corner_radius=18,
+            border_width=1,
+            border_color=COLOR_BORDER,
+        )
+        placeholder.pack(fill="x", pady=(0, 10))
         ctk.CTkLabel(
-            tab,
-            text="Talenty - Funkcjonalność dostępna po dodaniu tabelki w Excel",
-            font=("Arial", 12),
-        ).pack(pady=20)
+            placeholder,
+            text="Moduł talentów jeszcze nie został włączony do źródła danych.",
+            font=FONT_BODY_BOLD,
+        ).pack(anchor="w", padx=18, pady=(18, 6))
+        ctk.CTkLabel(
+            placeholder,
+            text="Po wdrożeniu importu z PDF i mapowania pól będzie można nie tylko odczytywać talenty, ale też planować koszt kolejnych poziomów.",
+            font=FONT_BODY,
+            text_color=COLOR_TEXT_MUTED,
+            wraplength=1080,
+            justify="left",
+        ).pack(anchor="w", padx=18, pady=(0, 18))
 
     def create_costs_tab(self) -> None:
         """Zakładka: Tabela kosztów rozwinięć."""
-        tab = self.notebook.add("Koszty Rozwinięć")
+        _, wrapper = self._create_tab_shell(
+            "Koszty Rozwinięć",
+            "Koszty rozwinięć",
+            "Na górze możesz policzyć dowolną liczbę rozwinięć dla wybranej cechy lub umiejętności. Poniżej masz pełną tabelę szybkiego porównania dla progów 5, 10, 15 i 20.",
+        )
 
-        calculator_frame = ctk.CTkFrame(tab)
-        calculator_frame.pack(fill="x", padx=10, pady=(10, 5))
+        calculator_section = self._create_collapsible_section(
+            wrapper,
+            "Kalkulator dowolnych rozwinięć",
+            "Koszt aktualizuje się na żywo i uwzględnia obecny poziom rozwinięć.",
+            default_open=True,
+        )
+        calculator_frame = calculator_section["content"]
 
         ctk.CTkLabel(
             calculator_frame,
             text="KALKULATOR DOWOLNYCH ROZWINIĘĆ",
-            font=("Arial", 14, "bold"),
+            font=FONT_TITLE,
             text_color=COLOR_ACCENT,
         ).pack(anchor="w", padx=12, pady=(10, 6))
 
         ctk.CTkLabel(
             calculator_frame,
             text="Wybierz cechę albo umiejętność i wpisz liczbę rozwinięć. Koszt aktualizuje się na żywo.",
-            font=("Arial", 12),
+            font=FONT_BODY,
         ).pack(anchor="w", padx=12, pady=(0, 8))
 
         calculator_inputs = ctk.CTkFrame(calculator_frame)
@@ -550,29 +1204,63 @@ class CharacterSheetApp(ctk.CTk):
         )
         self.cost_result_label.pack(side="right", padx=(12, 8), pady=8)
 
-        # Tytuł
-        title = ctk.CTkLabel(
-            tab,
-            text="TABELA KOSZTÓW ROZWINIĘĆ",
-            font=("Arial", 14, "bold"),
-            text_color=COLOR_ACCENT,
+        table_section = self._create_collapsible_section(
+            wrapper,
+            "Szybkie tabele kosztów",
+            "Filtrowanie działa jednocześnie dla cech i umiejętności w tabeli porównawczej.",
+            default_open=True,
+            expand=True,
         )
-        title.pack(pady=10)
+        table_content = table_section["content"]
 
-        # Rama z tabelą kosztów (będzie się odświeżać)
-        self.costs_frame = ctk.CTkScrollableFrame(tab)
-        self.costs_frame.pack(fill="both", expand=True, padx=10, pady=5)
+        filter_row = ctk.CTkFrame(table_content, fg_color="transparent")
+        filter_row.pack(fill="x", pady=(0, 8))
+        ctk.CTkLabel(filter_row, text="Filtr tabeli:", font=FONT_BODY_BOLD).pack(side="left", padx=(0, 8))
+        self.cost_filter_entry = ctk.CTkEntry(
+            filter_row,
+            textvariable=self.cost_filter_var,
+            placeholder_text="Wpisz fragment nazwy cechy lub umiejętności",
+            width=340,
+            height=36,
+        )
+        self.cost_filter_entry.pack(side="left", padx=(0, 8))
+        self.cost_filter_entry.bind("<KeyRelease>", lambda _event: self.refresh_costs_display())
+        ctk.CTkButton(
+            filter_row,
+            text="Wyczyść filtr",
+            command=self.clear_cost_filter,
+            width=120,
+            height=36,
+            fg_color=COLOR_SURFACE_SOFT,
+            hover_color="#48505e",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left")
+
+        self.costs_frame = ctk.CTkScrollableFrame(
+            table_content,
+            fg_color=COLOR_SURFACE,
+            corner_radius=16,
+            border_width=1,
+            border_color=COLOR_BORDER,
+            height=520,
+        )
+        self.costs_frame.pack(fill="both", expand=True)
 
         self.refresh_cost_options()
 
     def refresh_cost_options(self) -> None:
         """Odświeża listę pozycji dostępnych w kalkulatorze kosztów."""
+        if not self.cost_options_dirty and hasattr(self, "cost_combo"):
+            self.on_calculate_cost()
+            return
+
         options = list(self.data_manager.attributes.keys()) + sorted(
             self.data_manager.skills.keys(),
             key=str.casefold,
         )
 
         self.cost_combo.configure(values=options or [""])
+        self.cost_options_dirty = False
 
         current_selection = self.cost_combo.get().strip()
         if current_selection not in options:
@@ -605,110 +1293,256 @@ class CharacterSheetApp(ctk.CTk):
 
         return None
 
+    def _build_cost_row(
+        self,
+        parent,
+        label: str,
+        current_adv: int,
+        advancement_type: str,
+        category_short: str = "",
+    ) -> None:
+        """Tworzy pojedynczy wiersz tabeli kosztów."""
+        row = ctk.CTkFrame(parent, fg_color=COLOR_SURFACE_ALT, corner_radius=12)
+        row.pack(fill="x", pady=3)
+        ctk.CTkLabel(
+            row,
+            text=category_short,
+            font=FONT_BODY_BOLD,
+            width=72,
+            text_color=COLOR_TEXT_MUTED,
+        ).pack(side="left", padx=(10, 4), pady=6)
+        ctk.CTkLabel(
+            row,
+            text=label,
+            font=FONT_BODY_BOLD,
+            width=250,
+            anchor="w",
+            justify="left",
+        ).pack(side="left", padx=(0, 6), pady=6)
+
+        for num_adv in [5, 10, 15, 20]:
+            cost = calculate_advancement_cost(advancement_type, current_adv, num_adv)
+            ctk.CTkLabel(
+                row,
+                text=str(cost),
+                width=78,
+                font=FONT_BODY,
+                text_color=COLOR_ACCENT,
+            ).pack(side="left", padx=2, pady=6)
+
+    def _get_cost_table_skill_entries(self, filter_text: str) -> List[Tuple[str, Dict]]:
+        """Zwraca odfiltrowane umiejętności do tabeli kosztów."""
+        entries = []
+        for skill_name, skill_data in self.data_manager.skills.items():
+            skill_filter_blob = f"{skill_name} {get_skill_category(skill_name)}"
+            if filter_text and filter_text not in normalize_search_text(skill_filter_blob):
+                continue
+            entries.append((skill_name, skill_data))
+        return entries
+
     def refresh_costs_display(self) -> None:
         """Odświeża tabelę kosztów."""
         self.refresh_cost_options()
+        filter_text = normalize_search_text(self.cost_filter_var.get())
+        self.cost_layout_mode = max(self.costs_frame.winfo_width(), self.winfo_width()) >= 1500
 
         # Wyczyść ramkę
         for widget in self.costs_frame.winfo_children():
             widget.destroy()
 
         # Nagłówek tabeli
-        header = ctk.CTkFrame(self.costs_frame)
+        header = ctk.CTkFrame(self.costs_frame, fg_color=COLOR_SURFACE_SOFT, corner_radius=12)
         header.pack(fill="x", pady=5)
-        ctk.CTkLabel(header, text="Cecha/Umiejętność", font=("Arial", 14, "bold"), width=180).pack(side="left", padx=2)
-        ctk.CTkLabel(header, text="5 rozw.", font=("Arial", 14, "bold"), width=80).pack(side="left", padx=2)
-        ctk.CTkLabel(header, text="10 rozw.", font=("Arial", 14, "bold"), width=80).pack(side="left", padx=2)
-        ctk.CTkLabel(header, text="15 rozw.", font=("Arial", 14, "bold"), width=80).pack(side="left", padx=2)
-        ctk.CTkLabel(header, text="20 rozw.", font=("Arial", 14, "bold"), width=80).pack(side="left", padx=2)
+        ctk.CTkLabel(header, text="Typ", font=FONT_BODY_BOLD, width=72).pack(side="left", padx=(10, 4), pady=8)
+        ctk.CTkLabel(header, text="Cecha / Umiejętność", font=FONT_BODY_BOLD, width=250).pack(side="left", padx=(0, 6), pady=8)
+        ctk.CTkLabel(header, text="5 rozw.", font=FONT_BODY_BOLD, width=78).pack(side="left", padx=2, pady=8)
+        ctk.CTkLabel(header, text="10 rozw.", font=FONT_BODY_BOLD, width=78).pack(side="left", padx=2, pady=8)
+        ctk.CTkLabel(header, text="15 rozw.", font=FONT_BODY_BOLD, width=78).pack(side="left", padx=2, pady=8)
+        ctk.CTkLabel(header, text="20 rozw.", font=FONT_BODY_BOLD, width=78).pack(side="left", padx=2, pady=8)
 
         # Koszty dla cech
-        ctk.CTkLabel(self.costs_frame, text="─ CECHY ─", font=("Arial", 13, "bold"), text_color=COLOR_SUCCESS).pack(anchor="w", padx=5, pady=5)
+        ctk.CTkLabel(self.costs_frame, text="─ CECHY ─", font=FONT_SECTION, text_color=COLOR_SUCCESS).pack(anchor="w", padx=6, pady=(8, 5))
 
         for attr_name in self.data_manager.attributes.keys():
-            row = ctk.CTkFrame(self.costs_frame)
-            row.pack(fill="x", pady=2)
-            ctk.CTkLabel(row, text=attr_name, font=("Arial", 13), width=180).pack(side="left", padx=2)
-
+            searchable_name = f"{attr_name} {ATTRIBUTE_DETAILS[attr_name]}"
+            if filter_text and filter_text not in normalize_search_text(searchable_name):
+                continue
             current_adv = self.data_manager.attributes[attr_name]["advanced"]
-
-            for num_adv in [5, 10, 15, 20]:
-                cost = calculate_advancement_cost("cecha", current_adv, num_adv)
-                ctk.CTkLabel(row, text=str(cost), width=80, text_color=COLOR_ACCENT).pack(side="left", padx=2)
+            profession_suffix = " +" if self.data_manager.attributes[attr_name].get("profession_available") else ""
+            label = f"{ATTRIBUTE_DETAILS[attr_name]} ({attr_name}){profession_suffix}"
+            self._build_cost_row(self.costs_frame, label, current_adv, "cecha", "Cecha")
 
         # Koszty dla umiejętności
-        ctk.CTkLabel(self.costs_frame, text="─ UMIEJĘTNOŚCI ─", font=("Arial", 13, "bold"), text_color=COLOR_SUCCESS).pack(anchor="w", padx=5, pady=(10, 5))
+        ctk.CTkLabel(self.costs_frame, text="─ UMIEJĘTNOŚCI ─", font=FONT_SECTION, text_color=COLOR_SUCCESS).pack(anchor="w", padx=6, pady=(12, 5))
 
-        for skill_name in self.data_manager.skills.keys():
-            row = ctk.CTkFrame(self.costs_frame)
-            row.pack(fill="x", pady=2)
-            ctk.CTkLabel(row, text=skill_name, font=("Arial", 13), width=180).pack(side="left", padx=2)
+        skill_entries = self._get_cost_table_skill_entries(filter_text)
+        is_two_column = self.cost_layout_mode and len(skill_entries) > 8
 
-            current_adv = self.data_manager.skills[skill_name]["advanced"]
+        grouped_skill_entries = {
+            SKILL_CATEGORY_BASIC: [],
+            SKILL_CATEGORY_ADVANCED: [],
+        }
+        for skill_name, skill_data in skill_entries:
+            grouped_skill_entries[get_skill_category(skill_name)].append((skill_name, skill_data))
 
-            for num_adv in [5, 10, 15, 20]:
-                cost = calculate_advancement_cost("umiejetnosc", current_adv, num_adv)
-                ctk.CTkLabel(row, text=str(cost), width=80, text_color=COLOR_ACCENT).pack(side="left", padx=2)
+        if is_two_column:
+            columns = ctk.CTkFrame(self.costs_frame, fg_color="transparent")
+            columns.pack(fill="both", expand=True)
+            left_column = ctk.CTkFrame(columns, fg_color="transparent")
+            right_column = ctk.CTkFrame(columns, fg_color="transparent")
+            left_column.pack(side="left", fill="both", expand=True, padx=(0, 8))
+            separator = ctk.CTkFrame(columns, fg_color=COLOR_BORDER, width=2)
+            separator.pack(side="left", fill="y", padx=4)
+            right_column.pack(side="left", fill="both", expand=True, padx=(8, 0))
+
+            ordered_skill_entries = (
+                grouped_skill_entries[SKILL_CATEGORY_BASIC]
+                + grouped_skill_entries[SKILL_CATEGORY_ADVANCED]
+            )
+            midpoint = (len(ordered_skill_entries) + 1) // 2
+            column_data = [ordered_skill_entries[:midpoint], ordered_skill_entries[midpoint:]]
+            column_frames = [left_column, right_column]
+        else:
+            single_column = ctk.CTkFrame(self.costs_frame, fg_color="transparent")
+            single_column.pack(fill="both", expand=True)
+            column_data = [None]
+            column_frames = [single_column]
+
+        if is_two_column:
+            for column_frame, entries in zip(column_frames, column_data):
+                for skill_name, skill_data in entries:
+                    self._build_cost_row(
+                        column_frame,
+                        self._format_skill_display_name(skill_name),
+                        skill_data["advanced"],
+                        "umiejetnosc",
+                        get_skill_category_short(skill_name),
+                    )
+        else:
+            for category_name, title in (
+                (SKILL_CATEGORY_BASIC, "Podstawowe"),
+                (SKILL_CATEGORY_ADVANCED, "Zaawansowane / grupowe"),
+            ):
+                entries = grouped_skill_entries[category_name]
+                if not entries:
+                    continue
+                ctk.CTkLabel(
+                    single_column,
+                    text=title,
+                    font=FONT_BODY_BOLD,
+                    text_color=COLOR_TEXT_MUTED,
+                ).pack(anchor="w", padx=6, pady=(6, 2))
+                for skill_name, skill_data in entries:
+                    self._build_cost_row(
+                        single_column,
+                        self._format_skill_display_name(skill_name),
+                        skill_data["advanced"],
+                        "umiejetnosc",
+                        get_skill_category_short(skill_name),
+                    )
 
     def create_add_skill_tab(self) -> None:
         """Zakładka: Dodaj umiejętność."""
-        tab = self.notebook.add("Dodaj Umiejętność")
+        _, wrapper = self._create_tab_shell(
+            "Dodaj Umiejętność",
+            "Dodaj nową umiejętność",
+            "Tu dopiszesz niestandardowe umiejętności, które nie występują jeszcze w arkuszu postaci. Nowa pozycja od razu pojawi się na liście i będzie mogła zostać zatwierdzona albo cofnięta.",
+        )
 
-        frame = ctk.CTkFrame(tab)
-        frame.pack(fill="both", expand=True, padx=20, pady=20)
+        frame = ctk.CTkFrame(
+            wrapper,
+            fg_color=COLOR_SURFACE_ALT,
+            corner_radius=18,
+            border_width=1,
+            border_color=COLOR_BORDER,
+        )
+        frame.pack(fill="both", expand=True)
 
-        ctk.CTkLabel(frame, text="Dodaj nową umiejętność", font=("Arial", 17, "bold")).pack(pady=10)
+        ctk.CTkLabel(frame, text="Formularz dodawania", font=FONT_TITLE).pack(anchor="w", padx=18, pady=(18, 10))
 
         # Nazwa umiejętności
-        ctk.CTkLabel(frame, text="Nazwa umiejętności:").pack(anchor="w", pady=(10, 0))
-        self.skill_name_entry = ctk.CTkEntry(frame, placeholder_text="np. Atakowanie mieczem")
-        self.skill_name_entry.pack(fill="x", pady=5)
+        ctk.CTkLabel(frame, text="Nazwa umiejętności:", font=FONT_BODY_BOLD).pack(anchor="w", padx=18, pady=(10, 0))
+        self.skill_name_entry = ctk.CTkEntry(frame, placeholder_text="np. Broń Biała (Kawaleryjska)")
+        self.skill_name_entry.pack(fill="x", padx=18, pady=5)
 
         # Wybór atrybutu
-        ctk.CTkLabel(frame, text="Atrybut:").pack(anchor="w", pady=(10, 0))
+        ctk.CTkLabel(frame, text="Atrybut:", font=FONT_BODY_BOLD).pack(anchor="w", padx=18, pady=(10, 0))
         self.skill_attr_combo = ctk.CTkComboBox(
             frame, values=ATTRIBUTES
         )
-        self.skill_attr_combo.pack(fill="x", pady=5)
+        self.skill_attr_combo.pack(fill="x", padx=18, pady=5)
 
         # Rozwinięcia
-        ctk.CTkLabel(frame, text="Rozwinięcia:").pack(anchor="w", pady=(10, 0))
+        ctk.CTkLabel(frame, text="Rozwinięcia:", font=FONT_BODY_BOLD).pack(anchor="w", padx=18, pady=(10, 0))
         self.skill_advanced_spinbox = ctk.CTkEntry(frame, placeholder_text="0", width=100)
         self.skill_advanced_spinbox.insert(0, "0")
-        self.skill_advanced_spinbox.pack(fill="x", pady=5)
+        self.skill_advanced_spinbox.pack(fill="x", padx=18, pady=5)
 
         # Przycisk
         ctk.CTkButton(
             frame, text="Dodaj Umiejętność", command=self.on_add_skill,
-            fg_color=COLOR_SUCCESS, height=40
-        ).pack(fill="x", pady=20)
+            fg_color=COLOR_SUCCESS, height=42, font=FONT_BODY_BOLD
+        ).pack(fill="x", padx=18, pady=20)
 
         # Info
         info = ctk.CTkLabel(
             frame,
             text="Nowa umiejętność zostanie dodana do postaci.\nWartość początkowa będzie równa wartości przypisanej cechy.",
-            text_color="#888888"
+            text_color=COLOR_TEXT_MUTED,
+            font=FONT_BODY,
         )
-        info.pack(pady=10)
+        info.pack(anchor="w", padx=18, pady=(0, 18))
 
     def create_experience_tab(self) -> None:
         """Zakładka: Zarządzanie doświadczeniem."""
-        tab = self.notebook.add("Doświadczenie")
+        _, wrapper = self._create_tab_shell(
+            "Doświadczenie",
+            "Zarządzanie doświadczeniem",
+            "Dodawaj pulę PD ręcznie albo szybkim przyciskiem. Wszystkie zmiany od razu wpływają na maksymalną liczbę możliwych rozwinięć.",
+        )
 
-        frame = ctk.CTkFrame(tab)
-        frame.pack(fill="both", expand=True, padx=20, pady=20)
+        frame = ctk.CTkFrame(
+            wrapper,
+            corner_radius=18,
+            fg_color=COLOR_SURFACE_ALT,
+            border_width=1,
+            border_color=COLOR_BORDER,
+        )
+        frame.pack(fill="both", expand=True)
 
-        ctk.CTkLabel(frame, text="Zarządzanie doświadczeniem", font=("Arial", 14, "bold")).pack(pady=10)
+        ctk.CTkLabel(frame, text="Panel doświadczenia", font=FONT_TITLE).pack(anchor="w", padx=18, pady=(18, 6))
+        self.exp_total_label = ctk.CTkLabel(
+            frame,
+            text="Łączna pula postaci: 0 PD",
+            font=FONT_BODY,
+            text_color=COLOR_TEXT_MUTED,
+        )
+        self.exp_total_label.pack(anchor="w", padx=18, pady=(0, 10))
 
         # Aktualne doświadczenie
-        ctk.CTkLabel(frame, text="Dostępne PD:", font=("Arial", 12)).pack(anchor="w", pady=(10, 0))
-        self.exp_entry = ctk.CTkEntry(frame)
-        self.exp_entry.pack(fill="x", pady=5)
+        ctk.CTkLabel(frame, text="Dostępne PD:", font=FONT_BODY_BOLD).pack(anchor="w", padx=18, pady=(10, 0))
+        exp_value_frame = ctk.CTkFrame(frame, fg_color="transparent")
+        exp_value_frame.pack(fill="x", padx=18, pady=5)
+
+        self.exp_entry = ctk.CTkEntry(exp_value_frame)
+        self.exp_entry.pack(side="left", fill="x", expand=True, padx=(0, 8))
+        self.exp_entry.bind("<Return>", lambda _event: self.on_set_experience_value())
+
+        ctk.CTkButton(
+            exp_value_frame,
+            text="Ustaw wartość",
+            command=self.on_set_experience_value,
+            width=120,
+            height=36,
+            fg_color=COLOR_SURFACE_SOFT,
+            hover_color="#48505e",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left")
 
         # Dodaj doświadczenie
-        ctk.CTkLabel(frame, text="Dodaj doświadczenie:").pack(anchor="w", pady=(10, 0))
+        ctk.CTkLabel(frame, text="Dodaj doświadczenie:", font=FONT_BODY_BOLD).pack(anchor="w", padx=18, pady=(10, 0))
         add_frame = ctk.CTkFrame(frame)
-        add_frame.pack(fill="x", pady=5)
+        add_frame.pack(fill="x", padx=18, pady=5)
 
         self.exp_add_entry = ctk.CTkEntry(add_frame, placeholder_text="Ilość PD")
         self.exp_add_entry.pack(side="left", fill="x", expand=True, padx=(0, 5))
@@ -719,7 +1553,7 @@ class CharacterSheetApp(ctk.CTk):
 
         # Przyciski szybkie
         quick_frame = ctk.CTkFrame(frame)
-        quick_frame.pack(fill="x", pady=10)
+        quick_frame.pack(fill="x", padx=18, pady=(10, 18))
 
         for amount in [10, 25, 50, 100]:
             ctk.CTkButton(
@@ -729,10 +1563,32 @@ class CharacterSheetApp(ctk.CTk):
 
     def create_history_tab(self) -> None:
         """Zakładka: Historia działań."""
-        tab = self.notebook.add("Historia")
+        _, wrapper = self._create_tab_shell(
+            "Historia",
+            "Historia działań",
+            "Tutaj zobaczysz chronologiczny zapis ważnych operacji: wczytań, zatwierdzeń, cofnięć, dodawania PD i zmian na umiejętnościach.",
+        )
 
-        self.history_text = ctk.CTkTextbox(tab)
-        self.history_text.pack(fill="both", expand=True, padx=10, pady=10)
+        header = ctk.CTkFrame(wrapper, fg_color="transparent")
+        header.pack(fill="x", pady=(0, 10))
+        self.status_chip = self._create_info_chip(
+            header,
+            "Brak oczekujących zmian",
+            COLOR_SUCCESS,
+        )
+        self.source_chip = self._create_info_chip(
+            header,
+            "Źródło: Excel",
+            COLOR_SURFACE_SOFT,
+        )
+
+        self.history_text = ctk.CTkTextbox(
+            wrapper,
+            fg_color=COLOR_SURFACE,
+            border_width=1,
+            border_color=COLOR_BORDER,
+        )
+        self.history_text.pack(fill="both", expand=True)
         self.history_text.configure(state="disabled")
 
     # ========================================================================
@@ -757,7 +1613,13 @@ class CharacterSheetApp(ctk.CTk):
 
     def _create_attribute_row_cached(self, attr_name: str, attr_data: Dict) -> None:
         """Tworzy wiersz cechy i przechowuje referencje do widgetów."""
-        row = ctk.CTkFrame(self.attributes_frame)
+        row = ctk.CTkFrame(
+            self.attributes_frame,
+            fg_color=COLOR_SURFACE_ALT,
+            corner_radius=14,
+            border_width=1,
+            border_color=COLOR_BORDER,
+        )
         row.pack(fill="x", pady=5, padx=10)
 
         labels = []
@@ -765,14 +1627,14 @@ class CharacterSheetApp(ctk.CTk):
 
         # Nazwa cechy
         lbl_name = ctk.CTkLabel(
-            row, text=attr_name, font=("Arial", 11, "bold"), width=60
+            row, text=self._format_attribute_display_name(attr_name), font=FONT_BODY_BOLD, width=80, anchor="w"
         )
-        lbl_name.pack(side="left", padx=5)
+        lbl_name.pack(side="left", padx=10, pady=10)
         labels.append(("name", lbl_name))
 
         # Wartość początkowa
         lbl_initial = ctk.CTkLabel(
-            row, text=f"Pocz: {attr_data['initial']}", width=60
+            row, text=f"Pocz: {attr_data['initial']}", width=82, font=FONT_BODY
         )
         lbl_initial.pack(side="left", padx=2)
         labels.append(("initial", lbl_initial))
@@ -780,14 +1642,14 @@ class CharacterSheetApp(ctk.CTk):
         # Rozwinięcia
         current_adv = attr_data["advanced"]
         lbl_adv = ctk.CTkLabel(
-            row, text=f"Rozw: {current_adv}", width=60, text_color=COLOR_ACCENT
+            row, text=f"Rozw: {current_adv}", width=82, font=FONT_BODY_BOLD, text_color=COLOR_ACCENT
         )
         lbl_adv.pack(side="left", padx=2)
         labels.append(("adv", lbl_adv))
 
         # Bieżąca wartość
         lbl_current = ctk.CTkLabel(
-            row, text=f"Wartość: {attr_data['initial'] + current_adv}", width=80
+            row, text=f"Wartość: {attr_data['initial'] + current_adv}", width=110, font=FONT_BODY
         )
         lbl_current.pack(side="left", padx=2)
         labels.append(("current", lbl_current))
@@ -795,14 +1657,14 @@ class CharacterSheetApp(ctk.CTk):
         # Maksymalne rozwinięcia
         max_adv = self.get_max_advancements("cecha", attr_name)
         lbl_max = ctk.CTkLabel(
-            row, text=f"Maks: {max_adv}", width=60, text_color=COLOR_WARNING
+            row, text=f"Maks: {max_adv}", width=82, font=FONT_BODY_BOLD, text_color=COLOR_WARNING
         )
         lbl_max.pack(side="left", padx=2)
         labels.append(("max", lbl_max))
 
         # Przyciski
         btn_plus1 = ctk.CTkButton(
-            row, text="+1", width=40,
+            row, text="+1", width=46, height=34,
             command=lambda: self.on_increase_attribute(attr_name, 1),
             fg_color=COLOR_SUCCESS if self.can_afford_attribute(attr_name) else COLOR_ERROR
         )
@@ -810,7 +1672,7 @@ class CharacterSheetApp(ctk.CTk):
         buttons.append(("plus1", btn_plus1))
 
         btn_plus5 = ctk.CTkButton(
-            row, text="+5", width=40,
+            row, text="+5", width=46, height=34,
             command=lambda: self.on_increase_attribute(attr_name, 5),
             fg_color=COLOR_SUCCESS if max_adv >= 5 else COLOR_ERROR
         )
@@ -818,7 +1680,7 @@ class CharacterSheetApp(ctk.CTk):
         buttons.append(("plus5", btn_plus5))
 
         btn_minus1 = ctk.CTkButton(
-            row, text="-1", width=40,
+            row, text="-1", width=46, height=34,
             command=lambda: self.on_decrease_attribute(attr_name, 1),
             fg_color=COLOR_WARNING if current_adv > attr_data["base_advanced"] else "#555555"
         )
@@ -826,7 +1688,7 @@ class CharacterSheetApp(ctk.CTk):
         buttons.append(("minus1", btn_minus1))
 
         btn_minus5 = ctk.CTkButton(
-            row, text="-5", width=40,
+            row, text="-5", width=46, height=34,
             command=lambda: self.on_decrease_attribute(attr_name, 5),
             fg_color=COLOR_WARNING if current_adv > attr_data["base_advanced"] else "#555555"
         )
@@ -850,6 +1712,7 @@ class CharacterSheetApp(ctk.CTk):
                 max_adv = self.get_max_advancements("cecha", attr_name)
                 
                 # Aktualizuj wartości
+                labels["name"].configure(text=self._format_attribute_display_name(attr_name))
                 labels["adv"].configure(text=f"Rozw: {current_adv}")
                 labels["current"].configure(text=f"Wartość: {attr_data['initial'] + current_adv}")
                 labels["max"].configure(text=f"Maks: {max_adv}")
@@ -875,18 +1738,26 @@ class CharacterSheetApp(ctk.CTk):
             return
             
         # Wyczyść starą cache jeśli jest
-        for widget in self.skills_frame.winfo_children():
-            widget.destroy()
+        self._build_skill_sections()
         self.skill_rows.clear()
 
         for skill_name, skill_data in self.data_manager.skills.items():
             self._create_skill_row_cached(skill_name, skill_data)
 
         self.initialized_skills = True
+        self.apply_skill_filter()
 
     def _create_skill_row_cached(self, skill_name: str, skill_data: Dict) -> None:
         """Tworzy wiersz umiejętności i przechowuje referencje do widgetów."""
-        row = ctk.CTkFrame(self.skills_frame)
+        category = get_skill_category(skill_name)
+        parent_frame = self.skills_group_frames[category]["content"]
+        row = ctk.CTkFrame(
+            parent_frame,
+            fg_color=COLOR_SURFACE_ALT,
+            corner_radius=14,
+            border_width=1,
+            border_color=COLOR_BORDER,
+        )
         row.pack(fill="x", pady=5, padx=10)
 
         labels = []
@@ -895,19 +1766,29 @@ class CharacterSheetApp(ctk.CTk):
 
         # Nazwa umiejętności
         lbl_name = ctk.CTkLabel(
-            row, text=skill_name, font=("Arial", 11, "bold"), width=120
+            row, text=self._format_skill_display_name(skill_name), font=FONT_BODY_BOLD, width=240, anchor="w"
         )
-        lbl_name.pack(side="left", padx=2)
+        lbl_name.pack(side="left", padx=(10, 4), pady=10)
         labels.append(("name", lbl_name))
 
         # Atrybut
-        lbl_attr = ctk.CTkLabel(row, text=f"({skill_data['attribute']})", width=40)
+        lbl_attr = ctk.CTkLabel(row, text=f"({skill_data['attribute']})", width=52, font=FONT_BODY)
         lbl_attr.pack(side="left", padx=2)
         labels.append(("attr", lbl_attr))
 
+        lbl_category = ctk.CTkLabel(
+            row,
+            text=get_skill_category_short(skill_name),
+            width=72,
+            font=FONT_BODY_BOLD,
+            text_color=COLOR_TEXT_MUTED,
+        )
+        lbl_category.pack(side="left", padx=(2, 6))
+        labels.append(("category", lbl_category))
+
         # Wartość początkowa
         lbl_initial = ctk.CTkLabel(
-            row, text=f"Pocz: {skill_data['initial']}", width=50
+            row, text=f"Pocz: {skill_data['initial']}", width=82, font=FONT_BODY
         )
         lbl_initial.pack(side="left", padx=2)
         labels.append(("initial", lbl_initial))
@@ -915,14 +1796,14 @@ class CharacterSheetApp(ctk.CTk):
         # Rozwinięcia
         current_adv = skill_data["advanced"]
         lbl_adv = ctk.CTkLabel(
-            row, text=f"Rozw: {current_adv}", width=50, text_color=COLOR_ACCENT
+            row, text=f"Rozw: {current_adv}", width=82, font=FONT_BODY_BOLD, text_color=COLOR_ACCENT
         )
         lbl_adv.pack(side="left", padx=2)
         labels.append(("adv", lbl_adv))
 
         # Bieżąca wartość
         lbl_current = ctk.CTkLabel(
-            row, text=f"Suma: {skill_data['initial'] + current_adv}", width=50
+            row, text=f"Suma: {skill_data['initial'] + current_adv}", width=82, font=FONT_BODY
         )
         lbl_current.pack(side="left", padx=2)
         labels.append(("current", lbl_current))
@@ -930,14 +1811,14 @@ class CharacterSheetApp(ctk.CTk):
         # Maksymalne rozwinięcia
         max_adv = self.get_max_advancements("umiejetnosc", skill_name)
         lbl_max = ctk.CTkLabel(
-            row, text=f"Maks: {max_adv}", width=50, text_color=COLOR_WARNING
+            row, text=f"Maks: {max_adv}", width=82, font=FONT_BODY_BOLD, text_color=COLOR_WARNING
         )
         lbl_max.pack(side="left", padx=2)
         labels.append(("max", lbl_max))
 
         # Przyciski
         btn_plus1 = ctk.CTkButton(
-            row, text="+1", width=40,
+            row, text="+1", width=46, height=34,
             command=lambda: self.on_increase_skill(skill_name, 1),
             fg_color=COLOR_SUCCESS if self.can_afford_skill(skill_name) else COLOR_ERROR
         )
@@ -945,7 +1826,7 @@ class CharacterSheetApp(ctk.CTk):
         buttons.append(("plus1", btn_plus1))
 
         btn_plus5 = ctk.CTkButton(
-            row, text="+5", width=40,
+            row, text="+5", width=46, height=34,
             command=lambda: self.on_increase_skill(skill_name, 5),
             fg_color=COLOR_SUCCESS if max_adv >= 5 else COLOR_ERROR
         )
@@ -953,7 +1834,7 @@ class CharacterSheetApp(ctk.CTk):
         buttons.append(("plus5", btn_plus5))
 
         btn_minus1 = ctk.CTkButton(
-            row, text="-1", width=40,
+            row, text="-1", width=46, height=34,
             command=lambda: self.on_decrease_skill(skill_name, 1),
             fg_color=COLOR_WARNING if current_adv > minimum_advancement else "#555555"
         )
@@ -961,7 +1842,7 @@ class CharacterSheetApp(ctk.CTk):
         buttons.append(("minus1", btn_minus1))
 
         btn_minus5 = ctk.CTkButton(
-            row, text="-5", width=40,
+            row, text="-5", width=46, height=34,
             command=lambda: self.on_decrease_skill(skill_name, 5),
             fg_color=COLOR_WARNING if current_adv > minimum_advancement else "#555555"
         )
@@ -971,7 +1852,7 @@ class CharacterSheetApp(ctk.CTk):
         # Przycisk usuń - tylko dla umiejętności dodanych
         if skill_data.get("is_new", False):
             btn_delete = ctk.CTkButton(
-                row, text="Usuń", width=50,
+                row, text="Usuń", width=62, height=34,
                 command=lambda: self.on_delete_skill(skill_name),
                 fg_color=COLOR_ERROR
             )
@@ -980,6 +1861,7 @@ class CharacterSheetApp(ctk.CTk):
 
         self.skill_rows[skill_name] = {
             "row": row,
+            "group": category,
             "labels": labels,
             "buttons": buttons,
         }
@@ -996,9 +1878,11 @@ class CharacterSheetApp(ctk.CTk):
                 minimum_advancement = self._get_minimum_skill_advancement(skill_data)
                 
                 # Aktualizuj wartości
+                labels["name"].configure(text=self._format_skill_display_name(skill_name))
                 labels["adv"].configure(text=f"Rozw: {current_adv}")
                 labels["current"].configure(text=f"Suma: {skill_data['initial'] + current_adv}")
                 labels["max"].configure(text=f"Maks: {max_adv}")
+                labels["category"].configure(text=get_skill_category_short(skill_name))
                 
                 # Aktualizuj kolory przycisków
                 buttons = dict(row_data["buttons"])
@@ -1017,8 +1901,96 @@ class CharacterSheetApp(ctk.CTk):
         """Compatibility wrapper - teraz tylko aktualizuje, nie niszczy widgety."""
         if self.initialized_skills:
             self._update_all_skill_labels()
+            self.apply_skill_filter()
         else:
             self.initialize_skills_display()
+
+    def clear_skill_filter(self) -> None:
+        """Czyści aktywny filtr listy umiejętności."""
+        self.skill_filter_var.set("")
+        self.skill_attribute_filter_var.set(ATTRIBUTE_FILTER_ALL)
+        self.apply_skill_filter()
+
+    def clear_cost_filter(self) -> None:
+        """Czyści filtr tabeli kosztów."""
+        self.cost_filter_var.set("")
+        self.refresh_costs_display()
+
+    def apply_skill_filter(self) -> None:
+        """Filtruje widoczne umiejętności po nazwie lub atrybucie."""
+        if not hasattr(self, "skills_frame"):
+            return
+
+        query = normalize_search_text(self.skill_filter_var.get())
+        selected_attribute = self.skill_attribute_filter_var.get()
+        exact_attribute = None
+        if selected_attribute and selected_attribute != ATTRIBUTE_FILTER_ALL:
+            exact_attribute = get_attribute_code_from_filter_label(selected_attribute)
+
+        suggested_attribute = self._get_attribute_suggestion(query) if query else None
+        visible_count = 0
+        total_count = len(self.skill_rows)
+        visible_by_group = {
+            SKILL_CATEGORY_BASIC: 0,
+            SKILL_CATEGORY_ADVANCED: 0,
+        }
+
+        for skill_name, row_data in self.skill_rows.items():
+            skill_data = self.data_manager.skills.get(skill_name, {})
+            searchable_text = normalize_search_text(
+                f"{skill_name} {skill_data.get('attribute', '')} {get_skill_category(skill_name)} {get_skill_category_short(skill_name)}"
+            )
+            matches_query = not query or query in searchable_text
+            matches_attribute = not exact_attribute or skill_data.get("attribute") == exact_attribute
+            should_show = matches_query and matches_attribute
+            if should_show:
+                row_data["row"].pack(fill="x", pady=5, padx=10)
+                visible_count += 1
+                visible_by_group[row_data["group"]] += 1
+            else:
+                row_data["row"].pack_forget()
+
+        for group_name, group_data in self.skills_group_frames.items():
+            if visible_by_group[group_name] > 0:
+                group_data["section"].pack(fill="x", padx=10, pady=(8, 6))
+            else:
+                group_data["section"].pack_forget()
+
+        if suggested_attribute and exact_attribute != suggested_attribute:
+            self.skill_filter_hint_button.configure(
+                text=f"Filtruj dokładnie po: {get_attribute_filter_label(suggested_attribute)}",
+            )
+            self.skill_filter_hint_button.pack(side="left", padx=(0, 12), pady=14)
+        else:
+            self.skill_filter_hint_button.pack_forget()
+
+        self.skill_summary_var.set(
+            f"Wyświetlane umiejętności: {visible_count} / {total_count}"
+        )
+
+    def _get_attribute_suggestion(self, query: str) -> Optional[str]:
+        """Zwraca sugerowany atrybut dla wpisanego tekstu filtra."""
+        if not query:
+            return None
+
+        for attr_code, attr_name in ATTRIBUTE_DETAILS.items():
+            variants = {
+                normalize_search_text(attr_code),
+                normalize_search_text(attr_name),
+            }
+            if any(value.startswith(query) or query == value for value in variants):
+                return attr_code
+        return None
+
+    def apply_suggested_attribute_filter(self) -> None:
+        """Ustawia dokładny filtr atrybutu na podstawie bieżącej podpowiedzi."""
+        suggested_attribute = self._get_attribute_suggestion(
+            normalize_search_text(self.skill_filter_var.get())
+        )
+        if not suggested_attribute:
+            return
+        self.skill_attribute_filter_var.set(get_attribute_filter_label(suggested_attribute))
+        self.apply_skill_filter()
 
     def on_increase_attribute(self, attr_name: str, amount: int = 1) -> None:
         """Zwiększa rozwinięcie cechy (pokazowe, do zatwierdzenia)."""
@@ -1060,7 +2032,7 @@ class CharacterSheetApp(ctk.CTk):
 
         self.refresh_attributes_display() if advancement_type == "cecha" else self.refresh_skills_display()
         self.update_experience_display()
-        self.refresh_costs_display()
+        self.refresh_costs_if_visible()
 
     def _decrease_advancement(self, advancement_type: str, item_name: str, amount: int) -> None:
         """Helper do zmniejszania rozwiniec."""
@@ -1093,7 +2065,7 @@ class CharacterSheetApp(ctk.CTk):
 
         self.refresh_attributes_display() if advancement_type == "cecha" else self.refresh_skills_display()
         self.update_experience_display()
-        self.refresh_costs_display()
+        self.refresh_costs_if_visible()
 
     def can_afford_attribute(self, attr_name: str) -> bool:
         """Sprawdza, czy stać postać na rozwinięcie cechy."""
@@ -1187,6 +2159,11 @@ class CharacterSheetApp(ctk.CTk):
                     f"Nowa umiejętność {skill_name} ({skill_data['attribute']})"
                 )
 
+        experience_delta = self.pending_changes["experience_delta"]
+        if experience_delta:
+            direction = "+" if experience_delta > 0 else ""
+            details.append(f"Dostępne PD ustawione / zmienione: {direction}{experience_delta} PD")
+
         # Potwierdzenie
         details_text = "\n".join(details)
         result = messagebox.askyesno(
@@ -1221,9 +2198,12 @@ class CharacterSheetApp(ctk.CTk):
 
             self.pending_changes = self._create_empty_pending_changes()
 
-            # Zapisz do Excel
+            # Zapisz do aktualnego źródła
             if self.data_manager.file_path:
-                self.data_manager.save_to_excel()
+                if self.data_manager.source_type == FILE_TYPE_PDF:
+                    self.data_manager.save_to_pdf(self.data_manager.file_path)
+                else:
+                    self.data_manager.save_to_excel(self.data_manager.file_path)
 
             self.history_manager.add_entry("Zatwierdzono zmiany", f"Koszt: {total_cost} PD")
 
@@ -1232,7 +2212,7 @@ class CharacterSheetApp(ctk.CTk):
             self.refresh_skills_display()
             self.update_experience_display()
             self.refresh_history_display()
-            self.refresh_costs_display()
+            self.refresh_costs_if_visible(force=True)
 
     def on_revert_changes(self) -> None:
         """Cofa wszystkie oczekujące zmiany."""
@@ -1286,6 +2266,8 @@ class CharacterSheetApp(ctk.CTk):
 
             # Przywróć doświadczenie
             self.data_manager.experience["available"] += total_refund
+            self.data_manager.experience["available"] -= self.pending_changes["experience_delta"]
+            self.data_manager.experience["total"] -= self.pending_changes["experience_delta"]
             
             self.pending_changes = self._create_empty_pending_changes()
 
@@ -1296,7 +2278,7 @@ class CharacterSheetApp(ctk.CTk):
             self.refresh_skills_display()
             self.update_experience_display()
             self.refresh_history_display()
-            self.refresh_costs_display()
+            self.refresh_costs_if_visible(force=True)
 
     def on_delete_skill(self, skill_name: str) -> None:
         """Usuwa umiejętność (tylko dodane)."""
@@ -1328,7 +2310,8 @@ class CharacterSheetApp(ctk.CTk):
             messagebox.showinfo("Sukces", f"Umiejętność '{skill_name}' usunięta!")
             self.refresh_skills_display()
             self.refresh_history_display()
-            self.refresh_costs_display()
+            self.cost_options_dirty = True
+            self.refresh_costs_if_visible(force=True)
 
     def on_add_skill(self) -> None:
         """Dodaje nową umiejętność."""
@@ -1372,9 +2355,10 @@ class CharacterSheetApp(ctk.CTk):
 
         # Odśwież wyświetlanie umiejętności
         self.initialized_skills = False
+        self.cost_options_dirty = True
         self.initialize_skills_display()
         self.refresh_history_display()
-        self.refresh_costs_display()
+        self.refresh_costs_if_visible(force=True)
     
     def _validate_skill_form(self, skill_name: str, attribute: str) -> Optional[str]:
         """Waliduje formularz dodania umiejętności. Zwraca None jeśli OK, inaczej komunikat błędu."""
@@ -1383,9 +2367,11 @@ class CharacterSheetApp(ctk.CTk):
         
         if not attribute:
             return "Wybierz atrybut."
-        
-        if skill_name in self.data_manager.skills:
-            return "Umiejętność o tej nazwie już istnieje."
+
+        normalized_new_name = normalize_skill_name(skill_name)
+        for existing_name in self.data_manager.skills:
+            if normalize_skill_name(existing_name) == normalized_new_name:
+                return f"Umiejętność o podobnej nazwie już istnieje: {existing_name}."
         
         return None
 
@@ -1403,6 +2389,7 @@ class CharacterSheetApp(ctk.CTk):
 
         self.data_manager.experience["available"] += amount
         self.data_manager.experience["total"] += amount
+        self.pending_changes["experience_delta"] += amount
 
         self.exp_add_entry.delete(0, "end")
 
@@ -1413,12 +2400,13 @@ class CharacterSheetApp(ctk.CTk):
         self.refresh_attributes_display()
         self.refresh_skills_display()
         self.refresh_history_display()
-        self.refresh_costs_display()
+        self.refresh_costs_if_visible()
 
     def on_quick_experience(self, amount: int) -> None:
         """Szybkie dodanie doświadczenia."""
         self.data_manager.experience["available"] += amount
         self.data_manager.experience["total"] += amount
+        self.pending_changes["experience_delta"] += amount
 
         self.history_manager.add_entry("Dodano doświadczenie", f"+{amount} PD")
 
@@ -1426,7 +2414,39 @@ class CharacterSheetApp(ctk.CTk):
         self.refresh_attributes_display()
         self.refresh_skills_display()
         self.refresh_history_display()
-        self.refresh_costs_display()
+        self.refresh_costs_if_visible()
+
+    def on_set_experience_value(self) -> None:
+        """Ustawia dokładną wartość dostępnego doświadczenia."""
+        try:
+            target_value = int(self.exp_entry.get())
+        except ValueError:
+            messagebox.showerror("Błąd", "Wpisz poprawną liczbę PD.")
+            self.update_experience_display()
+            return
+
+        if target_value < 0:
+            messagebox.showerror("Błąd", "Dostępne PD nie może być ujemne.")
+            self.update_experience_display()
+            return
+
+        current_value = self.data_manager.experience["available"]
+        delta = target_value - current_value
+        if delta == 0:
+            return
+
+        self.data_manager.experience["available"] = target_value
+        self.data_manager.experience["total"] += delta
+        self.pending_changes["experience_delta"] += delta
+
+        direction = "Ustawiono dostępne doświadczenie"
+        self.history_manager.add_entry(direction, f"{current_value} -> {target_value} PD")
+
+        self.update_experience_display()
+        self.refresh_attributes_display()
+        self.refresh_skills_display()
+        self.refresh_history_display()
+        self.refresh_costs_if_visible()
 
     def on_calculate_cost(self) -> None:
         """Oblicza koszt rozwinięć dla wybranej cechy/umiejętności."""
@@ -1461,13 +2481,24 @@ class CharacterSheetApp(ctk.CTk):
     def on_load_character(self) -> None:
         """Ładuje postać z pliku Excel."""
         file_path = filedialog.askopenfilename(
-            filetypes=[("Excel files", "*.xlsx"), ("All files", "*.*")]
+            filetypes=[
+                ("Obsługiwane pliki", "*.xlsx *.pdf"),
+                ("Excel files", "*.xlsx"),
+                ("PDF files", "*.pdf"),
+                ("All files", "*.*"),
+            ]
         )
 
         if not file_path:
             return
 
-        if self.data_manager.load_from_excel(file_path):
+        extension = Path(file_path).suffix.lower()
+        if extension == ".pdf":
+            was_loaded = self.data_manager.load_from_pdf(file_path)
+        else:
+            was_loaded = self.data_manager.load_from_excel(file_path)
+
+        if was_loaded:
             self.pending_changes = self._create_empty_pending_changes()
             # Reset flag aby reinicjalizować widgety z nowymi danymi
             self.initialized_attrs = False
@@ -1479,7 +2510,8 @@ class CharacterSheetApp(ctk.CTk):
             self.update_experience_display()
             self.refresh_history_display()
             self.update_character_info()
-            self.refresh_costs_display()
+            self.cost_options_dirty = True
+            self.refresh_costs_if_visible(force=True)
         else:
             messagebox.showerror("Błąd", "Nie można wczytać pliku.")
 
@@ -1492,17 +2524,43 @@ class CharacterSheetApp(ctk.CTk):
             )
             return
 
-        if not self.data_manager.file_path:
-            file_path = filedialog.asksaveasfilename(
-                defaultextension=".xlsx",
-                filetypes=[("Excel files", "*.xlsx"), ("All files", "*.*")]
+        file_path = self.data_manager.file_path
+        default_extension = ".pdf" if self.data_manager.source_type == FILE_TYPE_PDF else ".xlsx"
+        dialog_options = {
+            "defaultextension": default_extension,
+            "filetypes": [
+                ("PDF files", "*.pdf"),
+                ("Excel files", "*.xlsx"),
+                ("All files", "*.*"),
+            ],
+        }
+
+        if self.data_manager.file_path:
+            current_path = Path(self.data_manager.file_path)
+            save_current = messagebox.askyesnocancel(
+                "Zapis postaci",
+                f"Czy zapisać do bieżącego pliku?\n\n{current_path.name}\n\nWybierz 'Nie', aby wskazać nową lokalizację.",
             )
+            if save_current is None:
+                return
+            if not save_current:
+                dialog_options["initialdir"] = str(current_path.parent)
+                dialog_options["initialfile"] = current_path.name
+                file_path = filedialog.asksaveasfilename(**dialog_options)
+                if not file_path:
+                    return
+        else:
+            file_path = filedialog.asksaveasfilename(**dialog_options)
             if not file_path:
                 return
-        else:
-            file_path = self.data_manager.file_path
 
-        if self.data_manager.save_to_excel(file_path):
+        extension = Path(file_path).suffix.lower()
+        if extension == ".pdf" or self.data_manager.source_type == FILE_TYPE_PDF:
+            save_ok = self.data_manager.save_to_pdf(file_path)
+        else:
+            save_ok = self.data_manager.save_to_excel(file_path)
+
+        if save_ok:
             self.history_manager.add_entry("Zapisano postać", Path(file_path).name)
             messagebox.showinfo("Sukces", "Postać zapisana!")
             self.refresh_history_display()
@@ -1528,21 +2586,20 @@ class CharacterSheetApp(ctk.CTk):
             self.update_experience_display()
             self.refresh_history_display()
             self.update_character_info()
-            self.refresh_costs_display()
+            self.cost_options_dirty = True
+            self.refresh_costs_if_visible(force=True)
 
     def update_experience_display(self) -> None:
         """Aktualizuje wyświetlanie doświadczenia."""
         available = self.data_manager.experience["available"]
-        spent = self.data_manager.experience["spent"]
-        total = self.data_manager.experience["total"]
 
-        self.exp_label.configure(text=f"{available}/{total}")
         self.exp_entry.delete(0, "end")
         self.exp_entry.insert(0, str(available))
+        self.refresh_header_summary()
 
     def update_character_info(self) -> None:
         """Aktualizuje informacje o postaci."""
-        self.char_name_label.configure(text=self.data_manager.character_name)
+        self.refresh_header_summary()
 
     def refresh_history_display(self) -> None:
         """Odświeża wyświetlanie historii."""
@@ -1550,6 +2607,7 @@ class CharacterSheetApp(ctk.CTk):
         self.history_text.delete("1.0", "end")
         self.history_text.insert("1.0", self.history_manager.get_history_text())
         self.history_text.configure(state="disabled")
+        self.refresh_header_summary()
 
 
 # ============================================================================

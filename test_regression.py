@@ -14,18 +14,29 @@ from Postac_program_gui import CharacterSheetApp, DataManager, calculate_advance
 
 WORKSPACE_DIR = Path(__file__).resolve().parent
 EXCEL_FILE = WORKSPACE_DIR / "karta_postaci.xlsx"
+PDF_FILE = WORKSPACE_DIR / "Rein_Nuhr_lepsza_4ed.pdf"
 
 
 class CharacterSheetAppRegressionTests(unittest.TestCase):
     def setUp(self):
+        self.temp_dir = tempfile.TemporaryDirectory()
+        self.temp_excel = Path(self.temp_dir.name) / "karta_postaci_test.xlsx"
+        shutil.copyfile(EXCEL_FILE, self.temp_excel)
+        self.temp_history = Path(self.temp_dir.name) / "history_test.json"
         self.app = CharacterSheetApp()
         self.app.withdraw()
+        self.app.history_manager.json_file = str(self.temp_history)
+        self.app.history_manager.history = []
 
     def tearDown(self):
         self.app.destroy()
+        self.temp_dir.cleanup()
+
+    def load_test_excel(self):
+        self.assertTrue(self.app.data_manager.load_from_excel(str(self.temp_excel)))
 
     def test_confirm_keeps_reserved_xp_without_double_charge(self):
-        self.assertTrue(self.app.data_manager.load_from_excel(str(EXCEL_FILE)))
+        self.load_test_excel()
 
         start_available = self.app.data_manager.experience["available"]
         start_spent = self.app.data_manager.experience["spent"]
@@ -53,7 +64,7 @@ class CharacterSheetAppRegressionTests(unittest.TestCase):
         self.assertEqual(self.app.data_manager.experience["spent"], start_spent + cost)
 
     def test_cost_preview_uses_current_advancements(self):
-        self.assertTrue(self.app.data_manager.load_from_excel(str(EXCEL_FILE)))
+        self.load_test_excel()
 
         selection = "WW"
         desired_advancements = 7
@@ -89,6 +100,27 @@ class CharacterSheetAppRegressionTests(unittest.TestCase):
         self.assertFalse(self.app.data_manager.skills["Nowa Umiejętność"]["is_new"])
         self.assertEqual(self.app.data_manager.skills["Nowa Umiejętność"]["base_advanced"], 2)
 
+    def test_exact_attribute_filter_shows_matching_skills(self):
+        self.load_test_excel()
+        self.app.initialize_skills_display()
+
+        self.app.skill_attribute_filter_var.set("Inteligencja (Int)")
+        self.app.apply_skill_filter()
+
+        visible_skills = {
+            skill_name
+            for skill_name, row_data in self.app.skill_rows.items()
+            if row_data["row"].winfo_manager() == "pack"
+        }
+
+        self.assertTrue(visible_skills)
+        self.assertTrue(
+            all(
+                self.app.data_manager.skills[skill_name]["attribute"] == "Int"
+                for skill_name in visible_skills
+            )
+        )
+
 
 class DataManagerRegressionTests(unittest.TestCase):
     def test_save_to_excel_distributes_skills_between_blocks(self):
@@ -118,6 +150,49 @@ class DataManagerRegressionTests(unittest.TestCase):
 
         self.assertEqual(sum(block_lengths), len(data_manager.skills))
         self.assertEqual(block_lengths, [13, 13, 10])
+
+    def test_load_from_pdf_reads_rein_and_experience(self):
+        data_manager = DataManager()
+
+        self.assertTrue(data_manager.load_from_pdf(str(PDF_FILE)))
+
+        self.assertEqual(data_manager.character_name, "Rein Nuhr")
+        self.assertEqual(data_manager.experience["available"], 185)
+        self.assertEqual(data_manager.experience["spent"], 2260)
+        self.assertEqual(data_manager.experience["total"], 2445)
+        self.assertIn("Splatanie (Aqshy)", data_manager.skills)
+        self.assertIn("Broń Biała (Drzewcowa)", data_manager.skills)
+
+    def test_load_from_pdf_marks_profession_advancements(self):
+        data_manager = DataManager()
+
+        self.assertTrue(data_manager.load_from_pdf(str(PDF_FILE)))
+
+        self.assertTrue(data_manager.attributes["WW"]["profession_available"])
+        self.assertFalse(data_manager.attributes["US"]["profession_available"])
+        self.assertTrue(data_manager.skills["Broń Biała (Podstawowa)"]["profession_available"])
+        self.assertFalse(data_manager.skills["Atletyka"]["profession_available"])
+
+    def test_save_to_pdf_updates_form_fields(self):
+        data_manager = DataManager()
+        self.assertTrue(data_manager.load_from_pdf(str(PDF_FILE)))
+
+        data_manager.character_name = "Rein Test"
+        data_manager.experience["available"] = 321
+        data_manager.attributes["WW"]["advanced"] = 9
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_pdf = Path(temp_dir) / "rein_test.pdf"
+            self.assertTrue(data_manager.save_to_pdf(str(temp_pdf)))
+
+            from pypdf import PdfReader
+
+            reader = PdfReader(str(temp_pdf))
+            fields = reader.get_fields() or {}
+
+            self.assertEqual(fields["Imię"].get("/V"), "Rein Test")
+            self.assertEqual(str(fields["Aktualne_doświadczenie"].get("/V")), "321")
+            self.assertEqual(str(fields["WW_rozwieniecie"].get("/V")), "9")
 
 
 if __name__ == "__main__":
