@@ -121,6 +121,47 @@ class CharacterSheetAppRegressionTests(unittest.TestCase):
             )
         )
 
+    def test_skill_order_returns_after_clearing_filter(self):
+        self.load_test_excel()
+        self.app.initialize_skills_display()
+        self.app.update_idletasks()
+
+        basic_content = self.app.skills_group_frames["Podstawowa"]["content"]
+        row_to_name = {
+            row_data["row"]: skill_name
+            for skill_name, row_data in self.app.skill_rows.items()
+        }
+        original_order = [row_to_name[row] for row in basic_content.pack_slaves()]
+
+        self.app.skill_filter_var.set("Plotkowanie")
+        self.app.apply_skill_filter()
+        self.app.clear_skill_filter()
+        self.app.update_idletasks()
+
+        restored_order = [row_to_name[row] for row in basic_content.pack_slaves()]
+        self.assertEqual(restored_order, original_order)
+
+    def test_profession_only_filter_shows_only_plus_skills(self):
+        self.assertTrue(self.app.data_manager.load_from_pdf(str(PDF_FILE)))
+        self.app.initialize_skills_display()
+
+        self.app.skill_profession_filter_var.set(True)
+        self.app.apply_skill_filter()
+
+        visible_skills = {
+            skill_name
+            for skill_name, row_data in self.app.skill_rows.items()
+            if row_data["row"].winfo_manager() == "pack"
+        }
+
+        self.assertTrue(visible_skills)
+        self.assertTrue(
+            all(
+                self.app.data_manager.skills[skill_name].get("profession_available")
+                for skill_name in visible_skills
+            )
+        )
+
 
 class DataManagerRegressionTests(unittest.TestCase):
     def test_save_to_excel_distributes_skills_between_blocks(self):
@@ -176,10 +217,21 @@ class DataManagerRegressionTests(unittest.TestCase):
     def test_save_to_pdf_updates_form_fields(self):
         data_manager = DataManager()
         self.assertTrue(data_manager.load_from_pdf(str(PDF_FILE)))
+        talent_name = next(iter(data_manager.talents))
+        basic_skill_mapping = data_manager.pdf_mapping["skills"]["Broń Biała (Drzewcowa)"]
+        advanced_skill_mapping = data_manager.pdf_mapping["skills"]["Splatanie (Aqshy)"]
+        talent_mapping = data_manager.pdf_mapping["talents"][talent_name]
 
         data_manager.character_name = "Rein Test"
         data_manager.experience["available"] = 321
         data_manager.attributes["WW"]["advanced"] = 9
+        data_manager.skills["Broń Biała (Drzewcowa)"]["advanced"] = 11
+        data_manager.skills["Splatanie (Aqshy)"]["advanced"] = 7
+        data_manager.skills["Splatanie (Aqshy)"]["initial"] = 48
+        data_manager.talents[talent_name] = {
+            "advances": "2",
+            "description": "Test opisu talentu",
+        }
 
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_pdf = Path(temp_dir) / "rein_test.pdf"
@@ -193,6 +245,39 @@ class DataManagerRegressionTests(unittest.TestCase):
             self.assertEqual(fields["Imię"].get("/V"), "Rein Test")
             self.assertEqual(str(fields["Aktualne_doświadczenie"].get("/V")), "321")
             self.assertEqual(str(fields["WW_rozwieniecie"].get("/V")), "9")
+            self.assertEqual(
+                str(fields[basic_skill_mapping["specialization_field"]].get("/V")),
+                "Drzewcowa",
+            )
+            self.assertEqual(
+                str(fields[basic_skill_mapping["advanced_field"]].get("/V")),
+                "11",
+            )
+            self.assertEqual(
+                str(fields[advanced_skill_mapping["advanced_field"]].get("/V")),
+                "7",
+            )
+            self.assertEqual(
+                str(fields[advanced_skill_mapping["initial_field"]].get("/V")),
+                "48",
+            )
+            self.assertEqual(
+                str(fields[advanced_skill_mapping["current_field"]].get("/V")),
+                "55",
+            )
+            self.assertEqual(
+                str(fields[talent_mapping["name_field"]].get("/V")),
+                talent_name,
+            )
+            self.assertEqual(
+                str(fields[talent_mapping["advances_field"]].get("/V")),
+                "2",
+            )
+            self.assertEqual(
+                str(fields[talent_mapping["description_field"]].get("/V")),
+                "Test opisu talentu",
+            )
+
 
 
 if __name__ == "__main__":

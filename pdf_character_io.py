@@ -296,6 +296,13 @@ def _extract_specialization(skill_name: str) -> str:
     return match.group(1).strip() if match else ""
 
 
+def _stringify_pdf_value(value) -> str:
+    """Converts Python values to text expected by PDF form fields."""
+    if value is None:
+        return ""
+    return str(value)
+
+
 def _get_field_name(field_lookup: Dict[str, str], normalized_name: str) -> Optional[str]:
     return field_lookup.get(normalized_name)
 
@@ -410,6 +417,7 @@ def extract_pdf_character_data(file_path: str) -> Dict:
                 field_lookup,
                 layout.get("specialization_field", ""),
             ),
+            "specialization_value": specialization,
         }
 
     for row_position, row_index in enumerate(PDF_ADVANCED_SKILL_ROW_RANGE):
@@ -448,6 +456,8 @@ def extract_pdf_character_data(file_path: str) -> Dict:
             "advanced_field": _get_field_name(field_lookup, f"advrow{row_index}"),
             "initial_field": _get_field_name(field_lookup, f"characteristicrow{row_index}"),
             "current_field": _get_field_name(field_lookup, f"skillrow{row_index}"),
+            "name_value": skill_name,
+            "attribute_value": attribute,
         }
 
     talents = {}
@@ -469,6 +479,9 @@ def extract_pdf_character_data(file_path: str) -> Dict:
             "name_field": _get_field_name(field_lookup, f"talent_namerow{row_index}"),
             "advances_field": _get_field_name(field_lookup, f"times_takenrow{row_index}"),
             "description_field": _get_field_name(field_lookup, f"descriptionrow{row_index}"),
+            "name_value": talent_name,
+            "advances_value": talents[talent_name]["advances"],
+            "description_value": talents[talent_name]["description"],
         }
 
     return {
@@ -497,22 +510,24 @@ def write_pdf_character_data(
 
     name_field = pdf_mapping.get("character_name")
     if name_field:
-        updates[name_field] = payload.get("character_name", "")
+        updates[name_field] = _stringify_pdf_value(payload.get("character_name", ""))
 
     for key, field_name in pdf_mapping.get("experience", {}).items():
         if field_name:
-            updates[field_name] = str(payload["experience"].get(key, 0) or "")
+            updates[field_name] = _stringify_pdf_value(payload["experience"].get(key, 0) or "")
 
     for attr_name, mapping in pdf_mapping.get("attributes", {}).items():
         attr_data = payload["attributes"].get(attr_name)
         if not attr_data:
             continue
         if mapping.get("initial"):
-            updates[mapping["initial"]] = str(attr_data["initial"] or "")
+            updates[mapping["initial"]] = _stringify_pdf_value(attr_data["initial"] or "")
         if mapping.get("advanced"):
-            updates[mapping["advanced"]] = str(attr_data["advanced"] or "")
+            updates[mapping["advanced"]] = _stringify_pdf_value(attr_data["advanced"] or "")
         if mapping.get("current"):
-            updates[mapping["current"]] = str(attr_data["initial"] + attr_data["advanced"])
+            updates[mapping["current"]] = _stringify_pdf_value(
+                attr_data["initial"] + attr_data["advanced"]
+            )
 
     for skill_name, mapping in pdf_mapping.get("skills", {}).items():
         skill_data = payload["skills"].get(skill_name)
@@ -521,19 +536,48 @@ def write_pdf_character_data(
 
         current_value = skill_data["initial"] + skill_data["advanced"]
         if mapping.get("advanced_field"):
-            updates[mapping["advanced_field"]] = str(skill_data["advanced"] or "")
+            updates[mapping["advanced_field"]] = _stringify_pdf_value(
+                skill_data["advanced"] or ""
+            )
 
         if mapping.get("type") == "basic":
+            if mapping.get("specialization_field") and _extract_specialization(skill_name) != mapping.get("specialization_value", ""):
+                updates[mapping["specialization_field"]] = _stringify_pdf_value(
+                    _extract_specialization(skill_name)
+                )
             if mapping.get("total_field"):
-                updates[mapping["total_field"]] = str(current_value or "")
+                updates[mapping["total_field"]] = _stringify_pdf_value(current_value or "")
         else:
+            if mapping.get("name_field") and skill_name != mapping.get("name_value"):
+                updates[mapping["name_field"]] = _stringify_pdf_value(skill_name)
+            if mapping.get("attribute_field") and skill_data["attribute"] != mapping.get("attribute_value"):
+                updates[mapping["attribute_field"]] = _stringify_pdf_value(
+                    skill_data["attribute"]
+                )
             if mapping.get("initial_field"):
-                updates[mapping["initial_field"]] = str(skill_data["initial"] or "")
+                updates[mapping["initial_field"]] = _stringify_pdf_value(
+                    skill_data["initial"] or ""
+                )
             if mapping.get("current_field"):
-                updates[mapping["current_field"]] = str(current_value or "")
+                updates[mapping["current_field"]] = _stringify_pdf_value(current_value or "")
+
+    for talent_name, mapping in pdf_mapping.get("talents", {}).items():
+        talent_data = payload.get("talents", {}).get(talent_name)
+        if not talent_data:
+            continue
+        if mapping.get("name_field") and talent_name != mapping.get("name_value"):
+            updates[mapping["name_field"]] = _stringify_pdf_value(talent_name)
+        if mapping.get("advances_field") and str(talent_data.get("advances", "")) != str(mapping.get("advances_value", "")):
+            updates[mapping["advances_field"]] = _stringify_pdf_value(
+                talent_data.get("advances", "")
+            )
+        if mapping.get("description_field") and str(talent_data.get("description", "")) != str(mapping.get("description_value", "")):
+            updates[mapping["description_field"]] = _stringify_pdf_value(
+                talent_data.get("description", "")
+            )
 
     for page in writer.pages:
-        writer.update_page_form_field_values(page, updates, auto_regenerate=False)
+        writer.update_page_form_field_values(page, updates, auto_regenerate=True)
 
     if "/AcroForm" in writer._root_object:
         writer._root_object[NameObject("/AcroForm")].update(

@@ -544,7 +544,9 @@ class CharacterSheetApp(ctk.CTk):
         self.skill_summary_var = tk.StringVar(value="Wyświetlane umiejętności: 0 / 0")
         self.cost_filter_var = tk.StringVar(value="")
         self.skill_attribute_filter_var = tk.StringVar(value=ATTRIBUTE_FILTER_ALL)
+        self.skill_profession_filter_var = tk.BooleanVar(value=False)
         self.resize_refresh_after_id: Optional[str] = None
+        self.last_resize_width: Optional[int] = None
         self.cost_layout_mode: Optional[bool] = None
         self.cost_options_dirty = True
         self.skills_group_frames: Dict[str, Dict] = {}
@@ -568,17 +570,31 @@ class CharacterSheetApp(ctk.CTk):
 
     def on_window_resize(self, event) -> None:
         """Odświeża zależne od szerokości układy po zmianie rozmiaru okna."""
-        if event.widget is not self:
+        if event.widget is not self or not self._is_costs_tab_active():
             return
+        if self.last_resize_width is not None and abs(event.width - self.last_resize_width) < 24:
+            return
+        self.last_resize_width = event.width
         if self.resize_refresh_after_id is not None:
             self.after_cancel(self.resize_refresh_after_id)
-        self.resize_refresh_after_id = self.after(120, self._refresh_responsive_sections)
+        self.resize_refresh_after_id = self.after(220, self._refresh_responsive_sections)
 
     def _refresh_responsive_sections(self) -> None:
         """Debounced refresh dla układów zależnych od szerokości."""
         self.resize_refresh_after_id = None
         if hasattr(self, "costs_frame") and self._should_refresh_costs_on_resize():
             self.refresh_costs_display()
+
+    def _has_active_skill_filters(self) -> bool:
+        """Sprawdza, czy lista umiejętności ma aktywny filtr."""
+        selected_attribute = self.skill_attribute_filter_var.get()
+        return any(
+            (
+                normalize_search_text(self.skill_filter_var.get()),
+                selected_attribute and selected_attribute != ATTRIBUTE_FILTER_ALL,
+                self.skill_profession_filter_var.get(),
+            )
+        )
 
     def _is_costs_tab_active(self) -> bool:
         """Sprawdza, czy aktywna jest zakładka kosztów."""
@@ -1030,6 +1046,19 @@ class CharacterSheetApp(ctk.CTk):
         )
         self.skill_attribute_filter_combo.pack(side="left", padx=(0, 12), pady=14)
 
+        self.skill_profession_filter_checkbox = ctk.CTkCheckBox(
+            controls,
+            text="Tylko rozwijalne (+)",
+            variable=self.skill_profession_filter_var,
+            command=self.apply_skill_filter,
+            checkbox_width=20,
+            checkbox_height=20,
+            border_width=2,
+            corner_radius=6,
+            font=FONT_BODY,
+        )
+        self.skill_profession_filter_checkbox.pack(side="left", padx=(0, 12), pady=14)
+
         ctk.CTkButton(
             controls,
             text="Wyczyść filtr",
@@ -1236,13 +1265,20 @@ class CharacterSheetApp(ctk.CTk):
             font=FONT_BODY_BOLD,
         ).pack(side="left")
 
+        self.costs_header_frame = ctk.CTkFrame(
+            table_content,
+            fg_color=COLOR_SURFACE_SOFT,
+            corner_radius=12,
+        )
+        self.costs_header_frame.pack(fill="x", pady=(0, 8))
+        self._build_costs_header(self.costs_header_frame)
+
         self.costs_frame = ctk.CTkScrollableFrame(
             table_content,
             fg_color=COLOR_SURFACE,
             corner_radius=16,
             border_width=1,
             border_color=COLOR_BORDER,
-            height=520,
         )
         self.costs_frame.pack(fill="both", expand=True)
 
@@ -1330,6 +1366,15 @@ class CharacterSheetApp(ctk.CTk):
                 text_color=COLOR_ACCENT,
             ).pack(side="left", padx=2, pady=6)
 
+    def _build_costs_header(self, parent) -> None:
+        """Tworzy stały nagłówek tabeli kosztów poza obszarem scrollowania."""
+        ctk.CTkLabel(parent, text="Typ", font=FONT_BODY_BOLD, width=72).pack(side="left", padx=(10, 4), pady=8)
+        ctk.CTkLabel(parent, text="Cecha / Umiejętność", font=FONT_BODY_BOLD, width=250).pack(side="left", padx=(0, 6), pady=8)
+        ctk.CTkLabel(parent, text="5 rozw.", font=FONT_BODY_BOLD, width=78).pack(side="left", padx=2, pady=8)
+        ctk.CTkLabel(parent, text="10 rozw.", font=FONT_BODY_BOLD, width=78).pack(side="left", padx=2, pady=8)
+        ctk.CTkLabel(parent, text="15 rozw.", font=FONT_BODY_BOLD, width=78).pack(side="left", padx=2, pady=8)
+        ctk.CTkLabel(parent, text="20 rozw.", font=FONT_BODY_BOLD, width=78).pack(side="left", padx=2, pady=8)
+
     def _get_cost_table_skill_entries(self, filter_text: str) -> List[Tuple[str, Dict]]:
         """Zwraca odfiltrowane umiejętności do tabeli kosztów."""
         entries = []
@@ -1349,16 +1394,6 @@ class CharacterSheetApp(ctk.CTk):
         # Wyczyść ramkę
         for widget in self.costs_frame.winfo_children():
             widget.destroy()
-
-        # Nagłówek tabeli
-        header = ctk.CTkFrame(self.costs_frame, fg_color=COLOR_SURFACE_SOFT, corner_radius=12)
-        header.pack(fill="x", pady=5)
-        ctk.CTkLabel(header, text="Typ", font=FONT_BODY_BOLD, width=72).pack(side="left", padx=(10, 4), pady=8)
-        ctk.CTkLabel(header, text="Cecha / Umiejętność", font=FONT_BODY_BOLD, width=250).pack(side="left", padx=(0, 6), pady=8)
-        ctk.CTkLabel(header, text="5 rozw.", font=FONT_BODY_BOLD, width=78).pack(side="left", padx=2, pady=8)
-        ctk.CTkLabel(header, text="10 rozw.", font=FONT_BODY_BOLD, width=78).pack(side="left", padx=2, pady=8)
-        ctk.CTkLabel(header, text="15 rozw.", font=FONT_BODY_BOLD, width=78).pack(side="left", padx=2, pady=8)
-        ctk.CTkLabel(header, text="20 rozw.", font=FONT_BODY_BOLD, width=78).pack(side="left", padx=2, pady=8)
 
         # Koszty dla cech
         ctk.CTkLabel(self.costs_frame, text="─ CECHY ─", font=FONT_SECTION, text_color=COLOR_SUCCESS).pack(anchor="w", padx=6, pady=(8, 5))
@@ -1901,7 +1936,12 @@ class CharacterSheetApp(ctk.CTk):
         """Compatibility wrapper - teraz tylko aktualizuje, nie niszczy widgety."""
         if self.initialized_skills:
             self._update_all_skill_labels()
-            self.apply_skill_filter()
+            if self._has_active_skill_filters():
+                self.apply_skill_filter()
+            else:
+                self.skill_summary_var.set(
+                    f"Wyświetlane umiejętności: {len(self.skill_rows)} / {len(self.skill_rows)}"
+                )
         else:
             self.initialize_skills_display()
 
@@ -1909,6 +1949,7 @@ class CharacterSheetApp(ctk.CTk):
         """Czyści aktywny filtr listy umiejętności."""
         self.skill_filter_var.set("")
         self.skill_attribute_filter_var.set(ATTRIBUTE_FILTER_ALL)
+        self.skill_profession_filter_var.set(False)
         self.apply_skill_filter()
 
     def clear_cost_filter(self) -> None:
@@ -1923,6 +1964,7 @@ class CharacterSheetApp(ctk.CTk):
 
         query = normalize_search_text(self.skill_filter_var.get())
         selected_attribute = self.skill_attribute_filter_var.get()
+        profession_only = self.skill_profession_filter_var.get()
         exact_attribute = None
         if selected_attribute and selected_attribute != ATTRIBUTE_FILTER_ALL:
             exact_attribute = get_attribute_code_from_filter_label(selected_attribute)
@@ -1930,9 +1972,9 @@ class CharacterSheetApp(ctk.CTk):
         suggested_attribute = self._get_attribute_suggestion(query) if query else None
         visible_count = 0
         total_count = len(self.skill_rows)
-        visible_by_group = {
-            SKILL_CATEGORY_BASIC: 0,
-            SKILL_CATEGORY_ADVANCED: 0,
+        visible_names_by_group = {
+            SKILL_CATEGORY_BASIC: [],
+            SKILL_CATEGORY_ADVANCED: [],
         }
 
         for skill_name, row_data in self.skill_rows.items():
@@ -1942,19 +1984,19 @@ class CharacterSheetApp(ctk.CTk):
             )
             matches_query = not query or query in searchable_text
             matches_attribute = not exact_attribute or skill_data.get("attribute") == exact_attribute
-            should_show = matches_query and matches_attribute
+            matches_profession = not profession_only or skill_data.get("profession_available")
+            should_show = matches_query and matches_attribute and matches_profession
+            row_data["row"].pack_forget()
             if should_show:
-                row_data["row"].pack(fill="x", pady=5, padx=10)
                 visible_count += 1
-                visible_by_group[row_data["group"]] += 1
-            else:
-                row_data["row"].pack_forget()
+                visible_names_by_group[row_data["group"]].append(skill_name)
 
         for group_name, group_data in self.skills_group_frames.items():
-            if visible_by_group[group_name] > 0:
+            group_data["section"].pack_forget()
+            if visible_names_by_group[group_name]:
                 group_data["section"].pack(fill="x", padx=10, pady=(8, 6))
-            else:
-                group_data["section"].pack_forget()
+                for skill_name in visible_names_by_group[group_name]:
+                    self.skill_rows[skill_name]["row"].pack(fill="x", pady=5, padx=10)
 
         if suggested_attribute and exact_attribute != suggested_attribute:
             self.skill_filter_hint_button.configure(

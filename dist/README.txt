@@ -1,17 +1,19 @@
-Hejo!
+Karta Postaci Interaktywna
 
-Przed użyciem programu zedytuj plik karta postaci do stanu obecnego twojej postaci/karty postaci.
-Postaraj się upewnić, że umijętności mają wpisaną wartość i rozwinięcia, nawet jeśli masz 0 (program powinien sobie poradzić ale chuj go wie).
-Obecnie działa jedynie z plikiem excel dokładnie skonfigurowanym jak ten załączony, nie dodawaj ujemnych wartości, liter czy czego innego do pól cech i umiejętności.
+Zawartość katalogu dist:
+- KartaPostaciInteraktywna.exe - aplikacja dla użytkownika końcowego
+- karta_postaci.xlsx - opcjonalny przykładowy arkusz / szablon
+- README.txt - ten plik
 
-===
-Pola jakie możesz edytować to aktualny exp, wydany i wspólny. Po początkowej konfiguracji pliku excel resztę możesz wykonywać już poprzez .exe - 
-On może zapisywać zmiany i kalkulować az ciebie.
+Uruchomienie:
+1. Uruchom KartaPostaciInteraktywna.exe.
+2. Wczytaj własny plik PDF albo XLSX z poziomu programu.
+3. Zapisuj zmiany do tego samego pliku albo do nowej kopii.
 
-Plusy to plusy, minusy to minusy, wartości ujemne i nieprawidłowe nie zadziałają - powinny wyświtlić error pop up'owy.
+Uwagi:
+- Python nie jest wymagany na komputerze użytkownika.
+- Przy pierwszym uruchomieniu Windows może pokazać ostrzeżenie SmartScreen, jeśli plik nie jest podpisany cyfrowo.
+- Program najlepiej uruchamiać z katalogu, do którego użytkownik ma prawa zapisu.
 
-Zapewne windows powie, że aplikacja jest nieznana i uważaj bo wirus, czy coś takiego.
-To raczej nie jest wirus, ale kto wie.
-
-===
-Obecnie piszę coś takiego na telefon ale to pojebane jest wgl. A już nie wspominam o wersji na iPhone, kurwa mać kto to wymyślał.
+Budowa nowej wersji EXE:
+- uruchom skrypt build_exe.ps1 w PowerShell
