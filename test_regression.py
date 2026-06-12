@@ -9,6 +9,7 @@ from unittest.mock import patch
 
 from openpyxl import load_workbook
 
+from pdf_character_io import extract_pdf_character_data
 from Postac_program_gui import (
     CharacterSheetApp,
     DataManager,
@@ -21,6 +22,66 @@ from Postac_program_gui import (
 WORKSPACE_DIR = Path(__file__).resolve().parent
 EXCEL_FILE = WORKSPACE_DIR / "karta_postaci.xlsx"
 PDF_FILE = WORKSPACE_DIR / "Rein_Nuhr_lepsza_4ed.pdf"
+
+
+class CoreRulesRegressionTests(unittest.TestCase):
+    """Faza 6: reguły kosztów wydzielone do pakietu core (UI-agnostic)."""
+
+    def test_gui_reuses_core_rule_functions(self):
+        import core
+        import core.rules as rules
+        from Postac_program_gui import (
+            calculate_advancement_cost as gui_adv,
+            calculate_talent_cost as gui_tal,
+            COST_TABLE as gui_cost_table,
+            ATTRIBUTES as gui_attributes,
+        )
+
+        self.assertIs(gui_adv, rules.calculate_advancement_cost)
+        self.assertIs(gui_tal, rules.calculate_talent_cost)
+        self.assertIs(gui_cost_table, rules.COST_TABLE)
+        self.assertIs(gui_attributes, rules.ATTRIBUTES)
+        self.assertIs(core.calculate_talent_cost, rules.calculate_talent_cost)
+
+    def test_core_rules_independent_of_ui(self):
+        import core.rules as rules
+
+        self.assertEqual(rules.calculate_talent_cost(0, 3), 600)
+        self.assertEqual(rules.calculate_advancement_cost("cecha", 0, 5), 125)
+        self.assertEqual(len(rules.ATTRIBUTES), 10)
+
+    def test_character_model_lives_in_core(self):
+        import core
+        import core.character as character
+        from Postac_program_gui import (
+            DataManager as gui_dm,
+            FILE_TYPE_PDF as gui_pdf,
+            EMPTY_PDF_TEMPLATE as gui_template,
+        )
+
+        self.assertIs(gui_dm, character.DataManager)
+        self.assertIs(core.DataManager, character.DataManager)
+        self.assertEqual(gui_pdf, character.FILE_TYPE_PDF)
+        self.assertEqual(gui_template, character.EMPTY_PDF_TEMPLATE)
+
+    def test_character_model_has_no_ui_imports(self):
+        import subprocess
+        import sys
+
+        code = (
+            "import sys, core.character;"
+            "assert 'customtkinter' not in sys.modules;"
+            "assert 'tkinter' not in sys.modules;"
+            "print('OK')"
+        )
+        result = subprocess.run(
+            [sys.executable, "-c", code],
+            cwd=str(WORKSPACE_DIR),
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("OK", result.stdout)
 
 
 class CharacterSheetAppRegressionTests(unittest.TestCase):
@@ -333,13 +394,17 @@ class GameDataRegressionTests(unittest.TestCase):
 
 class TalentModelRegressionTests(unittest.TestCase):
     def test_calculate_talent_cost_flat_and_multipliers(self):
-        self.assertEqual(calculate_talent_cost(1), 100)
-        self.assertEqual(calculate_talent_cost(3), 300)
+        # Koszt zalezy od obecnej liczby wykupien: 100 * numer wykupienia.
+        self.assertEqual(calculate_talent_cost(0, 1), 100)   # pierwsze wykupienie
+        self.assertEqual(calculate_talent_cost(1, 1), 200)   # drugie wykupienie
+        self.assertEqual(calculate_talent_cost(2, 1), 300)   # trzecie wykupienie
+        self.assertEqual(calculate_talent_cost(0, 2), 300)   # 100 + 200
+        self.assertEqual(calculate_talent_cost(0, 3), 600)   # 100 + 200 + 300
         # rozwój spoza profesji -> podwójny koszt
-        self.assertEqual(calculate_talent_cost(2, out_of_profession=True), 400)
+        self.assertEqual(calculate_talent_cost(0, 2, out_of_profession=True), 600)
         # zgoda MG znosi mnożnik
         self.assertEqual(
-            calculate_talent_cost(2, out_of_profession=True, gm_approved=True), 200
+            calculate_talent_cost(0, 2, out_of_profession=True, gm_approved=True), 300
         )
 
     def test_enrich_talents_after_pdf_load(self):
@@ -845,6 +910,292 @@ class CareerPathEditorRegressionTests(unittest.TestCase):
                 toplevels = [w for w in app.winfo_children()
                              if w.winfo_class() == "Toplevel"]
                 self.assertEqual(len(toplevels), 0)
+            finally:
+                if app is not None:
+                    app.destroy()
+
+
+class TalentCostProgressionRegressionTests(unittest.TestCase):
+    """Faza 5.1: koszt talentu rosnie z liczba wykupien (100 * numer)."""
+
+    def test_increase_then_decrease_uses_progressive_cost(self):
+        app = None
+        with tempfile.TemporaryDirectory() as temp_dir:
+            try:
+                app = CharacterSheetApp()
+                app.withdraw()
+                app.history_manager = HistoryManager(
+                    str(Path(temp_dir) / "history.json")
+                )
+                app.data_manager.file_path = None
+                app.data_manager.talents = {
+                    "Nieustraszony": {
+                        "advances": 0,
+                        "base_advances": 0,
+                        "is_new": True,
+                        "is_custom": False,
+                        "description": "",
+                        "max": {"type": "fixed", "value": 5},
+                    }
+                }
+                app.data_manager.experience = {
+                    "available": 1000,
+                    "spent": 0,
+                    "total": 1000,
+                }
+
+                # Pierwsze wykupienie kosztuje 100.
+                app.on_increase_talent("Nieustraszony")
+                self.assertEqual(app.data_manager.talents["Nieustraszony"]["advances"], 1)
+                self.assertEqual(app.data_manager.experience["available"], 900)
+
+                # Drugie wykupienie kosztuje 200 (lacznie 300).
+                app.on_increase_talent("Nieustraszony")
+                self.assertEqual(app.data_manager.talents["Nieustraszony"]["advances"], 2)
+                self.assertEqual(app.data_manager.experience["available"], 700)
+
+                # Cofniecie drugiego wykupienia zwraca dokladnie 200.
+                app.on_decrease_talent("Nieustraszony")
+                self.assertEqual(app.data_manager.talents["Nieustraszony"]["advances"], 1)
+                self.assertEqual(app.data_manager.experience["available"], 900)
+            finally:
+                if app is not None:
+                    app.destroy()
+
+
+class PhantomTalentRegressionTests(unittest.TestCase):
+    """Faza 5.2: talenty-widma (rozwijalne w profesji, jeszcze nie wykupione)."""
+
+    def test_schema_satisfied_matches_specialization(self):
+        app = None
+        with tempfile.TemporaryDirectory() as temp_dir:
+            try:
+                app = CharacterSheetApp()
+                app.withdraw()
+                app.history_manager = HistoryManager(
+                    str(Path(temp_dir) / "history.json")
+                )
+                app.data_manager.talents = {
+                    "Ufność": {"advances": 1, "is_new": False, "is_custom": False},
+                    "Etykieta (Uczeni)": {
+                        "advances": 1, "is_new": False, "is_custom": False
+                    },
+                }
+                # Dokladne dopasowanie nazwy.
+                self.assertTrue(app._talent_schema_satisfied("Ufność"))
+                # Grupa schematu spelniona przez posiadana specjalizacje.
+                self.assertTrue(
+                    app._talent_schema_satisfied("Etykieta (Grupa Społeczna)")
+                )
+                # Talent nieposiadany.
+                self.assertFalse(app._talent_schema_satisfied("Nieustraszony"))
+            finally:
+                if app is not None:
+                    app.destroy()
+
+    def test_unowned_developable_excludes_satisfied(self):
+        app = None
+        with tempfile.TemporaryDirectory() as temp_dir:
+            try:
+                app = CharacterSheetApp()
+                app.withdraw()
+                app.history_manager = HistoryManager(
+                    str(Path(temp_dir) / "history.json")
+                )
+                app.data_manager.talents = {
+                    "Ufność": {"advances": 1, "is_new": False, "is_custom": False},
+                    "Etykieta (Uczeni)": {
+                        "advances": 1, "is_new": False, "is_custom": False
+                    },
+                }
+                app._developable = {
+                    "characteristics": set(),
+                    "skills": set(),
+                    "talents": {
+                        "Ufność",
+                        "Etykieta (Grupa Społeczna)",
+                        "Nieustraszony",
+                    },
+                    "resolved": True,
+                }
+                self.assertEqual(
+                    app._unowned_developable_talents(), ["Nieustraszony"]
+                )
+            finally:
+                if app is not None:
+                    app.destroy()
+
+    def test_phantom_rows_only_when_filter_on(self):
+        app = None
+        with tempfile.TemporaryDirectory() as temp_dir:
+            try:
+                app = CharacterSheetApp()
+                app.withdraw()
+                app.history_manager = HistoryManager(
+                    str(Path(temp_dir) / "history.json")
+                )
+                app.data_manager.talents = {}
+                app._developable = {
+                    "characteristics": set(),
+                    "skills": set(),
+                    "talents": {"Nieustraszony", "Ufność"},
+                    "resolved": True,
+                }
+                app._phantom_talents_dirty = True
+
+                # Filtr wylaczony -> brak wierszy-widm.
+                app.talent_profession_filter_var.set(False)
+                app.apply_talent_filter()
+                self.assertEqual(len(app.talent_phantom_rows), 0)
+
+                # Filtr wlaczony -> widma zbudowane.
+                app.talent_profession_filter_var.set(True)
+                app._phantom_talents_dirty = True
+                app.apply_talent_filter()
+                self.assertEqual(
+                    set(app.talent_phantom_rows.keys()),
+                    {"Nieustraszony", "Ufność"},
+                )
+            finally:
+                if app is not None:
+                    app.destroy()
+
+
+class CharacterJsonRegressionTests(unittest.TestCase):
+    """Faza 5.6: serializacja postaci do/z natywnego JSON."""
+
+    def test_to_dict_has_schema_and_core_fields(self):
+        dm = DataManager()
+        self.assertTrue(dm.load_from_pdf(str(PDF_FILE)))
+        data = dm.to_dict()
+        self.assertEqual(data["schema"], "wfrp4e-character")
+        self.assertEqual(data["version"], 1)
+        for key in (
+            "character_name", "attributes", "skills", "talents", "experience",
+            "current_career", "career_path",
+        ):
+            self.assertIn(key, data)
+
+    def test_json_round_trip_preserves_state(self):
+        source = DataManager()
+        self.assertTrue(source.load_from_pdf(str(PDF_FILE)))
+        with tempfile.TemporaryDirectory() as temp_dir:
+            json_path = Path(temp_dir) / "postac.json"
+            self.assertTrue(source.save_to_json(str(json_path)))
+            self.assertTrue(json_path.exists())
+
+            target = DataManager()
+            self.assertTrue(target.load_from_json(str(json_path)))
+
+            self.assertEqual(target.character_name, source.character_name)
+            self.assertEqual(target.current_career, source.current_career)
+            self.assertEqual(target.current_career_level, source.current_career_level)
+            self.assertEqual(set(target.attributes), set(source.attributes))
+            self.assertEqual(set(target.skills), set(source.skills))
+            self.assertEqual(set(target.talents), set(source.talents))
+            self.assertEqual(target.experience, source.experience)
+
+    def test_load_from_json_failure_returns_false(self):
+        dm = DataManager()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            bad = Path(temp_dir) / "bad.json"
+            bad.write_text("{ not valid json", encoding="utf-8")
+            self.assertFalse(dm.load_from_json(str(bad)))
+
+
+class ExportPdfRegressionTests(unittest.TestCase):
+    """Faza 5.6: eksport postaci do PDF (wzorzec lub pusta karta)."""
+
+    def test_export_from_scratch_uses_empty_template(self):
+        dm = DataManager()
+        dm.create_new_character("Testowy Bohater")
+        dm.experience = {"available": 100, "spent": 50, "total": 150}
+        with tempfile.TemporaryDirectory() as temp_dir:
+            out = Path(temp_dir) / "eksport.pdf"
+            self.assertTrue(dm.export_to_pdf(str(out)))
+            self.assertTrue(out.exists())
+            reloaded = extract_pdf_character_data(str(out))
+            self.assertEqual(reloaded["character_name"], "Testowy Bohater")
+
+    def test_export_from_loaded_pdf_preserves_name(self):
+        dm = DataManager()
+        self.assertTrue(dm.load_from_pdf(str(PDF_FILE)))
+        with tempfile.TemporaryDirectory() as temp_dir:
+            out = Path(temp_dir) / "kopia.pdf"
+            self.assertTrue(dm.export_to_pdf(str(out)))
+            self.assertTrue(out.exists())
+            reloaded = extract_pdf_character_data(str(out))
+            self.assertEqual(reloaded["character_name"], dm.character_name)
+
+
+class HistorySidecarRegressionTests(unittest.TestCase):
+    """Faza 5.6: historia jako plik sidecar obok pliku postaci."""
+
+    def test_write_and_read_sidecar_round_trip(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            hist = HistoryManager(str(Path(temp_dir) / "history.json"))
+            hist.set_current_character("Bohater")
+            hist.add_entry("Test akcji", "szczegoly")
+            char_file = str(Path(temp_dir) / "bohater.json")
+            self.assertTrue(hist.write_sidecar("Bohater", char_file))
+            sidecar = Path(temp_dir) / "bohater.history.json"
+            self.assertTrue(sidecar.exists())
+
+            hist2 = HistoryManager(str(Path(temp_dir) / "inny.json"))
+            self.assertNotIn("Bohater", hist2.data.get("characters", {}))
+            self.assertTrue(hist2.read_sidecar("Bohater", char_file))
+            self.assertIn("Bohater", hist2.data["characters"])
+            changes = hist2.data["characters"]["Bohater"]["changes"]
+            self.assertTrue(any(c["action"] == "Test akcji" for c in changes))
+
+    def test_read_sidecar_missing_returns_false(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            hist = HistoryManager(str(Path(temp_dir) / "history.json"))
+            self.assertFalse(
+                hist.read_sidecar("X", str(Path(temp_dir) / "brak.json"))
+            )
+
+
+class OpenPdfExternalRegressionTests(unittest.TestCase):
+    """Faza 5.5: otwieranie PDF w zewnętrznym czytniku."""
+
+    def test_no_pdf_shows_info(self):
+        app = None
+        with tempfile.TemporaryDirectory() as temp_dir:
+            try:
+                app = CharacterSheetApp()
+                app.withdraw()
+                app.history_manager = HistoryManager(
+                    str(Path(temp_dir) / "history.json")
+                )
+                app.data_manager.file_path = None
+                with patch("Postac_program_gui.messagebox.showinfo") as info, \
+                        patch.object(app, "_open_path_external") as opener:
+                    app.on_open_pdf_external()
+                    info.assert_called_once()
+                    opener.assert_not_called()
+            finally:
+                if app is not None:
+                    app.destroy()
+
+    def test_opens_existing_pdf_without_pending(self):
+        app = None
+        with tempfile.TemporaryDirectory() as temp_dir:
+            try:
+                app = CharacterSheetApp()
+                app.withdraw()
+                app.history_manager = HistoryManager(
+                    str(Path(temp_dir) / "history.json")
+                )
+                app.data_manager.file_path = str(PDF_FILE)
+                app.data_manager.source_type = "pdf"
+                app.pending_changes = app._create_empty_pending_changes()
+                with patch("Postac_program_gui.os.path.exists", return_value=True), \
+                        patch.object(
+                            app, "_open_path_external", return_value=True
+                        ) as opener:
+                    app.on_open_pdf_external()
+                    opener.assert_called_once_with(str(PDF_FILE))
             finally:
                 if app is not None:
                     app.destroy()

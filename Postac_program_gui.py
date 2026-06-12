@@ -8,6 +8,8 @@ import openpyxl
 import json
 import os
 import re
+import subprocess
+import sys
 import unicodedata
 from datetime import datetime
 from typing import Dict, List, Tuple, Optional
@@ -22,6 +24,22 @@ except ImportError:  # pragma: no cover - tylko poza Windows
 
 from pdf_character_io import extract_pdf_character_data, write_pdf_character_data
 import game_data
+from core.rules import (
+    ATTRIBUTES,
+    COST_TABLE,
+    TALENT_COST_PER_ADVANCE,
+    calculate_advancement_cost,
+    calculate_talent_cost,
+)
+from core.character import (
+    DataManager,
+    FILE_TYPE_EXCEL,
+    FILE_TYPE_PDF,
+    FILE_TYPE_JSON,
+    CHARACTER_JSON_SCHEMA,
+    CHARACTER_JSON_VERSION,
+    EMPTY_PDF_TEMPLATE,
+)
 
 
 def play_blocked_sound() -> None:
@@ -42,38 +60,10 @@ def play_blocked_sound() -> None:
 # CONSTANTS
 # ============================================================================
 
-COST_TABLE = {
-    5: (25, 10),
-    10: (30, 15),
-    15: (40, 20),
-    20: (50, 30),
-    25: (70, 40),
-    30: (90, 60),
-    35: (120, 80),
-    40: (150, 110),
-    45: (190, 140),
-    50: (230, 180),
-    55: (280, 220),
-    60: (330, 270),
-    65: (390, 320),
-    70: (450, 380),
-    float("inf"): (520, 440),
-}
-
-ATTRIBUTES = ["WW", "US", "S", "Wt", "I", "Zw", "Zr", "Int", "SW", "Ogd"]
-# Koszt jednego rozwinięcia talentu (WFRP 4ed: 100 PD za każde wykupienie).
-TALENT_COST_PER_ADVANCE = 100
-EXCEL_CHAR_COL_START = 2  # Kolumna B
-EXCEL_ATTR_NAME_ROW = 11
-EXCEL_ATTR_INITIAL_ROW = 12
-EXCEL_ATTR_ADVANCED_ROW = 13
-EXCEL_ATTR_CURRENT_ROW = 14
-EXCEL_SKILL_ROWS = range(18, 31)
-EXCEL_SKILL_BLOCKS = 3
-EXCEL_SKILLS_PER_BLOCK = len(EXCEL_SKILL_ROWS)
-EXCEL_EXP_COL = "P"  # Aktualne PD
-EXCEL_SPENT_COL = "Q"  # Wydane PD
-EXCEL_TOTAL_COL = "R"  # Suma PD
+# COST_TABLE, ATTRIBUTES i TALENT_COST_PER_ADVANCE są zdefiniowane w core.rules
+# (importowane na górze pliku). Logika kosztów jest niezależna od UI.
+# Układ arkusza Excel oraz stałe formatów plików zostały przeniesione do
+# core.character (importowane na górze pliku) — model postaci jest UI-agnostic.
 
 # Kolory do customtkinter
 COLOR_BG = "#1a1a1a"
@@ -271,9 +261,6 @@ FONT_BODY = ("Segoe UI", 13)
 FONT_BODY_BOLD = ("Segoe UI Semibold", 13)
 FONT_SMALL = ("Segoe UI", 11)
 
-FILE_TYPE_EXCEL = "excel"
-FILE_TYPE_PDF = "pdf"
-
 ATTRIBUTE_DETAILS = {
     "WW": "Walka Wręcz",
     "US": "Umiejętności Strzeleckie",
@@ -327,60 +314,6 @@ SKILL_CATEGORY_SHORT = {
 # HELPER FUNCTIONS
 # ============================================================================
 
-def calculate_advancement_cost(
-    advancement_type: str,
-    current_advancements: int,
-    desired_advancements: int,
-    out_of_profession: bool = False,
-    gm_approved: bool = False,
-) -> int:
-    """Oblicza całkowity koszt PD dla rozwinięć.
-
-    Rozwój SPOZA profesji podwaja koszt, chyba że MG wyraził zgodę (gm_approved).
-    """
-    total_cost = 0
-    remaining = desired_advancements
-    current_threshold = current_advancements
-
-    while remaining > 0:
-        for threshold in sorted(COST_TABLE.keys()):
-            if current_threshold < threshold:
-                char_cost, skill_cost = COST_TABLE[threshold]
-                to_threshold = min(remaining, threshold - current_threshold)
-                
-                if advancement_type == "cecha":
-                    total_cost += char_cost * to_threshold
-                elif advancement_type == "umiejetnosc":
-                    total_cost += skill_cost * to_threshold
-                elif advancement_type == "talent":
-                    # Koszt talentu: 100 * poziom
-                    total_cost = desired_advancements * 100
-                    remaining = 0
-                    break
-
-                remaining -= to_threshold
-                current_threshold += to_threshold
-                if remaining == 0:
-                    break
-
-    if out_of_profession and not gm_approved:
-        total_cost *= 2
-    return total_cost
-
-
-def calculate_talent_cost(
-    amount: int, out_of_profession: bool = False, gm_approved: bool = False
-) -> int:
-    """Koszt PD za 'amount' wykupień talentu (100 PD każde).
-
-    Rozwój spoza profesji podwaja koszt, chyba że MG wyraził zgodę.
-    """
-    cost = max(0, amount) * TALENT_COST_PER_ADVANCE
-    if out_of_profession and not gm_approved:
-        cost *= 2
-    return cost
-
-
 def normalize_search_text(text: str) -> str:
     """Normalizuje tekst do wyszukiwania niezależnie od wielkości liter i polskich znaków."""
     normalized = unicodedata.normalize("NFKD", text)
@@ -429,518 +362,6 @@ def get_attribute_code_from_filter_label(filter_label: str) -> Optional[str]:
 # ============================================================================
 # DATA MANAGEMENT
 # ============================================================================
-
-class DataManager:
-    """Zarządza ładowaniem i zapisywaniem danych postaci."""
-
-    def __init__(self):
-        self.file_path: Optional[str] = None
-        self.source_type: str = FILE_TYPE_EXCEL
-        self.attributes: Dict = {}
-        self.skills: Dict = {}
-        self.talents: Dict = {}
-        self.experience: Dict = {"available": 0, "spent": 0, "total": 0}
-        self.character_name: str = "Nowa Postać"
-        self.pdf_mapping: Dict = {}
-        # Profesja / klasa / ścieżka kariery
-        self.character_class: str = ""
-        self.character_species: str = ""
-        self.current_career: str = ""
-        self.current_career_level: int = 1
-        self.career_path: List[Dict] = []
-        self.profession_raw: Dict = {}
-
-    def load_from_excel(self, file_path: str) -> bool:
-        """Ładuje dane z pliku Excel. Zwraca True jeśli sukces."""
-        try:
-            self.file_path = file_path
-            self.source_type = FILE_TYPE_EXCEL
-            self.pdf_mapping = {}
-            self.character_class = ""
-            self.character_species = ""
-            self.current_career = ""
-            self.current_career_level = 1
-            self.career_path = []
-            self.profession_raw = {}
-            wb = openpyxl.load_workbook(file_path, data_only=True)
-            ws = wb.active
-
-            # Odczyt charakteru postaci
-            self.character_name = ws.cell(5, 2).value or "Brak Imienia"
-
-            # Odczyt cech
-            self.attributes = {}
-            for col_idx, attr_name in enumerate(ATTRIBUTES, start=EXCEL_CHAR_COL_START):
-                cell_name = ws.cell(EXCEL_ATTR_NAME_ROW, col_idx).value
-                if not cell_name:
-                    continue
-
-                initial = ws.cell(EXCEL_ATTR_INITIAL_ROW, col_idx).value or 0
-                advanced = ws.cell(EXCEL_ATTR_ADVANCED_ROW, col_idx).value or 0
-                current = ws.cell(EXCEL_ATTR_CURRENT_ROW, col_idx).value or (initial + advanced)
-
-                self.attributes[attr_name] = {
-                    "initial": int(initial),
-                    "advanced": int(advanced),
-                    "current": int(current),
-                    "base_advanced": int(advanced),  # Do resetu
-                    "is_new": False,
-                    "profession_available": False,
-                }
-
-            # Odczyt umiejętności
-            self.skills = {}
-            for block in range(EXCEL_SKILL_BLOCKS):
-                col_offset = block * 5
-                for row in EXCEL_SKILL_ROWS:
-                    skill_name = ws.cell(row, 1 + col_offset).value
-                    if not skill_name:
-                        continue
-
-                    attribute = ws.cell(row, 2 + col_offset).value or ""
-                    initial = ws.cell(row, 3 + col_offset).value or 0
-                    advanced = ws.cell(row, 4 + col_offset).value or 0
-                    current = ws.cell(row, 5 + col_offset).value or (initial + advanced)
-
-                    self.skills[skill_name] = {
-                        "attribute": str(attribute).strip("()"),
-                        "initial": int(initial),
-                        "advanced": int(advanced),
-                        "current": int(current),
-                        "base_advanced": int(advanced),
-                        "is_new": False,
-                        "profession_available": False,
-                    }
-
-            # Odczyt doświadczenia
-            self.experience["available"] = ws[f"{EXCEL_EXP_COL}11"].value or 0
-            self.experience["spent"] = ws[f"{EXCEL_SPENT_COL}11"].value or 0
-            self.experience["total"] = (
-                self.experience["available"] + self.experience["spent"]
-            )
-
-            wb.close()
-            return True
-
-        except Exception as e:
-            print(f"Błąd przy ładowaniu pliku: {e}")
-            return False
-
-    def load_from_pdf(self, file_path: str) -> bool:
-        """Ładuje dane z formularza PDF. Zwraca True jeśli sukces."""
-        try:
-            payload = extract_pdf_character_data(file_path)
-            self.file_path = file_path
-            self.source_type = FILE_TYPE_PDF
-            self.character_name = payload["character_name"]
-            self.attributes = payload["attributes"]
-            self.skills = payload["skills"]
-            self.talents = payload["talents"]
-            self.experience = payload["experience"]
-            self.pdf_mapping = payload["pdf_mapping"]
-            self._enrich_talents()
-            self._load_profession(payload.get("profession_info", {}))
-            return True
-        except Exception as e:
-            print(f"Błąd przy ładowaniu PDF: {e}")
-            return False
-
-    def save_to_excel(self, file_path: str = None) -> bool:
-        """Zapisuje dane do Excel. Zwraca True jeśli sukces."""
-        if not file_path and not self.file_path:
-            return False
-
-        file_path = file_path or self.file_path
-
-        try:
-            wb = openpyxl.load_workbook(file_path)
-            ws = wb.active
-
-            if len(self.skills) > EXCEL_SKILL_BLOCKS * EXCEL_SKILLS_PER_BLOCK:
-                raise ValueError(
-                    "Za dużo umiejętności, aby zapisać je do aktualnego układu Excela."
-                )
-
-            ws.cell(5, 2, self.character_name)
-
-            # Zapis cech
-            for col_idx, attr_name in enumerate(ATTRIBUTES, start=EXCEL_CHAR_COL_START):
-                if attr_name in self.attributes:
-                    attr_data = self.attributes[attr_name]
-                    ws.cell(EXCEL_ATTR_INITIAL_ROW, col_idx, attr_data["initial"])
-                    ws.cell(EXCEL_ATTR_ADVANCED_ROW, col_idx, attr_data["advanced"])
-                    ws.cell(
-                        EXCEL_ATTR_CURRENT_ROW,
-                        col_idx,
-                        attr_data["initial"] + attr_data["advanced"],
-                    )
-
-            # Wyczyść wszystkie sloty umiejętności przed zapisem
-            for block in range(EXCEL_SKILL_BLOCKS):
-                col_offset = block * 5
-                for row_idx in EXCEL_SKILL_ROWS:
-                    for column_offset in range(5):
-                        ws.cell(row_idx, 1 + col_offset + column_offset, None)
-
-            # Zapis umiejętności
-            for skill_index, (skill_name, skill_data) in enumerate(self.skills.items()):
-                block = skill_index // EXCEL_SKILLS_PER_BLOCK
-                row_offset = skill_index % EXCEL_SKILLS_PER_BLOCK
-                col_offset = block * 5
-                row_idx = EXCEL_SKILL_ROWS.start + row_offset
-
-                ws.cell(row_idx, 1 + col_offset, skill_name)
-                ws.cell(row_idx, 2 + col_offset, f"({skill_data['attribute']})")
-                ws.cell(row_idx, 3 + col_offset, skill_data["initial"])
-                ws.cell(row_idx, 4 + col_offset, skill_data["advanced"])
-                ws.cell(
-                    row_idx,
-                    5 + col_offset,
-                    skill_data["initial"] + skill_data["advanced"],
-                )
-
-            # Zapis doświadczenia
-            ws[f"{EXCEL_EXP_COL}11"] = self.experience["available"]
-            ws[f"{EXCEL_SPENT_COL}11"] = self.experience["spent"]
-            ws[f"{EXCEL_TOTAL_COL}11"] = self.experience["total"]
-
-            wb.save(file_path)
-            wb.close()
-            return True
-
-        except Exception as e:
-            print(f"Błąd przy zapisie pliku: {e}")
-            return False
-
-    def save_to_pdf(self, file_path: str = None) -> bool:
-        """Zapisuje dane do formularza PDF. Zwraca True jeśli sukces."""
-        if not file_path and not self.file_path:
-            return False
-
-        file_path = file_path or self.file_path
-
-        try:
-            if not self.pdf_mapping:
-                return False
-
-            write_pdf_character_data(
-                self.file_path,
-                file_path,
-                {
-                    "character_name": self.character_name,
-                    "attributes": self.attributes,
-                    "skills": self.skills,
-                    "talents": self.talents,
-                    "experience": self.experience,
-                    "profession": self.profession_payload(),
-                },
-                self.pdf_mapping,
-            )
-            return True
-        except Exception as e:
-            print(f"Błąd przy zapisie PDF: {e}")
-            return False
-
-    def add_skill(
-        self,
-        skill_name: str,
-        attribute: str,
-        initial: int = 0,
-        advanced: int = 0,
-        is_new: bool = False,
-    ) -> bool:
-        """Dodaje nową umiejętność."""
-        if skill_name in self.skills:
-            return False
-
-        self.skills[skill_name] = {
-            "attribute": attribute,
-            "initial": initial,
-            "advanced": advanced,
-            "current": initial + advanced,
-            "base_advanced": advanced,
-            "is_new": is_new,
-            "profession_available": False,
-        }
-        return True
-
-    # ----- Talenty ---------------------------------------------------------
-    def _enrich_talents(self) -> None:
-        """Uzupełnia talenty wczytane z PDF o dane z bazy (Max, opis, źródło)."""
-        database = game_data.load_talents()
-        base_index = self._talent_base_index(database)
-        enriched: Dict = {}
-        for name, raw in self.talents.items():
-            advances = self._parse_talent_advances(raw.get("advances"))
-            db_entry = self._match_talent_db_entry(name, database, base_index)
-            description = raw.get("description") or (
-                db_entry.get("description") if db_entry else ""
-            )
-            enriched[name] = {
-                "advances": advances,
-                "base_advances": advances,
-                "description": description,
-                "max": (db_entry or {}).get("max"),
-                "tests": (db_entry or {}).get("tests"),
-                "source": (db_entry or {}).get("source", "Karta PDF"),
-                "is_new": False,
-                "is_custom": db_entry is None,
-                "profession_available": False,
-            }
-        self.talents = enriched
-
-    @staticmethod
-    def _talent_base_index(database: Dict) -> Dict[str, str]:
-        """Indeks {nazwa_bazowa_bez_specjalizacji -> klucz_bazy} do dopasowań."""
-        index: Dict[str, str] = {}
-        for key in database:
-            base = game_data._normalize(str(key).split("(")[0])
-            if base:
-                index.setdefault(base, key)
-        return index
-
-    @staticmethod
-    def _match_talent_db_entry(name, database: Dict, base_index: Dict[str, str]):
-        """Dopasowuje talent z PDF do wpisu bazy (dokładnie lub po nazwie bazowej)."""
-        entry = database.get(name)
-        if entry is not None:
-            return entry
-        base = game_data._normalize(str(name).split("(")[0])
-        matched_key = base_index.get(base)
-        if matched_key:
-            return database.get(matched_key)
-        return None
-
-    @staticmethod
-    def _parse_talent_advances(value) -> int:
-        """Zamienia wartość 'times taken' z PDF na liczbę (puste -> 1)."""
-        if value is None:
-            return 1
-        text = str(value).strip()
-        if not text:
-            return 1
-        match = re.search(r"\d+", text)
-        return int(match.group()) if match else 1
-
-    def talent_max_advances(self, name: str) -> Optional[int]:
-        """Zwraca twardy limit wykupień talentu (None = brak limitu liczbowego)."""
-        talent = self.talents.get(name)
-        info = talent.get("max") if talent else None
-        if not info:
-            return None
-        kind = info.get("type")
-        if kind == "fixed":
-            return info.get("value")
-        if kind == "characteristic":
-            attr = info.get("attr")
-            attr_data = self.attributes.get(attr)
-            if not attr_data:
-                return None
-            return max(1, game_data.attribute_bonus(attr_data.get("current", 0)))
-        return None
-
-    def add_talent(
-        self,
-        name: str,
-        advances: int = 1,
-        description: str = "",
-        max_info: Optional[Dict] = None,
-        tests: Optional[str] = None,
-        source: str = "Lista",
-        is_custom: bool = False,
-        is_new: bool = True,
-    ) -> bool:
-        """Dodaje talent do postaci. Zwraca False, jeśli już istnieje."""
-        if name in self.talents:
-            return False
-        self.talents[name] = {
-            "advances": advances,
-            "base_advances": 0 if is_new else advances,
-            "description": description,
-            "max": max_info,
-            "tests": tests,
-            "source": source,
-            "is_new": is_new,
-            "is_custom": is_custom,
-            "profession_available": False,
-        }
-        return True
-
-    # ----- Profesja / klasa / ścieżka kariery -----------------------------
-    def _load_profession(self, info: Dict) -> None:
-        """Wczytuje dane profesji z pól PDF i buduje ścieżkę kariery."""
-        self.profession_raw = dict(info or {})
-        self.character_class = (info or {}).get("class", "") or ""
-        self.character_species = (info or {}).get("species", "") or ""
-
-        profession_field = (info or {}).get("profession", "") or ""
-        path_text = (info or {}).get("path_text", "") or ""
-        level_text = (info or {}).get("level_text", "") or ""
-
-        steps = game_data.resolve_career_path(path_text)
-        # Jeśli ścieżka pusta, ale jest profesja, zbuduj jednoelementową ścieżkę
-        if not steps and profession_field:
-            steps = game_data.resolve_career_path(profession_field)
-
-        parsed_level = game_data.parse_career_level(level_text)
-        self.career_path = self._build_career_path(steps, profession_field, parsed_level)
-
-        if self.career_path:
-            last = self.career_path[-1]
-            self.current_career = last.get("profession") or last.get("title") or profession_field
-            self.current_career_level = last.get("level") or parsed_level or 1
-        else:
-            self.current_career = profession_field
-            self.current_career_level = parsed_level or 1
-
-        # Uzupełnij klasę z danych gry, jeśli pole PDF puste lub niespójne
-        resolved_class = game_data.class_of_career(self.current_career)
-        if resolved_class:
-            self.character_class = resolved_class
-
-    def _build_career_path(
-        self, steps: List[Dict], current_profession: str, current_level: Optional[int]
-    ) -> List[Dict]:
-        """Składa listę kroków kariery z oznaczeniem poziomu i kompletowania."""
-        path: List[Dict] = []
-        for index, step in enumerate(steps):
-            is_last = index == len(steps) - 1
-            level = step.get("level") or 1
-            if is_last and current_level:
-                level = current_level
-            entry = {
-                "title": step.get("title", ""),
-                "profession": step.get("profession"),
-                "level": level,
-                "resolved": step.get("resolved", False),
-                "completed": not is_last,
-            }
-            path.append(entry)
-        return path
-
-    def profession_payload(self) -> Dict:
-        """Buduje słownik pól profesji do zapisu w PDF."""
-        path_titles = [
-            (step.get("title") or step.get("profession") or "")
-            for step in self.career_path
-            if (step.get("title") or step.get("profession"))
-        ]
-        level_text = self.profession_raw.get("level_text", "")
-        if self.current_career:
-            level_text = f"{self.current_career} ({self.current_career_level})"
-        return {
-            "class": self.character_class,
-            "profession": self.current_career,
-            "level_text": level_text,
-            "path_text": ", ".join(path_titles),
-            "species": self.character_species,
-        }
-
-    def set_current_career(self, profession: str, level: int) -> None:
-        """Ustawia/poprawia bieżącą profesję i poziom (bez kosztu)."""
-        self.current_career = profession
-        self.current_career_level = max(1, min(4, int(level)))
-        resolved_class = game_data.class_of_career(profession)
-        if resolved_class:
-            self.character_class = resolved_class
-        if not self.career_path:
-            self.career_path = [
-                {
-                    "title": profession,
-                    "profession": profession if game_data.get_profession(profession) else None,
-                    "level": self.current_career_level,
-                    "resolved": bool(game_data.get_profession(profession)),
-                    "completed": False,
-                }
-            ]
-        else:
-            last = self.career_path[-1]
-            last["title"] = profession
-            last["profession"] = profession if game_data.get_profession(profession) else None
-            last["level"] = self.current_career_level
-            last["resolved"] = bool(game_data.get_profession(profession))
-            last["completed"] = False
-
-    def advance_to_career(self, profession: str, level: int) -> None:
-        """Awansuje do nowej profesji: oznacza obecną jako ukończoną i dopisuje krok."""
-        level = max(1, min(4, int(level)))
-        if self.career_path:
-            self.career_path[-1]["completed"] = True
-        resolved = bool(game_data.get_profession(profession))
-        self.career_path.append(
-            {
-                "title": profession,
-                "profession": profession if resolved else None,
-                "level": level,
-                "resolved": resolved,
-                "completed": False,
-            }
-        )
-        self.current_career = profession
-        self.current_career_level = level
-        resolved_class = game_data.class_of_career(profession)
-        if resolved_class:
-            self.character_class = resolved_class
-
-    def current_career_completion(self) -> Dict:
-        """Zwraca status kompletowania bieżącej profesji."""
-        profession = self.current_career
-        if not game_data.get_profession(profession):
-            return {
-                "completed": False,
-                "skills_ok": False,
-                "talents_ok": False,
-                "characteristics_ok": False,
-                "skills_done": 0,
-                "talents_done": 0,
-                "characteristics_pending": True,
-                "unknown_profession": True,
-            }
-        result = game_data.is_career_completed(
-            profession,
-            self.current_career_level,
-            self.skills,
-            self.talents,
-            self.attributes,
-        )
-        result["unknown_profession"] = False
-        return result
-
-    def reset_character(self) -> None:
-        """Resetuje postać do wartości z pliku."""
-        for attr in self.attributes.values():
-            attr["advanced"] = attr["base_advanced"]
-
-        for skill in self.skills.values():
-            skill["advanced"] = skill["base_advanced"]
-
-    def create_new_character(self, name: str = "Nowa Postać") -> None:
-        """Tworzy nową postać z wartościami domyślnymi."""
-        self.character_name = name
-        self.file_path = None
-        self.source_type = FILE_TYPE_EXCEL
-        self.pdf_mapping = {}
-        self.attributes = {
-            attr: {
-                "initial": 30,
-                "advanced": 0,
-                "current": 30,
-                "base_advanced": 0,
-                "is_new": False,
-                "profession_available": False,
-            }
-            for attr in ATTRIBUTES
-        }
-        self.skills = {}
-        self.experience = {"available": 0, "spent": 0, "total": 0}
-        self.talents = {}
-        self.character_class = ""
-        self.character_species = ""
-        self.current_career = ""
-        self.current_career_level = 1
-        self.career_path = []
-        self.profession_raw = {}
-
 
 
 # ============================================================================
@@ -1023,6 +444,69 @@ class HistoryManager:
                 json.dump(self.data, f, ensure_ascii=False, indent=2)
         except Exception as e:
             print(f"Błąd przy zapisie historii: {e}")
+
+    @staticmethod
+    def _sidecar_path(file_path: str) -> str:
+        """Ścieżka pliku historii towarzyszącego plikowi postaci."""
+        p = Path(file_path)
+        return str(p.parent / f"{p.stem}.history.json")
+
+    @staticmethod
+    def _normalize_record(record: Dict) -> Dict:
+        """Uzupełnia brakujące pola rekordu postaci."""
+        record.setdefault("career_path", [])
+        record.setdefault("changes", [])
+        ov = record.setdefault("developable_override", {"skills": [], "talents": []})
+        if not isinstance(ov, dict):
+            record["developable_override"] = {"skills": [], "talents": []}
+        else:
+            ov.setdefault("skills", [])
+            ov.setdefault("talents", [])
+        return record
+
+    def write_sidecar(self, name: Optional[str], file_path: str) -> bool:
+        """Zapisuje historię postaci obok pliku postaci (<nazwa>.history.json)."""
+        if not name or not file_path:
+            return False
+        record = self.data.get("characters", {}).get(name)
+        if record is None:
+            return False
+        try:
+            payload = {
+                "schema": "wfrp4e-history",
+                "version": 1,
+                "character_name": name,
+                "record": record,
+            }
+            with open(self._sidecar_path(file_path), "w", encoding="utf-8") as f:
+                json.dump(payload, f, ensure_ascii=False, indent=2)
+            return True
+        except Exception as e:
+            print(f"History sidecar save error: {e}")
+            return False
+
+    def read_sidecar(self, name: Optional[str], file_path: str) -> bool:
+        """Wczytuje historię z pliku sidecar (jeśli istnieje) i scala ją z danymi.
+
+        Brak pliku sidecar oznacza fallback do globalnej historii (już w pamięci).
+        """
+        if not name or not file_path:
+            return False
+        sidecar = self._sidecar_path(file_path)
+        if not os.path.exists(sidecar):
+            return False
+        try:
+            with open(sidecar, encoding="utf-8") as f:
+                payload = json.load(f)
+        except Exception as e:
+            print(f"History sidecar load error: {e}")
+            return False
+        record = payload.get("record") if isinstance(payload, dict) else None
+        if not isinstance(record, dict):
+            return False
+        self.data.setdefault("characters", {})[name] = self._normalize_record(record)
+        self.save_history()
+        return True
 
     def ensure_character(self, name: str) -> Dict:
         """Zwraca (tworząc w razie potrzeby) rekord postaci."""
@@ -1141,6 +625,9 @@ class CharacterSheetApp(ctk.CTk):
         self.attribute_rows: Dict = {}  # {attr_name: {"row": Frame, "labels": [...], "buttons": [...]}}
         self.skill_rows: Dict = {}      # {skill_name: {"row": Frame, "labels": [...], "buttons": [...]}}
         self.talent_rows: Dict = {}     # {talent_name: {"row": Frame, "labels": [...], "buttons": [...]}}
+        # Talenty-widma: rozwijalne w profesji, ale jeszcze nie wykupione.
+        self.talent_phantom_rows: Dict = {}  # {schema_name: {"row": Frame}}
+        self._phantom_talents_dirty = True
         self.initialized_attrs = False
         self.initialized_skills = False
         self.initialized_talents = False
@@ -1235,6 +722,24 @@ class CharacterSheetApp(ctk.CTk):
         if force or self._is_costs_tab_active():
             self.refresh_costs_display()
 
+    def _on_tab_changed(self, _value=None) -> None:
+        """Lazy-loading: buduje zawartość zakładki dopiero przy pierwszym wejściu."""
+        if not hasattr(self, "notebook"):
+            return
+        active = self.notebook.get()
+        if active == "Cechy":
+            if not self.initialized_attrs:
+                self.initialize_attributes_display()
+        elif active == "Umiejętności":
+            if not self.initialized_skills:
+                self.initialize_skills_display()
+        elif active == "Talenty":
+            if not self.initialized_talents:
+                self.initialize_talents_display()
+        elif active == "Koszty Rozwinięć":
+            self.refresh_cost_options()
+            self.refresh_costs_display()
+
     def setup_ui(self) -> None:
         """Konfiguruje interfejs użytkownika."""
         self.top_frame = ctk.CTkFrame(
@@ -1281,6 +786,17 @@ class CharacterSheetApp(ctk.CTk):
 
         ctk.CTkButton(
             button_frame,
+            text="Otwórz PDF",
+            command=self.on_open_pdf_external,
+            width=120,
+            height=38,
+            fg_color=COLOR_SURFACE_SOFT,
+            hover_color="#48505e",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left", padx=4)
+
+        ctk.CTkButton(
+            button_frame,
             text="Nowa",
             command=self.on_new_character,
             width=110,
@@ -1295,6 +811,28 @@ class CharacterSheetApp(ctk.CTk):
             text="Zapisz",
             command=self.on_save_character,
             width=110,
+            height=38,
+            fg_color=COLOR_SURFACE_SOFT,
+            hover_color="#48505e",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left", padx=4)
+
+        ctk.CTkButton(
+            button_frame,
+            text="Zapisz JSON",
+            command=self.on_save_json,
+            width=120,
+            height=38,
+            fg_color=COLOR_SURFACE_SOFT,
+            hover_color="#48505e",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left", padx=4)
+
+        ctk.CTkButton(
+            button_frame,
+            text="Eksport PDF",
+            command=self.on_export_pdf,
+            width=120,
             height=38,
             fg_color=COLOR_SURFACE_SOFT,
             hover_color="#48505e",
@@ -1359,6 +897,7 @@ class CharacterSheetApp(ctk.CTk):
             segmented_button_unselected_color=COLOR_SURFACE_SOFT,
             segmented_button_unselected_hover_color="#48505e",
             text_color=COLOR_FG_LIGHT,
+            command=self._on_tab_changed,
         )
         self.notebook.pack(fill="both", expand=True, padx=14, pady=(0, 14))
 
@@ -1587,6 +1126,7 @@ class CharacterSheetApp(ctk.CTk):
             dm.current_career_level,
             dm.talents,
         )
+        self._phantom_talents_dirty = True
 
     def _developable_sets(self) -> Dict:
         """Zwraca cache rozwijalności (przelicza, jeśli brak)."""
@@ -2645,8 +2185,8 @@ class CharacterSheetApp(ctk.CTk):
             text_color=COLOR_TEXT_MUTED,
         )
 
+        # Lazy-loading: wiersze budujemy dopiero przy pierwszym wejściu w zakładkę.
         self.initialized_talents = False
-        self.initialize_talents_display()
 
     def _on_talent_cost_mode_change(self) -> None:
         """Reaguje na zmianę trybu rozwoju spoza profesji / zgody MG."""
@@ -2673,6 +2213,8 @@ class CharacterSheetApp(ctk.CTk):
             if widget is not self.talents_empty_label:
                 widget.destroy()
         self.talent_rows.clear()
+        self.talent_phantom_rows.clear()
+        self._phantom_talents_dirty = True
 
         for talent_name, talent_data in self.data_manager.talents.items():
             self._create_talent_row_cached(talent_name, talent_data)
@@ -2864,21 +2406,27 @@ class CharacterSheetApp(ctk.CTk):
         self.apply_talent_filter()
 
     def apply_talent_filter(self) -> None:
-        """Filtruje widoczne talenty po nazwie lub opisie."""
+        """Filtruje widoczne talenty po nazwie lub opisie.
+
+        Przy włączonym filtrze „Tylko rozwijalne (+)” dokleja na dole listy
+        talenty-widma: rozwijalne w profesji, ale jeszcze nie wykupione.
+        """
         if not hasattr(self, "talents_frame"):
             return
 
         query = normalize_search_text(self.talent_filter_var.get())
         profession_only = bool(self.talent_profession_filter_var.get())
-        visible_count = 0
-        total_count = len(self.talent_rows)
+
+        # Talenty-widma tylko przy filtrze profesji.
+        if profession_only:
+            if self._phantom_talents_dirty or not self.talent_phantom_rows:
+                self._rebuild_phantom_talents()
+        else:
+            self._hide_phantom_talents()
 
         self.talents_empty_label.pack_forget()
-        if total_count == 0:
-            self.talents_empty_label.pack(anchor="w", padx=16, pady=16)
-            self.talent_summary_var.set("Wyświetlane talenty: 0 / 0")
-            return
 
+        visible_count = 0
         for talent_name, row_data in self.talent_rows.items():
             talent_data = self.data_manager.talents.get(talent_name, {})
             searchable = normalize_search_text(
@@ -2892,9 +2440,110 @@ class CharacterSheetApp(ctk.CTk):
                 visible_count += 1
                 row_data["row"].pack(fill="x", pady=5, padx=10)
 
+        phantom_visible = 0
+        if profession_only:
+            for schema_name, row_data in self.talent_phantom_rows.items():
+                matches_query = not query or query in normalize_search_text(schema_name)
+                row_data["row"].pack_forget()
+                if matches_query:
+                    phantom_visible += 1
+                    row_data["row"].pack(fill="x", pady=5, padx=10)
+
+        owned_total = len(self.talent_rows)
+        phantom_total = len(self.talent_phantom_rows) if profession_only else 0
+        total_visible = visible_count + phantom_visible
+        total_all = owned_total + phantom_total
+
+        if total_all == 0:
+            self.talents_empty_label.pack(anchor="w", padx=16, pady=16)
+
         self.talent_summary_var.set(
-            f"Wyświetlane talenty: {visible_count} / {total_count}"
+            f"Wyświetlane talenty: {total_visible} / {total_all}"
         )
+
+    def _unowned_developable_talents(self) -> List[str]:
+        """Talenty ze schematu profesji, których postać jeszcze nie ma."""
+        dev = self._developable_sets()
+        schema = dev.get("talents") or set()
+        return sorted(
+            name for name in schema if not self._talent_schema_satisfied(name)
+        )
+
+    def _talent_schema_satisfied(self, schema_name: str) -> bool:
+        """Czy talent ze schematu jest już posiadany (z uwzgl. specjalizacji)."""
+        owned = self.data_manager.talents
+        if schema_name in owned:
+            return True
+        if "(" in schema_name:
+            base = schema_name.split("(")[0].strip().lower()
+            for name in owned:
+                if name.split("(")[0].strip().lower() == base:
+                    return True
+        return False
+
+    def _hide_phantom_talents(self) -> None:
+        """Ukrywa wiersze-widma (bez niszczenia widgetów)."""
+        for row_data in self.talent_phantom_rows.values():
+            row_data["row"].pack_forget()
+
+    def _rebuild_phantom_talents(self) -> None:
+        """Buduje od nowa wiersze talentów-widm dla bieżącej profesji."""
+        if not hasattr(self, "talents_frame"):
+            return
+        for row_data in self.talent_phantom_rows.values():
+            row_data["row"].destroy()
+        self.talent_phantom_rows.clear()
+        for schema_name in self._unowned_developable_talents():
+            self._create_phantom_talent_row(schema_name)
+        self._phantom_talents_dirty = False
+
+    def _create_phantom_talent_row(self, schema_name: str) -> None:
+        """Tworzy wyszarzony wiersz talentu rozwijalnego, jeszcze nie wykupionego."""
+        row = ctk.CTkFrame(
+            self.talents_frame,
+            fg_color=COLOR_DEVELOPABLE_BG,
+            corner_radius=14,
+            border_width=1,
+            border_color=COLOR_DEVELOPABLE_BORDER,
+        )
+        top = ctk.CTkFrame(row, fg_color="transparent")
+        top.pack(fill="x", padx=10, pady=(8, 2))
+
+        ctk.CTkLabel(
+            top, text=f"{schema_name} +", font=FONT_BODY_BOLD, width=240,
+            anchor="w", text_color=COLOR_TEXT_MUTED,
+        ).pack(side="left", padx=(0, 6))
+        ctk.CTkLabel(
+            top, text="rozwój profesji", width=120, anchor="w",
+            font=FONT_SMALL, text_color=COLOR_TEXT_MUTED,
+        ).pack(side="left", padx=(0, 6))
+        ctk.CTkLabel(
+            top, text="Wykupienia: 0", width=130, font=FONT_BODY_BOLD,
+            text_color=COLOR_TEXT_MUTED,
+        ).pack(side="left", padx=2)
+        ctk.CTkButton(
+            top, text="+ Dodaj", width=90, height=34,
+            command=lambda n=schema_name: self.on_add_phantom_talent(n),
+            fg_color=COLOR_SUCCESS,
+        ).pack(side="left", padx=2)
+
+        ctk.CTkLabel(
+            row,
+            text="Talent z profesji – jeszcze nie wykupiony. Kliknij „+ Dodaj”, aby go nabyć.",
+            font=FONT_SMALL, text_color=COLOR_TEXT_MUTED,
+            justify="left", anchor="w",
+        ).pack(fill="x", anchor="w", padx=10, pady=(0, 8))
+
+        self.talent_phantom_rows[schema_name] = {"row": row}
+
+    def on_add_phantom_talent(self, schema_name: str) -> None:
+        """Dodaje talent-widmo do postaci (z prośbą o specjalizację dla grup)."""
+        concrete = self._resolve_specialization_name(schema_name)
+        if concrete is None:
+            return
+        self._add_talent_and_register(concrete, from_database=True, db_name=schema_name)
+        self._phantom_talents_dirty = True
+        self.apply_talent_filter()
 
     # ----- Operacje na talentach ------------------------------------------
     def can_buy_talent(self, talent_name: str) -> bool:
@@ -2902,7 +2551,10 @@ class CharacterSheetApp(ctk.CTk):
         if not self._talent_below_max(talent_name, 1):
             return False
         out_of_profession, gm_approved = self._talent_cost_mode()
-        cost = calculate_talent_cost(1, out_of_profession, gm_approved)
+        talent = self.data_manager.talents.get(talent_name, {})
+        cost = calculate_talent_cost(
+            talent.get("advances", 0), 1, out_of_profession, gm_approved
+        )
         return self.data_manager.experience["available"] >= cost
 
     def _talent_below_max(self, talent_name: str, amount: int) -> bool:
@@ -2937,7 +2589,9 @@ class CharacterSheetApp(ctk.CTk):
             return
 
         out_of_profession, gm_approved = self._talent_cost_mode()
-        cost = calculate_talent_cost(amount, out_of_profession, gm_approved)
+        cost = calculate_talent_cost(
+            talent["advances"], amount, out_of_profession, gm_approved
+        )
         if self.data_manager.experience["available"] < cost:
             messagebox.showerror(
                 "Za mało PD",
@@ -2966,7 +2620,9 @@ class CharacterSheetApp(ctk.CTk):
             return
 
         out_of_profession, gm_approved = self._talent_cost_mode()
-        refund = calculate_talent_cost(amount, out_of_profession, gm_approved)
+        refund = calculate_talent_cost(
+            talent["advances"] - amount, amount, out_of_profession, gm_approved
+        )
 
         self.pending_changes["talent_changes"][talent_name] = (
             self.pending_changes["talent_changes"].get(talent_name, 0) - amount
@@ -3090,7 +2746,7 @@ class CharacterSheetApp(ctk.CTk):
         ("Etykieta (Uczeni)").
         """
         out_of_profession, gm_approved = self._talent_cost_mode()
-        cost = calculate_talent_cost(1, out_of_profession, gm_approved)
+        cost = calculate_talent_cost(0, 1, out_of_profession, gm_approved)
         if self.data_manager.experience["available"] < cost:
             messagebox.showerror(
                 "Za mało PD",
@@ -3403,7 +3059,7 @@ class CharacterSheetApp(ctk.CTk):
                 return
             out_of_profession, gm_approved = self._talent_cost_mode()
             refund = calculate_talent_cost(
-                talent["advances"], out_of_profession, gm_approved
+                0, talent["advances"], out_of_profession, gm_approved
             )
             self.data_manager.experience["available"] += refund
             self.pending_changes["new_talents"].discard(talent_name)
@@ -3435,6 +3091,7 @@ class CharacterSheetApp(ctk.CTk):
                     "Talent usunięto w aplikacji, ale zapis do pliku się nie powiódł.",
                 )
 
+        self._phantom_talents_dirty = True
         self.apply_talent_filter()
         self.update_experience_display()
         self.history_manager.add_entry("Usunięto talent", talent_name)
@@ -3448,8 +3105,13 @@ class CharacterSheetApp(ctk.CTk):
             "Na górze możesz policzyć dowolną liczbę rozwinięć dla wybranej cechy lub umiejętności. Poniżej masz pełną tabelę szybkiego porównania dla progów 5, 10, 15 i 20.",
         )
 
+        # Jeden wspólny obszar przewijania dla całej zakładki — bez zagnieżdżonych
+        # scrolli, które wcześniej psuły płynne przewijanie kółkiem myszy.
+        costs_scroll = ctk.CTkScrollableFrame(wrapper, fg_color="transparent")
+        costs_scroll.pack(fill="both", expand=True)
+
         calculator_section = self._create_collapsible_section(
-            wrapper,
+            costs_scroll,
             "Kalkulator dowolnych rozwinięć",
             "Koszt aktualizuje się na żywo i uwzględnia obecny poziom rozwinięć.",
             default_open=True,
@@ -3511,11 +3173,10 @@ class CharacterSheetApp(ctk.CTk):
         self.cost_result_label.pack(side="right", padx=(12, 8), pady=8)
 
         table_section = self._create_collapsible_section(
-            wrapper,
+            costs_scroll,
             "Szybkie tabele kosztów",
             "Filtrowanie działa jednocześnie dla cech i umiejętności w tabeli porównawczej.",
             default_open=True,
-            expand=True,
         )
         table_content = table_section["content"]
 
@@ -3550,16 +3211,15 @@ class CharacterSheetApp(ctk.CTk):
         self.costs_header_frame.pack(fill="x", pady=(0, 8))
         self._build_costs_header(self.costs_header_frame)
 
-        self.costs_frame = ctk.CTkScrollableFrame(
+        self.costs_frame = ctk.CTkFrame(
             table_content,
             fg_color=COLOR_SURFACE,
             corner_radius=16,
             border_width=1,
             border_color=COLOR_BORDER,
         )
-        self.costs_frame.pack(fill="both", expand=True)
-
-        self.refresh_cost_options()
+        self.costs_frame.pack(fill="x", expand=False)
+        # Lazy-loading: opcje i tabelę kosztów liczymy przy pierwszym wejściu.
 
     def refresh_cost_options(self) -> None:
         """Odświeża listę pozycji dostępnych w kalkulatorze kosztów."""
@@ -4559,7 +4219,11 @@ class CharacterSheetApp(ctk.CTk):
         out_of_profession, gm_approved = self._talent_cost_mode()
         for talent_name, change_count in self.pending_changes["talent_changes"].items():
             if change_count > 0:
-                cost = calculate_talent_cost(change_count, out_of_profession, gm_approved)
+                talent = self.data_manager.talents.get(talent_name, {})
+                start = max(0, talent.get("advances", change_count) - change_count)
+                cost = calculate_talent_cost(
+                    start, change_count, out_of_profession, gm_approved
+                )
                 total_cost += cost
                 details.append(
                     f"Talent {talent_name}: +{change_count} wykupień ({cost} PD)"
@@ -4702,8 +4366,10 @@ class CharacterSheetApp(ctk.CTk):
             out_of_profession, gm_approved = self._talent_cost_mode()
             for talent_name, change_count in self.pending_changes["talent_changes"].items():
                 if change_count > 0:
+                    talent = self.data_manager.talents.get(talent_name, {})
+                    start = max(0, talent.get("advances", change_count) - change_count)
                     total_refund += calculate_talent_cost(
-                        change_count, out_of_profession, gm_approved
+                        start, change_count, out_of_profession, gm_approved
                     )
                 if talent_name in self.data_manager.talents:
                     self.data_manager.talents[talent_name]["advances"] = (
@@ -4888,10 +4554,11 @@ class CharacterSheetApp(ctk.CTk):
         self.cost_result_label.configure(text=f"Koszt: {preview['cost']} PD")
 
     def on_load_character(self) -> None:
-        """Ładuje postać z pliku Excel."""
+        """Ładuje postać z pliku Excel, PDF lub JSON."""
         file_path = filedialog.askopenfilename(
             filetypes=[
-                ("Obsługiwane pliki", "*.xlsx *.pdf"),
+                ("Obsługiwane pliki", "*.xlsx *.pdf *.json"),
+                ("Postać JSON", "*.json"),
                 ("Excel files", "*.xlsx"),
                 ("PDF files", "*.pdf"),
                 ("All files", "*.*"),
@@ -4904,6 +4571,8 @@ class CharacterSheetApp(ctk.CTk):
         extension = Path(file_path).suffix.lower()
         if extension == ".pdf":
             was_loaded = self.data_manager.load_from_pdf(file_path)
+        elif extension == ".json":
+            was_loaded = self.data_manager.load_from_json(file_path)
         else:
             was_loaded = self.data_manager.load_from_excel(file_path)
 
@@ -4913,19 +4582,18 @@ class CharacterSheetApp(ctk.CTk):
             self.initialized_attrs = False
             self.initialized_skills = False
             self.initialized_talents = False
+            self.history_manager.read_sidecar(self.data_manager.character_name, file_path)
             self.history_manager.set_current_character(self.data_manager.character_name)
             self._reconcile_career_path()
             self.history_manager.add_entry("Wczytano postać", Path(file_path).name)
             messagebox.showinfo("Sukces", "Postać wczytana!")
-            self.initialize_attributes_display()
-            self.initialize_skills_display()
-            self.initialize_talents_display()
+            self.cost_options_dirty = True
             self.refresh_profession_display()
             self.update_experience_display()
             self.refresh_history_display()
             self.update_character_info()
-            self.cost_options_dirty = True
-            self.refresh_costs_if_visible(force=True)
+            # Lazy-loading: budujemy tylko aktywną zakładkę, resztę przy wejściu.
+            self._on_tab_changed()
         else:
             messagebox.showerror("Błąd", "Nie można wczytać pliku.")
 
@@ -4987,6 +4655,43 @@ class CharacterSheetApp(ctk.CTk):
             for step in path
         )
 
+    def on_open_pdf_external(self) -> None:
+        """Otwiera bieżący plik PDF postaci w domyślnym czytniku systemowym."""
+        file_path = self.data_manager.file_path
+        if not file_path or self.data_manager.source_type != FILE_TYPE_PDF:
+            messagebox.showinfo(
+                "Brak pliku PDF",
+                "Najpierw wczytaj postać z pliku PDF, aby otworzyć ją w czytniku.",
+            )
+            return
+        if not os.path.exists(file_path):
+            messagebox.showerror("Brak pliku", f"Plik nie istnieje:\n{file_path}")
+            return
+        if self.has_pending_changes():
+            if not messagebox.askyesno(
+                "Oczekujące zmiany",
+                "Masz niezapisane zmiany, których NIE ma jeszcze w pliku PDF.\n"
+                "Otworzyć plik mimo to? (zatwierdź i zapisz, aby zobaczyć zmiany w pliku)",
+            ):
+                return
+        if not self._open_path_external(file_path):
+            messagebox.showerror(
+                "Błąd", "Nie udało się otworzyć pliku w zewnętrznym programie."
+            )
+
+    def _open_path_external(self, path: str) -> bool:
+        """Otwiera plik w domyślnej aplikacji systemowej. Zwraca True przy sukcesie."""
+        try:
+            if sys.platform.startswith("win"):
+                os.startfile(path)  # type: ignore[attr-defined]
+            elif sys.platform == "darwin":
+                subprocess.run(["open", path], check=False)
+            else:
+                subprocess.run(["xdg-open", path], check=False)
+            return True
+        except Exception:
+            return False
+
     def on_save_character(self) -> None:
         """Zapisuje postać do pliku Excel."""
         if self.has_pending_changes():
@@ -5034,10 +4739,63 @@ class CharacterSheetApp(ctk.CTk):
 
         if save_ok:
             self.history_manager.add_entry("Zapisano postać", Path(file_path).name)
+            self.history_manager.write_sidecar(self.data_manager.character_name, file_path)
             messagebox.showinfo("Sukces", "Postać zapisana!")
             self.refresh_history_display()
         else:
             messagebox.showerror("Błąd", "Nie można zapisać pliku.")
+
+    def on_save_json(self) -> None:
+        """Zapisuje postać do natywnego pliku JSON (pełny stan, niezależny od PDF)."""
+        if self.has_pending_changes():
+            messagebox.showwarning(
+                "Oczekujące zmiany",
+                "Najpierw zatwierdź albo cofnij oczekujące zmiany, a dopiero potem zapisz plik.",
+            )
+            return
+
+        safe_name = (self.data_manager.character_name or "postac").strip() or "postac"
+        file_path = filedialog.asksaveasfilename(
+            defaultextension=".json",
+            initialfile=f"{safe_name}.json",
+            filetypes=[("Postać JSON", "*.json"), ("All files", "*.*")],
+        )
+        if not file_path:
+            return
+
+        if self.data_manager.save_to_json(file_path):
+            self.history_manager.add_entry("Zapisano postać (JSON)", Path(file_path).name)
+            self.history_manager.write_sidecar(self.data_manager.character_name, file_path)
+            messagebox.showinfo("Sukces", "Postać zapisana do pliku JSON!")
+            self.refresh_history_display()
+        else:
+            messagebox.showerror("Błąd", "Nie można zapisać pliku JSON.")
+
+    def on_export_pdf(self) -> None:
+        """Eksportuje postać do pliku PDF (wzorzec PDF lub pusta karta)."""
+        if self.has_pending_changes():
+            messagebox.showwarning(
+                "Oczekujące zmiany",
+                "Najpierw zatwierdź albo cofnij oczekujące zmiany, a dopiero potem eksportuj.",
+            )
+            return
+
+        safe_name = (self.data_manager.character_name or "postac").strip() or "postac"
+        file_path = filedialog.asksaveasfilename(
+            defaultextension=".pdf",
+            initialfile=f"{safe_name}.pdf",
+            filetypes=[("PDF files", "*.pdf"), ("All files", "*.*")],
+        )
+        if not file_path:
+            return
+
+        if self.data_manager.export_to_pdf(file_path):
+            self.history_manager.add_entry("Wyeksportowano do PDF", Path(file_path).name)
+            self.history_manager.write_sidecar(self.data_manager.character_name, file_path)
+            messagebox.showinfo("Sukces", "Postać wyeksportowana do PDF!")
+            self.refresh_history_display()
+        else:
+            messagebox.showerror("Błąd", "Nie można wyeksportować do PDF.")
 
     def on_new_character(self) -> None:
         """Tworzy nową postać."""
@@ -5055,15 +4813,13 @@ class CharacterSheetApp(ctk.CTk):
             self.initialized_attrs = False
             self.initialized_skills = False
             self.initialized_talents = False
-            self.initialize_attributes_display()
-            self.initialize_skills_display()
-            self.initialize_talents_display()
+            self.cost_options_dirty = True
             self.refresh_profession_display()
             self.update_experience_display()
             self.refresh_history_display()
             self.update_character_info()
-            self.cost_options_dirty = True
-            self.refresh_costs_if_visible(force=True)
+            # Lazy-loading: budujemy tylko aktywną zakładkę, resztę przy wejściu.
+            self._on_tab_changed()
 
     def update_experience_display(self) -> None:
         """Aktualizuje wyświetlanie doświadczenia."""

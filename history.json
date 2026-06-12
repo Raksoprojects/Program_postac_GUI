@@ -173,6 +173,78 @@
           "action": "Rozwój profesyjny: oznaczono",
           "details": "Wiedza (Wojna) (umiejętność)",
           "character": "Rein Nuhr"
+        },
+        {
+          "timestamp": "2026-06-12T18:40:08.190268",
+          "action": "Rozwój profesyjny: oznaczono",
+          "details": "Magia prosta (talent)",
+          "character": "Rein Nuhr"
+        },
+        {
+          "timestamp": "2026-06-12T18:40:23.775338",
+          "action": "Edycja Maks talentu",
+          "details": "Czytanie i pisanie",
+          "character": "Rein Nuhr"
+        },
+        {
+          "timestamp": "2026-06-12T18:40:29.405977",
+          "action": "Rozwój profesyjny: oznaczono",
+          "details": "Czytanie i pisanie (talent)",
+          "character": "Rein Nuhr"
+        },
+        {
+          "timestamp": "2026-06-12T18:40:34.593803",
+          "action": "Rozwój profesyjny: oznaczono",
+          "details": "Percepcja Magiczna (talent)",
+          "character": "Rein Nuhr"
+        },
+        {
+          "timestamp": "2026-06-12T18:40:36.930724",
+          "action": "Rozwój profesyjny: oznaczono",
+          "details": "Zmysł magiczny (talent)",
+          "character": "Rein Nuhr"
+        },
+        {
+          "timestamp": "2026-06-12T18:40:55.125968",
+          "action": "Edycja Maks talentu",
+          "details": "Zmysł magiczny",
+          "character": "Rein Nuhr"
+        },
+        {
+          "timestamp": "2026-06-12T18:41:03.719987",
+          "action": "Rozwój profesyjny: oznaczono",
+          "details": "Magia tajemna (Ogień) (talent)",
+          "character": "Rein Nuhr"
+        },
+        {
+          "timestamp": "2026-06-12T18:41:07.795225",
+          "action": "Rozwój profesyjny: oznaczono",
+          "details": "Rozpoznanie artefaktu (talent)",
+          "character": "Rein Nuhr"
+        },
+        {
+          "timestamp": "2026-06-12T18:41:22.008338",
+          "action": "Zatwierdzono zmiany",
+          "details": "Koszt: 0 PD",
+          "character": "Rein Nuhr"
+        },
+        {
+          "timestamp": "2026-06-12T18:41:31.780272",
+          "action": "Zapisano postać",
+          "details": "Rein_Nuhr_lepsza_4ed.pdf",
+          "character": "Rein Nuhr"
+        },
+        {
+          "timestamp": "2026-06-12T18:45:58.236941",
+          "action": "Zapisano postać",
+          "details": "Rein_Nuhr_lepsza_4ed.pdf",
+          "character": "Rein Nuhr"
+        },
+        {
+          "timestamp": "2026-06-12T20:32:00.198681",
+          "action": "Wczytano postać",
+          "details": "Rein_Nuhr_lepsza_4ed.pdf",
+          "character": "Rein Nuhr"
         }
       ],
       "developable_override": {
@@ -194,7 +266,14 @@
           "Język (Klasyczny)",
           "Wiedza (Wojna)"
         ],
-        "talents": []
+        "talents": [
+          "Magia prosta",
+          "Czytanie i pisanie",
+          "Percepcja Magiczna",
+          "Zmysł magiczny",
+          "Magia tajemna (Ogień)",
+          "Rozpoznanie artefaktu"
+        ]
       }
     }
   },
@@ -643,6 +722,78 @@
       "timestamp": "2026-06-12T18:32:23.019593",
       "action": "Rozwój profesyjny: oznaczono",
       "details": "Wiedza (Wojna) (umiejętność)",
+      "character": "Rein Nuhr"
+    },
+    {
+      "timestamp": "2026-06-12T18:40:08.190268",
+      "action": "Rozwój profesyjny: oznaczono",
+      "details": "Magia prosta (talent)",
+      "character": "Rein Nuhr"
+    },
+    {
+      "timestamp": "2026-06-12T18:40:23.775338",
+      "action": "Edycja Maks talentu",
+      "details": "Czytanie i pisanie",
+      "character": "Rein Nuhr"
+    },
+    {
+      "timestamp": "2026-06-12T18:40:29.405977",
+      "action": "Rozwój profesyjny: oznaczono",
+      "details": "Czytanie i pisanie (talent)",
+      "character": "Rein Nuhr"
+    },
+    {
+      "timestamp": "2026-06-12T18:40:34.593803",
+      "action": "Rozwój profesyjny: oznaczono",
+      "details": "Percepcja Magiczna (talent)",
+      "character": "Rein Nuhr"
+    },
+    {
+      "timestamp": "2026-06-12T18:40:36.930724",
+      "action": "Rozwój profesyjny: oznaczono",
+      "details": "Zmysł magiczny (talent)",
+      "character": "Rein Nuhr"
+    },
+    {
+      "timestamp": "2026-06-12T18:40:55.125968",
+      "action": "Edycja Maks talentu",
+      "details": "Zmysł magiczny",
+      "character": "Rein Nuhr"
+    },
+    {
+      "timestamp": "2026-06-12T18:41:03.719987",
+      "action": "Rozwój profesyjny: oznaczono",
+      "details": "Magia tajemna (Ogień) (talent)",
+      "character": "Rein Nuhr"
+    },
+    {
+      "timestamp": "2026-06-12T18:41:07.795225",
+      "action": "Rozwój profesyjny: oznaczono",
+      "details": "Rozpoznanie artefaktu (talent)",
+      "character": "Rein Nuhr"
+    },
+    {
+      "timestamp": "2026-06-12T18:41:22.008338",
+      "action": "Zatwierdzono zmiany",
+      "details": "Koszt: 0 PD",
+      "character": "Rein Nuhr"
+    },
+    {
+      "timestamp": "2026-06-12T18:41:31.780272",
+      "action": "Zapisano postać",
+      "details": "Rein_Nuhr_lepsza_4ed.pdf",
+      "character": "Rein Nuhr"
+    },
+    {
+      "timestamp": "2026-06-12T18:45:58.236941",
+      "action": "Zapisano postać",
+      "details": "Rein_Nuhr_lepsza_4ed.pdf",
+      "character": "Rein Nuhr"
+    },
+    {
+      "timestamp": "2026-06-12T20:32:00.198681",
+      "action": "Wczytano postać",
+      "details": "Rein_Nuhr_lepsza_4ed.pdf",
       "character": "Rein Nuhr"
     }
   ]
