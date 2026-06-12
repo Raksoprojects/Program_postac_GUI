@@ -491,6 +491,36 @@ class HistoryManagerRegressionTests(unittest.TestCase):
             reloaded = HistoryManager(str(history_file))
             self.assertEqual(reloaded.get_career_path("Bohater"), path)
 
+    def test_developable_override_toggle_and_persist(self):
+        # 4C1: per-postać oznaczenia rozwoju profesyjnego (toggle + persystencja).
+        with tempfile.TemporaryDirectory() as temp_dir:
+            history_file = Path(temp_dir) / "history.json"
+            manager = HistoryManager(str(history_file))
+            manager.set_current_character("Bohater")
+            self.assertEqual(
+                manager.get_developable_override("Bohater"),
+                {"skills": [], "talents": []},
+            )
+            self.assertTrue(manager.toggle_developable_override("Bohater", "skills", "Hazard"))
+            self.assertTrue(manager.toggle_developable_override("Bohater", "talents", "Szczęście"))
+            ov = manager.get_developable_override("Bohater")
+            self.assertEqual(ov["skills"], ["Hazard"])
+            self.assertEqual(ov["talents"], ["Szczęście"])
+            # Ponowne przełączenie usuwa oznaczenie
+            self.assertFalse(manager.toggle_developable_override("Bohater", "skills", "Hazard"))
+            # Persystencja po ponownym wczytaniu
+            reloaded = HistoryManager(str(history_file))
+            ov2 = reloaded.get_developable_override("Bohater")
+            self.assertEqual(ov2["skills"], [])
+            self.assertEqual(ov2["talents"], ["Szczęście"])
+
+    def test_developable_override_invalid_kind_raises(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            manager = HistoryManager(str(Path(temp_dir) / "history.json"))
+            manager.set_current_character("Bohater")
+            with self.assertRaises(ValueError):
+                manager.toggle_developable_override("Bohater", "cechy", "WW")
+
 
 class DevelopableRegressionTests(unittest.TestCase):
     """Faza 3: rozwijalność (gating) i koszt rozwoju spoza profesji."""
@@ -608,6 +638,216 @@ class TalentMatchingRegressionTests(unittest.TestCase):
             self.assertFalse(manager.talents[name]["is_custom"], name)
             self.assertEqual(manager.talents[name]["source"], "Podręcznik podstawowy", name)
             self.assertIsNotNone(manager.talents[name]["max"], name)
+
+
+class DevelopableOverrideRegressionTests(unittest.TestCase):
+    """Faza 4C1: per-postać override rozwoju profesyjnego wpływa na gating i koszt."""
+
+    def test_override_makes_skill_developable_without_doubling_cost(self):
+        app = None
+        with tempfile.TemporaryDirectory() as temp_dir:
+            try:
+                app = CharacterSheetApp()
+                app.withdraw()
+                app.history_manager = HistoryManager(str(Path(temp_dir) / "history.json"))
+                app.history_manager.set_current_character("Bohater")
+                app.data_manager.skills = {"Hazard": {"advanced": 0, "profession_available": False}}
+                app.data_manager.current_career = "Piromanta"  # nierozpoznana -> brak schematu
+                app._recompute_developable()
+                # Bez override: nierozwijalna, ale brak schematu -> bez kary x2
+                self.assertFalse(app._skill_developable("Hazard"))
+                # Po oznaczeniu jako rozwój profesyjny: rozwijalna
+                app.history_manager.toggle_developable_override("Bohater", "skills", "Hazard")
+                self.assertTrue(app._skill_developable("Hazard"))
+                self.assertFalse(app._is_out_of_profession("umiejetnosc", "Hazard"))
+            finally:
+                if app is not None:
+                    app.destroy()
+
+    def test_override_makes_talent_developable(self):
+        app = None
+        with tempfile.TemporaryDirectory() as temp_dir:
+            try:
+                app = CharacterSheetApp()
+                app.withdraw()
+                app.history_manager = HistoryManager(str(Path(temp_dir) / "history.json"))
+                app.history_manager.set_current_character("Bohater")
+                app.data_manager.talents = {"Szczęście": {"advances": 1, "profession_available": False}}
+                app.data_manager.current_career = "Piromanta"
+                app._recompute_developable()
+                self.assertFalse(app._talent_developable("Szczęście"))
+                app.history_manager.toggle_developable_override("Bohater", "talents", "Szczęście")
+                self.assertTrue(app._talent_developable("Szczęście"))
+            finally:
+                if app is not None:
+                    app.destroy()
+
+
+class TalentSpecializationRegressionTests(unittest.TestCase):
+    """Faza 4C2: talent ze specjalizacją pobiera dane z wpisu bazowego."""
+
+    def test_specialised_talent_uses_base_database_entry(self):
+        app = None
+        with tempfile.TemporaryDirectory() as temp_dir:
+            try:
+                app = CharacterSheetApp()
+                app.withdraw()
+                app.history_manager = HistoryManager(str(Path(temp_dir) / "history.json"))
+                app.data_manager.experience = {"available": 1000, "spent": 0, "total": 1000}
+                app._add_talent_and_register(
+                    "Etykieta (Uczeni)",
+                    from_database=True,
+                    db_name="Etykieta (Grupa Społeczna)",
+                )
+                talent = app.data_manager.talents.get("Etykieta (Uczeni)")
+                self.assertIsNotNone(talent)
+                self.assertFalse(talent["is_custom"])
+                self.assertEqual(talent["source"], "Podręcznik podstawowy")
+                self.assertEqual(talent["max"]["attr"], "Ogd")
+            finally:
+                if app is not None:
+                    app.destroy()
+
+
+class DeleteExistingTalentRegressionTests(unittest.TestCase):
+    """Faza 4C4: usuwanie istniejacych talentow + czyszczenie w PDF."""
+
+    def test_delete_existing_talent_clears_pdf_field(self):
+        data_manager = DataManager()
+        self.assertTrue(data_manager.load_from_pdf(str(PDF_FILE)))
+        talent_name = next(iter(data_manager.talents))
+        name_field = data_manager.pdf_mapping["talents"][talent_name]["name_field"]
+
+        del data_manager.talents[talent_name]
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_pdf = Path(temp_dir) / "rein_deleted_talent.pdf"
+            self.assertTrue(data_manager.save_to_pdf(str(temp_pdf)))
+
+            from pypdf import PdfReader
+
+            reader = PdfReader(str(temp_pdf))
+            fields = reader.get_fields() or {}
+            value = fields.get(name_field, {}).get("/V")
+            self.assertIn(value, (None, "", "/Off"))
+
+    def test_delete_existing_talent_in_app_keeps_pd(self):
+        app = None
+        with tempfile.TemporaryDirectory() as temp_dir:
+            try:
+                app = CharacterSheetApp()
+                app.withdraw()
+                app.history_manager = HistoryManager(str(Path(temp_dir) / "history.json"))
+                app.data_manager.file_path = None
+                app.data_manager.talents = {
+                    "Nieustraszony": {
+                        "advances": 1, "is_new": False, "is_custom": False,
+                        "description": "",
+                    }
+                }
+                app.data_manager.experience = {"available": 100, "spent": 200, "total": 300}
+                with patch("Postac_program_gui.messagebox.askyesno", return_value=True):
+                    app.on_delete_talent("Nieustraszony")
+                self.assertNotIn("Nieustraszony", app.data_manager.talents)
+                self.assertEqual(app.data_manager.experience["available"], 100)
+            finally:
+                if app is not None:
+                    app.destroy()
+
+
+class EditTalentMaxRegressionTests(unittest.TestCase):
+    """Faza 4C5: edycja Max tylko dla custom talentow."""
+
+    def test_edit_max_opens_for_custom_talent(self):
+        app = None
+        with tempfile.TemporaryDirectory() as temp_dir:
+            try:
+                app = CharacterSheetApp()
+                app.withdraw()
+                app.history_manager = HistoryManager(str(Path(temp_dir) / "history.json"))
+                app.data_manager.talents = {
+                    "Moj Talent": {
+                        "advances": 1, "is_new": True, "is_custom": True,
+                        "description": "", "max": {"type": "fixed", "value": 2},
+                    }
+                }
+                app.on_edit_talent_max("Moj Talent")
+                app.update()
+                toplevels = [w for w in app.winfo_children()
+                             if w.winfo_class() == "Toplevel"]
+                self.assertEqual(len(toplevels), 1)
+            finally:
+                if app is not None:
+                    app.destroy()
+
+    def test_edit_max_blocked_for_core_talent(self):
+        app = None
+        with tempfile.TemporaryDirectory() as temp_dir:
+            try:
+                app = CharacterSheetApp()
+                app.withdraw()
+                app.history_manager = HistoryManager(str(Path(temp_dir) / "history.json"))
+                app.data_manager.talents = {
+                    "Nieustraszony": {
+                        "advances": 1, "is_new": False, "is_custom": False,
+                        "description": "", "max": {"type": "fixed", "value": 1},
+                    }
+                }
+                with patch("Postac_program_gui.messagebox.showinfo") as info:
+                    app.on_edit_talent_max("Nieustraszony")
+                    info.assert_called_once()
+                toplevels = [w for w in app.winfo_children()
+                             if w.winfo_class() == "Toplevel"]
+                self.assertEqual(len(toplevels), 0)
+            finally:
+                if app is not None:
+                    app.destroy()
+
+
+class CareerPathEditorRegressionTests(unittest.TestCase):
+    """Faza 4C3: modalny edytor calej sciezki kariery."""
+
+    def test_editor_opens_with_character(self):
+        app = None
+        with tempfile.TemporaryDirectory() as temp_dir:
+            try:
+                app = CharacterSheetApp()
+                app.withdraw()
+                app.history_manager = HistoryManager(str(Path(temp_dir) / "history.json"))
+                app.history_manager.set_current_character("Bohater")
+                app.data_manager.character_name = "Bohater"
+                app.data_manager.career_path = [
+                    {"title": "Czarodziej", "profession": "Czarodziej",
+                     "level": 1, "resolved": True, "completed": False},
+                ]
+                before = len(app.winfo_children())
+                app.on_edit_career_path()
+                app.update()
+                toplevels = [w for w in app.winfo_children()
+                             if w.winfo_class() == "Toplevel"]
+                self.assertEqual(len(toplevels), 1)
+                self.assertGreaterEqual(len(app.winfo_children()), before)
+            finally:
+                if app is not None:
+                    app.destroy()
+
+    def test_editor_requires_character(self):
+        app = None
+        with tempfile.TemporaryDirectory() as temp_dir:
+            try:
+                app = CharacterSheetApp()
+                app.withdraw()
+                app.history_manager = HistoryManager(str(Path(temp_dir) / "history.json"))
+                app.data_manager.character_name = ""
+                with patch("Postac_program_gui.messagebox.showinfo") as info:
+                    app.on_edit_career_path()
+                    info.assert_called_once()
+                toplevels = [w for w in app.winfo_children()
+                             if w.winfo_class() == "Toplevel"]
+                self.assertEqual(len(toplevels), 0)
+            finally:
+                if app is not None:
+                    app.destroy()
 
 
 if __name__ == "__main__":

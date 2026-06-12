@@ -116,6 +116,15 @@ Repozytorium ma już podstawy importu danych talentów z PDF, ale pełny moduł 
 - [history.json](history.json) — historia działań programu.
 - [TODO.md](TODO.md) — lista kolejnych prac do wykonania.
 
+## Rozszerzanie danych gry
+
+Dane mechaniki (talenty, profesje, klasy) trzymane są w katalogu `data/` jako
+pliki JSON. Instrukcje, jak je rozszerzać:
+
+- [docs/ROZSZERZANIE_DANYCH.md](docs/ROZSZERZANIE_DANYCH.md) — jak dodać talent oraz umiejętność (schematy JSON, talenty grupowe / specjalizacje).
+- [docs/DODAWANIE_PROFESJI_Z_DODATKU.md](docs/DODAWANIE_PROFESJI_Z_DODATKU.md) — jak dodać profesję z dodatku (przykład: *Piromanta*, gotowy szkielet).
+
+
 ## Wymagania developerskie
 
 Projekt używa Pythona oraz kilku bibliotek zewnętrznych.

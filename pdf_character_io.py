@@ -590,6 +590,13 @@ def write_pdf_character_data(
     for talent_name, mapping in pdf_mapping.get("talents", {}).items():
         talent_data = payload.get("talents", {}).get(talent_name)
         if not talent_data:
+            # Talent usunięty w aplikacji — czyścimy przypisane pola formularza.
+            if mapping.get("name_field"):
+                updates[mapping["name_field"]] = ""
+            if mapping.get("advances_field"):
+                updates[mapping["advances_field"]] = ""
+            if mapping.get("description_field"):
+                updates[mapping["description_field"]] = ""
             continue
         if mapping.get("name_field") and talent_name != mapping.get("name_value"):
             updates[mapping["name_field"]] = _stringify_pdf_value(talent_name)

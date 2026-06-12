@@ -5,7 +5,7 @@ a = Analysis(
     ['Postac_program_gui.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('data', 'data')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
