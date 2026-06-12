@@ -357,7 +357,22 @@ def extract_pdf_character_data(file_path: str) -> Dict:
         "attributes": {},
         "skills": {},
         "talents": {},
+        "profession": {
+            "class_field": _get_field_name(field_lookup, "klasa"),
+            "profession_field": _get_field_name(field_lookup, "profesja"),
+            "level_field": _get_field_name(field_lookup, "poziom_profesji"),
+            "path_field": _get_field_name(field_lookup, "sciezka_profesji"),
+            "species_field": _get_field_name(field_lookup, "rasa"),
+        },
         "source_pdf_path": file_path,
+    }
+
+    profession_info = {
+        "class": _get_field_value(field_lookup, fields, "klasa"),
+        "profession": _get_field_value(field_lookup, fields, "profesja"),
+        "level_text": _get_field_value(field_lookup, fields, "poziom_profesji"),
+        "path_text": _get_field_value(field_lookup, fields, "sciezka_profesji"),
+        "species": _get_field_value(field_lookup, fields, "rasa"),
     }
 
     for key, normalized_name in PDF_EXPERIENCE_FIELDS.items():
@@ -461,9 +476,17 @@ def extract_pdf_character_data(file_path: str) -> Dict:
         }
 
     talents = {}
+    talents_free = []
     for row_index in PDF_TALENT_ROW_RANGE:
         talent_name = _get_field_value(field_lookup, fields, f"talent_namerow{row_index}")
         if not talent_name:
+            talents_free.append(
+                {
+                    "name_field": _get_field_name(field_lookup, f"talent_namerow{row_index}"),
+                    "advances_field": _get_field_name(field_lookup, f"times_takenrow{row_index}"),
+                    "description_field": _get_field_name(field_lookup, f"descriptionrow{row_index}"),
+                }
+            )
             continue
         talents[talent_name] = {
             "advances": _clean_pdf_value(
@@ -484,12 +507,15 @@ def extract_pdf_character_data(file_path: str) -> Dict:
             "description_value": talents[talent_name]["description"],
         }
 
+    pdf_mapping["talents_free"] = talents_free
+
     return {
         "character_name": _get_field_value(field_lookup, fields, "imie") or "Brak Imienia",
         "attributes": attributes,
         "skills": skills,
         "talents": talents,
         "experience": experience,
+        "profession_info": profession_info,
         "pdf_mapping": pdf_mapping,
     }
 
@@ -575,6 +601,41 @@ def write_pdf_character_data(
             updates[mapping["description_field"]] = _stringify_pdf_value(
                 talent_data.get("description", "")
             )
+
+    # Nowe talenty (dodane w aplikacji) trafiają do wolnych wierszy karty.
+    mapped_talents = set(pdf_mapping.get("talents", {}).keys())
+    free_rows = list(pdf_mapping.get("talents_free", []))
+    for talent_name, talent_data in payload.get("talents", {}).items():
+        if talent_name in mapped_talents:
+            continue
+        if not free_rows:
+            break
+        row = free_rows.pop(0)
+        if row.get("name_field"):
+            updates[row["name_field"]] = _stringify_pdf_value(talent_name)
+        if row.get("advances_field"):
+            updates[row["advances_field"]] = _stringify_pdf_value(
+                talent_data.get("advances", "")
+            )
+        if row.get("description_field"):
+            updates[row["description_field"]] = _stringify_pdf_value(
+                talent_data.get("description", "")
+            )
+
+    # Profesja / klasa / ścieżka kariery.
+    profession_payload = payload.get("profession") or {}
+    profession_mapping = pdf_mapping.get("profession") or {}
+    profession_field_map = {
+        "class": "class_field",
+        "profession": "profession_field",
+        "level_text": "level_field",
+        "path_text": "path_field",
+        "species": "species_field",
+    }
+    for value_key, field_key in profession_field_map.items():
+        field_name = profession_mapping.get(field_key)
+        if field_name and value_key in profession_payload:
+            updates[field_name] = _stringify_pdf_value(profession_payload.get(value_key, ""))
 
     for page in writer.pages:
         writer.update_page_form_field_values(page, updates, auto_regenerate=True)

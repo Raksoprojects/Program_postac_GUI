@@ -15,7 +15,28 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import filedialog, messagebox
 
+try:
+    import winsound  # type: ignore
+except ImportError:  # pragma: no cover - tylko poza Windows
+    winsound = None
+
 from pdf_character_io import extract_pdf_character_data, write_pdf_character_data
+import game_data
+
+
+def play_blocked_sound() -> None:
+    """Odtwarza krótki dźwięk systemowy zamiast okna błędu przy niedozwolonej akcji."""
+    if winsound is not None:
+        try:
+            winsound.MessageBeep(winsound.MB_ICONHAND)
+            return
+        except Exception:
+            pass
+    try:
+        tk._default_root.bell()  # type: ignore[attr-defined]
+    except Exception:
+        pass
+
 
 # ============================================================================
 # CONSTANTS
@@ -40,6 +61,8 @@ COST_TABLE = {
 }
 
 ATTRIBUTES = ["WW", "US", "S", "Wt", "I", "Zw", "Zr", "Int", "SW", "Ogd"]
+# Koszt jednego rozwinięcia talentu (WFRP 4ed: 100 PD za każde wykupienie).
+TALENT_COST_PER_ADVANCE = 100
 EXCEL_CHAR_COL_START = 2  # Kolumna B
 EXCEL_ATTR_NAME_ROW = 11
 EXCEL_ATTR_INITIAL_ROW = 12
@@ -65,6 +88,181 @@ COLOR_SURFACE_SOFT = "#343a43"
 COLOR_TEXT_MUTED = "#aab3c0"
 COLOR_BORDER = "#404856"
 COLOR_HIGHLIGHT = "#f0c44c"
+# Lekkie podświetlenie wierszy rozwijalnych w profesji (cechy/umiejętności/talenty)
+COLOR_DEVELOPABLE_BG = "#22323d"
+COLOR_DEVELOPABLE_BORDER = "#2f6f8f"
+
+
+class Tooltip:
+    """Lekki dymek podpowiedzi pokazywany po najechaniu kursorem na widget."""
+
+    def __init__(self, widget, text: str = "", delay: int = 350, wraplength: int = 480):
+        self.widget = widget
+        self.text = text
+        self.delay = delay
+        self.wraplength = wraplength
+        self._after_id = None
+        self._tip = None
+        self._label = None
+        self.attach(widget)
+
+    def attach(self, widget) -> None:
+        """Podpina dymek pod dodatkowy widget (np. etykietę w wierszu)."""
+        widget.bind("<Enter>", self._schedule, add="+")
+        widget.bind("<Leave>", self._hide, add="+")
+        widget.bind("<ButtonPress>", self._hide, add="+")
+
+    def set_text(self, text: str) -> None:
+        self.text = text or ""
+        if self._tip is not None and self._label is not None:
+            self._label.configure(text=self.text)
+
+    def _schedule(self, _event=None) -> None:
+        self._cancel()
+        if not self.text:
+            return
+        self._after_id = self.widget.after(self.delay, self._show)
+
+    def _cancel(self) -> None:
+        if self._after_id is not None:
+            try:
+                self.widget.after_cancel(self._after_id)
+            except Exception:
+                pass
+            self._after_id = None
+
+    def _show(self) -> None:
+        if self._tip is not None or not self.text:
+            return
+        x = self.widget.winfo_pointerx() + 16
+        y = self.widget.winfo_pointery() + 18
+        self._tip = tk.Toplevel(self.widget)
+        self._tip.wm_overrideredirect(True)
+        self._tip.wm_geometry(f"+{x}+{y}")
+        self._tip.configure(bg=COLOR_DEVELOPABLE_BORDER)
+        self._label = tk.Label(
+            self._tip,
+            text=self.text,
+            justify="left",
+            bg=COLOR_SURFACE_SOFT,
+            fg=COLOR_FG_LIGHT,
+            wraplength=self.wraplength,
+            padx=10,
+            pady=8,
+            font=("Segoe UI", 10),
+            bd=0,
+        )
+        self._label.pack(padx=1, pady=1)
+
+    def _hide(self, _event=None) -> None:
+        self._cancel()
+        if self._tip is not None:
+            try:
+                self._tip.destroy()
+            except Exception:
+                pass
+            self._tip = None
+            self._label = None
+
+
+class AutocompletePopup:
+    """Lista podpowiedzi pod polem filtra, pokazywana po wpisaniu znaków."""
+
+    def __init__(self, entry, var, candidates_provider, on_select, max_items: int = 10):
+        self.entry = entry
+        self.var = var
+        self.candidates_provider = candidates_provider  # callable -> list[str]
+        self.on_select = on_select  # callable(value)
+        self.max_items = max_items
+        self._popup = None
+        self._listbox = None
+        entry.bind("<KeyRelease>", self._on_key, add="+")
+        entry.bind("<FocusOut>", lambda _e: entry.after(160, self._hide), add="+")
+        entry.bind("<Escape>", lambda _e: self._hide(), add="+")
+
+    def _on_key(self, event) -> None:
+        if event.keysym in ("Up", "Down", "Return", "Escape", "Tab"):
+            if event.keysym == "Return":
+                self._choose_first()
+            return
+        text = self.var.get().strip()
+        if len(text) < 1:
+            self._hide()
+            return
+        norm = normalize_search_text(text)
+        matches = [
+            c for c in self.candidates_provider()
+            if norm in normalize_search_text(c) and normalize_search_text(c) != norm
+        ]
+        # Zachowaj kolejność, usuń duplikaty
+        seen = set()
+        unique = []
+        for m in matches:
+            if m not in seen:
+                seen.add(m)
+                unique.append(m)
+        unique = unique[: self.max_items]
+        if not unique:
+            self._hide()
+            return
+        self._show(unique)
+
+    def _choose_first(self) -> None:
+        if self._listbox is not None and self._listbox.size() > 0:
+            value = self._listbox.get(0)
+            self._select(value)
+
+    def _show(self, matches) -> None:
+        x = self.entry.winfo_rootx()
+        y = self.entry.winfo_rooty() + self.entry.winfo_height()
+        width = self.entry.winfo_width()
+        if self._popup is None:
+            self._popup = tk.Toplevel(self.entry)
+            self._popup.wm_overrideredirect(True)
+            self._popup.configure(bg=COLOR_DEVELOPABLE_BORDER)
+            self._listbox = tk.Listbox(
+                self._popup,
+                bg=COLOR_SURFACE_SOFT,
+                fg=COLOR_FG_LIGHT,
+                selectbackground=COLOR_ACCENT,
+                selectforeground="#ffffff",
+                font=("Segoe UI", 10),
+                bd=0,
+                highlightthickness=0,
+                activestyle="none",
+            )
+            self._listbox.pack(fill="both", expand=True, padx=1, pady=1)
+            self._listbox.bind("<ButtonRelease-1>", self._on_click)
+        self._listbox.delete(0, "end")
+        for m in matches:
+            self._listbox.insert("end", m)
+        height = min(len(matches), self.max_items) * 20 + 4
+        self._popup.wm_geometry(f"{max(width, 200)}x{height}+{x}+{y}")
+        self._popup.deiconify()
+        self._popup.lift()
+
+    def _on_click(self, _event=None) -> None:
+        if self._listbox is None:
+            return
+        selection = self._listbox.curselection()
+        if not selection:
+            return
+        self._select(self._listbox.get(selection[0]))
+
+    def _select(self, value: str) -> None:
+        self.var.set(value)
+        self._hide()
+        self.entry.focus_set()
+        self.on_select(value)
+
+    def _hide(self, _event=None) -> None:
+        if self._popup is not None:
+            try:
+                self._popup.destroy()
+            except Exception:
+                pass
+            self._popup = None
+            self._listbox = None
 
 FONT_DISPLAY = ("Bahnschrift SemiBold", 26)
 FONT_TITLE = ("Bahnschrift SemiBold", 18)
@@ -130,9 +328,16 @@ SKILL_CATEGORY_SHORT = {
 # ============================================================================
 
 def calculate_advancement_cost(
-    advancement_type: str, current_advancements: int, desired_advancements: int
+    advancement_type: str,
+    current_advancements: int,
+    desired_advancements: int,
+    out_of_profession: bool = False,
+    gm_approved: bool = False,
 ) -> int:
-    """Oblicza całkowity koszt PD dla rozwinięć."""
+    """Oblicza całkowity koszt PD dla rozwinięć.
+
+    Rozwój SPOZA profesji podwaja koszt, chyba że MG wyraził zgodę (gm_approved).
+    """
     total_cost = 0
     remaining = desired_advancements
     current_threshold = current_advancements
@@ -150,14 +355,30 @@ def calculate_advancement_cost(
                 elif advancement_type == "talent":
                     # Koszt talentu: 100 * poziom
                     total_cost = desired_advancements * 100
-                    return total_cost
+                    remaining = 0
+                    break
 
                 remaining -= to_threshold
                 current_threshold += to_threshold
                 if remaining == 0:
                     break
-    
+
+    if out_of_profession and not gm_approved:
+        total_cost *= 2
     return total_cost
+
+
+def calculate_talent_cost(
+    amount: int, out_of_profession: bool = False, gm_approved: bool = False
+) -> int:
+    """Koszt PD za 'amount' wykupień talentu (100 PD każde).
+
+    Rozwój spoza profesji podwaja koszt, chyba że MG wyraził zgodę.
+    """
+    cost = max(0, amount) * TALENT_COST_PER_ADVANCE
+    if out_of_profession and not gm_approved:
+        cost *= 2
+    return cost
 
 
 def normalize_search_text(text: str) -> str:
@@ -221,6 +442,13 @@ class DataManager:
         self.experience: Dict = {"available": 0, "spent": 0, "total": 0}
         self.character_name: str = "Nowa Postać"
         self.pdf_mapping: Dict = {}
+        # Profesja / klasa / ścieżka kariery
+        self.character_class: str = ""
+        self.character_species: str = ""
+        self.current_career: str = ""
+        self.current_career_level: int = 1
+        self.career_path: List[Dict] = []
+        self.profession_raw: Dict = {}
 
     def load_from_excel(self, file_path: str) -> bool:
         """Ładuje dane z pliku Excel. Zwraca True jeśli sukces."""
@@ -228,6 +456,12 @@ class DataManager:
             self.file_path = file_path
             self.source_type = FILE_TYPE_EXCEL
             self.pdf_mapping = {}
+            self.character_class = ""
+            self.character_species = ""
+            self.current_career = ""
+            self.current_career_level = 1
+            self.career_path = []
+            self.profession_raw = {}
             wb = openpyxl.load_workbook(file_path, data_only=True)
             ws = wb.active
 
@@ -304,6 +538,8 @@ class DataManager:
             self.talents = payload["talents"]
             self.experience = payload["experience"]
             self.pdf_mapping = payload["pdf_mapping"]
+            self._enrich_talents()
+            self._load_profession(payload.get("profession_info", {}))
             return True
         except Exception as e:
             print(f"Błąd przy ładowaniu PDF: {e}")
@@ -396,6 +632,7 @@ class DataManager:
                     "skills": self.skills,
                     "talents": self.talents,
                     "experience": self.experience,
+                    "profession": self.profession_payload(),
                 },
                 self.pdf_mapping,
             )
@@ -427,6 +664,248 @@ class DataManager:
         }
         return True
 
+    # ----- Talenty ---------------------------------------------------------
+    def _enrich_talents(self) -> None:
+        """Uzupełnia talenty wczytane z PDF o dane z bazy (Max, opis, źródło)."""
+        database = game_data.load_talents()
+        base_index = self._talent_base_index(database)
+        enriched: Dict = {}
+        for name, raw in self.talents.items():
+            advances = self._parse_talent_advances(raw.get("advances"))
+            db_entry = self._match_talent_db_entry(name, database, base_index)
+            description = raw.get("description") or (
+                db_entry.get("description") if db_entry else ""
+            )
+            enriched[name] = {
+                "advances": advances,
+                "base_advances": advances,
+                "description": description,
+                "max": (db_entry or {}).get("max"),
+                "tests": (db_entry or {}).get("tests"),
+                "source": (db_entry or {}).get("source", "Karta PDF"),
+                "is_new": False,
+                "is_custom": db_entry is None,
+                "profession_available": False,
+            }
+        self.talents = enriched
+
+    @staticmethod
+    def _talent_base_index(database: Dict) -> Dict[str, str]:
+        """Indeks {nazwa_bazowa_bez_specjalizacji -> klucz_bazy} do dopasowań."""
+        index: Dict[str, str] = {}
+        for key in database:
+            base = game_data._normalize(str(key).split("(")[0])
+            if base:
+                index.setdefault(base, key)
+        return index
+
+    @staticmethod
+    def _match_talent_db_entry(name, database: Dict, base_index: Dict[str, str]):
+        """Dopasowuje talent z PDF do wpisu bazy (dokładnie lub po nazwie bazowej)."""
+        entry = database.get(name)
+        if entry is not None:
+            return entry
+        base = game_data._normalize(str(name).split("(")[0])
+        matched_key = base_index.get(base)
+        if matched_key:
+            return database.get(matched_key)
+        return None
+
+    @staticmethod
+    def _parse_talent_advances(value) -> int:
+        """Zamienia wartość 'times taken' z PDF na liczbę (puste -> 1)."""
+        if value is None:
+            return 1
+        text = str(value).strip()
+        if not text:
+            return 1
+        match = re.search(r"\d+", text)
+        return int(match.group()) if match else 1
+
+    def talent_max_advances(self, name: str) -> Optional[int]:
+        """Zwraca twardy limit wykupień talentu (None = brak limitu liczbowego)."""
+        talent = self.talents.get(name)
+        info = talent.get("max") if talent else None
+        if not info:
+            return None
+        kind = info.get("type")
+        if kind == "fixed":
+            return info.get("value")
+        if kind == "characteristic":
+            attr = info.get("attr")
+            attr_data = self.attributes.get(attr)
+            if not attr_data:
+                return None
+            return max(1, game_data.attribute_bonus(attr_data.get("current", 0)))
+        return None
+
+    def add_talent(
+        self,
+        name: str,
+        advances: int = 1,
+        description: str = "",
+        max_info: Optional[Dict] = None,
+        tests: Optional[str] = None,
+        source: str = "Lista",
+        is_custom: bool = False,
+        is_new: bool = True,
+    ) -> bool:
+        """Dodaje talent do postaci. Zwraca False, jeśli już istnieje."""
+        if name in self.talents:
+            return False
+        self.talents[name] = {
+            "advances": advances,
+            "base_advances": 0 if is_new else advances,
+            "description": description,
+            "max": max_info,
+            "tests": tests,
+            "source": source,
+            "is_new": is_new,
+            "is_custom": is_custom,
+            "profession_available": False,
+        }
+        return True
+
+    # ----- Profesja / klasa / ścieżka kariery -----------------------------
+    def _load_profession(self, info: Dict) -> None:
+        """Wczytuje dane profesji z pól PDF i buduje ścieżkę kariery."""
+        self.profession_raw = dict(info or {})
+        self.character_class = (info or {}).get("class", "") or ""
+        self.character_species = (info or {}).get("species", "") or ""
+
+        profession_field = (info or {}).get("profession", "") or ""
+        path_text = (info or {}).get("path_text", "") or ""
+        level_text = (info or {}).get("level_text", "") or ""
+
+        steps = game_data.resolve_career_path(path_text)
+        # Jeśli ścieżka pusta, ale jest profesja, zbuduj jednoelementową ścieżkę
+        if not steps and profession_field:
+            steps = game_data.resolve_career_path(profession_field)
+
+        parsed_level = game_data.parse_career_level(level_text)
+        self.career_path = self._build_career_path(steps, profession_field, parsed_level)
+
+        if self.career_path:
+            last = self.career_path[-1]
+            self.current_career = last.get("profession") or last.get("title") or profession_field
+            self.current_career_level = last.get("level") or parsed_level or 1
+        else:
+            self.current_career = profession_field
+            self.current_career_level = parsed_level or 1
+
+        # Uzupełnij klasę z danych gry, jeśli pole PDF puste lub niespójne
+        resolved_class = game_data.class_of_career(self.current_career)
+        if resolved_class:
+            self.character_class = resolved_class
+
+    def _build_career_path(
+        self, steps: List[Dict], current_profession: str, current_level: Optional[int]
+    ) -> List[Dict]:
+        """Składa listę kroków kariery z oznaczeniem poziomu i kompletowania."""
+        path: List[Dict] = []
+        for index, step in enumerate(steps):
+            is_last = index == len(steps) - 1
+            level = step.get("level") or 1
+            if is_last and current_level:
+                level = current_level
+            entry = {
+                "title": step.get("title", ""),
+                "profession": step.get("profession"),
+                "level": level,
+                "resolved": step.get("resolved", False),
+                "completed": not is_last,
+            }
+            path.append(entry)
+        return path
+
+    def profession_payload(self) -> Dict:
+        """Buduje słownik pól profesji do zapisu w PDF."""
+        path_titles = [
+            (step.get("title") or step.get("profession") or "")
+            for step in self.career_path
+            if (step.get("title") or step.get("profession"))
+        ]
+        level_text = self.profession_raw.get("level_text", "")
+        if self.current_career:
+            level_text = f"{self.current_career} ({self.current_career_level})"
+        return {
+            "class": self.character_class,
+            "profession": self.current_career,
+            "level_text": level_text,
+            "path_text": ", ".join(path_titles),
+            "species": self.character_species,
+        }
+
+    def set_current_career(self, profession: str, level: int) -> None:
+        """Ustawia/poprawia bieżącą profesję i poziom (bez kosztu)."""
+        self.current_career = profession
+        self.current_career_level = max(1, min(4, int(level)))
+        resolved_class = game_data.class_of_career(profession)
+        if resolved_class:
+            self.character_class = resolved_class
+        if not self.career_path:
+            self.career_path = [
+                {
+                    "title": profession,
+                    "profession": profession if game_data.get_profession(profession) else None,
+                    "level": self.current_career_level,
+                    "resolved": bool(game_data.get_profession(profession)),
+                    "completed": False,
+                }
+            ]
+        else:
+            last = self.career_path[-1]
+            last["title"] = profession
+            last["profession"] = profession if game_data.get_profession(profession) else None
+            last["level"] = self.current_career_level
+            last["resolved"] = bool(game_data.get_profession(profession))
+            last["completed"] = False
+
+    def advance_to_career(self, profession: str, level: int) -> None:
+        """Awansuje do nowej profesji: oznacza obecną jako ukończoną i dopisuje krok."""
+        level = max(1, min(4, int(level)))
+        if self.career_path:
+            self.career_path[-1]["completed"] = True
+        resolved = bool(game_data.get_profession(profession))
+        self.career_path.append(
+            {
+                "title": profession,
+                "profession": profession if resolved else None,
+                "level": level,
+                "resolved": resolved,
+                "completed": False,
+            }
+        )
+        self.current_career = profession
+        self.current_career_level = level
+        resolved_class = game_data.class_of_career(profession)
+        if resolved_class:
+            self.character_class = resolved_class
+
+    def current_career_completion(self) -> Dict:
+        """Zwraca status kompletowania bieżącej profesji."""
+        profession = self.current_career
+        if not game_data.get_profession(profession):
+            return {
+                "completed": False,
+                "skills_ok": False,
+                "talents_ok": False,
+                "characteristics_ok": False,
+                "skills_done": 0,
+                "talents_done": 0,
+                "characteristics_pending": True,
+                "unknown_profession": True,
+            }
+        result = game_data.is_career_completed(
+            profession,
+            self.current_career_level,
+            self.skills,
+            self.talents,
+            self.attributes,
+        )
+        result["unknown_profession"] = False
+        return result
+
     def reset_character(self) -> None:
         """Resetuje postać do wartości z pliku."""
         for attr in self.attributes.values():
@@ -455,6 +934,12 @@ class DataManager:
         self.skills = {}
         self.experience = {"available": 0, "spent": 0, "total": 0}
         self.talents = {}
+        self.character_class = ""
+        self.character_species = ""
+        self.current_career = ""
+        self.current_career_level = 1
+        self.career_path = []
+        self.profession_raw = {}
 
 
 
@@ -463,45 +948,123 @@ class DataManager:
 # ============================================================================
 
 class HistoryManager:
-    """Zarządza historią działań w formacie JSON."""
+    """Zarządza historią działań per-postać w formacie JSON.
+
+    Struktura pliku:
+        {
+            "characters": { "<imię>": { "career_path": [...], "changes": [...] } },
+            "global_log": [ {timestamp, action, details, character}, ... ]
+        }
+    Stary format (płaska lista wpisów) jest automatycznie migrowany do
+    ``global_log`` przy pierwszym wczytaniu.
+    """
 
     def __init__(self, json_file: str = "history.json"):
         self.json_file = json_file
-        self.history: List[Dict] = []
+        self.data: Dict = {"characters": {}, "global_log": []}
+        self.current_character: Optional[str] = None
         self.load_history()
 
+    @property
+    def history(self) -> List[Dict]:
+        """Zgodność wstecz: globalny dziennik zdarzeń."""
+        return self.data.get("global_log", [])
+
+    @history.setter
+    def history(self, value: List[Dict]) -> None:
+        """Zgodność wstecz: ustawienie globalnego dziennika."""
+        self.data["global_log"] = list(value) if value else []
+
     def load_history(self) -> None:
-        """Ładuje historię z pliku JSON."""
+        """Ładuje historię z pliku JSON (z migracją starego formatu)."""
         try:
             if os.path.exists(self.json_file):
                 with open(self.json_file, "r", encoding="utf-8") as f:
-                    self.history = json.load(f)
+                    loaded = json.load(f)
+                self.data = self._migrate(loaded)
+            else:
+                self.data = {"characters": {}, "global_log": []}
         except Exception as e:
             print(f"Błąd przy ładowaniu historii: {e}")
-            self.history = []
+            self.data = {"characters": {}, "global_log": []}
+
+    @staticmethod
+    def _migrate(loaded) -> Dict:
+        """Konwertuje wczytane dane do formatu per-postać."""
+        if isinstance(loaded, list):
+            return {"characters": {}, "global_log": loaded}
+        if isinstance(loaded, dict):
+            characters = loaded.get("characters", {})
+            global_log = loaded.get("global_log", [])
+            if not isinstance(characters, dict):
+                characters = {}
+            if not isinstance(global_log, list):
+                global_log = []
+            # Uzupełnij brakujące pola w postaciach
+            for name, record in list(characters.items()):
+                if not isinstance(record, dict):
+                    characters[name] = {"career_path": [], "changes": []}
+                    continue
+                record.setdefault("career_path", [])
+                record.setdefault("changes", [])
+            return {"characters": characters, "global_log": global_log}
+        return {"characters": {}, "global_log": []}
 
     def save_history(self) -> None:
         """Zapisuje historię do pliku JSON."""
         try:
             with open(self.json_file, "w", encoding="utf-8") as f:
-                json.dump(self.history, f, ensure_ascii=False, indent=2)
+                json.dump(self.data, f, ensure_ascii=False, indent=2)
         except Exception as e:
             print(f"Błąd przy zapisie historii: {e}")
 
+    def ensure_character(self, name: str) -> Dict:
+        """Zwraca (tworząc w razie potrzeby) rekord postaci."""
+        characters = self.data.setdefault("characters", {})
+        return characters.setdefault(name, {"career_path": [], "changes": []})
+
+    def set_current_character(self, name: Optional[str]) -> None:
+        """Ustawia bieżącą postać dla kolejnych wpisów."""
+        self.current_character = name or None
+        if self.current_character:
+            self.ensure_character(self.current_character)
+            self.save_history()
+
     def add_entry(self, action: str, details: str = "") -> None:
-        """Dodaje wpis do historii."""
+        """Dodaje wpis do globalnego dziennika oraz do bieżącej postaci."""
         entry = {
             "timestamp": datetime.now().isoformat(),
             "action": action,
             "details": details,
+            "character": self.current_character,
         }
-        self.history.append(entry)
+        self.data.setdefault("global_log", []).append(entry)
+        if self.current_character:
+            record = self.ensure_character(self.current_character)
+            record.setdefault("changes", []).append(entry)
+        self.save_history()
+
+    def get_career_path(self, name: str) -> List[Dict]:
+        """Zwraca zapisaną ścieżkę kariery postaci."""
+        record = self.data.get("characters", {}).get(name)
+        return list(record.get("career_path", [])) if record else []
+
+    def set_career_path(self, name: str, career_path: List[Dict]) -> None:
+        """Zapisuje ścieżkę kariery dla postaci."""
+        record = self.ensure_character(name)
+        record["career_path"] = list(career_path)
         self.save_history()
 
     def get_history_text(self) -> str:
-        """Zwraca historię jako sformatowany tekst."""
+        """Zwraca historię jako tekst (bieżąca postać albo dziennik globalny)."""
+        if self.current_character:
+            record = self.data.get("characters", {}).get(self.current_character, {})
+            entries = record.get("changes", [])
+        else:
+            entries = self.data.get("global_log", [])
+
         text = ""
-        for entry in self.history[-50:]:  # Ostatnie 50 wpisów
+        for entry in entries[-50:]:  # Ostatnie 50 wpisów
             timestamp = entry.get("timestamp", "")
             action = entry.get("action", "")
             details = entry.get("details", "")
@@ -538,13 +1101,31 @@ class CharacterSheetApp(ctk.CTk):
         # Cache widgetów do szybkiego updatu bez destroy/recreate
         self.attribute_rows: Dict = {}  # {attr_name: {"row": Frame, "labels": [...], "buttons": [...]}}
         self.skill_rows: Dict = {}      # {skill_name: {"row": Frame, "labels": [...], "buttons": [...]}}
+        self.talent_rows: Dict = {}     # {talent_name: {"row": Frame, "labels": [...], "buttons": [...]}}
         self.initialized_attrs = False
         self.initialized_skills = False
+        self.initialized_talents = False
         self.skill_filter_var = tk.StringVar(value="")
         self.skill_summary_var = tk.StringVar(value="Wyświetlane umiejętności: 0 / 0")
         self.cost_filter_var = tk.StringVar(value="")
         self.skill_attribute_filter_var = tk.StringVar(value=ATTRIBUTE_FILTER_ALL)
         self.skill_profession_filter_var = tk.BooleanVar(value=False)
+        self.talent_filter_var = tk.StringVar(value="")
+        self.talent_summary_var = tk.StringVar(value="Wyświetlane talenty: 0 / 0")
+        self.talent_out_of_profession_var = tk.BooleanVar(value=False)
+        self.talent_gm_approval_var = tk.BooleanVar(value=False)
+        self.talent_profession_filter_var = tk.BooleanVar(value=False)
+        self.attr_profession_filter_var = tk.BooleanVar(value=False)
+        self.dev_gm_approval_var = tk.BooleanVar(value=False)
+        self._developable = {
+            "characteristics": set(), "skills": set(), "talents": set(), "resolved": False,
+        }
+        self.profession_class_var = tk.StringVar(value="")
+        self.profession_career_var = tk.StringVar(value="")
+        self.profession_level_var = tk.StringVar(value="1")
+        self.profession_summary_var = tk.StringVar(value="Brak wczytanej profesji.")
+        self.profession_completion_var = tk.StringVar(value="")
+        self.profession_status_var = tk.StringVar(value="")
         self.resize_refresh_after_id: Optional[str] = None
         self.last_resize_width: Optional[int] = None
         self.cost_layout_mode: Optional[bool] = None
@@ -561,6 +1142,7 @@ class CharacterSheetApp(ctk.CTk):
             "skill_changes": {},
             "talent_changes": {},
             "new_skills": set(),
+            "new_talents": set(),
             "experience_delta": 0,
         }
 
@@ -742,10 +1324,10 @@ class CharacterSheetApp(ctk.CTk):
         self.notebook.pack(fill="both", expand=True, padx=14, pady=(0, 14))
 
         self.create_character_tab()
+        self.create_profession_tab()
         self.create_skills_tab()
         self.create_talents_tab()
         self.create_costs_tab()
-        self.create_add_skill_tab()
         self.create_experience_tab()
         self.create_history_tab()
         self.refresh_header_summary()
@@ -923,6 +1505,7 @@ class CharacterSheetApp(ctk.CTk):
         for pending_key in ("attribute_changes", "skill_changes", "talent_changes"):
             count += sum(abs(change) for change in self.pending_changes[pending_key].values())
         count += len(self.pending_changes["new_skills"])
+        count += len(self.pending_changes["new_talents"])
         if self.pending_changes["experience_delta"]:
             count += 1
         return count
@@ -957,29 +1540,95 @@ class CharacterSheetApp(ctk.CTk):
             source_color = COLOR_ACCENT if self.data_manager.source_type == FILE_TYPE_PDF else COLOR_SURFACE_SOFT
             self.source_chip.configure(text=source_label, fg_color=source_color)
 
+    def _recompute_developable(self) -> None:
+        """Przelicza zbiory elementów rozwijalnych w bieżącej profesji (gating)."""
+        dm = self.data_manager
+        self._developable = game_data.get_career_developable(
+            dm.current_career,
+            dm.current_career_level,
+            dm.talents,
+        )
+
+    def _developable_sets(self) -> Dict:
+        """Zwraca cache rozwijalności (przelicza, jeśli brak)."""
+        if not hasattr(self, "_developable") or self._developable is None:
+            self._recompute_developable()
+        return self._developable
+
+    def _attr_developable(self, attr_name: str) -> bool:
+        """Czy cecha jest rozwijalna w profesji (JSON nadrzędny, fallback flaga PDF)."""
+        dev = self._developable_sets()
+        chars = dev.get("characteristics") or set()
+        if dev.get("resolved") and chars:
+            return game_data.is_characteristic_developable(attr_name, dev)
+        # cechy schematu nieuzupełnione lub brak profesji -> fallback do flagi z PDF
+        return bool(self.data_manager.attributes.get(attr_name, {}).get("profession_available"))
+
+    def _skill_developable(self, skill_name: str) -> bool:
+        """Czy umiejętność jest rozwijalna w profesji (JSON nadrzędny, fallback flaga PDF)."""
+        dev = self._developable_sets()
+        if dev.get("resolved") and (dev.get("skills") or set()):
+            return game_data.is_skill_developable(skill_name, dev)
+        return bool(self.data_manager.skills.get(skill_name, {}).get("profession_available"))
+
+    def _talent_developable(self, talent_name: str) -> bool:
+        """Czy talent jest rozwijalny w profesji (JSON nadrzędny, fallback flaga PDF)."""
+        dev = self._developable_sets()
+        if dev.get("resolved") and (dev.get("talents") or set()):
+            return game_data.is_talent_developable(talent_name, dev)
+        return bool(self.data_manager.talents.get(talent_name, {}).get("profession_available"))
+
+    def _is_out_of_profession(self, advancement_type: str, item_name: str) -> bool:
+        """Czy rozwój danego elementu jest SPOZA profesji (koszt ×2).
+
+        Karę nakładamy tylko, gdy mamy schemat profesji do oceny. Brak schematu
+        (profesja spoza podstawki / nieustawiona) lub nieuzupełnione cechy -> brak kary.
+        """
+        dev = self._developable_sets()
+        if not dev.get("resolved"):
+            return False
+        if advancement_type == "cecha":
+            if not (dev.get("characteristics") or set()):
+                return False
+            return not game_data.is_characteristic_developable(item_name, dev)
+        return not self._skill_developable(item_name)
+
+    def _advancement_cost_mode(self, advancement_type: str, item_name: str) -> tuple:
+        """Zwraca (out_of_profession, gm_approved) dla cechy/umiejętności."""
+        out_of_profession = self._is_out_of_profession(advancement_type, item_name)
+        gm_approved = out_of_profession and bool(self.dev_gm_approval_var.get())
+        return out_of_profession, gm_approved
+
+    def _on_dev_gm_change(self) -> None:
+        """Reaguje na zmianę zgody MG dla rozwoju spoza profesji (cechy/umiejętności)."""
+        if getattr(self, "initialized_attrs", False):
+            self._update_all_attribute_labels()
+        if getattr(self, "initialized_skills", False):
+            self._update_all_skill_labels()
+            self.apply_skill_filter()
+        self.refresh_costs_if_visible()
+
     def _format_attribute_display_name(self, attr_name: str) -> str:
-        """Buduje etykietę cechy z markerem profesji."""
-        attr_data = self.data_manager.attributes.get(attr_name, {})
-        suffix = " +" if attr_data.get("profession_available") else ""
+        """Buduje etykietę cechy z markerem rozwijalności w profesji."""
+        suffix = " +" if self._attr_developable(attr_name) else ""
         return f"{attr_name}{suffix}"
 
     def _format_skill_display_name(self, skill_name: str) -> str:
-        """Buduje etykietę umiejętności z markerem profesji."""
-        skill_data = self.data_manager.skills.get(skill_name, {})
-        suffix = " +" if skill_data.get("profession_available") else ""
+        """Buduje etykietę umiejętności z markerem rozwijalności w profesji."""
+        suffix = " +" if self._skill_developable(skill_name) else ""
         return f"{skill_name}{suffix}"
 
-    def _format_attribute_display_name(self, attr_name: str) -> str:
-        """Buduje etykietę cechy z markerem profesji."""
-        attr_data = self.data_manager.attributes.get(attr_name, {})
-        suffix = " +" if attr_data.get("profession_available") else ""
-        return f"{attr_name}{suffix}"
+    def _format_talent_display_name(self, talent_name: str) -> str:
+        """Buduje etykietę talentu z markerem rozwijalności w profesji."""
+        suffix = " +" if self._talent_developable(talent_name) else ""
+        return f"{talent_name}{suffix}"
 
-    def _format_skill_display_name(self, skill_name: str) -> str:
-        """Buduje etykietę umiejętności z markerem profesji."""
-        skill_data = self.data_manager.skills.get(skill_name, {})
-        suffix = " +" if skill_data.get("profession_available") else ""
-        return f"{skill_name}{suffix}"
+    def _apply_row_developable_style(self, row, developable: bool) -> None:
+        """Podświetla tło wiersza, gdy element jest rozwijalny w profesji."""
+        if developable:
+            row.configure(fg_color=COLOR_DEVELOPABLE_BG, border_color=COLOR_DEVELOPABLE_BORDER)
+        else:
+            row.configure(fg_color=COLOR_SURFACE_ALT, border_color=COLOR_BORDER)
 
     def create_character_tab(self) -> None:
         """Zakładka: Cechy postaci."""
@@ -995,6 +1644,30 @@ class CharacterSheetApp(ctk.CTk):
         self._create_info_chip(legend, "Pomarańczowy: maksymalny zakup", COLOR_WARNING)
         self._create_info_chip(legend, "Zielony: możesz kupić", COLOR_SUCCESS)
 
+        controls = ctk.CTkFrame(
+            wrapper, fg_color=COLOR_SURFACE_ALT, corner_radius=16,
+            border_width=1, border_color=COLOR_BORDER,
+        )
+        controls.pack(fill="x", pady=(0, 10))
+        self.attr_profession_filter_checkbox = ctk.CTkCheckBox(
+            controls,
+            text="Tylko rozwijalne (+)",
+            variable=self.attr_profession_filter_var,
+            command=self.apply_attribute_filter,
+            checkbox_width=20, checkbox_height=20, border_width=2, corner_radius=6,
+            font=FONT_BODY,
+        )
+        self.attr_profession_filter_checkbox.pack(side="left", padx=(16, 12), pady=14)
+        self.attr_gm_checkbox = ctk.CTkCheckBox(
+            controls,
+            text="Zgoda MG (spoza profesji ×1)",
+            variable=self.dev_gm_approval_var,
+            command=self._on_dev_gm_change,
+            checkbox_width=20, checkbox_height=20, border_width=2, corner_radius=6,
+            font=FONT_BODY,
+        )
+        self.attr_gm_checkbox.pack(side="left", padx=(0, 12), pady=14)
+
         self.attributes_frame = ctk.CTkScrollableFrame(
             wrapper,
             fg_color=COLOR_SURFACE,
@@ -1003,6 +1676,436 @@ class CharacterSheetApp(ctk.CTk):
             border_color=COLOR_BORDER,
         )
         self.attributes_frame.pack(fill="both", expand=True)
+
+    def create_profession_tab(self) -> None:
+        """Zakładka: Profesja, klasa i ścieżka kariery."""
+        _, wrapper = self._create_tab_shell(
+            "Profesja",
+            "Profesja i klasa",
+            "Ustaw lub popraw bieżącą profesję (bez kosztu) albo awansuj do nowej profesji (z kosztem przejścia). "
+            "Poniżej zobaczysz ścieżkę kariery, schemat 4 poziomów i status kompletowania obecnej profesji.",
+        )
+
+        # Jeden wspólny obszar przewijania dla całej zakładki
+        outer = ctk.CTkScrollableFrame(wrapper, fg_color="transparent")
+        outer.pack(fill="both", expand=True)
+
+        # Podsumowanie bieżącej profesji
+        summary = ctk.CTkFrame(
+            outer, fg_color=COLOR_SURFACE_ALT, corner_radius=16,
+            border_width=1, border_color=COLOR_BORDER,
+        )
+        summary.pack(fill="x", pady=(0, 10))
+        header_row = ctk.CTkFrame(summary, fg_color="transparent")
+        header_row.pack(fill="x", padx=16, pady=(12, 4))
+        ctk.CTkLabel(
+            header_row, textvariable=self.profession_summary_var,
+            font=FONT_BODY_BOLD, justify="left", anchor="w",
+        ).pack(side="left", anchor="w")
+        self.profession_status_label = ctk.CTkLabel(
+            header_row, textvariable=self.profession_status_var,
+            font=FONT_SMALL, text_color=COLOR_FG_LIGHT,
+            fg_color=COLOR_SURFACE_SOFT, corner_radius=12, padx=12, pady=4,
+        )
+        self.profession_status_label.pack(side="right", anchor="e")
+        ctk.CTkLabel(
+            summary, textvariable=self.profession_completion_var,
+            font=FONT_SMALL, text_color=COLOR_TEXT_MUTED, justify="left", anchor="w",
+            wraplength=1060,
+        ).pack(anchor="w", padx=16, pady=(0, 12))
+
+        # Edytor wyboru profesji
+        editor = ctk.CTkFrame(
+            outer, fg_color=COLOR_SURFACE_ALT, corner_radius=16,
+            border_width=1, border_color=COLOR_BORDER,
+        )
+        editor.pack(fill="x", pady=(0, 10))
+
+        row1 = ctk.CTkFrame(editor, fg_color="transparent")
+        row1.pack(fill="x", padx=16, pady=(14, 6))
+
+        ctk.CTkLabel(row1, text="Klasa:", font=FONT_BODY_BOLD, width=70, anchor="w").pack(side="left")
+        self.profession_class_combo = ctk.CTkComboBox(
+            row1, values=game_data.all_class_names(), variable=self.profession_class_var,
+            width=180, command=lambda _v: self._on_profession_class_change(),
+        )
+        self.profession_class_combo.pack(side="left", padx=(0, 16))
+
+        ctk.CTkLabel(row1, text="Profesja:", font=FONT_BODY_BOLD, width=80, anchor="w").pack(side="left")
+        self.profession_career_combo = ctk.CTkComboBox(
+            row1, values=[], variable=self.profession_career_var,
+            width=240, command=lambda _v: self._on_profession_career_change(),
+        )
+        self.profession_career_combo.pack(side="left", padx=(0, 16))
+
+        ctk.CTkLabel(row1, text="Poziom:", font=FONT_BODY_BOLD, width=70, anchor="w").pack(side="left")
+        self.profession_level_combo = ctk.CTkComboBox(
+            row1, values=["1", "2", "3", "4"], variable=self.profession_level_var, width=80,
+        )
+        self.profession_level_combo.pack(side="left")
+
+        row2 = ctk.CTkFrame(editor, fg_color="transparent")
+        row2.pack(fill="x", padx=16, pady=(6, 14))
+
+        ctk.CTkButton(
+            row2, text="Ustaw / popraw (bez kosztu)", command=self.on_set_profession,
+            width=240, height=36, fg_color=COLOR_SURFACE_SOFT, hover_color="#48505e",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left", padx=(0, 12))
+        ctk.CTkButton(
+            row2, text="Awansuj profesję (koszt PD)", command=self.on_advance_profession,
+            width=240, height=36, fg_color=COLOR_ACCENT, hover_color="#0f96ea",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left")
+
+        # Ścieżka kariery
+        path_section = ctk.CTkFrame(
+            outer, fg_color=COLOR_SURFACE_ALT, corner_radius=16,
+            border_width=1, border_color=COLOR_BORDER,
+        )
+        path_section.pack(fill="x", pady=(0, 10))
+        ctk.CTkLabel(
+            path_section, text="Ścieżka kariery", font=FONT_SECTION,
+        ).pack(anchor="w", padx=16, pady=(12, 4))
+        self.career_path_frame = ctk.CTkFrame(path_section, fg_color="transparent")
+        self.career_path_frame.pack(fill="x", padx=12, pady=(0, 12))
+
+        # Schemat 4 poziomów (wewnątrz wspólnego scrolla)
+        self.profession_levels_frame = ctk.CTkFrame(
+            outer, fg_color=COLOR_SURFACE, corner_radius=16,
+            border_width=1, border_color=COLOR_BORDER,
+        )
+        self.profession_levels_frame.pack(fill="both", expand=True, pady=(0, 4))
+
+        self.refresh_profession_display()
+
+    def _on_profession_class_change(self) -> None:
+        """Aktualizuje listę profesji po zmianie klasy."""
+        class_name = self.profession_class_var.get()
+        careers = game_data.careers_for_class(class_name)
+        self.profession_career_combo.configure(values=careers)
+        if careers and self.profession_career_var.get() not in careers:
+            self.profession_career_var.set(careers[0])
+            self._on_profession_career_change()
+
+    def _on_profession_career_change(self) -> None:
+        """Reaguje na zmianę wyboru profesji (np. odświeżenie poziomów)."""
+        # Brak akcji natychmiastowej; podgląd po Ustaw/Awansuj.
+        return
+
+    def refresh_profession_display(self) -> None:
+        """Odświeża podsumowanie, ścieżkę kariery i schemat poziomów."""
+        if not hasattr(self, "profession_levels_frame"):
+            return
+
+        self._recompute_developable()
+
+        dm = self.data_manager
+        career = dm.current_career or "—"
+        class_name = dm.character_class or game_data.class_of_career(dm.current_career) or "—"
+        species = dm.character_species or "—"
+        self.profession_summary_var.set(
+            f"Profesja: {career}  (poziom {dm.current_career_level})    "
+            f"Klasa: {class_name}    Rasa: {species}"
+        )
+
+        self._update_profession_completion_label()
+        self._sync_profession_inputs()
+        self._render_career_path()
+        self._render_profession_levels()
+        self._refresh_gating_displays()
+
+    def _refresh_gating_displays(self) -> None:
+        """Odświeża markery/filtry rozwijalności w zakładkach Cechy/Umiejętności/Talenty."""
+        if getattr(self, "initialized_attrs", False):
+            self._update_all_attribute_labels()
+            self.apply_attribute_filter()
+        if getattr(self, "initialized_skills", False):
+            self._update_all_skill_labels()
+            self.apply_skill_filter()
+        if getattr(self, "initialized_talents", False):
+            self._update_all_talent_labels()
+            self.apply_talent_filter()
+
+    def _update_profession_completion_label(self) -> None:
+        """Buduje opis statusu kompletowania bieżącej profesji."""
+        status = self.data_manager.current_career_completion()
+        if status.get("unknown_profession"):
+            self.profession_completion_var.set(
+                "Profesja spoza podstawki (brak danych schematu) — kompletowanie liczone ręcznie."
+            )
+            self._set_profession_status_chip("SPOZA PODSTAWKI", COLOR_SURFACE_SOFT)
+            return
+        parts = []
+        parts.append(
+            f"Umiejętności zawodowe: {status['skills_done']}/8 "
+            + ("✓" if status["skills_ok"] else "✗")
+        )
+        parts.append(
+            f"Talenty: {status['talents_done']} "
+            + ("✓" if status["talents_ok"] else "✗")
+        )
+        if status["characteristics_pending"]:
+            parts.append("Cechy: schemat nieuzupełniony (pominięto)")
+        else:
+            parts.append("Cechy: " + ("✓" if status["characteristics_ok"] else "✗"))
+        header = "PROFESJA SKOMPLETOWANA" if status["completed"] else "Profesja w trakcie"
+        self.profession_completion_var.set(header + "  —  " + "   |   ".join(parts))
+        if status["completed"]:
+            self._set_profession_status_chip("✓ SKOMPLETOWANA", COLOR_SUCCESS)
+        else:
+            self._set_profession_status_chip("● NIESKOMPLETOWANA", COLOR_WARNING)
+
+    def _set_profession_status_chip(self, text: str, color: str) -> None:
+        """Ustawia tekst i kolor odznaki statusu profesji."""
+        self.profession_status_var.set(text)
+        if hasattr(self, "profession_status_label"):
+            self.profession_status_label.configure(fg_color=color)
+
+    def _sync_profession_inputs(self) -> None:
+        """Ustawia wartości pól wyboru zgodnie z bieżącą profesją."""
+        dm = self.data_manager
+        class_name = dm.character_class or game_data.class_of_career(dm.current_career)
+        if class_name and class_name in game_data.all_class_names():
+            self.profession_class_var.set(class_name)
+            self.profession_career_combo.configure(
+                values=game_data.careers_for_class(class_name)
+            )
+        if dm.current_career:
+            self.profession_career_var.set(dm.current_career)
+        self.profession_level_var.set(str(dm.current_career_level or 1))
+
+    def _render_career_path(self) -> None:
+        """Rysuje listę kroków ścieżki kariery z przyciskami usuwania."""
+        for widget in self.career_path_frame.winfo_children():
+            widget.destroy()
+
+        path = self.data_manager.career_path
+        if not path:
+            ctk.CTkLabel(
+                self.career_path_frame,
+                text="Brak zapisanej ścieżki kariery.",
+                font=FONT_SMALL, text_color=COLOR_TEXT_MUTED,
+            ).pack(anchor="w", padx=4, pady=4)
+            return
+
+        for index, step in enumerate(path):
+            is_current = index == len(path) - 1
+            chip = ctk.CTkFrame(
+                self.career_path_frame,
+                fg_color=COLOR_ACCENT if is_current else COLOR_SURFACE_SOFT,
+                corner_radius=10,
+            )
+            chip.pack(side="left", padx=4, pady=4)
+            title = step.get("title") or step.get("profession") or "?"
+            level = step.get("level") or "?"
+            badge = "" if step.get("resolved", True) else "  (spoza podstawki)"
+            done = "✓" if step.get("completed") else "•"
+            ctk.CTkLabel(
+                chip, text=f"{done} {title} ({level}){badge}",
+                font=FONT_SMALL, text_color=COLOR_FG_LIGHT,
+            ).pack(side="left", padx=(10, 6), pady=6)
+            ctk.CTkButton(
+                chip, text="✕", width=24, height=24,
+                fg_color="transparent", hover_color=COLOR_ERROR,
+                command=lambda i=index: self.on_remove_career_step(i),
+            ).pack(side="left", padx=(0, 6), pady=4)
+
+    def _render_profession_levels(self) -> None:
+        """Rysuje schemat 4 poziomów bieżącej profesji."""
+        for widget in self.profession_levels_frame.winfo_children():
+            widget.destroy()
+
+        prof = game_data.get_profession(self.data_manager.current_career)
+        if not prof:
+            ctk.CTkLabel(
+                self.profession_levels_frame,
+                text="Brak danych schematu dla tej profesji (profesja spoza podstawki "
+                "albo nieustawiona). Możesz nadal rozwijać postać ręcznie.",
+                font=FONT_BODY, text_color=COLOR_TEXT_MUTED, wraplength=1040, justify="left",
+            ).pack(anchor="w", padx=16, pady=16)
+            return
+
+        current_level = self.data_manager.current_career_level
+        for lvl in prof.get("levels", []):
+            level_num = lvl.get("level")
+            is_current = level_num == current_level
+            is_past = level_num < current_level
+            border = COLOR_ACCENT if is_current else COLOR_BORDER
+            card = ctk.CTkFrame(
+                self.profession_levels_frame,
+                fg_color=COLOR_SURFACE_ALT if is_current else COLOR_SURFACE_SOFT,
+                corner_radius=14, border_width=2 if is_current else 1, border_color=border,
+            )
+            card.pack(fill="x", padx=10, pady=6)
+
+            tag = "OBECNY POZIOM" if is_current else ("ukończony" if is_past else "do rozwoju później")
+            ctk.CTkLabel(
+                card,
+                text=f"Poziom {level_num}: {lvl.get('title', '')}   ({lvl.get('status', '')})   [{tag}]",
+                font=FONT_BODY_BOLD,
+                text_color=COLOR_HIGHLIGHT if is_current else COLOR_FG_LIGHT,
+            ).pack(anchor="w", padx=14, pady=(10, 4))
+
+            self._add_scheme_line(card, "Cechy", lvl.get("characteristics", []))
+            self._add_scheme_line(card, "Umiejętności", lvl.get("skills", []))
+            self._add_scheme_line(card, "Talenty", lvl.get("talents", []))
+            self._add_scheme_line(card, "Wyposażenie", lvl.get("trappings", []))
+
+    def _add_scheme_line(self, parent, label: str, items: List[str]) -> None:
+        """Dodaje wiersz 'Etykieta: lista' do karty poziomu."""
+        if not items:
+            text = f"{label}: —"
+        else:
+            text = f"{label}: " + ", ".join(items)
+        ctk.CTkLabel(
+            parent, text=text, font=FONT_SMALL, text_color=COLOR_TEXT_MUTED,
+            wraplength=1020, justify="left", anchor="w",
+        ).pack(fill="x", anchor="w", padx=14, pady=(0, 2))
+
+    # ----- Operacje na profesji -------------------------------------------
+    def _selected_profession_inputs(self):
+        """Zwraca (klasa, profesja, poziom) z pól wyboru."""
+        class_name = self.profession_class_var.get().strip()
+        career = self.profession_career_var.get().strip()
+        try:
+            level = int(self.profession_level_var.get())
+        except (ValueError, TypeError):
+            level = 1
+        return class_name, career, max(1, min(4, level))
+
+    def on_set_profession(self) -> None:
+        """Ustawia/poprawia bieżącą profesję bez naliczania kosztu."""
+        class_name, career, level = self._selected_profession_inputs()
+        if not career:
+            messagebox.showwarning("Brak profesji", "Wybierz profesję z listy.")
+            return
+
+        self.data_manager.set_current_career(career, level)
+        if class_name and class_name in game_data.all_class_names():
+            self.data_manager.character_class = class_name
+
+        self._persist_career_path()
+        self.history_manager.add_entry(
+            "Ustawiono/poprawiono profesję", f"{career} (poziom {level})"
+        )
+        self.refresh_profession_display()
+        self.update_character_info()
+        self.refresh_history_display()
+        messagebox.showinfo("Profesja", f"Ustawiono profesję: {career} (poziom {level}).")
+
+    def on_advance_profession(self) -> None:
+        """Awansuje do nowej profesji z naliczeniem kosztu przejścia."""
+        class_name, career, level = self._selected_profession_inputs()
+        if not career:
+            messagebox.showwarning("Brak profesji", "Wybierz profesję z listy.")
+            return
+
+        dm = self.data_manager
+        # Pierwsza profesja postaci = ustawienie bez kosztu.
+        if not dm.current_career:
+            messagebox.showinfo(
+                "Pierwsza profesja",
+                "Brak bieżącej profesji — użyj 'Ustaw / popraw', aby przypisać pierwszą profesję bez kosztu.",
+            )
+            return
+
+        if career == dm.current_career and level == dm.current_career_level:
+            messagebox.showinfo(
+                "Brak zmiany", "Wybrana profesja i poziom są takie same jak obecne."
+            )
+            return
+
+        status = dm.current_career_completion()
+        completed = bool(status.get("completed"))
+        current_class = dm.character_class or game_data.class_of_career(dm.current_career) or ""
+        target_class = (
+            game_data.class_of_career(career)
+            or (class_name if class_name in game_data.all_class_names() else "")
+        )
+        same_class = bool(current_class) and current_class == target_class
+
+        cost = game_data.career_transition_cost(completed, same_class)
+
+        if dm.experience["available"] < cost:
+            messagebox.showerror(
+                "Za mało PD",
+                f"Awans kosztuje {cost} PD, masz {dm.experience['available']} PD.",
+            )
+            return
+
+        completion_note = "skompletowana" if completed else "NIESKOMPLETOWANA"
+        class_note = "ta sama klasa" if same_class else "ZMIANA KLASY"
+        confirm = messagebox.askyesno(
+            "Awans profesji",
+            f"Awans: {dm.current_career} ({dm.current_career_level}) -> {career} ({level})\n"
+            f"Obecna profesja: {completion_note}\n"
+            f"Klasa: {class_note}\n\n"
+            f"Koszt przejścia: {cost} PD\n\nKontynuować?",
+        )
+        if not confirm:
+            return
+        dm.experience["available"] -= cost
+        dm.experience["spent"] += cost
+        dm.experience["total"] = dm.experience["available"] + dm.experience["spent"]
+        dm.advance_to_career(career, level)
+        if class_name and class_name in game_data.all_class_names() and not game_data.class_of_career(career):
+            dm.character_class = class_name
+
+        self._persist_career_path()
+        self.history_manager.add_entry(
+            "Awans profesji", f"{career} (poziom {level}), koszt {cost} PD"
+        )
+
+        if dm.file_path:
+            if dm.source_type == FILE_TYPE_PDF:
+                dm.save_to_pdf(dm.file_path)
+            else:
+                dm.save_to_excel(dm.file_path)
+
+        self.refresh_profession_display()
+        self.update_character_info()
+        self.update_experience_display()
+        self.refresh_history_display()
+        messagebox.showinfo("Awans", f"Awansowano do: {career} (poziom {level}).")
+
+    def on_remove_career_step(self, index: int) -> None:
+        """Usuwa krok ze ścieżki kariery (korekta)."""
+        path = self.data_manager.career_path
+        if index < 0 or index >= len(path):
+            return
+        step = path[index]
+        title = step.get("title") or step.get("profession") or "?"
+        if not messagebox.askyesno(
+            "Usuń krok kariery", f"Usunąć krok '{title}' ze ścieżki kariery?"
+        ):
+            return
+
+        del path[index]
+        if path:
+            last = path[-1]
+            last["completed"] = False
+            self.data_manager.current_career = last.get("profession") or last.get("title") or ""
+            self.data_manager.current_career_level = last.get("level") or 1
+            resolved_class = game_data.class_of_career(self.data_manager.current_career)
+            if resolved_class:
+                self.data_manager.character_class = resolved_class
+        else:
+            self.data_manager.current_career = ""
+            self.data_manager.current_career_level = 1
+
+        self._persist_career_path()
+        self.history_manager.add_entry("Korekta ścieżki kariery", f"Usunięto: {title}")
+        self.refresh_profession_display()
+        self.update_character_info()
+        self.refresh_history_display()
+
+    def _persist_career_path(self) -> None:
+        """Zapisuje bieżącą ścieżkę kariery do historii postaci."""
+        if self.data_manager.character_name:
+            self.history_manager.set_career_path(
+                self.data_manager.character_name, self.data_manager.career_path
+            )
 
     def create_skills_tab(self) -> None:
         """Zakładka: Umiejętności."""
@@ -1035,6 +2138,12 @@ class CharacterSheetApp(ctk.CTk):
         )
         self.skill_filter_entry.pack(side="left", padx=(0, 12), pady=14)
         self.skill_filter_entry.bind("<KeyRelease>", lambda _event: self.apply_skill_filter())
+        AutocompletePopup(
+            self.skill_filter_entry,
+            self.skill_filter_var,
+            lambda: sorted(self.data_manager.skills.keys(), key=str.casefold),
+            lambda _v: self.apply_skill_filter(),
+        )
 
         self.skill_attribute_filter_combo = ctk.CTkComboBox(
             controls,
@@ -1059,6 +2168,19 @@ class CharacterSheetApp(ctk.CTk):
         )
         self.skill_profession_filter_checkbox.pack(side="left", padx=(0, 12), pady=14)
 
+        self.skill_gm_checkbox = ctk.CTkCheckBox(
+            controls,
+            text="Zgoda MG (spoza profesji ×1)",
+            variable=self.dev_gm_approval_var,
+            command=self._on_dev_gm_change,
+            checkbox_width=20,
+            checkbox_height=20,
+            border_width=2,
+            corner_radius=6,
+            font=FONT_BODY,
+        )
+        self.skill_gm_checkbox.pack(side="left", padx=(0, 12), pady=14)
+
         ctk.CTkButton(
             controls,
             text="Wyczyść filtr",
@@ -1067,6 +2189,17 @@ class CharacterSheetApp(ctk.CTk):
             height=36,
             fg_color=COLOR_SURFACE_SOFT,
             hover_color="#48505e",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left", padx=(0, 12), pady=14)
+
+        ctk.CTkButton(
+            controls,
+            text="Dodaj umiejętność",
+            command=self.on_add_skill_dialog,
+            width=160,
+            height=36,
+            fg_color=COLOR_ACCENT,
+            hover_color="#0f96ea",
             font=FONT_BODY_BOLD,
         ).pack(side="left", padx=(0, 12), pady=14)
 
@@ -1134,34 +2267,731 @@ class CharacterSheetApp(ctk.CTk):
             }
 
     def create_talents_tab(self) -> None:
-        """Zakładka: Talenty (przygotowana na przyszłość)."""
+        """Zakładka: Talenty (zakup, własne talenty, twardy Max, rozwój spoza profesji)."""
         _, wrapper = self._create_tab_shell(
             "Talenty",
             "Talenty",
-            "Ta sekcja jest przygotowana pod kolejny etap. Docelowo pojawi się tutaj zakup talentów z kosztem narastającym o 100 PD za każdy kolejny poziom.",
+            "Dodawaj talenty z listy lub własne, kupuj kolejne wykupienia (100 PD każde) i pilnuj limitu (Maksimum). Rozwój spoza profesji kosztuje podwójnie, chyba że MG wyrazi zgodę.",
         )
 
-        placeholder = ctk.CTkFrame(
+        controls = ctk.CTkFrame(
             wrapper,
             fg_color=COLOR_SURFACE_ALT,
-            corner_radius=18,
+            corner_radius=16,
             border_width=1,
             border_color=COLOR_BORDER,
         )
-        placeholder.pack(fill="x", pady=(0, 10))
+        controls.pack(fill="x", pady=(0, 10))
+
         ctk.CTkLabel(
-            placeholder,
-            text="Moduł talentów jeszcze nie został włączony do źródła danych.",
+            controls,
+            text="Filtr talentów:",
             font=FONT_BODY_BOLD,
-        ).pack(anchor="w", padx=18, pady=(18, 6))
-        ctk.CTkLabel(
-            placeholder,
-            text="Po wdrożeniu importu z PDF i mapowania pól będzie można nie tylko odczytywać talenty, ale też planować koszt kolejnych poziomów.",
+        ).pack(side="left", padx=(16, 8), pady=14)
+        self.talent_filter_entry = ctk.CTkEntry(
+            controls,
+            textvariable=self.talent_filter_var,
+            placeholder_text="Wpisz fragment nazwy lub opisu talentu",
+            width=300,
+            height=36,
+        )
+        self.talent_filter_entry.pack(side="left", padx=(0, 12), pady=14)
+        self.talent_filter_entry.bind("<KeyRelease>", lambda _event: self.apply_talent_filter())
+        AutocompletePopup(
+            self.talent_filter_entry,
+            self.talent_filter_var,
+            lambda: sorted(self.data_manager.talents.keys(), key=str.casefold),
+            lambda _v: self.apply_talent_filter(),
+        )
+
+        self.talent_profession_filter_checkbox = ctk.CTkCheckBox(
+            controls,
+            text="Tylko rozwijalne (+)",
+            variable=self.talent_profession_filter_var,
+            command=self.apply_talent_filter,
+            checkbox_width=20, checkbox_height=20, border_width=2, corner_radius=6,
+            font=FONT_BODY,
+        )
+        self.talent_profession_filter_checkbox.pack(side="left", padx=(0, 12), pady=14)
+
+        ctk.CTkButton(
+            controls,
+            text="Wyczyść filtr",
+            command=self.clear_talent_filter,
+            width=120,
+            height=36,
+            fg_color=COLOR_SURFACE_SOFT,
+            hover_color="#48505e",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left", padx=(0, 12), pady=14)
+
+        self.talents_summary_label = ctk.CTkLabel(
+            controls,
+            textvariable=self.talent_summary_var,
+            font=FONT_SMALL,
+            text_color=COLOR_TEXT_MUTED,
+        )
+        self.talents_summary_label.pack(side="right", padx=16, pady=14)
+
+        # Pasek dodawania i opcji rozwoju spoza profesji
+        actions = ctk.CTkFrame(
+            wrapper,
+            fg_color=COLOR_SURFACE_ALT,
+            corner_radius=16,
+            border_width=1,
+            border_color=COLOR_BORDER,
+        )
+        actions.pack(fill="x", pady=(0, 10))
+
+        ctk.CTkButton(
+            actions,
+            text="Dodaj talent z listy",
+            command=self.on_add_talent_from_list,
+            width=180,
+            height=36,
+            fg_color=COLOR_ACCENT,
+            hover_color="#0f96ea",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left", padx=(16, 8), pady=14)
+
+        ctk.CTkButton(
+            actions,
+            text="Dodaj własny talent",
+            command=self.on_add_custom_talent,
+            width=180,
+            height=36,
+            fg_color=COLOR_SURFACE_SOFT,
+            hover_color="#48505e",
+            font=FONT_BODY_BOLD,
+        ).pack(side="left", padx=(0, 16), pady=14)
+
+        ctk.CTkCheckBox(
+            actions,
+            text="Rozwój spoza profesji (×2)",
+            variable=self.talent_out_of_profession_var,
+            command=self._on_talent_cost_mode_change,
+            checkbox_width=20,
+            checkbox_height=20,
+            border_width=2,
+            corner_radius=6,
+            font=FONT_BODY,
+        ).pack(side="left", padx=(0, 12), pady=14)
+
+        ctk.CTkCheckBox(
+            actions,
+            text="Zgoda MG (×1)",
+            variable=self.talent_gm_approval_var,
+            command=self._on_talent_cost_mode_change,
+            checkbox_width=20,
+            checkbox_height=20,
+            border_width=2,
+            corner_radius=6,
+            font=FONT_BODY,
+        ).pack(side="left", padx=(0, 12), pady=14)
+
+        self.talents_frame = ctk.CTkScrollableFrame(
+            wrapper,
+            fg_color=COLOR_SURFACE,
+            corner_radius=16,
+            border_width=1,
+            border_color=COLOR_BORDER,
+        )
+        self.talents_frame.pack(fill="both", expand=True)
+
+        self.talents_empty_label = ctk.CTkLabel(
+            self.talents_frame,
+            text="Brak talentów. Dodaj talent z listy albo własny powyżej.",
             font=FONT_BODY,
             text_color=COLOR_TEXT_MUTED,
-            wraplength=1080,
+        )
+
+        self.initialized_talents = False
+        self.initialize_talents_display()
+
+    def _on_talent_cost_mode_change(self) -> None:
+        """Reaguje na zmianę trybu rozwoju spoza profesji / zgody MG."""
+        if self.talent_out_of_profession_var.get():
+            self.talent_gm_approval_var.set(self.talent_gm_approval_var.get())
+        else:
+            self.talent_gm_approval_var.set(False)
+        self.refresh_talents_display()
+
+    def _talent_cost_mode(self) -> tuple:
+        """Zwraca (out_of_profession, gm_approved) z bieżących przełączników."""
+        out_of_profession = bool(self.talent_out_of_profession_var.get())
+        gm_approved = out_of_profession and bool(self.talent_gm_approval_var.get())
+        return out_of_profession, gm_approved
+
+    def initialize_talents_display(self) -> None:
+        """Tworzy wiersze talentów jeden raz (bez destroy)."""
+        if self.initialized_talents:
+            self._update_all_talent_labels()
+            self.apply_talent_filter()
+            return
+
+        for widget in self.talents_frame.winfo_children():
+            if widget is not self.talents_empty_label:
+                widget.destroy()
+        self.talent_rows.clear()
+
+        for talent_name, talent_data in self.data_manager.talents.items():
+            self._create_talent_row_cached(talent_name, talent_data)
+
+        self.initialized_talents = True
+        self.apply_talent_filter()
+
+    def _format_talent_max(self, name: str) -> str:
+        """Buduje czytelny opis limitu wykupień talentu."""
+        talent = self.data_manager.talents.get(name, {})
+        info = talent.get("max")
+        limit = self.data_manager.talent_max_advances(name)
+        if not info:
+            return "brak"
+        kind = info.get("type")
+        if kind == "fixed":
+            return str(info.get("value"))
+        if kind == "characteristic":
+            attr = info.get("attr")
+            if limit is not None:
+                return f"{limit} (bonus {attr})"
+            return f"bonus {attr}"
+        if kind == "special":
+            return "specjalne"
+        return "brak"
+
+    def _create_talent_row_cached(self, talent_name: str, talent_data: Dict) -> None:
+        """Tworzy wiersz talentu i zapamiętuje referencje do widgetów."""
+        row = ctk.CTkFrame(
+            self.talents_frame,
+            fg_color=COLOR_SURFACE_ALT,
+            corner_radius=14,
+            border_width=1,
+            border_color=COLOR_BORDER,
+        )
+        row.pack(fill="x", pady=5, padx=10)
+
+        labels = []
+        buttons = []
+        top = ctk.CTkFrame(row, fg_color="transparent")
+        top.pack(fill="x", padx=10, pady=(8, 2))
+
+        lbl_name = ctk.CTkLabel(
+            top, text=self._format_talent_display_name(talent_name), font=FONT_BODY_BOLD, width=240, anchor="w"
+        )
+        lbl_name.pack(side="left", padx=(0, 6))
+        labels.append(("name", lbl_name))
+
+        source_text = "własny" if talent_data.get("is_custom") else talent_data.get("source", "")
+        lbl_source = ctk.CTkLabel(
+            top,
+            text=source_text,
+            width=120,
+            wraplength=120,
             justify="left",
-        ).pack(anchor="w", padx=18, pady=(0, 18))
+            anchor="w",
+            font=FONT_SMALL,
+            text_color=COLOR_TEXT_MUTED,
+        )
+        lbl_source.pack(side="left", padx=(0, 6))
+        labels.append(("source", lbl_source))
+
+        lbl_adv = ctk.CTkLabel(
+            top, text=f"Wykupienia: {talent_data['advances']}", width=130,
+            font=FONT_BODY_BOLD, text_color=COLOR_ACCENT,
+        )
+        lbl_adv.pack(side="left", padx=2)
+        labels.append(("adv", lbl_adv))
+
+        lbl_max = ctk.CTkLabel(
+            top, text=f"Maks: {self._format_talent_max(talent_name)}", width=150,
+            font=FONT_BODY_BOLD, text_color=COLOR_WARNING,
+        )
+        lbl_max.pack(side="left", padx=2)
+        labels.append(("max", lbl_max))
+
+        btn_plus1 = ctk.CTkButton(
+            top, text="+1", width=46, height=34,
+            command=lambda: self.on_increase_talent(talent_name, 1),
+            fg_color=COLOR_SUCCESS if self.can_buy_talent(talent_name) else COLOR_ERROR,
+        )
+        btn_plus1.pack(side="left", padx=1)
+        buttons.append(("plus1", btn_plus1))
+
+        btn_minus1 = ctk.CTkButton(
+            top, text="-1", width=46, height=34,
+            command=lambda: self.on_decrease_talent(talent_name, 1),
+            fg_color=COLOR_WARNING if self._can_decrease_talent(talent_name) else "#555555",
+        )
+        btn_minus1.pack(side="left", padx=1)
+        buttons.append(("minus1", btn_minus1))
+
+        if talent_data.get("is_new", False):
+            btn_delete = ctk.CTkButton(
+                top, text="Usuń", width=62, height=34,
+                command=lambda: self.on_delete_talent(talent_name),
+                fg_color=COLOR_ERROR,
+            )
+            btn_delete.pack(side="left", padx=2)
+            buttons.append(("delete", btn_delete))
+
+        description = talent_data.get("description") or ""
+        # Pełny opis pokazujemy w dymku po najechaniu (4A3) zamiast stałej etykiety.
+        hint_text = "ⓘ Najedź, aby zobaczyć opis" if description else "Brak opisu"
+        lbl_desc = ctk.CTkLabel(
+            row,
+            text=hint_text,
+            font=FONT_SMALL,
+            text_color=COLOR_TEXT_MUTED,
+            justify="left",
+            anchor="w",
+        )
+        lbl_desc.pack(fill="x", anchor="w", padx=10, pady=(0, 8))
+        labels.append(("desc", lbl_desc))
+
+        tooltip = Tooltip(row, text=description)
+        tooltip.attach(lbl_name)
+        tooltip.attach(lbl_desc)
+
+        self.talent_rows[talent_name] = {
+            "row": row,
+            "labels": labels,
+            "buttons": buttons,
+            "tooltip": tooltip,
+        }
+        self._apply_row_developable_style(row, self._talent_developable(talent_name))
+
+    def _update_all_talent_labels(self) -> None:
+        """Aktualizuje teksty i kolory wierszy talentów bez tworzenia nowych widgetów."""
+        for talent_name, talent_data in self.data_manager.talents.items():
+            row_data = self.talent_rows.get(talent_name)
+            if not row_data:
+                continue
+            labels = dict(row_data["labels"])
+            buttons = dict(row_data["buttons"])
+            if "name" in labels:
+                labels["name"].configure(text=self._format_talent_display_name(talent_name))
+            labels["adv"].configure(text=f"Wykupienia: {talent_data['advances']}")
+            labels["max"].configure(text=f"Maks: {self._format_talent_max(talent_name)}")
+            if "desc" in labels:
+                description = talent_data.get("description") or ""
+                labels["desc"].configure(
+                    text="ⓘ Najedź, aby zobaczyć opis" if description else "Brak opisu"
+                )
+            if "tooltip" in row_data:
+                row_data["tooltip"].set_text(talent_data.get("description") or "")
+            buttons["plus1"].configure(
+                fg_color=COLOR_SUCCESS if self.can_buy_talent(talent_name) else COLOR_ERROR
+            )
+            buttons["minus1"].configure(
+                fg_color=COLOR_WARNING if self._can_decrease_talent(talent_name) else "#555555"
+            )
+            self._apply_row_developable_style(row_data["row"], self._talent_developable(talent_name))
+
+    def refresh_talents_display(self) -> None:
+        """Aktualizuje listę talentów (lekko) albo inicjalizuje przy pierwszym użyciu."""
+        if not hasattr(self, "talents_frame"):
+            return
+        if self.initialized_talents:
+            self._update_all_talent_labels()
+            self.apply_talent_filter()
+        else:
+            self.initialize_talents_display()
+
+    def clear_talent_filter(self) -> None:
+        """Czyści filtr listy talentów."""
+        self.talent_filter_var.set("")
+        self.apply_talent_filter()
+
+    def apply_talent_filter(self) -> None:
+        """Filtruje widoczne talenty po nazwie lub opisie."""
+        if not hasattr(self, "talents_frame"):
+            return
+
+        query = normalize_search_text(self.talent_filter_var.get())
+        profession_only = bool(self.talent_profession_filter_var.get())
+        visible_count = 0
+        total_count = len(self.talent_rows)
+
+        self.talents_empty_label.pack_forget()
+        if total_count == 0:
+            self.talents_empty_label.pack(anchor="w", padx=16, pady=16)
+            self.talent_summary_var.set("Wyświetlane talenty: 0 / 0")
+            return
+
+        for talent_name, row_data in self.talent_rows.items():
+            talent_data = self.data_manager.talents.get(talent_name, {})
+            searchable = normalize_search_text(
+                f"{talent_name} {talent_data.get('description', '')} {talent_data.get('source', '')}"
+            )
+            matches_query = not query or query in searchable
+            matches_profession = not profession_only or self._talent_developable(talent_name)
+            should_show = matches_query and matches_profession
+            row_data["row"].pack_forget()
+            if should_show:
+                visible_count += 1
+                row_data["row"].pack(fill="x", pady=5, padx=10)
+
+        self.talent_summary_var.set(
+            f"Wyświetlane talenty: {visible_count} / {total_count}"
+        )
+
+    # ----- Operacje na talentach ------------------------------------------
+    def can_buy_talent(self, talent_name: str) -> bool:
+        """Czy stać postać na kolejne wykupienie i czy nie przekroczono Max."""
+        if not self._talent_below_max(talent_name, 1):
+            return False
+        out_of_profession, gm_approved = self._talent_cost_mode()
+        cost = calculate_talent_cost(1, out_of_profession, gm_approved)
+        return self.data_manager.experience["available"] >= cost
+
+    def _talent_below_max(self, talent_name: str, amount: int) -> bool:
+        """Sprawdza, czy po dokupieniu 'amount' nie przekroczymy twardego Max."""
+        talent = self.data_manager.talents.get(talent_name)
+        if not talent:
+            return False
+        limit = self.data_manager.talent_max_advances(talent_name)
+        if limit is None:
+            return True
+        return talent["advances"] + amount <= limit
+
+    def _can_decrease_talent(self, talent_name: str) -> bool:
+        """Czy można cofnąć wykupienie (nie poniżej zatwierdzonego poziomu)."""
+        talent = self.data_manager.talents.get(talent_name)
+        if not talent:
+            return False
+        return talent["advances"] > talent.get("base_advances", 0)
+
+    def on_increase_talent(self, talent_name: str, amount: int = 1) -> None:
+        """Kupuje kolejne wykupienie talentu (do zatwierdzenia)."""
+        talent = self.data_manager.talents.get(talent_name)
+        if not talent:
+            return
+
+        if not self._talent_below_max(talent_name, amount):
+            limit = self.data_manager.talent_max_advances(talent_name)
+            messagebox.showwarning(
+                "Osiągnięto Maksimum",
+                f"Talent '{talent_name}' ma limit {limit} wykupień i nie można go przekroczyć.",
+            )
+            return
+
+        out_of_profession, gm_approved = self._talent_cost_mode()
+        cost = calculate_talent_cost(amount, out_of_profession, gm_approved)
+        if self.data_manager.experience["available"] < cost:
+            messagebox.showerror(
+                "Za mało PD",
+                f"Potrzebujesz {cost} PD, masz {self.data_manager.experience['available']} PD.",
+            )
+            return
+
+        self.pending_changes["talent_changes"][talent_name] = (
+            self.pending_changes["talent_changes"].get(talent_name, 0) + amount
+        )
+        talent["advances"] += amount
+        self.data_manager.experience["available"] -= cost
+
+        self.refresh_talents_display()
+        self.update_experience_display()
+
+    def on_decrease_talent(self, talent_name: str, amount: int = 1) -> None:
+        """Cofa wykupienie talentu (zwrot PD wg trybu kosztu)."""
+        talent = self.data_manager.talents.get(talent_name)
+        if not talent:
+            return
+
+        minimum = talent.get("base_advances", 0)
+        if talent["advances"] - amount < minimum:
+            play_blocked_sound()
+            return
+
+        out_of_profession, gm_approved = self._talent_cost_mode()
+        refund = calculate_talent_cost(amount, out_of_profession, gm_approved)
+
+        self.pending_changes["talent_changes"][talent_name] = (
+            self.pending_changes["talent_changes"].get(talent_name, 0) - amount
+        )
+        talent["advances"] -= amount
+        self.data_manager.experience["available"] += refund
+
+        self.refresh_talents_display()
+        self.update_experience_display()
+
+    def on_add_talent_from_list(self) -> None:
+        """Otwiera okno wyboru talentu z bazy i dodaje go do postaci."""
+        available = [
+            name
+            for name in game_data.all_talent_names()
+            if name not in self.data_manager.talents
+        ]
+        if not available:
+            messagebox.showinfo(
+                "Brak talentów",
+                "Wszystkie talenty z listy zostały już dodane do postaci.",
+            )
+            return
+        self._open_talent_picker(available)
+
+    def _open_talent_picker(self, available: List[str]) -> None:
+        """Modal z wyszukiwarką talentów do dodania."""
+        dialog = ctk.CTkToplevel(self)
+        dialog.title("Dodaj talent z listy")
+        dialog.geometry("520x520")
+        dialog.transient(self)
+        dialog.grab_set()
+
+        search_var = tk.StringVar(value="")
+        ctk.CTkLabel(dialog, text="Wyszukaj talent:", font=FONT_BODY_BOLD).pack(
+            anchor="w", padx=16, pady=(16, 4)
+        )
+        search_entry = ctk.CTkEntry(dialog, textvariable=search_var, width=480, height=34)
+        search_entry.pack(padx=16, pady=(0, 8))
+
+        desc_label = ctk.CTkLabel(
+            dialog,
+            text="",
+            font=FONT_SMALL,
+            text_color=COLOR_TEXT_MUTED,
+            wraplength=480,
+            justify="left",
+            anchor="w",
+        )
+        desc_label.pack(fill="x", padx=16, pady=(0, 6))
+
+        list_frame = ctk.CTkScrollableFrame(dialog, width=480, height=300)
+        list_frame.pack(fill="both", expand=True, padx=16, pady=(0, 8))
+
+        selected = {"name": None}
+        row_buttons: Dict[str, ctk.CTkButton] = {}
+
+        def select(name: str) -> None:
+            selected["name"] = name
+            talent = game_data.get_talent(name) or {}
+            max_raw = talent.get("max_raw", "")
+            desc_label.configure(
+                text=f"Maksimum: {max_raw}\n{talent.get('description', '')}"
+            )
+            for other, btn in row_buttons.items():
+                btn.configure(fg_color=COLOR_ACCENT if other == name else COLOR_SURFACE_SOFT)
+
+        def render(filter_text: str = "") -> None:
+            for child in list_frame.winfo_children():
+                child.destroy()
+            row_buttons.clear()
+            query = normalize_search_text(filter_text)
+            for name in available:
+                if query and query not in normalize_search_text(name):
+                    continue
+                btn = ctk.CTkButton(
+                    list_frame,
+                    text=name,
+                    anchor="w",
+                    height=30,
+                    fg_color=COLOR_SURFACE_SOFT,
+                    hover_color="#48505e",
+                    command=lambda n=name: select(n),
+                )
+                btn.pack(fill="x", pady=2)
+                row_buttons[name] = btn
+
+        def confirm() -> None:
+            name = selected["name"]
+            if not name:
+                messagebox.showwarning("Brak wyboru", "Wybierz talent z listy.", parent=dialog)
+                return
+            dialog.destroy()
+            self._add_talent_and_register(name, from_database=True)
+
+        search_entry.bind("<KeyRelease>", lambda _e: render(search_var.get()))
+        button_row = ctk.CTkFrame(dialog, fg_color="transparent")
+        button_row.pack(fill="x", padx=16, pady=(0, 16))
+        ctk.CTkButton(
+            button_row, text="Dodaj", command=confirm, fg_color=COLOR_SUCCESS, width=120
+        ).pack(side="right", padx=(8, 0))
+        ctk.CTkButton(
+            button_row, text="Anuluj", command=dialog.destroy,
+            fg_color=COLOR_SURFACE_SOFT, hover_color="#48505e", width=120,
+        ).pack(side="right")
+
+        render()
+        search_entry.focus_set()
+
+    def _add_talent_and_register(
+        self, name: str, from_database: bool, custom_info: Optional[Dict] = None
+    ) -> None:
+        """Dodaje talent (z bazy lub własny), rezerwuje koszt pierwszego wykupienia."""
+        out_of_profession, gm_approved = self._talent_cost_mode()
+        cost = calculate_talent_cost(1, out_of_profession, gm_approved)
+        if self.data_manager.experience["available"] < cost:
+            messagebox.showerror(
+                "Za mało PD",
+                f"Dodanie talentu kosztuje {cost} PD, masz {self.data_manager.experience['available']} PD.",
+            )
+            return
+
+        if from_database:
+            db_entry = game_data.get_talent(name) or {}
+            added = self.data_manager.add_talent(
+                name,
+                advances=1,
+                description=db_entry.get("description", ""),
+                max_info=db_entry.get("max"),
+                tests=db_entry.get("tests"),
+                source=db_entry.get("source", "Lista"),
+                is_custom=False,
+                is_new=True,
+            )
+        else:
+            info = custom_info or {}
+            added = self.data_manager.add_talent(
+                name,
+                advances=1,
+                description=info.get("description", ""),
+                max_info=info.get("max"),
+                tests=None,
+                source="Własny",
+                is_custom=True,
+                is_new=True,
+            )
+
+        if not added:
+            messagebox.showwarning("Już istnieje", f"Talent '{name}' już jest na liście.")
+            return
+
+        self.pending_changes["new_talents"].add(name)
+        self.pending_changes["talent_changes"][name] = (
+            self.pending_changes["talent_changes"].get(name, 0) + 1
+        )
+        self.data_manager.experience["available"] -= cost
+
+        self.initialized_talents = False
+        self.initialize_talents_display()
+        self.update_experience_display()
+        self.history_manager.add_entry("Dodano talent", name)
+        self.refresh_history_display()
+
+    def on_add_custom_talent(self) -> None:
+        """Okno tworzenia własnego talentu (nazwa, opis, limit Max)."""
+        dialog = ctk.CTkToplevel(self)
+        dialog.title("Dodaj własny talent")
+        dialog.geometry("520x560")
+        dialog.transient(self)
+        dialog.grab_set()
+
+        ctk.CTkLabel(dialog, text="Nazwa talentu:", font=FONT_BODY_BOLD).pack(
+            anchor="w", padx=16, pady=(16, 2)
+        )
+        name_entry = ctk.CTkEntry(dialog, width=480, height=34)
+        name_entry.pack(padx=16, pady=(0, 8))
+
+        ctk.CTkLabel(dialog, text="Opis:", font=FONT_BODY_BOLD).pack(
+            anchor="w", padx=16, pady=(0, 2)
+        )
+        desc_box = ctk.CTkTextbox(dialog, width=480, height=160)
+        desc_box.pack(padx=16, pady=(0, 8))
+
+        ctk.CTkLabel(dialog, text="Rodzaj Maksimum:", font=FONT_BODY_BOLD).pack(
+            anchor="w", padx=16, pady=(0, 2)
+        )
+        max_type_var = tk.StringVar(value="brak")
+        max_type_combo = ctk.CTkComboBox(
+            dialog,
+            values=["brak", "liczba", "bonus z cechy"],
+            variable=max_type_var,
+            width=480,
+        )
+        max_type_combo.pack(padx=16, pady=(0, 8))
+
+        value_frame = ctk.CTkFrame(dialog, fg_color="transparent")
+        value_frame.pack(fill="x", padx=16, pady=(0, 8))
+        ctk.CTkLabel(value_frame, text="Wartość liczbowa:").pack(side="left", padx=(0, 6))
+        number_entry = ctk.CTkEntry(value_frame, width=80)
+        number_entry.insert(0, "1")
+        number_entry.pack(side="left", padx=(0, 12))
+        ctk.CTkLabel(value_frame, text="Cecha:").pack(side="left", padx=(0, 6))
+        attr_combo = ctk.CTkComboBox(value_frame, values=ATTRIBUTES, width=90)
+        attr_combo.set(ATTRIBUTES[0])
+        attr_combo.pack(side="left")
+
+        def confirm() -> None:
+            name = name_entry.get().strip()
+            if not name:
+                messagebox.showwarning("Brak nazwy", "Podaj nazwę talentu.", parent=dialog)
+                return
+            if name in self.data_manager.talents:
+                messagebox.showwarning(
+                    "Już istnieje", f"Talent '{name}' już jest na liście.", parent=dialog
+                )
+                return
+
+            max_kind = max_type_var.get()
+            if max_kind == "liczba":
+                try:
+                    value = int(number_entry.get())
+                except ValueError:
+                    messagebox.showwarning(
+                        "Błędna wartość", "Podaj liczbę dla limitu.", parent=dialog
+                    )
+                    return
+                max_info = {"type": "fixed", "value": value}
+            elif max_kind == "bonus z cechy":
+                max_info = {"type": "characteristic", "attr": attr_combo.get()}
+            else:
+                max_info = None
+
+            description = desc_box.get("1.0", "end").strip()
+            dialog.destroy()
+            self._add_talent_and_register(
+                name,
+                from_database=False,
+                custom_info={"description": description, "max": max_info},
+            )
+
+        button_row = ctk.CTkFrame(dialog, fg_color="transparent")
+        button_row.pack(fill="x", padx=16, pady=(8, 16))
+        ctk.CTkButton(
+            button_row, text="Dodaj", command=confirm, fg_color=COLOR_SUCCESS, width=120
+        ).pack(side="right", padx=(8, 0))
+        ctk.CTkButton(
+            button_row, text="Anuluj", command=dialog.destroy,
+            fg_color=COLOR_SURFACE_SOFT, hover_color="#48505e", width=120,
+        ).pack(side="right")
+
+        name_entry.focus_set()
+
+    def on_delete_talent(self, talent_name: str) -> None:
+        """Usuwa talent dodany w bieżącej sesji i zwraca zarezerwowane PD."""
+        talent = self.data_manager.talents.get(talent_name)
+        if not talent:
+            return
+        if not talent.get("is_new", False):
+            messagebox.showerror(
+                "Błąd", "Można usuwać tylko talenty dodane w tej sesji."
+            )
+            return
+
+        result = messagebox.askyesno(
+            "Potwierdzenie usunięcia",
+            f"Czy usunąć talent '{talent_name}'?",
+        )
+        if not result:
+            return
+
+        out_of_profession, gm_approved = self._talent_cost_mode()
+        refund = calculate_talent_cost(talent["advances"], out_of_profession, gm_approved)
+        self.data_manager.experience["available"] += refund
+
+        self.pending_changes["new_talents"].discard(talent_name)
+        self.pending_changes["talent_changes"].pop(talent_name, None)
+        del self.data_manager.talents[talent_name]
+
+        if talent_name in self.talent_rows:
+            self.talent_rows[talent_name]["row"].destroy()
+            del self.talent_rows[talent_name]
+
+        self.apply_talent_filter()
+        self.update_experience_display()
+        self.history_manager.add_entry("Usunięto talent", talent_name)
+        self.refresh_history_display()
 
     def create_costs_tab(self) -> None:
         """Zakładka: Tabela kosztów rozwinięć."""
@@ -1336,6 +3166,7 @@ class CharacterSheetApp(ctk.CTk):
         current_adv: int,
         advancement_type: str,
         category_short: str = "",
+        current_value: Optional[int] = None,
     ) -> None:
         """Tworzy pojedynczy wiersz tabeli kosztów."""
         row = ctk.CTkFrame(parent, fg_color=COLOR_SURFACE_ALT, corner_radius=12)
@@ -1355,6 +3186,13 @@ class CharacterSheetApp(ctk.CTk):
             anchor="w",
             justify="left",
         ).pack(side="left", padx=(0, 6), pady=6)
+        ctk.CTkLabel(
+            row,
+            text=str(current_value) if current_value is not None else "-",
+            font=FONT_BODY_BOLD,
+            width=96,
+            text_color=COLOR_HIGHLIGHT,
+        ).pack(side="left", padx=(0, 6), pady=6)
 
         for num_adv in [5, 10, 15, 20]:
             cost = calculate_advancement_cost(advancement_type, current_adv, num_adv)
@@ -1370,6 +3208,7 @@ class CharacterSheetApp(ctk.CTk):
         """Tworzy stały nagłówek tabeli kosztów poza obszarem scrollowania."""
         ctk.CTkLabel(parent, text="Typ", font=FONT_BODY_BOLD, width=72).pack(side="left", padx=(10, 4), pady=8)
         ctk.CTkLabel(parent, text="Cecha / Umiejętność", font=FONT_BODY_BOLD, width=250).pack(side="left", padx=(0, 6), pady=8)
+        ctk.CTkLabel(parent, text="Aktualna wartość", font=FONT_BODY_BOLD, width=96).pack(side="left", padx=(0, 6), pady=8)
         ctk.CTkLabel(parent, text="5 rozw.", font=FONT_BODY_BOLD, width=78).pack(side="left", padx=2, pady=8)
         ctk.CTkLabel(parent, text="10 rozw.", font=FONT_BODY_BOLD, width=78).pack(side="left", padx=2, pady=8)
         ctk.CTkLabel(parent, text="15 rozw.", font=FONT_BODY_BOLD, width=78).pack(side="left", padx=2, pady=8)
@@ -1405,7 +3244,8 @@ class CharacterSheetApp(ctk.CTk):
             current_adv = self.data_manager.attributes[attr_name]["advanced"]
             profession_suffix = " +" if self.data_manager.attributes[attr_name].get("profession_available") else ""
             label = f"{ATTRIBUTE_DETAILS[attr_name]} ({attr_name}){profession_suffix}"
-            self._build_cost_row(self.costs_frame, label, current_adv, "cecha", "Cecha")
+            current_value = self.data_manager.attributes[attr_name]["initial"] + current_adv
+            self._build_cost_row(self.costs_frame, label, current_adv, "cecha", "Cecha", current_value)
 
         # Koszty dla umiejętności
         ctk.CTkLabel(self.costs_frame, text="─ UMIEJĘTNOŚCI ─", font=FONT_SECTION, text_color=COLOR_SUCCESS).pack(anchor="w", padx=6, pady=(12, 5))
@@ -1452,6 +3292,7 @@ class CharacterSheetApp(ctk.CTk):
                         skill_data["advanced"],
                         "umiejetnosc",
                         get_skill_category_short(skill_name),
+                        skill_data["initial"] + skill_data["advanced"],
                     )
         else:
             for category_name, title in (
@@ -1474,60 +3315,94 @@ class CharacterSheetApp(ctk.CTk):
                         skill_data["advanced"],
                         "umiejetnosc",
                         get_skill_category_short(skill_name),
+                        skill_data["initial"] + skill_data["advanced"],
                     )
 
-    def create_add_skill_tab(self) -> None:
-        """Zakładka: Dodaj umiejętność."""
-        _, wrapper = self._create_tab_shell(
-            "Dodaj Umiejętność",
-            "Dodaj nową umiejętność",
-            "Tu dopiszesz niestandardowe umiejętności, które nie występują jeszcze w arkuszu postaci. Nowa pozycja od razu pojawi się na liście i będzie mogła zostać zatwierdzona albo cofnięta.",
+    def on_add_skill_dialog(self) -> None:
+        """Okno dodawania nowej umiejętności (przeniesione z osobnej zakładki)."""
+        dialog = ctk.CTkToplevel(self)
+        dialog.title("Dodaj umiejętność")
+        dialog.geometry("520x360")
+        dialog.transient(self)
+        dialog.grab_set()
+
+        ctk.CTkLabel(dialog, text="Nazwa umiejętności:", font=FONT_BODY_BOLD).pack(
+            anchor="w", padx=16, pady=(16, 2)
         )
-
-        frame = ctk.CTkFrame(
-            wrapper,
-            fg_color=COLOR_SURFACE_ALT,
-            corner_radius=18,
-            border_width=1,
-            border_color=COLOR_BORDER,
+        name_entry = ctk.CTkEntry(
+            dialog, width=480, height=34,
+            placeholder_text="np. Broń Biała (Kawaleryjska)",
         )
-        frame.pack(fill="both", expand=True)
+        name_entry.pack(padx=16, pady=(0, 8))
 
-        ctk.CTkLabel(frame, text="Formularz dodawania", font=FONT_TITLE).pack(anchor="w", padx=18, pady=(18, 10))
-
-        # Nazwa umiejętności
-        ctk.CTkLabel(frame, text="Nazwa umiejętności:", font=FONT_BODY_BOLD).pack(anchor="w", padx=18, pady=(10, 0))
-        self.skill_name_entry = ctk.CTkEntry(frame, placeholder_text="np. Broń Biała (Kawaleryjska)")
-        self.skill_name_entry.pack(fill="x", padx=18, pady=5)
-
-        # Wybór atrybutu
-        ctk.CTkLabel(frame, text="Atrybut:", font=FONT_BODY_BOLD).pack(anchor="w", padx=18, pady=(10, 0))
-        self.skill_attr_combo = ctk.CTkComboBox(
-            frame, values=ATTRIBUTES
+        ctk.CTkLabel(dialog, text="Atrybut:", font=FONT_BODY_BOLD).pack(
+            anchor="w", padx=16, pady=(0, 2)
         )
-        self.skill_attr_combo.pack(fill="x", padx=18, pady=5)
+        attr_combo = ctk.CTkComboBox(dialog, values=ATTRIBUTES, width=480)
+        attr_combo.set("")
+        attr_combo.pack(padx=16, pady=(0, 8))
 
-        # Rozwinięcia
-        ctk.CTkLabel(frame, text="Rozwinięcia:", font=FONT_BODY_BOLD).pack(anchor="w", padx=18, pady=(10, 0))
-        self.skill_advanced_spinbox = ctk.CTkEntry(frame, placeholder_text="0", width=100)
-        self.skill_advanced_spinbox.insert(0, "0")
-        self.skill_advanced_spinbox.pack(fill="x", padx=18, pady=5)
+        ctk.CTkLabel(dialog, text="Rozwinięcia:", font=FONT_BODY_BOLD).pack(
+            anchor="w", padx=16, pady=(0, 2)
+        )
+        advanced_entry = ctk.CTkEntry(dialog, width=120, height=34)
+        advanced_entry.insert(0, "0")
+        advanced_entry.pack(anchor="w", padx=16, pady=(0, 8))
 
-        # Przycisk
-        ctk.CTkButton(
-            frame, text="Dodaj Umiejętność", command=self.on_add_skill,
-            fg_color=COLOR_SUCCESS, height=42, font=FONT_BODY_BOLD
-        ).pack(fill="x", padx=18, pady=20)
-
-        # Info
-        info = ctk.CTkLabel(
-            frame,
-            text="Nowa umiejętność zostanie dodana do postaci.\nWartość początkowa będzie równa wartości przypisanej cechy.",
+        ctk.CTkLabel(
+            dialog,
+            text="Wartość początkowa będzie równa wartości przypisanej cechy.",
             text_color=COLOR_TEXT_MUTED,
-            font=FONT_BODY,
-        )
-        info.pack(anchor="w", padx=18, pady=(0, 18))
+            font=FONT_SMALL,
+            wraplength=480,
+            justify="left",
+        ).pack(anchor="w", padx=16, pady=(0, 8))
 
+        def confirm() -> None:
+            skill_name = name_entry.get().strip()
+            attribute = attr_combo.get()
+            validation_error = self._validate_skill_form(skill_name, attribute)
+            if validation_error:
+                messagebox.showerror("Błąd", validation_error, parent=dialog)
+                return
+            try:
+                advanced = int(advanced_entry.get())
+            except ValueError:
+                messagebox.showerror("Błąd", "Wartość numeryczna musi być liczbą.", parent=dialog)
+                return
+            if advanced < 0:
+                messagebox.showerror("Błąd", "Liczba rozwinięć nie może być ujemna.", parent=dialog)
+                return
+            dialog.destroy()
+            self._create_skill(skill_name, attribute, advanced)
+
+        button_row = ctk.CTkFrame(dialog, fg_color="transparent")
+        button_row.pack(fill="x", padx=16, pady=(8, 16))
+        ctk.CTkButton(
+            button_row, text="Dodaj", command=confirm, fg_color=COLOR_SUCCESS, width=120
+        ).pack(side="right", padx=(8, 0))
+        ctk.CTkButton(
+            button_row, text="Anuluj", command=dialog.destroy,
+            fg_color=COLOR_SURFACE_SOFT, hover_color="#48505e", width=120,
+        ).pack(side="right")
+
+    def _create_skill(self, skill_name: str, attribute: str, advanced: int) -> None:
+        """Dodaje umiejętność do postaci i odświeża widoki."""
+        initial = self.data_manager.attributes[attribute]["initial"]
+        self.data_manager.add_skill(skill_name, attribute, initial, advanced, is_new=True)
+        self.pending_changes["new_skills"].add(skill_name)
+
+        self.history_manager.add_entry(
+            "Dodano umiejętność",
+            f"{skill_name} ({attribute}) - Pocz: {initial}, Rozw: {advanced}",
+        )
+        messagebox.showinfo("Sukces", f"Umiejętność '{skill_name}' dodana!")
+
+        self.initialized_skills = False
+        self.cost_options_dirty = True
+        self.initialize_skills_display()
+        self.refresh_history_display()
+        self.refresh_costs_if_visible(force=True)
     def create_experience_tab(self) -> None:
         """Zakładka: Zarządzanie doświadczeniem."""
         _, wrapper = self._create_tab_shell(
@@ -1645,6 +3520,7 @@ class CharacterSheetApp(ctk.CTk):
             self._create_attribute_row_cached(attr_name, attr_data)
 
         self.initialized_attrs = True
+        self.apply_attribute_filter()
 
     def _create_attribute_row_cached(self, attr_name: str, attr_data: Dict) -> None:
         """Tworzy wiersz cechy i przechowuje referencje do widgetów."""
@@ -1735,6 +3611,7 @@ class CharacterSheetApp(ctk.CTk):
             "labels": labels,
             "buttons": buttons,
         }
+        self._apply_row_developable_style(row, self._attr_developable(attr_name))
 
     def _update_all_attribute_labels(self) -> None:
         """Aktualizuje tylko tekst labelek bez tworzenia nowych widgetów. SZYBKIE."""
@@ -1758,13 +3635,25 @@ class CharacterSheetApp(ctk.CTk):
                 buttons["plus5"].configure(fg_color=COLOR_SUCCESS if max_adv >= 5 else COLOR_ERROR)
                 buttons["minus1"].configure(fg_color=COLOR_WARNING if current_adv > attr_data["base_advanced"] else "#555555")
                 buttons["minus5"].configure(fg_color=COLOR_WARNING if current_adv > attr_data["base_advanced"] else "#555555")
+                self._apply_row_developable_style(row_data["row"], self._attr_developable(attr_name))
 
     def refresh_attributes_display(self) -> None:
         """Compatibility wrapper - teraz tylko aktualizuje, nie niszczy widgety."""
         if self.initialized_attrs:
             self._update_all_attribute_labels()
+            self.apply_attribute_filter()
         else:
             self.initialize_attributes_display()
+
+    def apply_attribute_filter(self) -> None:
+        """Pokazuje/ukrywa cechy zależnie od filtra 'tylko rozwijalne (+)'."""
+        if not hasattr(self, "attributes_frame"):
+            return
+        profession_only = bool(self.attr_profession_filter_var.get())
+        for attr_name, row_data in self.attribute_rows.items():
+            row_data["row"].pack_forget()
+            if not profession_only or self._attr_developable(attr_name):
+                row_data["row"].pack(fill="x", pady=5, padx=10)
 
     def initialize_skills_display(self) -> None:
         """Tworzy wiersze umiejętności jeden raz (bez destroy). Wywoływane przy ładowaniu danych."""
@@ -1900,6 +3789,7 @@ class CharacterSheetApp(ctk.CTk):
             "labels": labels,
             "buttons": buttons,
         }
+        self._apply_row_developable_style(row, self._skill_developable(skill_name))
 
     def _update_all_skill_labels(self) -> None:
         """Aktualizuje tylko tekst labelek bez tworzenia nowych widgetów. SZYBKIE."""
@@ -1925,6 +3815,7 @@ class CharacterSheetApp(ctk.CTk):
                 buttons["plus5"].configure(fg_color=COLOR_SUCCESS if max_adv >= 5 else COLOR_ERROR)
                 buttons["minus1"].configure(fg_color=COLOR_WARNING if current_adv > minimum_advancement else "#555555")
                 buttons["minus5"].configure(fg_color=COLOR_WARNING if current_adv > minimum_advancement else "#555555")
+                self._apply_row_developable_style(row_data["row"], self._skill_developable(skill_name))
 
     def _get_minimum_skill_advancement(self, skill_data: Dict) -> int:
         """Zwraca minimalny dozwolony poziom rozwinięcia dla umiejętności."""
@@ -1984,7 +3875,7 @@ class CharacterSheetApp(ctk.CTk):
             )
             matches_query = not query or query in searchable_text
             matches_attribute = not exact_attribute or skill_data.get("attribute") == exact_attribute
-            matches_profession = not profession_only or skill_data.get("profession_available")
+            matches_profession = not profession_only or self._skill_developable(skill_name)
             should_show = matches_query and matches_attribute and matches_profession
             row_data["row"].pack_forget()
             if should_show:
@@ -2059,7 +3950,10 @@ class CharacterSheetApp(ctk.CTk):
             data = self.data_manager.skills[item_name]
             pending_key = "skill_changes"
         
-        cost = calculate_advancement_cost(advancement_type, data["advanced"], amount)
+        out_of_profession, gm_approved = self._advancement_cost_mode(advancement_type, item_name)
+        cost = calculate_advancement_cost(
+            advancement_type, data["advanced"], amount, out_of_profession, gm_approved
+        )
 
         if self.data_manager.experience["available"] < cost:
             messagebox.showerror("Za mało PD", f"Brak wystarczającego doświadczenia. Potrzebujesz {cost} PD, masz {self.data_manager.experience['available']} PD.")
@@ -2090,13 +3984,13 @@ class CharacterSheetApp(ctk.CTk):
         current_adv = data["advanced"]
 
         if current_adv - amount < minimum_advancement:
-            messagebox.showwarning(
-                "Nie można cofnąć",
-                f"Nie można cofnąć poniżej wartości minimalnej ({minimum_advancement} rozw.).",
-            )
+            play_blocked_sound()
             return
 
-        refund = calculate_advancement_cost(advancement_type, current_adv - amount, amount)
+        out_of_profession, gm_approved = self._advancement_cost_mode(advancement_type, item_name)
+        refund = calculate_advancement_cost(
+            advancement_type, current_adv - amount, amount, out_of_profession, gm_approved
+        )
 
         if item_name not in self.pending_changes[pending_key]:
             self.pending_changes[pending_key][item_name] = 0
@@ -2112,13 +4006,15 @@ class CharacterSheetApp(ctk.CTk):
     def can_afford_attribute(self, attr_name: str) -> bool:
         """Sprawdza, czy stać postać na rozwinięcie cechy."""
         current_adv = self.data_manager.attributes[attr_name]["advanced"]
-        cost = calculate_advancement_cost("cecha", current_adv, 1)
+        out_of_profession, gm_approved = self._advancement_cost_mode("cecha", attr_name)
+        cost = calculate_advancement_cost("cecha", current_adv, 1, out_of_profession, gm_approved)
         return self.data_manager.experience["available"] >= cost
 
     def can_afford_skill(self, skill_name: str) -> bool:
         """Sprawdza, czy stać postać na rozwinięcie umiejętności."""
         current_adv = self.data_manager.skills[skill_name]["advanced"]
-        cost = calculate_advancement_cost("umiejetnosc", current_adv, 1)
+        out_of_profession, gm_approved = self._advancement_cost_mode("umiejetnosc", skill_name)
+        cost = calculate_advancement_cost("umiejetnosc", current_adv, 1, out_of_profession, gm_approved)
         return self.data_manager.experience["available"] >= cost
 
     def get_max_advancements(self, advancement_type: str, attr_name_or_skill: str) -> int:
@@ -2127,12 +4023,15 @@ class CharacterSheetApp(ctk.CTk):
             current_adv = self.data_manager.attributes[attr_name_or_skill]["advanced"]
         else:
             current_adv = self.data_manager.skills[attr_name_or_skill]["advanced"]
-        
+
+        out_of_profession, gm_approved = self._advancement_cost_mode(advancement_type, attr_name_or_skill)
         max_adv = 0
         available = self.data_manager.experience["available"]
         
         while True:
-            cost = calculate_advancement_cost(advancement_type, current_adv, max_adv + 1)
+            cost = calculate_advancement_cost(
+                advancement_type, current_adv, max_adv + 1, out_of_profession, gm_approved
+            )
             if available >= cost:
                 max_adv += 1
             else:
@@ -2181,18 +4080,31 @@ class CharacterSheetApp(ctk.CTk):
                 current_adv = (
                     self.data_manager.attributes[attr_name]["advanced"] - change_count
                 )
-                cost = calculate_advancement_cost("cecha", current_adv, change_count)
+                oop, gm = self._advancement_cost_mode("cecha", attr_name)
+                cost = calculate_advancement_cost("cecha", current_adv, change_count, oop, gm)
                 total_cost += cost
-                details.append(f"Cecha {attr_name}: +{change_count} rozwinięć ({cost} PD)")
+                note = " [spoza profesji ×2]" if (oop and not gm) else (" [spoza profesji, zgoda MG]" if oop else "")
+                details.append(f"Cecha {attr_name}: +{change_count} rozwinięć ({cost} PD){note}")
 
         for skill_name, change_count in self.pending_changes["skill_changes"].items():
             if change_count > 0:
                 current_adv = (
                     self.data_manager.skills[skill_name]["advanced"] - change_count
                 )
-                cost = calculate_advancement_cost("umiejetnosc", current_adv, change_count)
+                oop, gm = self._advancement_cost_mode("umiejetnosc", skill_name)
+                cost = calculate_advancement_cost("umiejetnosc", current_adv, change_count, oop, gm)
                 total_cost += cost
-                details.append(f"Umiejętność {skill_name}: +{change_count} rozwinięć ({cost} PD)")
+                note = " [spoza profesji ×2]" if (oop and not gm) else (" [spoza profesji, zgoda MG]" if oop else "")
+                details.append(f"Umiejętność {skill_name}: +{change_count} rozwinięć ({cost} PD){note}")
+
+        out_of_profession, gm_approved = self._talent_cost_mode()
+        for talent_name, change_count in self.pending_changes["talent_changes"].items():
+            if change_count > 0:
+                cost = calculate_talent_cost(change_count, out_of_profession, gm_approved)
+                total_cost += cost
+                details.append(
+                    f"Talent {talent_name}: +{change_count} wykupień ({cost} PD)"
+                )
 
         for skill_name in sorted(self.pending_changes["new_skills"], key=str.casefold):
             skill_data = self.data_manager.skills.get(skill_name)
@@ -2200,6 +4112,10 @@ class CharacterSheetApp(ctk.CTk):
                 details.append(
                     f"Nowa umiejętność {skill_name} ({skill_data['attribute']})"
                 )
+
+        for talent_name in sorted(self.pending_changes["new_talents"], key=str.casefold):
+            if talent_name in self.data_manager.talents:
+                details.append(f"Nowy talent {talent_name}")
 
         experience_delta = self.pending_changes["experience_delta"]
         if experience_delta:
@@ -2238,6 +4154,19 @@ class CharacterSheetApp(ctk.CTk):
                     )
                     self.data_manager.skills[skill_name]["is_new"] = False
 
+            for talent_name in self.pending_changes["talent_changes"]:
+                if talent_name in self.data_manager.talents:
+                    self.data_manager.talents[talent_name]["base_advances"] = (
+                        self.data_manager.talents[talent_name]["advances"]
+                    )
+
+            for talent_name in self.pending_changes["new_talents"]:
+                if talent_name in self.data_manager.talents:
+                    self.data_manager.talents[talent_name]["base_advances"] = (
+                        self.data_manager.talents[talent_name]["advances"]
+                    )
+                    self.data_manager.talents[talent_name]["is_new"] = False
+
             self.pending_changes = self._create_empty_pending_changes()
 
             # Zapisz do aktualnego źródła
@@ -2252,6 +4181,8 @@ class CharacterSheetApp(ctk.CTk):
             messagebox.showinfo("Sukces", "Zmiany zatwierdzone!")
             self.refresh_attributes_display()
             self.refresh_skills_display()
+            self.initialized_talents = False
+            self.initialize_talents_display()
             self.update_experience_display()
             self.refresh_history_display()
             self.refresh_costs_if_visible(force=True)
@@ -2276,7 +4207,8 @@ class CharacterSheetApp(ctk.CTk):
                 change_count = self.pending_changes["attribute_changes"][attr_name]
                 if change_count > 0:
                     current_adv = self.data_manager.attributes[attr_name]["advanced"]
-                    refund = calculate_advancement_cost("cecha", current_adv - change_count, change_count)
+                    oop, gm = self._advancement_cost_mode("cecha", attr_name)
+                    refund = calculate_advancement_cost("cecha", current_adv - change_count, change_count, oop, gm)
                     total_refund += refund
                 
                 self.data_manager.attributes[attr_name]["advanced"] = (
@@ -2288,7 +4220,8 @@ class CharacterSheetApp(ctk.CTk):
                 change_count = self.pending_changes["skill_changes"][skill_name]
                 if change_count > 0:
                     current_adv = self.data_manager.skills[skill_name]["advanced"]
-                    refund = calculate_advancement_cost("umiejetnosc", current_adv - change_count, change_count)
+                    oop, gm = self._advancement_cost_mode("umiejetnosc", skill_name)
+                    refund = calculate_advancement_cost("umiejetnosc", current_adv - change_count, change_count, oop, gm)
                     total_refund += refund
                 
                 self.data_manager.skills[skill_name]["advanced"] = (
@@ -2306,6 +4239,27 @@ class CharacterSheetApp(ctk.CTk):
                 if skill_name in self.data_manager.skills:
                     del self.data_manager.skills[skill_name]
 
+            # Przywróć talenty i oblicz refund
+            out_of_profession, gm_approved = self._talent_cost_mode()
+            for talent_name, change_count in self.pending_changes["talent_changes"].items():
+                if change_count > 0:
+                    total_refund += calculate_talent_cost(
+                        change_count, out_of_profession, gm_approved
+                    )
+                if talent_name in self.data_manager.talents:
+                    self.data_manager.talents[talent_name]["advances"] = (
+                        self.data_manager.talents[talent_name].get("base_advances", 0)
+                    )
+
+            # Usuń talenty dodane w tej sesji
+            talents_to_remove = list(self.pending_changes["new_talents"])
+            for talent_name in talents_to_remove:
+                if talent_name in self.talent_rows:
+                    self.talent_rows[talent_name]["row"].destroy()
+                    del self.talent_rows[talent_name]
+                if talent_name in self.data_manager.talents:
+                    del self.data_manager.talents[talent_name]
+
             # Przywróć doświadczenie
             self.data_manager.experience["available"] += total_refund
             self.data_manager.experience["available"] -= self.pending_changes["experience_delta"]
@@ -2318,6 +4272,7 @@ class CharacterSheetApp(ctk.CTk):
             messagebox.showinfo("Sukces", "Zmiany cofnięte!")
             self.refresh_attributes_display()
             self.refresh_skills_display()
+            self.refresh_talents_display()
             self.update_experience_display()
             self.refresh_history_display()
             self.refresh_costs_if_visible(force=True)
@@ -2355,53 +4310,6 @@ class CharacterSheetApp(ctk.CTk):
             self.cost_options_dirty = True
             self.refresh_costs_if_visible(force=True)
 
-    def on_add_skill(self) -> None:
-        """Dodaje nową umiejętność."""
-        skill_name = self.skill_name_entry.get().strip()
-        attribute = self.skill_attr_combo.get()
-        
-        # Walidacja
-        validation_error = self._validate_skill_form(skill_name, attribute)
-        if validation_error:
-            messagebox.showerror("Błąd", validation_error)
-            return
-        
-        try:
-            advanced = int(self.skill_advanced_spinbox.get())
-        except ValueError:
-            messagebox.showerror("Błąd", "Wartość numeryczna musi być liczbą.")
-            return
-
-        if advanced < 0:
-            messagebox.showerror("Błąd", "Liczba rozwinięć nie może być ujemna.")
-            return
-
-        # Wartość początkowa to wartość przypisanej cechy
-        initial = self.data_manager.attributes[attribute]["initial"]
-        
-        self.data_manager.add_skill(skill_name, attribute, initial, advanced, is_new=True)
-        self.pending_changes["new_skills"].add(skill_name)
-
-        # Wyczyść formularz
-        self.skill_name_entry.delete(0, "end")
-        self.skill_attr_combo.set("")
-        self.skill_advanced_spinbox.delete(0, "end")
-        self.skill_advanced_spinbox.insert(0, "0")
-
-        self.history_manager.add_entry(
-            "Dodano umiejętność",
-            f"{skill_name} ({attribute}) - Pocz: {initial}, Rozw: {advanced}"
-        )
-
-        messagebox.showinfo("Sukces", f"Umiejętność '{skill_name}' dodana!")
-
-        # Odśwież wyświetlanie umiejętności
-        self.initialized_skills = False
-        self.cost_options_dirty = True
-        self.initialize_skills_display()
-        self.refresh_history_display()
-        self.refresh_costs_if_visible(force=True)
-    
     def _validate_skill_form(self, skill_name: str, attribute: str) -> Optional[str]:
         """Waliduje formularz dodania umiejętności. Zwraca None jeśli OK, inaczej komunikat błędu."""
         if not skill_name:
@@ -2545,10 +4453,15 @@ class CharacterSheetApp(ctk.CTk):
             # Reset flag aby reinicjalizować widgety z nowymi danymi
             self.initialized_attrs = False
             self.initialized_skills = False
+            self.initialized_talents = False
+            self.history_manager.set_current_character(self.data_manager.character_name)
+            self._reconcile_career_path()
             self.history_manager.add_entry("Wczytano postać", Path(file_path).name)
             messagebox.showinfo("Sukces", "Postać wczytana!")
             self.initialize_attributes_display()
             self.initialize_skills_display()
+            self.initialize_talents_display()
+            self.refresh_profession_display()
             self.update_experience_display()
             self.refresh_history_display()
             self.update_character_info()
@@ -2556,6 +4469,64 @@ class CharacterSheetApp(ctk.CTk):
             self.refresh_costs_if_visible(force=True)
         else:
             messagebox.showerror("Błąd", "Nie można wczytać pliku.")
+
+    def _reconcile_career_path(self) -> None:
+        """Porównuje ścieżkę kariery z PDF ze ścieżką zapisaną w historii."""
+        name = self.data_manager.character_name
+        if not name:
+            return
+        stored = self.history_manager.get_career_path(name)
+        current = self.data_manager.career_path
+
+        def signature(path):
+            return [
+                (
+                    (step.get("title") or step.get("profession") or "").strip().lower(),
+                    step.get("level"),
+                )
+                for step in path
+            ]
+
+        if not stored:
+            # Brak zapisu – zapisz ścieżkę z PDF.
+            self._persist_career_path()
+            return
+
+        if signature(stored) == signature(current):
+            return
+
+        # Niezgodność – pozwól użytkownikowi wybrać źródło.
+        use_pdf = messagebox.askyesno(
+            "Niezgodność ścieżki kariery",
+            "Ścieżka kariery z pliku różni się od zapisanej w historii.\n\n"
+            f"Z pliku: {self._format_path_signature(current)}\n"
+            f"Z historii: {self._format_path_signature(stored)}\n\n"
+            "Tak = użyj ścieżki z pliku (i nadpisz historię)\n"
+            "Nie = użyj ścieżki z historii",
+        )
+        if use_pdf:
+            self._persist_career_path()
+        else:
+            self.data_manager.career_path = list(stored)
+            if stored:
+                last = stored[-1]
+                self.data_manager.current_career = (
+                    last.get("profession") or last.get("title") or self.data_manager.current_career
+                )
+                self.data_manager.current_career_level = last.get("level") or 1
+                resolved_class = game_data.class_of_career(self.data_manager.current_career)
+                if resolved_class:
+                    self.data_manager.character_class = resolved_class
+
+    @staticmethod
+    def _format_path_signature(path) -> str:
+        """Czytelny opis ścieżki kariery do komunikatów."""
+        if not path:
+            return "(pusta)"
+        return " → ".join(
+            f"{(step.get('title') or step.get('profession') or '?')}({step.get('level') or '?'})"
+            for step in path
+        )
 
     def on_save_character(self) -> None:
         """Zapisuje postać do pliku Excel."""
@@ -2619,12 +4590,16 @@ class CharacterSheetApp(ctk.CTk):
         if result:
             self.data_manager.create_new_character()
             self.pending_changes = self._create_empty_pending_changes()
+            self.history_manager.set_current_character(self.data_manager.character_name)
             self.history_manager.add_entry("Utworzono nową postać", "")
             messagebox.showinfo("Sukces", "Nowa postać gotowa!")
             self.initialized_attrs = False
             self.initialized_skills = False
+            self.initialized_talents = False
             self.initialize_attributes_display()
             self.initialize_skills_display()
+            self.initialize_talents_display()
+            self.refresh_profession_display()
             self.update_experience_display()
             self.refresh_history_display()
             self.update_character_info()
