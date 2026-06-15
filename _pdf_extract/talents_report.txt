@@ -1,3 +1,0 @@
-Zapisano talents.json: 167 talentów
-Typy Maksimum: {'characteristic': 135, 'none': 3, 'fixed': 28, 'special': 1}
-Anomalie nazw: 0

@@ -1,0 +1,7164 @@
+{
+  "Aptekarka": {
+    "species": [
+      "człowiek",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": false,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Uczennica Aptekarki",
+        "status": "Brąz 3",
+        "characteristics": [
+          "Wytrzymałość",
+          "Zręczność",
+          "Inteligencja"
+        ],
+        "skills": [
+          "Język (Klasyczny)",
+          "Leczenie",
+          "Mocna Głowa",
+          "Rzemiosło (Aptekarstwo)",
+          "Rzemiosło (Truciciel)",
+          "Wiedza (Chemia)",
+          "Wiedza (Medycyna)",
+          "Wiedza (Rośliny)"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Etykieta (Uczeni)",
+          "Przyrządzanie Mikstur",
+          "Wytwórca (Aptekarz)"
+        ],
+        "trappings": [
+          "księga (pusta)",
+          "mikstura lecznicza",
+          "moździerz z tłuczkiem",
+          "skórzany kaftan"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Aptekarka",
+        "status": "Srebro 1",
+        "characteristics": [
+          "Ogłada"
+        ],
+        "skills": [
+          "Charyzma",
+          "Język (Gildii)",
+          "Percepcja",
+          "Plotkowanie",
+          "Targowanie",
+          "Wiedza (Nauka)"
+        ],
+        "talents": [
+          "Aptekarz",
+          "Etykieta (Członkowie Cechu)",
+          "Przestępca",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "licencja Cechu Aptekarzy",
+          "narzędzia pracy (Aptekarza)"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Farmaceutka",
+        "status": "Srebro 3",
+        "characteristics": [
+          "Inicjatywa"
+        ],
+        "skills": [
+          "Badania Naukowe",
+          "Dowodzenie",
+          "Intuicja",
+          "Sekretne Znaki (Cechu)"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Mistrz Rzemiosła (Aptekarz)",
+          "Mól Książkowy",
+          "Odporny na (Trucizny)"
+        ],
+        "trappings": [
+          "książka (aptekarstwo)",
+          "Uczeń",
+          "warsztat"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Mistrzyni Aptekarstwa",
+        "status": "Złoto 1",
+        "characteristics": [
+          "Siła Woli"
+        ],
+        "skills": [
+          "Jeździectwo (Konie)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Mistrz Rzemiosła (Truciciel)",
+          "Wyczulony Zmysł (Smak)",
+          "Zimna Krew",
+          "Znawca (Aptekarstwo)"
+        ],
+        "trappings": [
+          "duży warsztat",
+          "przywilej od władcy"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Podręcznik podstawowy",
+    "page": 53
+  },
+  "Czarodziej": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki"
+    ],
+    "characteristics_pending": false,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Uczeń Czarodzieja",
+        "status": "Brąz 3",
+        "characteristics": [
+          "Walka Wręcz",
+          "Inteligencja",
+          "Siła Woli"
+        ],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Broń Biała (Drzewcowa)",
+          "Intuicja",
+          "Język (Magiczny)",
+          "Percepcja",
+          "Splatanie Magii (Dowolny Kolor)",
+          "Unik",
+          "Wiedza (Magia)"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Magia Prosta",
+          "Percepcja Magiczna",
+          "Zmysł Magii"
+        ],
+        "trappings": [
+          "kostur",
+          "Księga Zaklęć"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Czarodziej",
+        "status": "Srebro 3",
+        "characteristics": [
+          "Zwinność"
+        ],
+        "skills": [
+          "Charyzma",
+          "Język (Bitewny)",
+          "Język (Dowolny)",
+          "Opanowanie",
+          "Plotkowanie",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Magia Tajemna (Dowolna Tradycja)",
+          "Rozpoznanie Artefaktu",
+          "Ruchliwe Dłonie",
+          "Szósty Zmysł"
+        ],
+        "trappings": [
+          "licencja na Uprawianie Magii"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrz Magii",
+        "status": "Złoto 1",
+        "characteristics": [
+          "Inicjatywa"
+        ],
+        "skills": [
+          "Jeździectwo (Konie)",
+          "Opieka nad Zwierzętami",
+          "Wiedza (Wojna)",
+          "Wycena"
+        ],
+        "talents": [
+          "Dwie Bronie",
+          "Groźny",
+          "Precyzyjne Inkantowanie",
+          "Wykrywanie Magii"
+        ],
+        "trappings": [
+          "lekki koń bojowy",
+          "przedmiot magiczny",
+          "Uczeń"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Arcymag",
+        "status": "Złoto 2",
+        "characteristics": [
+          "Ogłada"
+        ],
+        "skills": [
+          "Język (Dowolny)",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Mag Bitewny",
+          "Straszny",
+          "Zmysł Bitewny",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "biblioteka (Magia)",
+          "Uczeń",
+          "warsztat (Magia)"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Podręcznik podstawowy",
+    "page": 54
+  },
+  "Inżynier": {
+    "species": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Student Inżynierii",
+        "status": "Brąz 4",
+        "characteristics": [],
+        "skills": [
+          "Broń Zasięgowa (Prochowa)",
+          "Język (Klasyczny)",
+          "Mocna Głowa",
+          "Odporność",
+          "Opanowanie",
+          "Percepcja",
+          "Rzemiosło (Inżynier)",
+          "Wiedza (Inżynier)"
+        ],
+        "talents": [
+          "Artylerzysta",
+          "Czytanie/Pisanie",
+          "Talent Artystyczny",
+          "Złota Rączka"
+        ],
+        "trappings": [
+          "księga (Inżynieria)",
+          "młot i gwoździe"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Inżynier",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Badania Naukowe",
+          "Broń Zasięgowa (Eksperymentalna)",
+          "Język (Gildii)",
+          "Nawigacja",
+          "Powożenie",
+          "Unik"
+        ],
+        "talents": [
+          "Wytwórca (Inżynier)",
+          "Etykieta (Członkowie Gildii)",
+          "Strzelec Wyborowy",
+          "Wyczucie Kierunku"
+        ],
+        "trappings": [
+          "licencja Gildii Inżynierów",
+          "narzędzia pracy (Inżyniera)"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Renomowany Inżynier",
+        "status": "Srebro 4",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Jeździectwo (Konie)",
+          "Język (Khazalid)",
+          "Sekretne Znaki (Gildii)"
+        ],
+        "talents": [
+          "Etykieta (Uczeni)",
+          "Geniusz Arytmetyczny",
+          "Mistrz Rzemiosła (Inżynieria)",
+          "Snajper"
+        ],
+        "trappings": [
+          "warsztat"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Mistrz Inżynierii",
+        "status": "Złoto 2",
+        "characteristics": [],
+        "skills": [
+          "Język (Dowolny)",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Arcydzieło",
+          "Niewzruszony",
+          "Szybkie Przeładowanie",
+          "Znawca (Inżynieria)"
+        ],
+        "trappings": [
+          "biblioteka (Inżyniera)",
+          "doskonałe narzędzia pracy (Inżyniera)",
+          "duży warsztat (Inżyniera)",
+          "licencja Cechu Co to ma robić? W założeniu to służy do oskubywania kurcząt",
+          "Małonosie. Odsuń się jeszcze kilka kroków! – Wolfgang Kugelschrieber",
+          "wynalazca"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Podręcznik podstawowy",
+    "page": 55
+  },
+  "Kapłan": {
+    "species": [
+      "człowiek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Kleryk",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Badania Naukowe",
+          "Intuicja",
+          "Modlitwa",
+          "Odporność",
+          "Opanowanie",
+          "Percepcja",
+          "Wiedza (Teologia)"
+        ],
+        "talents": [
+          "Błogosławieństwo (Dowolne Bóstwo)",
+          "Charyzmatyczny",
+          "Czytanie/Pisanie",
+          "Święte Wizje"
+        ],
+        "trappings": [
+          "symbol religijny",
+          "szata"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Kapłan",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Charyzma",
+          "Leczenie",
+          "Plotkowanie",
+          "Występy (Gawędziarstwo)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Etykieta (Kultyści)",
+          "Gadanina",
+          "Inwokacja (Dowolne Bóstwo)",
+          "Mól Książkowy"
+        ],
+        "trappings": [
+          "księga (Religia)",
+          "szata ceremonialna"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Arcykapłan",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Sztuka (Pisarstwo)",
+          "Wiedza (Heraldyka)",
+          "Występy (Przemowy)"
+        ],
+        "talents": [
+          "Nienawiść (Dowolna)",
+          "Odporność Psychiczna",
+          "Porywająca Gorliwość",
+          "Wyczulony Zmysł (Dowolny)"
+        ],
+        "trappings": [
+          "podwładni Kapłani",
+          "relikwia",
+          "szata dobrej jakości",
+          "Świątynia"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Lektor",
+        "status": "Złoto 2",
+        "characteristics": [],
+        "skills": [
+          "Język (Dowolny)",
+          "Wiedza (Polityka)"
+        ],
+        "talents": [
+          "Czysta Dusza",
+          "Odporny na (Dowolne Zagrożenie)",
+          "Krasomówstwo",
+          "Znawca (Teologia)"
+        ],
+        "trappings": [
+          "biblioteka (Teologia)",
+          "podwładni Arcykapłani Gdy szukam dobrej porady",
+          "wybieram się do kapłana Vereny. Gdy szukam czegokolwiek innego",
+          "wybieram się do kapłana Ranalda. – Wermer Losch",
+          "kupiec Ta shallyanka",
+          "młoda dziewczyna",
+          "pogładziła czoło mojego"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Podręcznik podstawowy",
+    "page": 56
+  },
+  "Medyczka": {
+    "species": [
+      "człowiek",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Studentka Medycyny",
+        "status": "Brąz 4",
+        "characteristics": [],
+        "skills": [
+          "Leczenie",
+          "Odporność",
+          "Opanowanie",
+          "Percepcja",
+          "Plotkowanie",
+          "Powożenie",
+          "Przekupstwo",
+          "Zwinne Palce"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Mól Książkowy",
+          "Ogłuszenie",
+          "Pierwsza Pomoc"
+        ],
+        "trappings": [
+          "bandaże",
+          "mikstura lecznicza"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Medyczka",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Język (Gildii)",
+          "Rzemiosło (Cyrulik)",
+          "Targowanie",
+          "Wiedza (Anatomia)",
+          "Wiedza (Medycyna)"
+        ],
+        "talents": [
+          "Chirurgia",
+          "Etykieta (Członkowie Cechu)",
+          "Przestępca",
+          "Zimna Krew"
+        ],
+        "trappings": [
+          "księga (Medycyna)",
+          "licencja Cechu",
+          "narzędzia pracy (Medycyna)"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Doktor",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Badania Naukowe",
+          "Dowodzenie",
+          "Mocna Głowa",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Etykieta (Uczeni)",
+          "Morderczy Atak",
+          "Odporny na (Choroby)"
+        ],
+        "trappings": [
+          "Uczeń",
+          "warsztat (Medyczny)"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Nadworna Medyczka",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Wiedza (Szlachta)",
+          "Występy (Taniec)"
+        ],
+        "talents": [
+          "Etykieta (Szlachta)",
+          "Odporność Psychiczna",
+          "Znawca (Medycyna)",
+          "Zręczny"
+        ],
+        "trappings": [
+          "nominacja",
+          "strój dworski"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Podręcznik podstawowy",
+    "page": 57
+  },
+  "Mniszka": {
+    "species": [
+      "człowiek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Nowicjuszka",
+        "status": "Brąz 1",
+        "characteristics": [],
+        "skills": [
+          "Leczenie",
+          "Modlitwa",
+          "Odporność",
+          "Opanowanie",
+          "Plotkowanie",
+          "Sztuka (Kaligrafia)",
+          "Wiedza (Teologia)",
+          "Występy (Gawędziarstwo)"
+        ],
+        "talents": [
+          "Błogosławieństwo (Dowolne Bóstwo)",
+          "Czytanie/ Pisanie",
+          "Naciągacz",
+          "Wstrzemięźliwy"
+        ],
+        "trappings": [
+          "symbol religijny",
+          "szata"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Mniszka",
+        "status": "Brąz 4",
+        "characteristics": [],
+        "skills": [
+          "Badania Naukowe",
+          "Broń Biała (Dowolna)",
+          "Przekonywanie",
+          "Rzemiosło (Browarnik)",
+          "Rzemiosło (Winiarz)",
+          "Rzemiosło (Zielarz)"
+        ],
+        "talents": [
+          "Etykieta (Kultyści)",
+          "Inwokacja (Dowolne Bóstwo)",
+          "Pierwsza Pomoc",
+          "Święte Wizje"
+        ],
+        "trappings": [
+          "księga (Religia)",
+          "narzędzia pracy (dowolne)",
+          "relikwia"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Przeorysza",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Percepcja",
+          "Wiedza (Lokalna)",
+          "Wiedza (Polityka)"
+        ],
+        "talents": [
+          "Odporny na (Dowolne Zagrożenie)",
+          "Krzepki",
+          "Znawca (Teologia)",
+          "Waleczne Serce"
+        ],
+        "trappings": [
+          "opactwo",
+          "biblioteka (Teologia)"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Matka Przełożona",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Język (Dowolny)",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Czysta Dusza",
+          "Odporność Psychiczna",
+          "Władcza Postura",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "zakon religijny Przyszli",
+          "myśląc",
+          "że zabicie kilku biednych",
+          "bezbronnych braci i zrabowanie naszych relikwii to prosta sprawa. Proszę Morra",
+          "by nie osądził zbyt surowo siedmiu bandytów",
+          "których dziś pogrzebaliśmy",
+          "jako że brat"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Podręcznik podstawowy",
+    "page": 58
+  },
+  "Prawniczka": {
+    "species": [
+      "człowiek",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Studentka Prawa",
+        "status": "Brąz 4",
+        "characteristics": [],
+        "skills": [
+          "Badania Naukowe",
+          "Język (Klasyczny)",
+          "Mocna Głowa",
+          "Odporność",
+          "Percepcja",
+          "Targowanie",
+          "Wiedza (Prawo)",
+          "Wiedza (Teologia)"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Etykieta (Uczeni)",
+          "Gadanina",
+          "Szybkie Czytanie"
+        ],
+        "trappings": [
+          "księga (Prawo)",
+          "lupa"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Prawniczka",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Przekupstwo",
+          "Charyzma",
+          "Plotkowanie",
+          "Intuicja",
+          "Język (Gildii)",
+          "Sekretne Znaki (Gildii)"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Etykieta (Członkowie Gildii)",
+          "Przekonujący",
+          "Przestępca"
+        ],
+        "trappings": [
+          "licencja Gildii",
+          "szaty dworskie",
+          "zestaw do pisania"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Obrońca",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Sztuka (Pisarstwo)",
+          "Wiedza (Dowolna)",
+          "Występy (Przemowy)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Gładkie Słówka",
+          "Mól Książkowy",
+          "Porywająca Gorliwość"
+        ],
+        "trappings": [
+          "kantor",
+          "Asystent (Student lub Służący)"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Sędzia",
+        "status": "Złoto 2",
+        "characteristics": [],
+        "skills": [
+          "Opanowanie",
+          "Wiedza (Polityka)"
+        ],
+        "talents": [
+          "Majętny",
+          "Szycha",
+          "Władcza Postura",
+          "Znawca (Prawo)"
+        ],
+        "trappings": [
+          "młotek Sędziego",
+          "pretensjonalna peruka Rekiny! Nie",
+          "gorzej! To pijawki! Ale nie te dobre",
+          "które wysysają złe humory",
+          "o nie. To pijawki",
+          "które osuszą twoje kufry i zostawią cię z niczym. – Stefan Bachler",
+          "kupiec"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Podręcznik podstawowy",
+    "page": 59
+  },
+  "Uczony": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Student",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Badania Naukowe",
+          "Hazard",
+          "Język (Klasyczny)",
+          "Mocna Głowa",
+          "Plotkowanie",
+          "Targowanie",
+          "Wiedza (Dowolna)",
+          "Występy (Gawędziarstwo)"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Czytanie/Pisanie",
+          "Geniusz Arytmetyczny",
+          "Hulaka"
+        ],
+        "trappings": [
+          "alkohol",
+          "księga",
+          "listy polecające",
+          "zestaw do pisania"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Uczony",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Intuicja",
+          "Język (Dowolny)",
+          "Percepcja",
+          "Rzemiosło (Dowolne)",
+          "Sztuka (Pisarstwo)",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Etykieta (Uczeni)",
+          "Mól Książkowy",
+          "Szybkie Czytanie"
+        ],
+        "trappings": [
+          "dostęp do biblioteki",
+          "stopień naukowy"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Wykładowca",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Język (Dowolny)",
+          "Wiedza (Dowolna)",
+          "Występy (Wykłady)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Mówca",
+          "Poliglota",
+          "Wieża Pamięci",
+          "Znawca (Dowolna Dziedzina)"
+        ],
+        "trappings": [
+          "biret",
+          "szata"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Profesor",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Wiedza (Dowolna)",
+          "Występy (Retoryka)"
+        ],
+        "talents": [
+          "Arcydzieło",
+          "Czujny",
+          "Krasomówstwo",
+          "Znawca (Dowolna Dziedzina)"
+        ],
+        "trappings": [
+          "gabinet"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Podręcznik podstawowy",
+    "page": 60
+  },
+  "Agitator": {
+    "species": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Pamflecista",
+        "status": "Brąz 1",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Mocna Głowa",
+          "Plotkowanie",
+          "Przekupstwo",
+          "Rzemiosło (Drukarstwo)",
+          "Sztuka (Pisarstwo)",
+          "Targowanie",
+          "Wiedza (Polityka)"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Gadanina",
+          "Naciągacz",
+          "Towarzyski"
+        ],
+        "trappings": [
+          "młotek i gwoździe",
+          "plik ulotek",
+          "zestaw do pisania"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Agitator",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Hazard",
+          "Intuicja",
+          "Opanowanie",
+          "Unik",
+          "Występy (Gawędziarstwo)"
+        ],
+        "talents": [
+          "Mówca",
+          "Porywająca Gorliwość",
+          "Przekonujący",
+          "Ulicznik"
+        ],
+        "trappings": [
+          "skórzana kurta"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Podżegacz",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Biała (Bijatyka)",
+          "Percepcja",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Chodu!",
+          "Cios Poniżej Pasa",
+          "Gładkie Słówka",
+          "Zejście z Linii"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "pomocny Pamflecista"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Demagog",
+        "status": "Brąz 5",
+        "characteristics": [],
+        "skills": [
+          "Jeździectwo (Konie)",
+          "Wiedza (Heraldyka)"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Etykieta (Dowolna Grupa)",
+          "Intrygant",
+          "Krasomówstwo"
+        ],
+        "trappings": [
+          "imponujący kapelusz",
+          "Patron",
+          "prasa drukarska",
+          "3 Pamflecistów ALTDORF DLA ALTDORFCZYKÓW! MIDDENLANDCZYCY PRECZ! – ulotka",
+          "ulica Stu Karczm",
+          "Altdorf"
+        ]
+      }
+    ],
+    "class": "Mieszczanie",
+    "source": "Podręcznik podstawowy",
+    "page": 61
+  },
+  "Kupiec": {
+    "species": [
+      "człowiek",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Handlarz",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Hazard",
+          "Mocna Głowa",
+          "Opieka nad Zwierzętami",
+          "Plotkowanie",
+          "Powożenie",
+          "Przekupstwo",
+          "Targowanie"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Czytanie/Pisanie",
+          "Gadanina",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "liczydło",
+          "płócienna plandeka",
+          "wóz z mułem",
+          "3k10 srebrnych szylingów"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Kupiec",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Intuicja",
+          "Język (Dowolny)",
+          "Język (Gildii)",
+          "Percepcja",
+          "Wiedza (Lokalna)",
+          "Wycena"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Defraudant",
+          "Etykieta (Członkowie Gildii)",
+          "Łapówkarz"
+        ],
+        "trappings": [
+          "licencja Gildii",
+          "łódź rzeczna albo 2 wozy",
+          "20 ZK"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrz Kupiectwa",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Język (Klasyczny)",
+          "Opanowanie",
+          "Nawigacja",
+          "Sekretne Znaki (Gildii)"
+        ],
+        "talents": [
+          "Czujny",
+          "Gładkie Słówka",
+          "Etykieta (Dowolna Grupa)",
+          "Numizmatyka"
+        ],
+        "trappings": [
+          "kamienica ze Służbą",
+          "magazyn",
+          "100 ZK"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Patrycjusz",
+        "status": "Złoto 3",
+        "characteristics": [],
+        "skills": [
+          "Wiedza (Dowolna)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Intrygant",
+          "Majętny",
+          "Szczęście",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "2 łodzie rzeczne lub 4 wozy",
+          "dobre ubranie",
+          "duża posiadłość w mieście",
+          "2 magazyny",
+          "1000 ZK Skoro"
+        ]
+      }
+    ],
+    "class": "Mieszczanie",
+    "source": "Podręcznik podstawowy",
+    "page": 62
+  },
+  "Mieszczka": {
+    "species": [
+      "człowiek",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Przekupka",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Hazard",
+          "Mocna Głowa",
+          "Powożenie",
+          "Plotkowanie",
+          "Targowanie",
+          "Unik",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Ulicznik",
+          "Niegodny Uwagi",
+          "Etykieta (Słudzy)",
+          "Krzepki"
+        ],
+        "trappings": [
+          "mieszkanie na mieście",
+          "mocne buty"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Mieszczka",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Bijatyka)",
+          "Intuicja",
+          "Muzyka (Dowolna)",
+          "Przekupstwo",
+          "Wiedza (Lokalna)",
+          "Wycena"
+        ],
+        "talents": [
+          "Defraudant",
+          "Etykieta (Dowolna Grupa)",
+          "Towarzyski",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "skromna kamienica",
+          "Służący",
+          "pióro i kałamarz"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Rajczyni Miejska",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Badania Naukowe",
+          "Opanowanie",
+          "Percepcja",
+          "Wiedza (Prawo)"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Łapówkarz",
+          "Mówca",
+          "Pomocny"
+        ],
+        "trappings": [
+          "powóz z Woźnicą",
+          "kamienica"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Burmistrz",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Wiedza (Polityka)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Intrygant",
+          "Krasomówstwo",
+          "Władcza Postura"
+        ],
+        "trappings": [
+          "dobre ubranie",
+          "duża kamienica z ogrodami i służbą",
+          "powóz z Lokajem",
+          "sieć biur"
+        ]
+      }
+    ],
+    "class": "Mieszczanie",
+    "source": "Podręcznik podstawowy",
+    "page": 63
+  },
+  "Rzemieślniczka": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Czeladniczka",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Opanowanie",
+          "Mocna Głowa",
+          "Unik",
+          "Odporność",
+          "Wycena",
+          "Skradanie (Miasto)",
+          "Rzemiosło (Dowolne)"
+        ],
+        "talents": [
+          "Bardzo Silny",
+          "Mocne Plecy",
+          "Talent Artystyczny",
+          "Wytwórca (Dowolne Rzemiosło)"
+        ],
+        "trappings": [
+          "kreda",
+          "skórzany kaftan",
+          "k10 szmat"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Rzemieślniczka",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Język (Cechu)",
+          "Percepcja",
+          "Plotkowanie",
+          "Targowanie",
+          "Wiedza (Lokalna)"
+        ],
+        "talents": [
+          "Etykieta (Członkowie Cechu)",
+          "Tragarz",
+          "Zręczny",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "licencja Cechu",
+          "narzędzia pracy"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrzyni Rzemiosła",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Badania Naukowe",
+          "Dowodzenie",
+          "Intuicja",
+          "Sekretne Znaki (Cechu)"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Mistrz Rzemiosła (Dowolne)",
+          "Wyczulony Zmysł (Smak albo Dotyk)",
+          "Złota Rączka"
+        ],
+        "trappings": [
+          "Uczeń",
+          "warsztat"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Mistrzyni Cechu",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Przekupstwo",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Arcydzieło",
+          "Intrygant",
+          "Łapówkarz",
+          "Mówca"
+        ],
+        "trappings": [
+          "Cech",
+          "dobre ubranie Pani",
+          "wybacz. Wszystkie buty zniknęły! Zeszłego wieczora zapomniałem postawić przed drzwiami mleko. Pewnie zabrały je złośliwe skrzaty. – Wiebke",
+          "uczeń szewca i złodziej"
+        ]
+      }
+    ],
+    "class": "Mieszczanie",
+    "source": "Podręcznik podstawowy",
+    "page": 64
+  },
+  "Strażnik": {
+    "species": [
+      "człowiek",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Rekrut Straży",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Biała (Dowolna)",
+          "Hazard",
+          "Mocna Głowa",
+          "Odporność",
+          "Percepcja",
+          "Unik",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Ogłuszenie",
+          "Musztra",
+          "Twardziel",
+          "Wytrwały"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "mundur",
+          "skórzana kurta"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Strażnik",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Intuicja",
+          "Opanowanie",
+          "Plotkowanie",
+          "Wiedza (Lokalna)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Przestępca",
+          "Szybkobiegacz",
+          "Widzenie w Ciemności",
+          "Wtargnięcie z Włamaniem"
+        ],
+        "trappings": [
+          "latarnia na drągu",
+          "lampa oliwna",
+          "miedziana odznaka"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Sierżant Straży",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Targowanie",
+          "Wiedza (Prawo)",
+          "Występy (Gawędziarstwo)"
+        ],
+        "talents": [
+          "Etykieta (Żołnierze)",
+          "Nieustraszony (Przestępcy)",
+          "Nos do Kłopotów",
+          "Rozbrojenie"
+        ],
+        "trappings": [
+          "hełm",
+          "napierśnik",
+          "symbol rangi"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Kapitan Straży",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Wiedza (Polityka)",
+          "Jeździectwo (Konie)"
+        ],
+        "talents": [
+          "Krzepki",
+          "Intrygant",
+          "Mówca",
+          "Szycha"
+        ],
+        "trappings": [
+          "dobra broń ręczna",
+          "dobry kapelusz",
+          "imponujący symbol rangi",
+          "koń wierzchowy z rzędem"
+        ]
+      }
+    ],
+    "class": "Mieszczanie",
+    "source": "Podręcznik podstawowy",
+    "page": 65
+  },
+  "Szczurołap": {
+    "species": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Uczeń Szczurołapa",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Tresura (Psy)",
+          "Oswajanie",
+          "Mocna Głowa",
+          "Odporność",
+          "Broń Biała (Podstawowa)",
+          "Broń Zasięgowa (Proca)",
+          "Skradanie (Miasto albo Podziemia)"
+        ],
+        "talents": [
+          "Odporny na (Choroby)",
+          "Ogłuszenie",
+          "Silny Cios",
+          "Widzenie w Ciemności"
+        ],
+        "trappings": [
+          "mały",
+          "ale zajadły pies",
+          "proca z amunicją",
+          "worek"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Szczurołap",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Opieka nad Zwierzętami",
+          "Percepcja",
+          "Plotkowanie",
+          "Targowanie",
+          "Wiedza (Trucizny)",
+          "Zastawianie Pułapek"
+        ],
+        "talents": [
+          "Etykieta (Członkowie Cechu)",
+          "Nieustraszony (Szczury)",
+          "Niezwykle odporny",
+          "Walka w Ciasnocie"
+        ],
+        "trappings": [
+          "sidła na zwierzęta",
+          "drąg na martwe szczury"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Strażnik Kanałów",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Zasięgowa (Kusza Pistoletowa)",
+          "Opanowanie",
+          "Unik",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Silne Nogi",
+          "Szczur Kanałowy",
+          "Twardziel",
+          "Waleczne Serce"
+        ],
+        "trappings": [
+          "lampa Davricha",
+          "broń ręczna",
+          "skórzana kurta"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "T ępiciel",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Tropienie"
+        ],
+        "talents": [
+          "Groźny",
+          "Krzepki",
+          "Odporność Psychiczna",
+          "Nieustraszony (Skaveny)"
+        ],
+        "trappings": [
+          "Asystent",
+          "duży i zajadły pies",
+          "worek zatrutej przynęty (10 Porcji Sercoboju) ‘ Otmar",
+          "widzisz tego tam",
+          "obok stosu gnoju? To dopiero duży skurczybyk! Upewnij się",
+          "że jest martwy",
+          "zanim go podniesiesz. Inaczej pogryzie ci dłoń jadowitymi zębami. – Annaliese Rattenfänger",
+          "Strażniczka Kanałów Wybacz",
+          "kolego. Zwykłymi szczurami zajmuje się reszta cechu. Ja i moi ludzie bierzemy się za te większe okazy",
+          "w kanałach. Jest ich tam prawdziwy wysyp... – Marten Stormdal",
+          "Tępiciel z Ubersreiku Gdy szczury stają się „za duże” lub „za sprytne” albo gdy wyrasta ostra konkurencja",
+          "Szczurołapy przenoszą się do nowych miast. Podczas po - dróży mogą zaprzyjaźnić się z poszukiwaczami przygód",
+          "którzy chętnie korzystają z pomocy cwanego najemnika. Szczurołapy nie boją się włazić tam",
+          "dokąd nie wchodzą zwykli ludzie. Jeśli chcesz grać bohaterem",
+          "który być może jest świadomy istnienia szczurów „za dużych” i „za sprytnych”",
+          "czyli skavenów (patrz strona 336)",
+          "profesja"
+        ]
+      }
+    ],
+    "class": "Mieszczanie",
+    "source": "Podręcznik podstawowy",
+    "page": 66
+  },
+  "Śledczy": {
+    "species": [
+      "człowiek",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Szpicel",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Intuicja",
+          "Opanowanie",
+          "Percepcja",
+          "Plotkowanie",
+          "Skradanie (Miasto)",
+          "Tropienie",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Czujny",
+          "Niegodny Uwagi",
+          "Ulicznik"
+        ],
+        "trappings": [
+          "dziennik",
+          "lampa oliwna",
+          "latarnia",
+          "pióro i kałamarz"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Śledczy",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Bijatyka)",
+          "Mocna Głowa",
+          "Otwieranie Zamków",
+          "Unik",
+          "Wiedza (Prawo)",
+          "Zwinne Palce"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Cień",
+          "Etykieta (Dowolna Grupa)",
+          "Wytrwały"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "lupa",
+          "skórzana kurta",
+          "wytrych"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Starszy Śledczy",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Przekupstwo",
+          "Wiedza (Dowolna)",
+          "Wycena"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Szósty Zmysł",
+          "Mól Książkowy",
+          "Wtargnięcie z Włamaniem"
+        ],
+        "trappings": [
+          "Asystent",
+          "biuro"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Detektyw",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Wiedza (Dowolna)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Szybkie Czytanie",
+          "Wieża Pamięci",
+          "Wyczulony Zmysł (Dowolny)",
+          "Znawca (Dowolna Dziedzina)"
+        ],
+        "trappings": [
+          "luneta",
+          "sieć Informatorów Z żalem informuję",
+          "że pani mąż jest pogrzebany w ogródku warzywnym Frau Kohl",
+          "pod rzepami. To będzie 6 szylingów i 4 pensy. – Hemlock Surelight",
+          "elfi szpicel Te rozbite drzwi pozwalają nam wydedukować",
+          "że złodziej wyszedł stąd z pomocą bardzo dużego stworzenia. Jednak wspomniane stworzenie nie mogłoby zejść wąskimi schodami. To pozostawia jedynie dwa możliwe wnioski. Albo stwór zmaterializował się z powietrza",
+          "albo nasz złodziej jest zmien - nokształtnym... – Zavant Konniger",
+          "Mędrzec-detektyw Mes amis",
+          "jestem",
+          "jak wam zapewne wiadomo",
+          "największym detektywem na świecie. Musieliście słyszeliście o Alphonse",
+          "nieprawdaż? – Alphonse"
+        ]
+      }
+    ],
+    "class": "Mieszczanie",
+    "source": "Podręcznik podstawowy",
+    "page": 67
+  },
+  "Żebrak": {
+    "species": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Biedak",
+        "status": "Brąz 0",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Charyzma",
+          "Intuicja",
+          "Mocna Głowa",
+          "Odporność",
+          "Opanowanie",
+          "Skradanie (Miasto)",
+          "Unik"
+        ],
+        "talents": [
+          "Naciągacz",
+          "Niezwykle Odporny",
+          "Odporny na (Choroby)",
+          "Wstrzemięźliwy"
+        ],
+        "trappings": [
+          "podłej jakości koc",
+          "kubek"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Żebrak",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Percepcja",
+          "Plotkowanie",
+          "Targowanie",
+          "Występy (Aktorstwo)",
+          "Występy (Dowolne)",
+          "Zwinne Palce"
+        ],
+        "talents": [
+          "Etykieta (Przestępcy)",
+          "Niegodny Uwagi",
+          "Przestępca",
+          "Ulicznik"
+        ],
+        "trappings": [
+          "kule do chodzenia",
+          "miska"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrz Żebraków",
+        "status": "Brąz 4",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Oswajanie",
+          "Sekretne Znaki (Włóczykijów)",
+          "Wiedza (Lokalna)"
+        ],
+        "talents": [
+          "Cios Poniżej Pasa",
+          "Gadanina",
+          "Twardziel",
+          "Zejście z Linii"
+        ],
+        "trappings": [
+          "kryjówka",
+          "towarzyszący Biedak",
+          "zestaw do charakteryzacji"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Król Żebraków",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Przekupstwo",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Gładkie Słówka",
+          "Nieustraszony (Strażnicy)",
+          "Szycha"
+        ],
+        "trappings": [
+          "kryjówka",
+          "duża grupa towarzyszących Żebraków Proszę",
+          "frau",
+          "pokornie błagam o parę miedziaków",
+          "bym mogła dziś kupić sobie chleb. Wystarczy nawet fenig – Gutbäcker sprzedaje wczorajsze pieczywo. – Elsie",
+          "niziołkowa żebraczka"
+        ]
+      }
+    ],
+    "class": "Mieszczanie",
+    "source": "Podręcznik podstawowy",
+    "page": 68
+  },
+  "Artystka": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Uczennica Artysty",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Mocna Głowa",
+          "Odporność",
+          "Opanowanie",
+          "Percepcja",
+          "Plotkowanie",
+          "Skradanie (Miasto)",
+          "Sztuka (Dowolna)",
+          "Wycena"
+        ],
+        "talents": [
+          "Czujny",
+          "Mocne Plecy",
+          "Talent Artystyczny",
+          "Wytrwały"
+        ],
+        "trappings": [
+          "dłuto albo pędzel",
+          "albo pióro"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Artystka",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Język (Klasyczny)",
+          "Hazard",
+          "Intuicja",
+          "Targowanie",
+          "Wspinaczka",
+          "Rzemiosło (Przybory dla artystów)"
+        ],
+        "talents": [
+          "Hulaka",
+          "Przestępca",
+          "Towarzyski",
+          "Zręczny"
+        ],
+        "trappings": [
+          "torba na ramię zawierająca narzędzia pracy (Artysty)"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrzyni Sztuki",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Dowodzenie",
+          "Wiedza (Sztuka)",
+          "Wiedza (Heraldyka)"
+        ],
+        "talents": [
+          "Etykieta (Dowolna Grupa)",
+          "Nos do Kłopotów",
+          "Wyczulony Zmysł (Dowolny)",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "Patron",
+          "Uczeń",
+          "warsztat (Artysty)"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Maestro",
+        "status": "Złoto 2",
+        "characteristics": [],
+        "skills": [
+          "Badania Naukowe",
+          "Jeździectwo (Konie)"
+        ],
+        "talents": [
+          "Arcydzieło",
+          "Czytanie/Pisanie",
+          "Oburęczność",
+          "Szycha"
+        ],
+        "trappings": [
+          "biblioteka (Sztuka)",
+          "duży warsztat (Artysty)",
+          "3 Uczniów"
+        ]
+      }
+    ],
+    "class": "Dworzanie",
+    "source": "Podręcznik podstawowy",
+    "page": 69
+  },
+  "Doradca": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Asystent",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Język (Klasyczny)",
+          "Mocna Głowa",
+          "Odporność",
+          "Percepcja",
+          "Plotkowanie",
+          "Przekupstwo",
+          "Targowanie",
+          "Wiedza (Polityka)"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Etykieta (Dowolna Grupa)",
+          "Niegodny Uwagi",
+          "Towarzyski"
+        ],
+        "trappings": [
+          "zestaw do pisania"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Doradca",
+        "status": "Srebro 4",
+        "characteristics": [],
+        "skills": [
+          "Hazard",
+          "Intuicja",
+          "Opanowanie",
+          "Przekonywanie",
+          "Wiedza (Lokalna)",
+          "Wycena"
+        ],
+        "talents": [
+          "Gadanina",
+          "Intrygant",
+          "Pomocny",
+          "Przestępca"
+        ],
+        "trappings": [
+          "liberia"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Radca",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Język (Dowolny)",
+          "Wiedza (Dowolna)",
+          "Występy (Gawędziarstwo)"
+        ],
+        "talents": [
+          "Gładkie Słówka",
+          "Hulaka",
+          "Łapówkarz",
+          "Przekonujący"
+        ],
+        "trappings": [
+          "Asystent",
+          "dobre ubranie"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Kanclerz",
+        "status": "Złoto 3",
+        "characteristics": [],
+        "skills": [
+          "Jeździectwo (Konie)",
+          "Wiedza (Heraldyka)"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Defraudant",
+          "Szycha",
+          "Władcza Postura"
+        ],
+        "trappings": [
+          "dobry strój dworski",
+          "koń wierzchowy z rzędem",
+          "zespół"
+        ]
+      }
+    ],
+    "class": "Dworzanie",
+    "source": "Podręcznik podstawowy",
+    "page": 70
+  },
+  "Namiestnik": {
+    "species": [
+      "człowiek",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Nadzorca",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Intuicja",
+          "Mocna Głowa",
+          "Opanowanie",
+          "Odporność",
+          "Oswajanie",
+          "Percepcja",
+          "Wiedza (Lokalna)"
+        ],
+        "talents": [
+          "Czujny",
+          "Groźny",
+          "Ogłuszenie",
+          "Widzenie w Ciemności"
+        ],
+        "trappings": [
+          "klucze",
+          "lampa oliwna",
+          "latarnia",
+          "liberia"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Namiestnik",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Broń Zasięgowa (Łuk)",
+          "Jeździectwo (Konie)",
+          "Opieka nad Zwierzętami",
+          "Pływanie",
+          "Sztuka Przetrwania"
+        ],
+        "talents": [
+          "Posłuch u Zwierząt",
+          "Etykieta (Słudzy)",
+          "Doświadczony Wędrowiec (Dowolne)",
+          "Włóczykij"
+        ],
+        "trappings": [
+          "broń ręczna albo łuk z 10 strzałami",
+          "koń wierzchowy z rzędem",
+          "skórzana kurta"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Seneszal",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Plotkowanie",
+          "Przekupstwo",
+          "Przywództwo"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Defraudant",
+          "Numizmatyka",
+          "Pomocny"
+        ],
+        "trappings": [
+          "ceremonialne berło",
+          "grupa"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Gubernator",
+        "status": "Złoto 3",
+        "characteristics": [],
+        "skills": [
+          "Język (Dowolny)",
+          "Wycena"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Etykieta (Dowolna Grupa)",
+          "Władcza Postura",
+          "Znawca (Wiedza Lokalna)"
+        ],
+        "trappings": [
+          "Asystent",
+          "rezydencja Gubernatora",
+          "Służący Tak",
+          "mój panie",
+          "diuk spoczywa w łożu złożony niemocą już od dekady. Owszem",
+          "mój panie",
+          "ja zawiaduję jego posiadłością. Nie",
+          "mój panie",
+          "nie sądzę",
+          "by to się miało zmienić w najbliższym czasie. W końcu teraz w Penzkirchen to moje słowo jest prawem... Aresztować go! – W. Edvart Kurtz",
+          "Gubernator Penzkirchen"
+        ]
+      }
+    ],
+    "class": "Dworzanie",
+    "source": "Podręcznik podstawowy",
+    "page": 71
+  },
+  "Poseł": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Herold",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Charyzma",
+          "Intuicja",
+          "Jeździectwo (Konie)",
+          "Odporność",
+          "Powożenie",
+          "Unik",
+          "Wioślarstwo"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Czytanie/Pisanie",
+          "Etykieta (Szlachta)",
+          "Gadanina"
+        ],
+        "trappings": [
+          "liberia",
+          "skórzana kurta",
+          "tuba na zwoje"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Poseł",
+        "status": "Srebro 4",
+        "characteristics": [],
+        "skills": [
+          "Opanowanie",
+          "Plotkowanie",
+          "Przekupstwo",
+          "Sztuka (Pisarstwo)",
+          "Targowanie",
+          "Wiedza (Polityka)"
+        ],
+        "talents": [
+          "Atrakcyjny",
+          "Gładkie Słówka",
+          "Etykieta (Dowolna Grupa)",
+          "Doświadczony Wędrowiec"
+        ],
+        "trappings": [
+          "pióro i kałamarz",
+          "10 arkuszy pergaminu"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Dyplomata",
+        "status": "Złoto 2",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Język (Dowolny)",
+          "Nawigacja",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Hulaka",
+          "Intrygant",
+          "Towarzyski",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "Asystent",
+          "dobre ubranie",
+          "mapa"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Ambasador",
+        "status": "Złoto 5",
+        "characteristics": [],
+        "skills": [
+          "Język (Dowolny)",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Błękitna Krew",
+          "Błyskotliwość",
+          "Łapówkarz",
+          "Władcza Postura"
+        ],
+        "trappings": [
+          "Asystent",
+          "strój dworski najlepszej jakości",
+          "ekipa Dyplomatów",
+          "Herold"
+        ]
+      }
+    ],
+    "class": "Dworzanie",
+    "source": "Podręcznik podstawowy",
+    "page": 72
+  },
+  "Służąca": {
+    "species": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Posługaczka",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Intuicja",
+          "Odporność",
+          "Percepcja",
+          "Powożenie",
+          "Skradanie (Dowolne)",
+          "Unik",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Krzepki",
+          "Mocne Plecy",
+          "Niegodny Uwagi",
+          "Odporność Psychiczna"
+        ],
+        "trappings": [
+          "szczotka do podłogi"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Służąca",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Hazard",
+          "Mocna Głowa",
+          "Opieka nad Zwierzętami",
+          "Plotkowanie",
+          "Targowanie",
+          "Wycena"
+        ],
+        "talents": [
+          "Cień",
+          "Dobrze Przygotowany",
+          "Etykieta (Słudzy)",
+          "Wytrwały"
+        ],
+        "trappings": [
+          "liberia"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Pokojowa",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Wiedza (Lokalna)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Defraudant",
+          "Odporny na (Trucizny)",
+          "Pomocny"
+        ],
+        "trappings": [
+          "lampa oliwna",
+          "lampa sztormowa",
+          "liberia dobrej jakości",
+          "pudełko na hubkę i krzesiwo"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Ochmistrzyni",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Dowodzenie"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Czytanie/Pisanie",
+          "Etykieta (Dowolna Grupa)",
+          "Numizmatyka"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "dobre ubranie",
+          "Służący"
+        ]
+      }
+    ],
+    "class": "Dworzanie",
+    "source": "Podręcznik podstawowy",
+    "page": 73
+  },
+  "Szlachcic": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "krasnolud"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Dziedzic",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Szermiercza)",
+          "Hazard",
+          "Dowodzenie",
+          "Mocna Głowa",
+          "Muzyka (Dowolna)",
+          "Przekupstwo",
+          "Wiedza (Heraldyka)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Błękitna Krew",
+          "Czytanie/Pisanie",
+          "Etykieta (Szlachta)",
+          "Szczęście"
+        ],
+        "trappings": [
+          "biżuteria warta 3k10 ZK",
+          "dworski strój",
+          "lusterko ręczne albo floret",
+          "osobisty Służący"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Szlachcic",
+        "status": "Złoto 3",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Parująca)",
+          "Charyzma",
+          "Język (Klasyczny)",
+          "Jeździectwo (Konie)",
+          "Plotkowanie",
+          "Wiedza (Lokalna)"
+        ],
+        "talents": [
+          "Atrakcyjny",
+          "Charyzmatyczny",
+          "Hulaka",
+          "Łapówkarz"
+        ],
+        "trappings": [
+          "biżuteria warta 50 ZK",
+          "dobry płaszcz albo lewak",
+          "dworski strój dobrej jakości",
+          "dworski strój",
+          "koń wierzchowy z rzędem albo powóz",
+          "4 Służący domowi"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Magnat",
+        "status": "Złoto 5",
+        "characteristics": [],
+        "skills": [
+          "Intuicja",
+          "Język (Dowolny)",
+          "Percepcja",
+          "Wiedza (Polityka)"
+        ],
+        "talents": [
+          "Intrygant",
+          "Mówca",
+          "Zimna krew",
+          "Żyłka handlowa"
+        ],
+        "trappings": [
+          "biżuteria warta 200 ZK",
+          "lenno",
+          "sygnet",
+          "2 komplety strojów dworskich dobrej jakości",
+          "200 ZK"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Lord",
+        "status": "Złoto 7",
+        "characteristics": [],
+        "skills": [
+          "Tropienie",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Majętny",
+          "Władcza Postura",
+          "Wódz",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "biżuteria warta 500 ZK",
+          "lusterko ręczne albo floret dobrej jakości",
+          "500 ZK",
+          "4 komplety strojów dworskich najlepszej jakości",
+          "Prowincja"
+        ]
+      }
+    ],
+    "class": "Dworzanie",
+    "source": "Podręcznik podstawowy",
+    "page": 74
+  },
+  "Szpieg": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Informator",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Hazard",
+          "Opanowanie",
+          "Percepcja",
+          "Plotkowanie",
+          "Przekupstwo",
+          "Skradanie (Dowolne)",
+          "Targowanie"
+        ],
+        "talents": [
+          "Cień",
+          "Gadanina",
+          "Hulaka",
+          "Towarzyski"
+        ],
+        "trappings": [
+          "płaszcz z kapturem",
+          "torba na ramię zawierająca dwa różne komplety ubrań",
+          "węgiel do rysowania"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Szpieg",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Intuicja",
+          "Sekretne Znaki (Dowolne)",
+          "Wspinaczka",
+          "Występy (Aktorstwo)",
+          "Zwinne Palce"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Czytanie z Ruchu Warg",
+          "Etykieta (Dowolna Grupa)",
+          "Sekretna Tożsamość"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "Informator",
+          "sieć Informatorów",
+          "teleskop",
+          "zestaw do charakteryzacji"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Agent",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Język (Dowolny)",
+          "Opieka nad Zwierzętami",
+          "Tresura (Gołąb)"
+        ],
+        "talents": [
+          "Atrakcyjny",
+          "Gładkie Słówka",
+          "Mistrz Charakteryzacji",
+          "Naśladowca"
+        ],
+        "trappings": [
+          "kałamarz i pióro",
+          "księga (Kryptografia)",
+          "sieć"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Mistrz Szpiegów",
+        "status": "Złoto 4",
+        "characteristics": [],
+        "skills": [
+          "Badania Naukowe",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Intrygant",
+          "Łapówkarz",
+          "Wieża Pamięci"
+        ],
+        "trappings": [
+          "duża szpiegowska sieć Agentów",
+          "Szpiegów i Informatorów",
+          "kantor z pracownikami"
+        ]
+      }
+    ],
+    "class": "Dworzanie",
+    "source": "Podręcznik podstawowy",
+    "page": 75
+  },
+  "Zwadźca": {
+    "species": [
+      "człowiek",
+      "elf wysoki",
+      "krasnolud"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Szermierz",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Biała (Dowolna)",
+          "Intuicja",
+          "Język (Klasyczny)",
+          "Leczenie",
+          "Odporność",
+          "Percepcja",
+          "Unik"
+        ],
+        "talents": [
+          "Finta",
+          "Rozproszenie Uwagi",
+          "Zbicie Broni",
+          "Zejście z Linii"
+        ],
+        "trappings": [
+          "broń ręczna albo rapier",
+          "torba na ramię zawierająca ubranie i 1k10 bandaży"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Zwadźca",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Parująca)",
+          "Broń Zasięgowa (Prochowa)",
+          "Charyzma",
+          "Hazard",
+          "Opanowanie",
+          "Rzemiosło (Rusznikarz)"
+        ],
+        "talents": [
+          "Bitewny Refleks",
+          "Błyskawiczny Strzał",
+          "Etykieta (Dowolna Grupa)",
+          "Odwrócenie Szans"
+        ],
+        "trappings": [
+          "lewak albo łamacz mieczy",
+          "pistolet z prochem i amunicją"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrz Pojedynków",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Dowodzenie",
+          "Występy (Akrobatyka)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Dwie Bronie",
+          "Oburęczność",
+          "Riposta",
+          "Rozbrojenie"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "dobry rapier",
+          "2 drewniane miecze treningowe",
+          "zaufany Sekundant"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Szampierz Sądowy",
+        "status": "Złoto 3",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Dowolna)",
+          "Wiedza (Prawo)"
+        ],
+        "talents": [
+          "Atak Wyprzedzający",
+          "Groźny",
+          "Mistrz Walki",
+          "Morderczy Atak"
+        ],
+        "trappings": [
+          "2 sztuki broni dobrej jakości Do pierwszej krwi",
+          "szalona! Miało być do pierwszej krwi! A ty musiałaś go przebić na wylot! – Ortolf Ehardt",
+          "mieszczanin Sir",
+          "na swoją obronę pragnę zauważyć",
+          "że to on puścił pierwszą krew. – Rosabel Viernau",
+          "Zwadźca"
+        ]
+      }
+    ],
+    "class": "Dworzanie",
+    "source": "Podręcznik podstawowy",
+    "page": 76
+  },
+  "Chłopka": {
+    "species": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Wyrobnica",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Biała (Bijatyka)",
+          "Mocna Głowa",
+          "Odporność",
+          "Opieka nad Zwierzętami",
+          "Plotkowanie",
+          "Sztuka Przetrwania",
+          "Wiedza (Lokalna)"
+        ],
+        "talents": [
+          "Mocne Plecy",
+          "Odporność Psychiczna",
+          "Włóczykij",
+          "Wstrzemięźliwy"
+        ],
+        "trappings": [
+          "brak"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Chłopka",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Powożenie",
+          "Rzemiosło (Dowolne)",
+          "Targowanie",
+          "Unik",
+          "Występy (Gawędziarstwo)"
+        ],
+        "talents": [
+          "Bardzo Silny",
+          "Posłuch u Zwierząt",
+          "Twardziel",
+          "Wytrwały"
+        ],
+        "trappings": [
+          "broń ręczna (Topór)",
+          "narzędzia pracy (odpowiednie dla rzemiosła)",
+          "skórzany kaftan"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Gospodyni",
+        "status": "Brąz 4",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Dowodzenie",
+          "Przekupstwo",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Niezwykle Odporny",
+          "Waleczne Serce",
+          "Wytwórca (Dowolny)",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "wóz z mułem",
+          "dom wiejski z warsztatem"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Starsza Wioski",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Intuicja",
+          "Wiedza (Historia)"
+        ],
+        "talents": [
+          "Mistrz Rzemiosła (Dowolne)",
+          "Mówca",
+          "Znawca (Wiedza Lokalna)",
+          "Zręczny"
+        ],
+        "trappings": [
+          "szacunek wioski To ciężkie życie",
+          "z pewnością",
+          "ale dobre. Co roku pani z dworu wysyła strażników",
+          "by oczyścili las",
+          "przepędzili zwierzoludzi i im podobnych. Rodzina dba o nasze bezpieczeństwo",
+          "a my dbamy o jej stada. Zazwyczaj to uczciwa wymiana. – Gunni Ackermann",
+          "pastereczka Słuchaj",
+          "możesz sobie drwić",
+          "ile wlezie",
+          "ale sam cholerny Konrad"
+        ]
+      }
+    ],
+    "class": "Pospólstwo",
+    "source": "Podręcznik podstawowy",
+    "page": 77
+  },
+  "Górnik": {
+    "species": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Poszukiwacz",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Dwuręczna)",
+          "Intuicja",
+          "Odporność",
+          "Opanowanie",
+          "Percepcja",
+          "Pływanie",
+          "Sztuka Przetrwania",
+          "Wiedza (Lokalna)"
+        ],
+        "talents": [
+          "Doświadczony Wędrowiec (Teren Skalisty)",
+          "Tragarz",
+          "Włóczykij",
+          "Wytrwały"
+        ],
+        "trappings": [
+          "kiepska mapa",
+          "metalowa miska albo patelnia",
+          "szpadel",
+          "węgiel do rysowania"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Górnik",
+        "status": "Brąz 4",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Mocna Głowa",
+          "Rzemiosło (Materiały Wybuchowe)",
+          "Sekretne Znaki (Górników)",
+          "Wspinaczka",
+          "Wycena"
+        ],
+        "talents": [
+          "Bardzo Silny",
+          "Mocne Plecy",
+          "Silny Cios",
+          "Widzenie w Ciemności"
+        ],
+        "trappings": [
+          "broń ręczna (kilof )",
+          "lampa Davricha",
+          "lampa oliwna",
+          "skórzana kurta"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Sztygar",
+        "status": "Brąz 5",
+        "characteristics": [],
+        "skills": [
+          "Plotkowanie",
+          "Rzemiosło (Inżynieria)",
+          "Skradanie (Podziemia)",
+          "Wiedza (Geologia)"
+        ],
+        "talents": [
+          "Cios Mierzony",
+          "Szczur Tunelowy",
+          "Wytwórca (Materiały Wybuchowe)",
+          "Złota Rączka"
+        ],
+        "trappings": [
+          "hełm",
+          "narzędzia pracy (Inżyniera)",
+          "wielka broń (dwuręczny kilof )"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Mistrz Górnictwa",
+        "status": "Srebro 4",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Dowodzenie"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Defraudant",
+          "Odporność Psychiczna",
+          "Przekonujący"
+        ],
+        "trappings": [
+          "brygada Górników",
+          "zestaw do pisania Po odjęciu kosztu zapasów",
+          "które kupiłeś w sklepie i dodaniu szesnastu ton twojego urobku",
+          "zarobiłeś... Zobaczmy... Nie",
+          "właściwie to za dzisiaj jesteś nam winien dwie monety. Postarzałeś się o kolejny dzień i powiększyłeś swój dług",
+          "chłopcze. – Frederika",
+          "zaopatrzeniowiec"
+        ]
+      }
+    ],
+    "class": "Pospólstwo",
+    "source": "Podręcznik podstawowy",
+    "page": 78
+  },
+  "Guślarz": {
+    "species": [
+      "człowiek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Uczeń Guślarza",
+        "status": "Brąz 1",
+        "characteristics": [],
+        "skills": [
+          "Intuicja",
+          "Język (Magiczny)",
+          "Odporność",
+          "Percepcja",
+          "Splatanie Magii",
+          "Sztuka Przetrwania",
+          "Wiedza (Ludowa)",
+          "Wiedza (Zioła)"
+        ],
+        "talents": [
+          "Magia Prosta",
+          "Doświadczony Wędrowiec (Lasy)",
+          "Ruchliwe Dłonie",
+          "Włóczykij"
+        ],
+        "trappings": [
+          "kostur",
+          "plecak",
+          "1k10 amuletów na szczęście"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Guślarz",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Opanowanie",
+          "Plotkowanie",
+          "Leczenie",
+          "Wiedza (Lokalna)",
+          "Rzemiosło (Amulety)",
+          "Rzemiosło (Zielarz)"
+        ],
+        "talents": [
+          "Magia Tajemna (Guślarstwo)",
+          "Posłuch u Zwierząt",
+          "Szósty Zmysł",
+          "Zmysł Magii"
+        ],
+        "trappings": [
+          "kataplazm leczniczy",
+          "narzędzia pracy (Zielarza)",
+          "zestaw do leczenia zatruć"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Starszy Guślarzy",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Targowanie",
+          "Wiedza (Duchy)",
+          "Wiedza (Genealogia)",
+          "Wiedza (Magia)"
+        ],
+        "talents": [
+          "Czysta Dusza",
+          "Odporny na (Choroby)",
+          "Wykrywanie Magii",
+          "Wytwórca (Zielarz)"
+        ],
+        "trappings": [
+          "odosobniona chata",
+          "Uczeń"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Wiedzący",
+        "status": "Brąz 5",
+        "characteristics": [],
+        "skills": [
+          "Modlitwa",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Mistrz Rzemiosła (Zielarz)",
+          "Odporność Psychiczna",
+          "Widzenie w Ciemności",
+          "Wyczulony Zmysł (Dowolny)"
+        ],
+        "trappings": [
+          "ceremonialny płaszcz z wiankiem",
+          "zbiór zwierzęcych czaszek"
+        ]
+      }
+    ],
+    "class": "Pospólstwo",
+    "source": "Podręcznik podstawowy",
+    "page": 79
+  },
+  "Łowczyni": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Traperka",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Zasięgowa (Proca)",
+          "Odporność",
+          "Oswajanie",
+          "Percepcja",
+          "Sztuka Przetrwania",
+          "Wiedza (Zwierzęta)",
+          "Wspinaczka",
+          "Zastawianie Pułapek"
+        ],
+        "talents": [
+          "Doświadczony Wędrowiec (Dowolny Teren)",
+          "Traper",
+          "Twardziel",
+          "Włóczykij"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "mocne buty i płaszcz",
+          "wybór sideł na zwierzęta",
+          "proca z 10 kamiennymi pociskami"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Łowczyni",
+        "status": "Brąz 4",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Broń Zasięgowa (Łuk)",
+          "Intuicja",
+          "Opanowanie",
+          "Sekretne Znaki (Łowców)",
+          "Skradanie (Wieś)"
+        ],
+        "talents": [
+          "Błyskawiczny Strzał",
+          "Celny Strzał",
+          "Oko Łowcy",
+          "Strzelec Wyborowy"
+        ],
+        "trappings": [
+          "łuk z 10 strzałami"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Tropicielka",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Jeździectwo (Konie)",
+          "Nawigacja",
+          "Pływanie",
+          "Tropienie"
+        ],
+        "talents": [
+          "Nieustraszony (Zwierzęta)",
+          "Prosto Między Oczy",
+          "Strzał w Dziesiątkę",
+          "Wyczulony Zmysł (Dowolny)"
+        ],
+        "trappings": [
+          "namiot",
+          "plecak",
+          "zwijane posłanie"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Nadworna Łowczyni",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Opieka nad Zwierzętami",
+          "Tresura (Dowolna)"
+        ],
+        "talents": [
+          "Krzepki",
+          "Nieustraszony (Potwory)",
+          "Snajper",
+          "Strzał Przebijający"
+        ],
+        "trappings": [
+          "koń wierzchowy z rzędem",
+          "psiarnia z psami łowieckimi Mój panie",
+          "te tropy... Nie śledzimy jelenia. W tych lasach żyją Zmiennoskórzy. – Gundred Maynir",
+          "Mistrz Łowów"
+        ]
+      }
+    ],
+    "class": "Pospólstwo",
+    "source": "Podręcznik podstawowy",
+    "page": 80
+  },
+  "Mistyczka": {
+    "species": [
+      "człowiek",
+      "elf leśny"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Wróżbiarka",
+        "status": "Brąz 1",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Intuicja",
+          "Percepcja",
+          "Plotkowanie",
+          "Targowanie",
+          "Unik",
+          "Występy (Wróżenie)",
+          "Zwinne Palce"
+        ],
+        "talents": [
+          "Atrakcyjny",
+          "Charyzmatyczny",
+          "Percepcja Magiczna",
+          "Szczęście"
+        ],
+        "trappings": [
+          "talia kart albo zestaw kości",
+          "tania biżuteria"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Mistyczka",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Opanowanie",
+          "Przekupstwo",
+          "Wiedza (Astrologia)",
+          "Wycena",
+          "Występy (Proroctwa)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Dobrze Przygotowany",
+          "Rozpoznanie Artefaktu",
+          "Szósty Zmysł",
+          "Święte Wizje"
+        ],
+        "trappings": [
+          "wybór amuletów"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Widząca",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Język (Dowolny)",
+          "Oswajanie",
+          "Sztuka (Pisarstwo)",
+          "Występy (Gawędziarstwo)"
+        ],
+        "talents": [
+          "Czarownica!",
+          "Czytanie/Pisanie",
+          "Magia Prosta",
+          "Nos do Kłopotów"
+        ],
+        "trappings": [
+          "narzędzia pracy (Pisarza)"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Prorokini",
+        "status": "Brąz 4",
+        "characteristics": [],
+        "skills": [
+          "Splatanie Magii (Azyr)",
+          "Wiedza (Proroctwa)"
+        ],
+        "talents": [
+          "Groźny",
+          "Odporność Psychiczna",
+          "Magia Tajemna (Niebios)",
+          "Wykrywanie Magii"
+        ],
+        "trappings": [
+          "narzędzia pracy (Astrologa)"
+        ]
+      }
+    ],
+    "class": "Pospólstwo",
+    "source": "Podręcznik podstawowy",
+    "page": 81
+  },
+  "Zarządca": {
+    "species": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Poborca Podatków",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Odporność",
+          "Opanowanie",
+          "Percepcja",
+          "Plotkowanie",
+          "Targowanie",
+          "Unik",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Defraudant",
+          "Mocne plecy",
+          "Numizmatyka",
+          "Wytrwały"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "mała zamykana szkatułka"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Zarządca",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Intuicja",
+          "Przekupstwo",
+          "Przekonywanie",
+          "Wiedza (Lokalna)",
+          "Wycena"
+        ],
+        "talents": [
+          "Ogłuszenie",
+          "Przemawianie",
+          "Przestępca",
+          "Wtargnięcie z Włamaniem"
+        ],
+        "trappings": [
+          "skórzana kurta",
+          "3 Poborców Podatków"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Włodarz",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Jeździectwo (Konie)",
+          "Nawigacja",
+          "Opieka nad Zwierzętami",
+          "Wiedza (Heraldyka)"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Groźny",
+          "Nos do Kłopotów",
+          "Szycha"
+        ],
+        "trappings": [
+          "koń z siodłem i uprzężą",
+          "napierśnik",
+          "Zarządca"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Komornik",
+        "status": "Złoto 3",
+        "characteristics": [],
+        "skills": [
+          "Język (Klasyczny)",
+          "Wiedza (Prawo)"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Intrygant",
+          "Władcza Postura",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "biblioteka (Prawo)",
+          "pieczęć urzędowa",
+          "szata dobrej jakości Owszem",
+          "to były kiepskie żniwa",
+          "ale danina to danina. Wezmę połowę teraz i połowę w Marktag. Co ty na to? To najlepsze",
+          "co mogę zaproponować. Uczciwiej się nie da. – Lena Sauer",
+          "Zarządca"
+        ]
+      }
+    ],
+    "class": "Pospólstwo",
+    "source": "Podręcznik podstawowy",
+    "page": 82
+  },
+  "Zielarka": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Zbieraczka Ziół",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Odporność",
+          "Oswajanie",
+          "Percepcja",
+          "Pływanie",
+          "Rzemiosło (Zielarz)",
+          "Sztuka Przetrwania",
+          "Wiedza (Zioła)",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Doświadczony Wędrowiec (Dowolny Teren)",
+          "Włóczykij",
+          "Wyczucie Kierunku",
+          "Wyczulony Zmysł (Smak)"
+        ],
+        "trappings": [
+          "buty",
+          "płaszcz",
+          "torba na ramię zawierająca wybór ziół"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Zielarka",
+        "status": "Brąz 4",
+        "characteristics": [],
+        "skills": [
+          "Leczenie",
+          "Mocna Głowa",
+          "Opanowanie",
+          "Plotkowanie",
+          "Targowanie",
+          "Wiedza (Lokalna)"
+        ],
+        "talents": [
+          "Czujny",
+          "Tragarz",
+          "Zręczne Palce",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "broń ręczna (Sierp)",
+          "kataplazm leczniczy",
+          "narzędzia pracy (Zielarza)"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrzyni Ziołolecznictwa",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Intuicja",
+          "Rzemiosło (Trucizny)",
+          "Wiedza (Medycyna)"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Pierwsza Pomoc",
+          "Twardziel",
+          "Wytwórca (Zielarz)"
+        ],
+        "trappings": [
+          "mikstura lecznicza",
+          "warsztat (Zielarza)",
+          "Zbieracz Ziół",
+          "3 kataplazmy lecznicze"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Arcyzielarka",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Powożenie",
+          "Nawigacja"
+        ],
+        "talents": [
+          "Mistrz Rzemiosła (Zielarstwo)",
+          "Odporny na (Trucizny)",
+          "Przyrządzanie Mikstur",
+          "Znawca (Zioła)"
+        ],
+        "trappings": [
+          "wóz z kucem"
+        ]
+      }
+    ],
+    "class": "Pospólstwo",
+    "source": "Podręcznik podstawowy",
+    "page": 83
+  },
+  "Zwiadowca": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Przewodnik",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Odporność",
+          "Oswajanie",
+          "Percepcja",
+          "Plotkowanie",
+          "Sztuka Przetrwania",
+          "Wiedza (Lokalna)",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Czujny",
+          "Doświadczony Wędrowiec (Dowolny Teren)",
+          "Włóczykij",
+          "Wyczucie Kierunku"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "lina",
+          "mocne buty i płaszcz",
+          "skórzana kurta"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Zwiadowca",
+        "status": "Brąz 5",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Zasięgowa (Łuk)",
+          "Jeździectwo (Konie)",
+          "Nawigacja",
+          "Skradanie (Wieś)",
+          "Tropienie"
+        ],
+        "talents": [
+          "Nos do Kłopotów",
+          "Obieżyświat",
+          "Widzenie w Ciemności",
+          "Zmysł Bitewny"
+        ],
+        "trappings": [
+          "łuk i 10 strzał",
+          "kaftan kolczy"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Przepatrywacz",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Opieka nad Zwierzętami",
+          "Pływanie",
+          "Sekretne Znaki (Łowców)",
+          "Targowanie"
+        ],
+        "talents": [
+          "Niezwykle Odporny",
+          "Silne Nogi",
+          "Szósty Zmysł",
+          "Wyczulony Zmysł (Wzrok)"
+        ],
+        "trappings": [
+          "koń wierzchowy z rzędem",
+          "juki z prowiantem na dwa tygodnie",
+          "mapa",
+          "namiot"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Odkrywca",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Język (Dowolny)",
+          "Rzemiosło (Kartograf )"
+        ],
+        "talents": [
+          "Poliglota",
+          "Twardziel",
+          "Wytrwały",
+          "Znawca (Wiedza Lokalna)"
+        ],
+        "trappings": [
+          "wybór map",
+          "narzędzia pracy (Kartografa)"
+        ]
+      }
+    ],
+    "class": "Pospólstwo",
+    "source": "Podręcznik podstawowy",
+    "page": 84
+  },
+  "Biczownik": {
+    "species": [
+      "człowiek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Gorliwiec",
+        "status": "Brąz 0",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Korbacz)",
+          "Intuicja",
+          "Leczenie",
+          "Odporność",
+          "Sztuka Przetrwania",
+          "Unik",
+          "Wiedza (Sigmar)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Berserkerska Szarża",
+          "Czytanie/Pisanie",
+          "Szał Bojowy",
+          "Wstrzemięźliwy"
+        ],
+        "trappings": [
+          "korbacz",
+          "postrzępione odzienie"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Biczownik",
+        "status": "Brąz 0",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Zasięgowa (Proca)",
+          "Język (Klasyczny)",
+          "Opanowanie",
+          "Sztuka (Ikony)",
+          "Wiedza (Imperium)"
+        ],
+        "talents": [
+          "Biczownik",
+          "Nienawiść (Heretycy)",
+          "Nieubłagany",
+          "Twardziel"
+        ],
+        "trappings": [
+          "symbol religijny",
+          "proca",
+          "tabliczka"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Pokutnik",
+        "status": "Brąz 0",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Język (Dowolny)",
+          "Percepcja",
+          "Wiedza (Teologia)"
+        ],
+        "talents": [
+          "Groźny",
+          "Obieżyświat",
+          "Pierwsza Pomoc",
+          "Wściekły Atak"
+        ],
+        "trappings": [
+          "relikwia"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Piewca Zagłady",
+        "status": "Brąz 0",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Występy (Przemowy)"
+        ],
+        "talents": [
+          "Bitewna Furia",
+          "Nieustraszony (Heretycy)",
+          "Porywająca Gorliwość",
+          "Straszny"
+        ],
+        "trappings": [
+          "księga (Religia)",
+          "towarzysze (włącznie z Pokutnikami, Biczownikami i Gorliwcami)"
+        ]
+      }
+    ],
+    "class": "Wędrowcy",
+    "source": "Podręcznik podstawowy",
+    "page": 85
+  },
+  "Domokrążca": {
+    "species": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Powsinoga",
+        "status": "Brąz 1",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Intuicja",
+          "Odporność",
+          "Plotkowanie",
+          "Skradanie (Miasto albo Wieś)",
+          "Sztuka Przetrwania",
+          "Targowanie",
+          "Występy (Gawędziarstwo)"
+        ],
+        "talents": [
+          "Chodu!",
+          "Rybak",
+          "Włóczykij",
+          "Złota Rączka"
+        ],
+        "trappings": [
+          "plecak",
+          "namiot",
+          "zwijane posłanie",
+          "towary warte 2k10 brązowych monet"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Domokrążca",
+        "status": "Brąz 4",
+        "characteristics": [],
+        "skills": [
+          "Jeździectwo (Konie)",
+          "Mocna Głowa",
+          "Opieka nad Zwierzętami",
+          "Oswajanie",
+          "Rzemiosło (Złota Rączka)",
+          "Wycena"
+        ],
+        "talents": [
+          "Mocne Plecy",
+          "Obieżyświat",
+          "Wyczucie Kierunku",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "muł z jukami",
+          "narzędzia pracy (Złotej Rączki)",
+          "wybór rondli i patelni",
+          "towary warte 2k10 srebrnych monet"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Doświadczony Domokrążca",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Język (Dowolny)",
+          "Percepcja",
+          "Powożenie",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Dobrze Przygotowany",
+          "Niezwykle Odporny",
+          "Numizmatyka",
+          "Tragarz"
+        ],
+        "trappings": [
+          "wóz",
+          "towary warte co najmniej 2k10 złotych monet"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Wędrowny Handlarz",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Wiedza (Geografia)",
+          "Wiedza (Lokalna)"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Gładkie Słówka",
+          "Odporność Psychiczna",
+          "Wytrwały"
+        ],
+        "trappings": [
+          "wóz z koniem pociągowym",
+          "towary warte co najmniej 5k10 złotych i 50 srebrnych monet Oto absolutnie unikalny",
+          "całkowicie niepowtarzalny",
+          "jedyny istniejący egzemplarz tego dzieła sztuki. Jeśli chcecie więcej",
+          "nie martwcie się. Mam jeszcze tuzin z tyłu wozu. – Delberz Trötte",
+          "handlarz"
+        ]
+      }
+    ],
+    "class": "Wędrowcy",
+    "source": "Podręcznik podstawowy",
+    "page": 86
+  },
+  "Kuglarka": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Muzykantka",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Charyzma",
+          "Kuglarstwo (Dowolne)",
+          "Muzyka (Dowolna)",
+          "Plotkowanie",
+          "Targowanie",
+          "Występy (Dowolne)",
+          "Zwinne Palce"
+        ],
+        "talents": [
+          "Atrakcyjny",
+          "Charyzmatyczny",
+          "Naśladowca",
+          "Mówca"
+        ],
+        "trappings": [
+          "instrument",
+          "miska"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Kuglarka",
+        "status": "Brąz 5",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Broń Zasięgowa (Miotana)",
+          "Jeździectwo (Dowolne)",
+          "Kuglarstwo (Dowolne)",
+          "Muzyka (Dowolna)",
+          "Występy (Dowolne)"
+        ],
+        "talents": [
+          "Człowiek Guma",
+          "Sprężynka",
+          "Strzał w Dziesiątkę",
+          "Woltyżerka"
+        ],
+        "trappings": [
+          "broń miotana (kilka sztuk)",
+          "kostium",
+          "instrument",
+          "wybór scenariuszy (których jeszcze nie możesz przeczytać)"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Trubadurka",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Język (Dowolny)",
+          "Opieka nad Zwierzętami",
+          "Sztuka (Pisarstwo)",
+          "Tresura (Dowolne)"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Gadanina",
+          "Mistrz Charakteryzacji",
+          "Słuch Absolutny"
+        ],
+        "trappings": [
+          "tresowane zwierzę",
+          "zestaw do pisania"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Przywódczyni Trupy",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Powożenie"
+        ],
+        "talents": [
+          "Czujny",
+          "Etykieta (Dowolna Grupa)",
+          "Obieżyświat",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "garderoba z kostiumami i rekwizytami",
+          "trupa Kuglarzy",
+          "wóz (Scena) z końmi pociągowymi"
+        ]
+      }
+    ],
+    "class": "Wędrowcy",
+    "source": "Podręcznik podstawowy",
+    "page": 87
+  },
+  "Łowca Czarownic": {
+    "species": [
+      "człowiek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Oprawca",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Bijatyka)",
+          "Charyzma",
+          "Intuicja",
+          "Leczenie",
+          "Mocna Głowa",
+          "Percepcja",
+          "Wiedza (Tortury)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Groźny",
+          "Nieugięty",
+          "Zimna Krew"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "narzędzia tortur"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Łowca Czarownic",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Dowolna)",
+          "Broń Zasięgowa (Dowolna)",
+          "Jeździectwo (Konie)",
+          "Opanowanie",
+          "Plotkowanie",
+          "Wiedza (Czarownice)"
+        ],
+        "talents": [
+          "Cień",
+          "Dwie Bronie",
+          "Obieżyświat",
+          "Strzelec Wyborowy"
+        ],
+        "trappings": [
+          "kapelusz (kornet)",
+          "koń wierzchowy z rzędem",
+          "kusza pistoletowa albo pistolet",
+          "lina",
+          "posrebrzany miecz",
+          "skórzana kurta"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Inkwizytor",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Odporność",
+          "Wiedza (Lokalna)",
+          "Wiedza (Prawo)"
+        ],
+        "talents": [
+          "Odporność Psychiczna",
+          "Nieustępliwy",
+          "Nieustraszony (Czarownice)",
+          "Nos do Kłopotów"
+        ],
+        "trappings": [
+          "podwładni Oprawcy",
+          "ubranie dobrej jakości"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Generał Łowców Czarownic",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Wiedza (Chaos)",
+          "Wiedza (Polityka)"
+        ],
+        "talents": [
+          "Czysta Dusza",
+          "Straszny",
+          "Wykrywanie Magii",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "podwładni Łowcy Czarownic",
+          "strój dworski najlepszej jakości"
+        ]
+      }
+    ],
+    "class": "Wędrowcy",
+    "source": "Podręcznik podstawowy",
+    "page": 88
+  },
+  "Łowczyni Nagród": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Pogromczyni Złodziei",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Charyzma",
+          "Intuicja",
+          "Percepcja",
+          "Plotkowanie",
+          "Przekupstwo",
+          "Sztuka Przetrwania",
+          "Targowanie"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Cień",
+          "Ogłuszenie",
+          "Wtargnięcie z Włamaniem"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "lina",
+          "skórzany kaftan"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Łowczyni Nagród",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Zasięgowa (Kusza)",
+          "Broń Zasięgowa (Oplątująca)",
+          "Odporność",
+          "Tropienie",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Mocne Plecy",
+          "Nieustępliwy",
+          "Obieżyświat",
+          "Strzelec Wyborowy"
+        ],
+        "trappings": [
+          "glejty",
+          "kajdany",
+          "kusza i 10 bełtów",
+          "skórzany hełm",
+          "sieć"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Doświadczona Łowczyni Nagród",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Jeździectwo (Konie)",
+          "Opieka nad Zwierzętami",
+          "Pływanie",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Celny Strzał",
+          "Cios Mierzony",
+          "Dwie Bronie",
+          "Szybkobiegacz"
+        ],
+        "trappings": [
+          "kaftan kolczy",
+          "koń wierzchowy z siodłem"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Legendarna Łowczyni Nagród",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Powożenie",
+          "Wiedza (Prawo)"
+        ],
+        "talents": [
+          "Prosto Między Oczy",
+          "Nieustraszony (Cele Łowów)",
+          "Twardziel",
+          "Strzał Przebijający"
+        ],
+        "trappings": [
+          "kaftan kolczy",
+          "powóz z koniem pociągowym",
+          "4 pary kajdan To zdumiewające",
+          "jak wielu chłopców chętnie daje się skuć w kajdany",
+          "jeśli tylko uśmiechniesz się do nich słodko. A gdy to nie zadziała",
+          "w ruch idą noże! – Anke Dorflinger",
+          "Łowczyni Nagród"
+        ]
+      }
+    ],
+    "class": "Wędrowcy",
+    "source": "Podręcznik podstawowy",
+    "page": 89
+  },
+  "Posłaniec": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Goniec",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Biała (Bijatyka)",
+          "Unik",
+          "Nawigacja",
+          "Odporność",
+          "Percepcja",
+          "Plotkowanie",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Bardzo Szybki",
+          "Chodu!",
+          "Szybkobiegacz",
+          "Zejście z Linii"
+        ],
+        "trappings": [
+          "tuba na zwoje"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Posłaniec",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Charyzma",
+          "Jeździectwo (Konie)",
+          "Opanowanie",
+          "Opieka nad Zwierzętami",
+          "Wiedza (Lokalna)"
+        ],
+        "talents": [
+          "Obieżyświat",
+          "Przestępca",
+          "Wyczucie Kierunku",
+          "Z Bata"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "koń wierzchowy z rzędem",
+          "skórzana kurta"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Kurier",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Mocna Głowa",
+          "Oswajanie",
+          "Przekupstwo",
+          "Sztuka Przetrwania"
+        ],
+        "talents": [
+          "Nieustępliwy",
+          "Nos do Kłopotów",
+          "Woltyżerka",
+          "Wytrwały"
+        ],
+        "trappings": [
+          "juki",
+          "plecak",
+          "tarcza"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Kapitan Kurierów",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Nienawiść (Banici)",
+          "Niezwykle Odporny",
+          "Szycha",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "kaftan kolczy",
+          "Kurierzy",
+          "zestaw do pisania Czy jesteście Herr"
+        ]
+      }
+    ],
+    "class": "Wędrowcy",
+    "source": "Podręcznik podstawowy",
+    "page": 90
+  },
+  "Strażniczka Dróg": {
+    "species": [
+      "człowiek",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Mytniczka",
+        "status": "Brąz 5",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Broń Zasięgowa (Kusza)",
+          "Hazard",
+          "Mocna Głowa",
+          "Percepcja",
+          "Plotkowanie",
+          "Przekupstwo",
+          "Targowanie"
+        ],
+        "talents": [
+          "Defraudant",
+          "Numizmatyka",
+          "Strzelec Wyborowy",
+          "Zimna Krew"
+        ],
+        "trappings": [
+          "kusza z 10 bełtami",
+          "skórzana kurta"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Strażniczka Dróg",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Intuicja",
+          "Jeździectwo (Konie)",
+          "Odporność",
+          "Opieka nad Zwierzętami",
+          "Sztuka Przetrwania",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Obieżyświat",
+          "Przestępca",
+          "Urodzony w Siodle",
+          "Z Bata"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "kaftan kolczy",
+          "koń wierzchowy z rzędem",
+          "lina"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Sierżant Strażników Dróg",
+        "status": "Srebro 4",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Zasięgowa (Prochowa)",
+          "Charyzma",
+          "Dowodzenie"
+        ],
+        "talents": [
+          "Etykieta (Żołnierze)",
+          "Nienawiść (Dowolne)",
+          "Nieustraszony (Banici)",
+          "Nos do Kłopotów"
+        ],
+        "trappings": [
+          "drużyna Strażników Dróg",
+          "pistolet z 10 nabojami",
+          "tarcza",
+          "symbol rangi"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Kapitan Strażników Dróg",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Nawigacja",
+          "Wiedza (Imperium)"
+        ],
+        "talents": [
+          "Mówca",
+          "Szycha",
+          "Władcza Postura",
+          "Zmysł Bitewny"
+        ],
+        "trappings": [
+          "kapelusz i płaszcz dobrej jakości",
+          "lekki koń bojowy",
+          "pistolet z 10 nabojami",
+          "oddział Strażników Dróg Co mogę rzec? Fenig za nogę. Takie są przepisy. Nic z tym nie zrobię. Może powinniście poszukać innej drogi",
+          "jeśli chcecie dowieźć swoje pszczoły do Grünburga. – Andreas Muller",
+          "mytnik służbista"
+        ]
+      }
+    ],
+    "class": "Wędrowcy",
+    "source": "Podręcznik podstawowy",
+    "page": 91
+  },
+  "Woźnica": {
+    "species": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Foryś",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Broń Zasięgowa (Oplątująca)",
+          "Jeździectwo (Konie)",
+          "Odporność",
+          "Opieka nad Zwierzętami",
+          "Oswajanie",
+          "Percepcja",
+          "Powożenie",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Obieżyświat",
+          "Posłuch u Zwierząt",
+          "Woltyżerka",
+          "Wytrwały"
+        ],
+        "trappings": [
+          "bicz",
+          "ciepły płaszcz i rękawice"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Woźnica",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Zasięgowa (Prochowa)",
+          "Intuicja",
+          "Mocna Głowa",
+          "Plotkowanie",
+          "Nawigacja",
+          "Wiedza (Lokalna)"
+        ],
+        "talents": [
+          "Artylerzysta",
+          "Odporność Psychiczna",
+          "Z Bata",
+          "Zimna Krew"
+        ],
+        "trappings": [
+          "garłacz z 10 nabojami",
+          "kapelusz",
+          "skórzana kurta",
+          "trąbka od powozu"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrz Woźniców",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Język (Dowolny)",
+          "Tresura (Konie)",
+          "Wiedza (Szlaki)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Celny Strzał",
+          "Nieustraszony (Banici)",
+          "Nos do Kłopotów",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "dobry płaszcz",
+          "kaftan kolczy",
+          "pistolet"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Mistrz Szlaków",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Dowodzenie"
+        ],
+        "talents": [
+          "Nieustraszony (Zwierzoludzie)",
+          "Strzelec Wyborowy",
+          "Szybkie Przeładowanie",
+          "Wyczucie Kierunku"
+        ],
+        "trappings": [
+          "flota koni i powozów",
+          "mapy"
+        ]
+      }
+    ],
+    "class": "Wędrowcy",
+    "source": "Podręcznik podstawowy",
+    "page": 92
+  },
+  "Doker": {
+    "species": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Pomocnik Dokera",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Biała (Podstawowa)",
+          "Mocna Głowa",
+          "Odporność",
+          "Plotkowanie",
+          "Pływanie",
+          "Unik",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Bardzo Silny",
+          "Cios Poniżej Pasa",
+          "Mocne Plecy",
+          "Tragarz"
+        ],
+        "trappings": [
+          "broń ręczna (bosak)",
+          "skórzane rękawice"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Doker",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Hazard",
+          "Percepcja",
+          "Przekupstwo",
+          "Skradanie (Miasto)",
+          "Występy (Gawędziarstwo)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Etykieta (Członkowie Cechu)",
+          "Przestępca",
+          "Silne Nogi",
+          "Wytrwały"
+        ],
+        "trappings": [
+          "fajka i tytoń",
+          "licencja cechu",
+          "skórzany kaftan",
+          "czapka Tragarza"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Brygadzista",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Intuicja",
+          "Opanowanie",
+          "Wycena"
+        ],
+        "talents": [
+          "Defraudant",
+          "Etykieta (Przestępcy)",
+          "Mówca",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "gang Dokerów",
+          "gwizdek"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Mistrz Dokerów",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Wiedza (Podatki)"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Groźny",
+          "Numizmatyka",
+          "Szycha"
+        ],
+        "trappings": [
+          "kantor z Pracownikami",
+          "zestaw do pisania Wiem",
+          "że specjalizujemy się w węglu",
+          "ale nie szufladkuj nas. Przeniesiemy cokolwiek",
+          "jeśli pieniądz jest dobry. Zatem daj nam się tym zająć",
+          "zanim przyjdą nosiciele drewna; tu możliwe jest wszystko",
+          "koleżko. – Albert Pförtner",
+          "nosiciel węgla Słuchaj",
+          "chłopcze. Nie myśl sobie",
+          "że dokerzy mają łatwo. To niebezpieczna praca w ciasnych przestrzeniach z wysokimi stertami ciężkich towarów. Jeśli zostanie wykonana źle",
+          "ładunek może przeważyć",
+          "a nawet przewrócić łódź. Chcę przez to powiedzieć",
+          "żebyś płacił dokerom należycie – a jeśli pragniesz zatopić jakąś łódź",
+          "zapłać im ekstra. – Aleida Fuchs",
+          "kupiec"
+        ]
+      }
+    ],
+    "class": "Wodniacy",
+    "source": "Podręcznik podstawowy",
+    "page": 93
+  },
+  "Flisak": {
+    "species": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Rybak",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Mocna Głowa",
+          "Odporność",
+          "Plotkowanie",
+          "Pływanie",
+          "Sztuka Przetrwania",
+          "Unik",
+          "Wioślarstwo"
+        ],
+        "talents": [
+          "Doświadczony Wędrowiec (Bagna)",
+          "Rybak",
+          "Świetny Pływak",
+          "Towarzyski"
+        ],
+        "trappings": [
+          "skórzane nogawice",
+          "wiadro",
+          "wędka z przynętą"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Flisak",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Broń Zasięgowa (Miotana)",
+          "Broń Zasięgowa (Oplątująca)",
+          "Hazard",
+          "Wiedza (Lokalna)",
+          "Wiedza (Szlaki Rzeczne)",
+          "Zastawianie Pułapek"
+        ],
+        "talents": [
+          "Mocne Plecy",
+          "Włóczykij",
+          "Wodniak",
+          "Wytwórca (Szkutnik)"
+        ],
+        "trappings": [
+          "pułapka na węgorze",
+          "skórzany kaftan",
+          "sieć",
+          "włócznia"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Znawca Rzeki",
+        "status": "Brąz 5",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Drzewcowa)",
+          "Intuicja",
+          "Percepcja",
+          "Przekonywanie"
+        ],
+        "talents": [
+          "Bardzo Silny",
+          "Waleczne Serce",
+          "Wytrwały",
+          "Znawca (Szlaki Rzeczne)"
+        ],
+        "trappings": [
+          "lampa sztormowa z oliwą",
+          "łódź wiosłowa"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Starszy Rzeczny",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Wiedza (Ludowa)",
+          "Występy (Gawędziarstwo)"
+        ],
+        "talents": [
+          "Czujny",
+          "Odporność Psychiczna",
+          "Mistrz Rzemiosła (Szkutnictwo)",
+          "Mówca"
+        ],
+        "trappings": [
+          "chata lub szkuta"
+        ]
+      }
+    ],
+    "class": "Wodniacy",
+    "source": "Podręcznik podstawowy",
+    "page": 94
+  },
+  "Pilotka Rzeczna": {
+    "species": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Przewodniczka Rzeczna",
+        "status": "Brąz 4",
+        "characteristics": [],
+        "skills": [
+          "Intuicja",
+          "Mocna Głowa",
+          "Percepcja",
+          "Plotkowanie",
+          "Pływanie",
+          "Wiedza (Lokalna)",
+          "Wiedza (Szlaki Rzeczne)",
+          "Wioślarstwo"
+        ],
+        "talents": [
+          "Rybak",
+          "Widzenie w Ciemności",
+          "Wodniak",
+          "Wyczucie Kierunku"
+        ],
+        "trappings": [
+          "broń ręczna (bosak)",
+          "lampa sztormowa z oliwą"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Pilotka Rzeczna",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Charyzma",
+          "Język (Dowolny)",
+          "Nawigacja",
+          "Opanowanie",
+          "Występy (Gawędziarstwo)"
+        ],
+        "talents": [
+          "Etykieta (Cechy)",
+          "Nos do Kłopotów",
+          "Pilot Rzeczny",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "lina",
+          "łódź wiosłowa",
+          "skórzany kaftan"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Starsza Pilotka",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Targowanie",
+          "Wiedza (Lokalna)",
+          "Wiedza (Wraki)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Bardzo Silny",
+          "Pilot",
+          "Urodzony Żeglarz",
+          "Wyczulony Zmysł (Wzrok)"
+        ],
+        "trappings": [
+          "drąg",
+          "lampa sztormowa z oliwą"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Legendarna Pilotka",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Żeglarstwo"
+        ],
+        "talents": [
+          "Czujny",
+          "Szósty Zmysł",
+          "Świetny Pływak",
+          "Wytrwały"
+        ],
+        "trappings": [
+          "Chłopiec Pokładowy",
+          "mała łódź rzeczna Z Marienburga przybył wielki statek",
+          "głęboko zanurzony i załadowany po burty. Powiedziałam",
+          "że przeprowadzenie przez"
+        ]
+      }
+    ],
+    "class": "Wodniacy",
+    "source": "Podręcznik podstawowy",
+    "page": 95
+  },
+  "Pirat Rzeczny": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "krasnolud"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Szabrownik",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Mocna Głowa",
+          "Odporność",
+          "Pływanie",
+          "Sztuka Przetrwania",
+          "Unik",
+          "Wioślarstwo",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Mocne Plecy",
+          "Przestępca",
+          "Rybak",
+          "Wtargnięcie z Włamaniem"
+        ],
+        "trappings": [
+          "duży worek",
+          "łom",
+          "skórzane rękawice"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Pirat Rzeczny",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Intuicja",
+          "Nawigacja",
+          "Opanowanie",
+          "Percepcja",
+          "Przekupstwo",
+          "Zastawianie Pułapek"
+        ],
+        "talents": [
+          "Chodu!",
+          "Świetny Pływak",
+          "Traper",
+          "Włóczykij"
+        ],
+        "trappings": [
+          "broń ręczna (bosak)",
+          "skórzana kurta",
+          "lampa sztormowa z oliwą"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Łupieżca",
+        "status": "Brąz 5",
+        "characteristics": [],
+        "skills": [
+          "Broń Zasięgowa (Kusza)",
+          "Plotkowanie",
+          "Skradanie (Wieś)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Cios Poniżej Pasa",
+          "Etykieta (Przestępcy)",
+          "Groźny",
+          "Wodniak"
+        ],
+        "trappings": [
+          "kotwiczka z liną",
+          "kusza z 10 bełtami",
+          "łódź rzeczna"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Kapitan Łupieżców",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Wiedza (Szlaki Wodne)"
+        ],
+        "talents": [
+          "Pilot",
+          "Skrócenie Dystansu",
+          "Urodzony Wojownik",
+          "Wściekły Atak"
+        ],
+        "trappings": [
+          "beczułka piwa",
+          "flota łodzi rzecznych z załogą Piratów",
+          "kajdany Tuż przed nadejściem nocy wypatrzyliśmy ten smakowity slup w drodze do Carroburga. Rozpaliliśmy ognie na lewym brzegu",
+          "by pomyśleli",
+          "że wioska leży kilkaset jardów bliżej. Halsowali na sterburtę",
+          "tak jak zaplanowaliśmy",
+          "i utknęli na piaszczystej mieliźnie. Znakomicie. Tylko skąd mogliśmy wie - dzieć",
+          "że łódź przewozi kompanię rajtarów? – Greta Lachsmann",
+          "na krótko przed powieszeniem Słuchaj",
+          "jeśli darujemy życie załodze",
+          "powiedzą strażnikom",
+          "gdzie działamy",
+          "więc jedynym rozsądnym wyjściem jest zabicie ich wszystkich. – Mandel Stein",
+          "pragmatyczny Pirat Rzeczny"
+        ]
+      }
+    ],
+    "class": "Wodniacy",
+    "source": "Podręcznik podstawowy",
+    "page": 96
+  },
+  "Przemytniczka": {
+    "species": [
+      "człowiek",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Szmuglerka Rzeczna",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Mocna Głowa",
+          "Opanowanie",
+          "Pływanie",
+          "Przekupstwo",
+          "Skradanie (Wieś albo Miasto)",
+          "Wioślarstwo",
+          "Żeglarstwo"
+        ],
+        "talents": [
+          "Doświadczony Wędrowiec (Bagna)",
+          "Mocne Plecy",
+          "Przestępca",
+          "Rybak"
+        ],
+        "trappings": [
+          "chusta albo maska",
+          "duży worek",
+          "lampa sztormowa z oliwą",
+          "pudełko na hubkę i krzesiwo"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Przemytniczka",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Percepcja",
+          "Plotkowanie",
+          "Sekretne Znaki (Przemytników)",
+          "Targowanie",
+          "Wiedza (Lokalna)"
+        ],
+        "talents": [
+          "Bardzo Silny",
+          "Etykieta (Przestępcy)",
+          "Wodniak",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "skórzana kurta",
+          "łódź wiosłowa",
+          "2 beczki"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Doświadczona Przemytniczka",
+        "status": "Brąz 5",
+        "characteristics": [],
+        "skills": [
+          "Intuicja",
+          "Wiedza (Szlaki Rzeczne)",
+          "Wycena",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Łapówkarz",
+          "Nieustraszony (Strażnicy Rzeczni)",
+          "Pilot",
+          "Świetny Pływak"
+        ],
+        "trappings": [
+          "Szmugler Rzeczny",
+          "szybka łódź rzeczna"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Królowa Przemytników",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Język (Dowolny)"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Doświadczony Wędrowiec (Wybrzeża)",
+          "Szycha",
+          "Urodzony Żeglarz"
+        ],
+        "trappings": [
+          "mała flota łodzi rzecznych",
+          "zestaw do charakteryzacji Zobacz",
+          "tutaj wsadzę butelkę najlepszego Bordeleaux. Strażnik rzeczny przeszuka to miejsce",
+          "znajdzie ją i skonfiskuje. I tego chcemy",
+          "ponieważ to oznacza",
+          "że nie znajdzie dwunastu butelek",
+          "które ukryliśmy tam. A jeśli je znajdzie",
+          "nie wszystko stracone",
+          "będzie bowiem tak zadowolony z siebie",
+          "że da sobie spokój i nie poszuka jeszcze tam",
+          "gdzie ukryte są dwadzieścia cztery butelki. – Hansel Solomon",
+          "Przemytnik"
+        ]
+      }
+    ],
+    "class": "Wodniacy",
+    "source": "Podręcznik podstawowy",
+    "page": 97
+  },
+  "Przewoźnik": {
+    "species": [
+      "człowiek",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Chłopiec Pokładowy",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Bijatyka)",
+          "Mocna Głowa",
+          "Odporność",
+          "Plotkowanie",
+          "Pływanie",
+          "Unik",
+          "Wioślarstwo",
+          "Żeglarstwo"
+        ],
+        "talents": [
+          "Cios Poniżej Pasa",
+          "Mocne Plecy",
+          "Rybak",
+          "Świetny Pływak"
+        ],
+        "trappings": [
+          "broń ręczna (bosak)",
+          "drąg",
+          "skórzana kurta"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Przewoźnik",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Intuicja",
+          "Percepcja",
+          "Targowanie",
+          "Wiedza (Szlaki Rzeczne)",
+          "Występy (Gawędziarstwo)"
+        ],
+        "talents": [
+          "Bardzo Silny",
+          "Etykieta (Cechy)",
+          "Obieżyświat",
+          "Wodniak"
+        ],
+        "trappings": [
+          "lina",
+          "łódź wiosłowa"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Sternik",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Leczenie",
+          "Rzemiosło (Szkutnictwo)",
+          "Wspinaczka",
+          "Występy (Śpiewanie)"
+        ],
+        "talents": [
+          "Defraudant",
+          "Nos do Kłopotów",
+          "Silny Cios",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "plecak",
+          "narzędzia pracy (Szkutnika)"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Kapitan Barki",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Nawigacja"
+        ],
+        "talents": [
+          "Groźny",
+          "Mówca",
+          "Pilot",
+          "Wyczucie Kierunku"
+        ],
+        "trappings": [
+          "kapelusz",
+          "łódź rzeczna z Załogą"
+        ]
+      }
+    ],
+    "class": "Wodniacy",
+    "source": "Podręcznik podstawowy",
+    "page": 98
+  },
+  "Strażnik Rzeczny": {
+    "species": [
+      "człowiek",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Rekrut Rzeczny",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Biała (Podstawowa)",
+          "Odporność",
+          "Percepcja",
+          "Pływanie",
+          "Unik",
+          "Wioślarstwo",
+          "Żeglarstwo"
+        ],
+        "talents": [
+          "Bardzo Silny",
+          "Mocne Plecy",
+          "Świetny Pływak",
+          "Wodniak"
+        ],
+        "trappings": [
+          "broń ręczna (miecz)",
+          "mundur",
+          "skórzana kurta"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Strażnik Rzeczny",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Zasięgowa (Prochowa)",
+          "Charyzma",
+          "Przekupstwo",
+          "Plotkowanie",
+          "Wiedza (Szlaki Rzeczne)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Artylerzysta",
+          "Obieżyświat",
+          "Przestępca",
+          "Rybak"
+        ],
+        "trappings": [
+          "latarnia z oliwą",
+          "pistolet z 10 nabojami",
+          "tarcza"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Żołnierz Okrętowy",
+        "status": "Srebro 4",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Intuicja",
+          "Opanowanie",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Nienawiść (Dowolna)",
+          "Nieustraszony (Piraci Rzeczni)",
+          "Pilot",
+          "Urodzony Żeglarz"
+        ],
+        "trappings": [
+          "hełm",
+          "kaftan kolczy",
+          "kotwiczka"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Mistrz Żołnierzy Okrętowych",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Nawigacja",
+          "Wiedza (Prawo)"
+        ],
+        "talents": [
+          "Groźny",
+          "Szycha",
+          "Władcza Postura",
+          "Wyczucie Kierunku"
+        ],
+        "trappings": [
+          "łodzie patrolowe z załogą",
+          "symbol rangi Kiedyś",
+          "kiedy byłem Strażnikiem Rzeki",
+          "Duży"
+        ]
+      }
+    ],
+    "class": "Wodniacy",
+    "source": "Podręcznik podstawowy",
+    "page": 99
+  },
+  "Żeglarz": {
+    "species": [
+      "człowiek",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Szczur Lądowy",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Bijatyka)",
+          "Hazard",
+          "Mocna Głowa",
+          "Plotkowanie",
+          "Pływanie",
+          "Wioślarstwo",
+          "Wspinaczka",
+          "Żeglarstwo"
+        ],
+        "talents": [
+          "Doświadczony Wędrowiec (Wybrzeża)",
+          "Mocne Plecy",
+          "Rybak",
+          "Świetny Pływak"
+        ],
+        "trappings": [
+          "mop",
+          "szczotka",
+          "wiadro"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Żeglarz",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Biała (Podstawowa)",
+          "Język (Dowolny)",
+          "Odporność",
+          "Unik",
+          "Występy (Śpiewanie)"
+        ],
+        "talents": [
+          "Na Cztery Łapy",
+          "Obieżyświat",
+          "Silne Nogi",
+          "Urodzony Żeglarz"
+        ],
+        "trappings": [
+          "broń ręczna (bosak)",
+          "skórzany kaftan"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Bosman",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Opanowanie",
+          "Percepcja",
+          "Rzemiosło (Cieśla)"
+        ],
+        "talents": [
+          "Bardzo Silny",
+          "Silny Cios",
+          "Wilk Morski",
+          "Wytrwały"
+        ],
+        "trappings": [
+          "narzędzia pracy (Cieśli)"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Kapitan Statku",
+        "status": "Złoto 2",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Nawigacja"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Mówca",
+          "Pilot",
+          "Wyczucie Kierunku"
+        ],
+        "trappings": [
+          "luneta",
+          "mapy morskie",
+          "sekstant",
+          "statek żeglowny z Załogą"
+        ]
+      }
+    ],
+    "class": "Wodniacy",
+    "source": "Podręcznik podstawowy",
+    "page": 100
+  },
+  "Banita": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Zbój",
+        "status": "Brąz 1",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Biała (Podstawowa)",
+          "Hazard",
+          "Mocna Głowa",
+          "Opanowanie",
+          "Odporność",
+          "Sztuka Przetrwania",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Zmysł Bitewny",
+          "Przestępca",
+          "Włóczykij",
+          "Chodu!"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "pudełko na hubkę i krzesiwo",
+          "skórzany kaftan",
+          "zwijane posłanie"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Banita",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Zasięgowa (Łuk)",
+          "Leczenie",
+          "Percepcja",
+          "Skradanie (Wieś)",
+          "Unik",
+          "Wiedza (Lokalna)"
+        ],
+        "talents": [
+          "Cios Poniżej Pasa",
+          "Ogłuszenie",
+          "Strzelec Wyborowy",
+          "Traper"
+        ],
+        "trappings": [
+          "łuk i 10 strzał",
+          "namiot",
+          "tarcza"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Herszt Banitów",
+        "status": "Brąz 4",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Intuicja",
+          "Jeździectwo (Konie)",
+          "Plotkowanie"
+        ],
+        "talents": [
+          "Groźny",
+          "Niezwykle Odporny",
+          "Szybkie Przeładowanie",
+          "Urodzony w Siodle"
+        ],
+        "trappings": [
+          "Banda Banitów",
+          "Hełm",
+          "Kaftan"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Król Banitów",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Wiedza (Imperium)"
+        ],
+        "talents": [
+          "Prosto Między Oczy",
+          "Nieustraszony (Strażnicy Dróg)",
+          "Żelazna Wola",
+          "Krzepki"
+        ],
+        "trappings": [
+          "hołd od miejscowych Hersztów Banitów",
+          "kryjówka To były dzieci",
+          "nie bandyci. Wygłodzone",
+          "brudne",
+          "chore. Wycelowały w nas łuki",
+          "a my nie ustąpiliśmy... Były w wieku mojego syna. Dzieci. Zabiły sześciu z nas... – Valentin Behr",
+          "Strażnik Dróg ...a on pyta: „Titus",
+          "po co nosisz nożyce?”. Ja pytam: „Te?”. A on mówi: „No",
+          "nie widzę tu innych nożyc”. Więc się zaśmiałem i odparłem: „Czasami oni nie chcą zdejmować pierścionków",
+          "gdy ich o to proszę. Jak im pokażę nożyce",
+          "większość szybko zaczyna śpiewać inaczej. A jeśli tego nie zrobią...”. Hehehe. – Titus Widmann",
+          "Banita Nie wszystkie bandy"
+        ]
+      }
+    ],
+    "class": "Łotry",
+    "source": "Podręcznik podstawowy",
+    "page": 101
+  },
+  "Czarownica": {
+    "species": [
+      "człowiek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Szeptucha",
+        "status": "Brąz 1",
+        "characteristics": [],
+        "skills": [
+          "Język (Magiczny)",
+          "Odporność",
+          "Opanowanie",
+          "Plotkowanie",
+          "Skradanie (Wieś)",
+          "Splatanie Magii",
+          "Zastraszanie",
+          "Zwinne Palce"
+        ],
+        "talents": [
+          "Groźny",
+          "Magia Prosta",
+          "Precyzyjne Inkantowanie",
+          "Przestępca"
+        ],
+        "trappings": [
+          "kreda",
+          "lalka",
+          "szpilki",
+          "świece"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Czarownica",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Drzewcowa)",
+          "Intuicja",
+          "Oswajanie",
+          "Percepcja",
+          "Rzemiosło (Zielarz)",
+          "Unik"
+        ],
+        "talents": [
+          "Atrakcyjny",
+          "Czarownica!",
+          "Magia Tajemna (Czarownic)",
+          "Percepcja Magiczna"
+        ],
+        "trappings": [
+          "kostur",
+          "narzędzia pracy (Zielarza)",
+          "worek",
+          "wybór ziół"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Wiedźma",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Przekupstwo",
+          "Targowanie",
+          "Wiedza (Mroczna Magia)"
+        ],
+        "talents": [
+          "Posłuch u Zwierząt",
+          "Ruchliwe Dłonie",
+          "Straszny",
+          "Wykrywanie Magii"
+        ],
+        "trappings": [
+          "amulety na szczęście",
+          "plecak",
+          "płaszcz z kilkoma kieszeniami"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Arcyczarownica",
+        "status": "Brąz 5",
+        "characteristics": [],
+        "skills": [
+          "Wiedza (Demonologia)",
+          "Wiedza (Magia)"
+        ],
+        "talents": [
+          "Niezwykle Odporny",
+          "Odporność Psychiczna",
+          "Szczęście",
+          "Zmysł Magii"
+        ],
+        "trappings": [
+          "czaszka",
+          "szata Myślisz",
+          "że tylko czarodzieje mogą władać magią? Zastanów się dobrze! Ja także pojmuję działanie magii i nie zgadzam się zostać niewolnikiem tak zwanych Kolegiów. – uczeń Franz"
+        ]
+      }
+    ],
+    "class": "Łotry",
+    "source": "Podręcznik podstawowy",
+    "page": 102
+  },
+  "Hiena Cmentarna": {
+    "species": [
+      "człowiek",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Porywaczka Zwłok",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Intuicja",
+          "Odporność",
+          "Opanowanie",
+          "Percepcja",
+          "Plotkowanie",
+          "Skradanie (Dowolne)",
+          "Unik",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Chodu!",
+          "Przestępca",
+          "Mocne Plecy",
+          "Ulicznik"
+        ],
+        "trappings": [
+          "łom",
+          "plandeka",
+          "płaszcz z kapturem",
+          "taczka"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Hiena Cmentarna",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Powożenie",
+          "Przekupstwo",
+          "Targowanie",
+          "Wiedza (Medycyna)",
+          "Wycena"
+        ],
+        "talents": [
+          "Bardzo Silny",
+          "Odporny na (Choroby)",
+          "Widzenie w Ciemności",
+          "Wtargnięcie z Włamaniem"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "lampa sztormowa z oliwą",
+          "plecak",
+          "szpadel"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Rabuś Grobowców",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Badania Naukowe",
+          "Otwieranie Zamków",
+          "Wiedza (Historia)",
+          "Zastawianie Pułapek"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Silny Cios",
+          "Szczur Kanałowy",
+          "Wytrwały"
+        ],
+        "trappings": [
+          "broń ręczna (kilof )",
+          "lina",
+          "narzędzia pracy (Złodziei)",
+          "skórzana kurta",
+          "wóz z koniem"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Łowczyni Skarbów",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Nawigacja",
+          "Rzemiosło (Inżynier)"
+        ],
+        "talents": [
+          "Nieustraszony (Nieumarli)",
+          "Odporność Psychiczna",
+          "Szósty Zmysł",
+          "Traper"
+        ],
+        "trappings": [
+          "mapy",
+          "namiot",
+          "narzędzia pracy (Inżyniera)",
+          "zestaw do pisania",
+          "zwijane posłanie Nie zabierzesz tego ze sobą... Ale ja z pewnością mogę to sobie wziąć. – Symon Schreiber",
+          "Porywacz Zwłok To nie tylko klejnoty",
+          "Herbert. Spójrz na te wszystkie kości! W Altdorfie jest profesor",
+          "który dobrze za nie zapłaci! – Tyle „Ghul” Grubsch",
+          "Hiena Cmentarna Koszmary"
+        ]
+      }
+    ],
+    "class": "Łotry",
+    "source": "Podręcznik podstawowy",
+    "page": 103
+  },
+  "Paser": {
+    "species": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Pośrednik",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Charyzma",
+          "Hazard",
+          "Mocna Głowa",
+          "Plotkowanie",
+          "Targowanie",
+          "Unik",
+          "Wycena"
+        ],
+        "talents": [
+          "Szuler",
+          "Towarzyski",
+          "Ulicznik",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "skradzione dobra warte 3k10 szylingów"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Paser",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Intuicja",
+          "Opanowanie",
+          "Percepcja",
+          "Rzemiosło (Grawer)",
+          "Sekretne Znaki (Złodziei)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Etykieta (Przestępcy)",
+          "Numizmatyka",
+          "Przestępca"
+        ],
+        "trappings": [
+          "monokl",
+          "narzędzia pracy (Grawera)",
+          "zestaw do pisania"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrz Paserów",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Przekupstwo",
+          "Wiedza (Lokalna)",
+          "Wiedza (Sztuka)",
+          "Występy (Gawędziarstwo)"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Geniusz Arytmetyczny",
+          "Ogłuszenie",
+          "Szycha"
+        ],
+        "trappings": [
+          "lombard"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Broker Informacji",
+        "status": "Srebro 4",
+        "characteristics": [],
+        "skills": [
+          "Badania Naukowe",
+          "Wiedza (Heraldyka)"
+        ],
+        "talents": [
+          "Cios Poniżej Pasa",
+          "Groźny",
+          "Łapówkarz",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "magazyn",
+          "sieć Informatorów",
+          "wynajęty Mięśniak Wiem",
+          "że to jest skradzione. Ty wiesz",
+          "że to jest skradzione. Nawet stary"
+        ]
+      }
+    ],
+    "class": "Łotry",
+    "source": "Podręcznik podstawowy",
+    "page": 104
+  },
+  "Rajfur": {
+    "species": [
+      "człowiek",
+      "elf wysoki",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Naganiacz",
+        "status": "Brąz 1",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Hazard",
+          "Mocna Głowa",
+          "Przekupstwo",
+          "Plotkowanie",
+          "Targowanie",
+          "Występy (Dowolne)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Atrakcyjny",
+          "Gadanina",
+          "Towarzyski",
+          "Ulicznik"
+        ],
+        "trappings": [
+          "flaszka mocnego alkoholu"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Rajfur",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Intuicja",
+          "Odporność",
+          "Percepcja",
+          "Unik",
+          "Wiedza (Lokalna)"
+        ],
+        "talents": [
+          "Hulaka",
+          "Oburęczność",
+          "Odporny na (Choroby)",
+          "Przestępca"
+        ],
+        "trappings": [
+          "dawka Dziwnokorzenia",
+          "dobre ubranie"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Stręczyciel",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Język (Dowolny)",
+          "Opanowanie",
+          "Wiedza (Prawo)",
+          "Wycena"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Defraudant",
+          "Etykieta (Dowolna Grupa)",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "sieć Naganiaczy"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Herszt Rajfurów",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Wiedza (Heraldyka)"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Łapówkarz",
+          "Numizmatyka",
+          "Szycha"
+        ],
+        "trappings": [
+          "kamienica z dyskretnym wejściem od tyłu",
+          "sieć Rajfurów"
+        ]
+      }
+    ],
+    "class": "Łotry",
+    "source": "Podręcznik podstawowy",
+    "page": 105
+  },
+  "Rekietierka": {
+    "species": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Zakapiorka",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Bijatyka)",
+          "Mocna Głowa",
+          "Odporność",
+          "Skradanie (Miasto)",
+          "Opanowanie",
+          "Unik",
+          "Wiedza (Lokalna)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Etykieta (Przestępcy)",
+          "Groźny",
+          "Przestępca",
+          "Silny Cios"
+        ],
+        "trappings": [
+          "kastet",
+          "skórzana kurta"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Rekietierka",
+        "status": "Brąz 5",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Charyzma",
+          "Język (Estalijski albo Tileański)",
+          "Plotkowanie",
+          "Przekupstwo",
+          "Wycena"
+        ],
+        "talents": [
+          "Cios Poniżej Pasa",
+          "Defraudant",
+          "Ogłuszenie",
+          "Urodzony Wojownik"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "kaftan kolczy",
+          "kapelusz"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Głowa Gangu",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Intuicja",
+          "Dowodzenie",
+          "Percepcja",
+          "Broń Zasięgowa (Kusza)"
+        ],
+        "talents": [
+          "Krzepki",
+          "Nieustraszony (Straże)",
+          "Odporny na (Trucizny)",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "gang"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Królowa Podziemia",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Wiedza (Polityka)",
+          "Wiedza (Prawo)"
+        ],
+        "talents": [
+          "Majętny",
+          "Straszny",
+          "Szycha",
+          "Władcza Postura"
+        ],
+        "trappings": [
+          "dobre ubranie z kapeluszem",
+          "kilka podporządkowanych Głów Gangów",
+          "sieć Informatorów Mam nadzieję",
+          "że przynosisz pieniądze Hazelmanna",
+          "bo naprawdę nie cierpię odgłosu łamanych palców. – Claus Betelhof",
+          "wrażliwy Rekieter JEŚLI NIE MOŻESZ SPŁACIĆ DŁUGU",
+          "NIE ZAKŁADAJ SIĘ. – szyld w Kościach Bosco (altdorfskiej jaskini hazardu) abo bosco pogruchocze ci kulasy – nagryzmolone kredą uzupełnienie szyldu w Kościach Bosco"
+        ]
+      }
+    ],
+    "class": "Łotry",
+    "source": "Podręcznik podstawowy",
+    "page": 106
+  },
+  "Szarlatan": {
+    "species": [
+      "człowiek",
+      "elf wysoki",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Kanciarz",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Hazard",
+          "Mocna Głowa",
+          "Plotkowanie",
+          "Przekupstwo",
+          "Targowanie",
+          "Występy (Gawędziarstwo)",
+          "Zwinne Palce"
+        ],
+        "talents": [
+          "Etykieta (Dowolna Grupa)",
+          "Szczęście",
+          "Szuler",
+          "Szuler Kościany"
+        ],
+        "trappings": [
+          "plecak",
+          "talia kart",
+          "zestaw kości",
+          "2 komplety ubrań"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Szarlatan",
+        "status": "Brąz 5",
+        "characteristics": [],
+        "skills": [
+          "Intuicja",
+          "Opanowanie",
+          "Percepcja",
+          "Unik",
+          "Wycena",
+          "Występy (Aktorstwo)"
+        ],
+        "talents": [
+          "Gadanina",
+          "Przestępca",
+          "Ruchliwe Dłonie",
+          "Sekretna Tożsamość"
+        ],
+        "trappings": [
+          "1 sfałszowany dokument",
+          "2 komplety ubrań dobrej jakości",
+          "wybór kolorowych proszków i płynów",
+          "wybór błyskotek i amuletów"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Oszust",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Język (Grypsera)",
+          "Wiedza (Heraldyka)",
+          "Otwieranie Zamków",
+          "Sekretne Znaki (Złodziei)"
+        ],
+        "talents": [
+          "Atrakcyjny",
+          "Czytanie/Pisanie",
+          "Gładkie Słówka",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "zestaw do charakteryzacji",
+          "wytrychy",
+          "liczne sfałszowane dokumenty"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Łajdak",
+        "status": "Srebro 4",
+        "characteristics": [],
+        "skills": [
+          "Badania Naukowe",
+          "Wiedza (Genealogia)"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Mistrz Charakteryzacji",
+          "Nos do Kłopotów",
+          "Towarzyski"
+        ],
+        "trappings": [
+          "podrobiona pieczęć",
+          "zestaw do pisania"
+        ]
+      }
+    ],
+    "class": "Łotry",
+    "source": "Podręcznik podstawowy",
+    "page": 107
+  },
+  "Złodziej": {
+    "species": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Bandzior",
+        "status": "Brąz 1",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Intuicja",
+          "Odporność",
+          "Opanowanie",
+          "Percepcja",
+          "Skradanie (Miasto)",
+          "Unik",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Chodu!",
+          "Ogłuszenie",
+          "Przestępca",
+          "Ulicznik"
+        ],
+        "trappings": [
+          "łom",
+          "skórzany kaftan",
+          "worek"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Złodziej",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": [
+          "Otwieranie Zamków",
+          "Plotkowanie",
+          "Sekretne Znaki (Złodziei)",
+          "Wiedza (Lokalna)",
+          "Wycena",
+          "Zwinne Palce"
+        ],
+        "talents": [
+          "Cień",
+          "Etykieta (Przestępcy)",
+          "Ruchliwe Dłonie",
+          "Szybki Refleks",
+          "Wtargnięcie z Włamaniem"
+        ],
+        "trappings": [
+          "lina",
+          "narzędzia pracy (Złodziei)"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrz Złodziejski",
+        "status": "Brąz 5",
+        "characteristics": [],
+        "skills": [
+          "Broń Zasięgowa (Kusza)",
+          "Hazard",
+          "Przekupstwo",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Traper",
+          "Widzenie w Ciemności",
+          "Zejście z Linii",
+          "Zręczne Palce"
+        ],
+        "trappings": [
+          "kusza pistoletowa z 10 bełtami"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Włamywacz",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Zastawianie Pułapek"
+        ],
+        "talents": [
+          "Na Cztery Łapy",
+          "Majętny",
+          "Silne Nogi",
+          "Wyborny Wspinacz"
+        ],
+        "trappings": [
+          "ciemne ubranie",
+          "chusta albo maska",
+          "kotwiczka"
+        ]
+      }
+    ],
+    "class": "Łotry",
+    "source": "Podręcznik podstawowy",
+    "page": 108
+  },
+  "Gladiator": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Pięściarz",
+        "status": "Brąz 4",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Biała (Bijatyka)",
+          "Broń Biała (Dowolna)",
+          "Hazard",
+          "Odporność",
+          "Opanowanie",
+          "Unik",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Cios Poniżej Pasa",
+          "Odwrócenie Szans",
+          "Skrócenie Dystansu",
+          "Żelazna Szczęka"
+        ],
+        "trappings": [
+          "bandaże",
+          "kastet",
+          "skórzana kurta"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Gladiator",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Targowanie",
+          "Intuicja",
+          "Broń Biała (Podstawowa)",
+          "Broń Biała (Korbacz albo Dwuręczna)",
+          "Percepcja",
+          "Broń Zasięgowa (Oplątująca)"
+        ],
+        "talents": [
+          "Bitewny Refleks",
+          "Dwie Bronie",
+          "Oburęczność",
+          "Tarczownik"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "bicz albo sieć",
+          "korbacz albo broń dwuręczna",
+          "puklerz albo tarcza"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrz Areny",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Kuglarstwo (Walka Pokazowa)",
+          "Mocna Głowa",
+          "Plotkowanie",
+          "Wiedza (Anatomia)"
+        ],
+        "talents": [
+          "Groźny",
+          "Krzepki",
+          "Mistrz Walki",
+          "Rozbrojenie"
+        ],
+        "trappings": [
+          "hełm",
+          "napierśnik"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Legenda Areny",
+        "status": "Złoto 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Zasięgowa (Dowolna)",
+          "Charyzma"
+        ],
+        "talents": [
+          "Atak Wyprzedzający",
+          "Nieubłagany",
+          "Straszny",
+          "Wściekły Atak"
+        ],
+        "trappings": [
+          "hełm dobrej jakości To była moja wielka szansa. Najważniejsza walka życia. Wtedy przyszły"
+        ]
+      }
+    ],
+    "class": "Wojownicy",
+    "source": "Podręcznik podstawowy",
+    "page": 109
+  },
+  "Kapłan Bitewny": {
+    "species": [
+      "człowiek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Nowicjusz Kapłanów Bitewnych",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Dowolna)",
+          "Dowodzenie",
+          "Leczenie",
+          "Modlitwa",
+          "Odporność",
+          "Opanowanie",
+          "Wiedza (Teologia)",
+          "Unik"
+        ],
+        "talents": [
+          "Błogosławieństwo (Dowolne Bóstwo)",
+          "Czytanie/ Pisanie",
+          "Etykieta (Kultyści)",
+          "Odporność Psychiczna"
+        ],
+        "trappings": [
+          "broń biała (Dowolna)",
+          "księga (Religia)",
+          "skórzany kaftan",
+          "symbol religijny",
+          "szata"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Kapłan Bitewny",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Dowolna)",
+          "Broń Zasięgowa (Dowolna)",
+          "Charyzma",
+          "Język (Bitewny)",
+          "Występy (Przemawianie)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Dwie Bronie",
+          "Inspirujący",
+          "Inwokacja (Dowolne Bóstwo)",
+          "Obieżyświat"
+        ],
+        "trappings": [
+          "broń (Dowolna)",
+          "napierśnik"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Kapłan-sierżant",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Intuicja",
+          "Jeździectwo (Konie)",
+          "Percepcja",
+          "Opieka nad zwierzętami"
+        ],
+        "talents": [
+          "Czysta Dusza",
+          "Święte Wizje",
+          "Waleczne Serce",
+          "Zmysł Bitewny"
+        ],
+        "trappings": [
+          "lekki koń bojowy z siodłem i uprzężą"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Kapłan-kapitan",
+        "status": "Srebro 4",
+        "characteristics": [],
+        "skills": [
+          "Mocna Głowa",
+          "Wiedza (Sztuka Wojenna)"
+        ],
+        "talents": [
+          "Nieustraszony (Dowolny)",
+          "Święta Nienawiść",
+          "Wódz",
+          "Wściekły Atak"
+        ],
+        "trappings": [
+          "relikwia"
+        ]
+      }
+    ],
+    "class": "Wojownicy",
+    "source": "Podręcznik podstawowy",
+    "page": 110
+  },
+  "Kawalerzysta": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Jeździec",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Jeździectwo (Konie)",
+          "Język (Bitewny)",
+          "Odporność",
+          "Opieka nad Zwierzętami",
+          "Oswajanie",
+          "Percepcja",
+          "Sztuka Przetrwania"
+        ],
+        "talents": [
+          "Szybki Refleks",
+          "Urodzony w Siodle",
+          "Z Bata",
+          "Zmysł Bitewny"
+        ],
+        "trappings": [
+          "koń wierzchowy z rzędem",
+          "skórzana kurta"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Kawalerzysta",
+        "status": "Srebro 4",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Kawaleryjska)",
+          "Broń Zasięgowa (Prochowa)",
+          "Charyzma",
+          "Mocna Głowa",
+          "Opanowanie",
+          "Plotkowanie"
+        ],
+        "talents": [
+          "Artylerzysta",
+          "Etykieta (Żołnierze)",
+          "Obieżyświat",
+          "Woltyżerka"
+        ],
+        "trappings": [
+          "hełm",
+          "lekki koń bojowy z siodłem i uprzężą",
+          "napierśnik",
+          "pistolet z 10 nabojami",
+          "tarcza"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Sierżant Kawalerii",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Intuicja",
+          "Dowodzenie",
+          "Wiedza (Sztuka Wojenna)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Bitewny Refleks",
+          "Błyskawiczny Strzał",
+          "Nienawiść (Dowolna)",
+          "Wódz"
+        ],
+        "trappings": [
+          "szarfa"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Oficer Kawalerii",
+        "status": "Złoto 2",
+        "characteristics": [],
+        "skills": [
+          "Hazard",
+          "Wiedza (Heraldyka)"
+        ],
+        "talents": [
+          "Atak Wyprzedzający",
+          "Celny Strzał",
+          "Inspirujący",
+          "Krzepki"
+        ],
+        "trappings": [
+          "dobre ubranie",
+          "talia kart"
+        ]
+      }
+    ],
+    "class": "Wojownicy",
+    "source": "Podręcznik podstawowy",
+    "page": 111
+  },
+  "Ochroniarz": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Stróż",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Hazard",
+          "Intuicja",
+          "Mocna Głowa",
+          "Odporność",
+          "Percepcja",
+          "Plotkowanie",
+          "Występy (Gawędziarstwo)"
+        ],
+        "talents": [
+          "Etykieta (Słudzy)",
+          "Ogłuszenie",
+          "Szuler Kościany",
+          "Wytrwały"
+        ],
+        "trappings": [
+          "lampa sztormowa z oliwą",
+          "puklerz",
+          "skórzany kaftan"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Ochroniarz",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Biała (Drzewcowa)",
+          "Broń Zasięgowa (Łuk)",
+          "Opanowanie",
+          "Unik",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Nieustępliwy",
+          "Odwrócenie Szans",
+          "Silny Cios",
+          "Tarczownik"
+        ],
+        "trappings": [
+          "kaftan kolczy z rękawami",
+          "łuk i 10 strzał",
+          "tarcza",
+          "włócznia"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Gwardzista",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Dwuręczna)",
+          "Język (Bitewny)",
+          "Leczenie",
+          "Wiedza (Etykieta)"
+        ],
+        "talents": [
+          "Nieustraszony (Intruzi)",
+          "Niewzruszony",
+          "Sprężynka",
+          "Waleczne Serce"
+        ],
+        "trappings": [
+          "broń dwuręczna albo halabarda",
+          "hełm",
+          "mundur"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Oficer Gwardii",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Wiedza (Sztuka Wojenna)"
+        ],
+        "talents": [
+          "Krzepki",
+          "Mistrz Walki",
+          "Wściekły Atak",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "napierśnik"
+        ]
+      }
+    ],
+    "class": "Wojownicy",
+    "source": "Podręcznik podstawowy",
+    "page": 112
+  },
+  "Oprych": {
+    "species": [
+      "człowiek",
+      "elf wysoki",
+      "krasnolud"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Tani Drań",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Biała (Dowolna)",
+          "Odporność",
+          "Plotkowanie",
+          "Targowanie",
+          "Unik",
+          "Występy (Szydzenie)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Cios Poniżej Pasa",
+          "Groźny",
+          "Skrócenie Dystansu",
+          "Urodzony Wojownik"
+        ],
+        "trappings": [
+          "kastet",
+          "kaptur albo maska",
+          "skórzana kurta"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Oprych",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Charyzma",
+          "Intuicja",
+          "Jeździectwo (Konie)",
+          "Percepcja",
+          "Przekupstwo"
+        ],
+        "talents": [
+          "Bitewny Refleks",
+          "Odwrócenie Szans",
+          "Ogłuszenie",
+          "Przestępca"
+        ],
+        "trappings": [
+          "broń ręczna",
+          "kaftan kolczy",
+          "koń wierzchowy z rzędem",
+          "tarcza"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Płatny Morderca",
+        "status": "Srebro 4",
+        "characteristics": [],
+        "skills": [
+          "Broń Zasięgowa (Miotana)",
+          "Nawigacja",
+          "Opanowanie",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Cios Mierzony",
+          "Nieustępliwy",
+          "Rozbrojenie",
+          "Strzelec Wyborowy"
+        ],
+        "trappings": [
+          "garota",
+          "noże do rzucania",
+          "płaszcz",
+          "trucizna"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Skrytobójca",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Broń Zasięgowa (Kusza)",
+          "Występy (Aktorstwo)"
+        ],
+        "talents": [
+          "Celny Strzał",
+          "Morderczy Atak",
+          "Oburęczność",
+          "Wściekły Atak"
+        ],
+        "trappings": [
+          "kusza z 10 bełtami",
+          "zestaw do charakteryzacji Pamiętasz Tommiego Dwa Noże? Nie mówię",
+          "że zalazł mi za skórę. Mówię tylko",
+          "że już nie widuje się go na mieście",
+          "prawda? – Gilly Trzy Noże",
+          "Oprych Owszem",
+          "Duży"
+        ]
+      }
+    ],
+    "class": "Wojownicy",
+    "source": "Podręcznik podstawowy",
+    "page": 113
+  },
+  "Rycerz": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Giermek",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Biała (Kawaleryjska)",
+          "Jeździectwo (Konie)",
+          "Leczenie",
+          "Opieka nad Zwierzętami",
+          "Oswajanie",
+          "Rzemiosło (Podkuwanie Koni)",
+          "Wiedza (Heraldyka)"
+        ],
+        "talents": [
+          "Etykieta (Dowolna Grupa)",
+          "Tragarz",
+          "Urodzony Wojownik",
+          "Urodzony w Siodle"
+        ],
+        "trappings": [
+          "kaftan kolczy",
+          "koń wierzchowy z rzędem",
+          "narzędzia pracy (Podkuwanie Koni)",
+          "skórzana kurta",
+          "tarcza"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Rycerz",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Dowolna)",
+          "Język (Bitewny)",
+          "Odporność",
+          "Opanowanie",
+          "Unik",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Groźny",
+          "Obieżyświat",
+          "Silny Cios",
+          "Tarczownik"
+        ],
+        "trappings": [
+          "broń biała (Dowolna)",
+          "kopia",
+          "rumak z siodłem i uprzężą",
+          "zbroja płytowa z hełmem"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Pierwszy Rycerz",
+        "status": "Złoto 2",
+        "characteristics": [],
+        "skills": [
+          "Charyzma",
+          "Mocna Głowa",
+          "Dowodzenie",
+          "Wiedza (Sztuka Wojenna)"
+        ],
+        "talents": [
+          "Niewzruszony",
+          "Nieustraszony (Dowolny)",
+          "Waleczne Serce",
+          "Wódz"
+        ],
+        "trappings": [
+          "kropierz",
+          "mały oddział Rycerzy"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Rycerz Wewnętrznego Kręgu",
+        "status": "Złoto 4",
+        "characteristics": [],
+        "skills": [
+          "Sekretne Znaki (Zakonu Rycerskiego)",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Inspirujący",
+          "Morderczy Atak",
+          "Rozbrojenie",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "Giermek",
+          "pełny hełm z pióropuszem",
+          "duży oddział lub kilka małych oddziałów Rycerzy"
+        ]
+      }
+    ],
+    "class": "Wojownicy",
+    "source": "Podręcznik podstawowy",
+    "page": 114
+  },
+  "Zabójca": {
+    "species": [
+      "krasnolud"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Zabójca Trolli",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Hazard",
+          "Leczenie",
+          "Mocna Głowa",
+          "Odporność",
+          "Opanowanie",
+          "Unik",
+          "Wiedza (Trolle)"
+        ],
+        "talents": [
+          "Dwie Bronie",
+          "Nieustraszony (Wszystko)",
+          "Szał Bojowy",
+          "Zabójca"
+        ],
+        "trappings": [
+          "flaszka mocnego alkoholu",
+          "topór",
+          "tatuaże",
+          "wstyd i hańba"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Zabójca Olbrzymów",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Dwuręczna)",
+          "Język (Bitewny)",
+          "Sztuka Przetrwania",
+          "Wiedza (Olbrzymy)",
+          "Wycena",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Groźny",
+          "Nieubłagany",
+          "Odwrócenie Szans",
+          "Twardziel"
+        ],
+        "trappings": [
+          "biżuteria",
+          "głowa trolla",
+          "wielki topór"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Zabójca Smoków",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Broń Zasięgowa (Miotana)",
+          "Percepcja",
+          "Wiedza (Smoki)",
+          "Występy (Gawędziarstwo)"
+        ],
+        "talents": [
+          "Wściekły Atak",
+          "Nieustępliwy",
+          "Krzepki",
+          "Oburęczność"
+        ],
+        "trappings": [
+          "głowa olbrzyma",
+          "topory do rzucania"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Zabójca Demonów",
+        "status": "Brąz 2",
+        "characteristics": [],
+        "skills": [
+          "Intuicja",
+          "Wiedza (Chaos)"
+        ],
+        "talents": [
+          "Bardzo Silny",
+          "Silny Cios",
+          "Straszny",
+          "Mistrz Walki"
+        ],
+        "trappings": [
+          "smoczy łeb"
+        ]
+      }
+    ],
+    "class": "Wojownicy",
+    "source": "Podręcznik podstawowy",
+    "page": 115
+  },
+  "Żołnierz": {
+    "species": [
+      "człowiek",
+      "elf leśny",
+      "elf wysoki",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": true,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Rekrut",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": [
+          "Atletyka",
+          "Broń Biała (Podstawowa)",
+          "Język (Bitewny)",
+          "Muzyka (Bęben albo Piszczałka)",
+          "Odporność",
+          "Opanowanie",
+          "Unik",
+          "Wspinaczka"
+        ],
+        "talents": [
+          "Mocne Plecy",
+          "Strzelec Wyborowy",
+          "Szuler Kościany",
+          "Urodzony Wojownik"
+        ],
+        "trappings": [
+          "mundur",
+          "skórzany napierśnik",
+          "sztylet"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Żołnierz",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": [
+          "Broń Biała (Dowolna)",
+          "Broń Zasięgowa (Dowolna)",
+          "Hazard",
+          "Mocna Głowa",
+          "Plotkowanie",
+          "Sztuka Przetrwania"
+        ],
+        "talents": [
+          "Etykieta (Żołnierze)",
+          "Musztra",
+          "Szybkie Przeładowanie",
+          "Tarczownik"
+        ],
+        "trappings": [
+          "broń (Dowolna)",
+          "hełm",
+          "napierśnik"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Sierżant",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": [
+          "Dowodzenie",
+          "Intuicja",
+          "Leczenie",
+          "Percepcja"
+        ],
+        "talents": [
+          "Niewzruszony",
+          "Walka w Ciasnocie",
+          "Wódz",
+          "Zmysł Bitewny"
+        ],
+        "trappings": [
+          "oddział Żołnierzy",
+          "symbol rangi"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Oficer",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": [
+          "Nawigacja",
+          "Wiedza (Sztuka Wojenna)"
+        ],
+        "talents": [
+          "Inspirujący",
+          "Mówca",
+          "Obieżyświat",
+          "Waleczne Serce"
+        ],
+        "trappings": [
+          "awans",
+          "lekki koń bojowy z siodłem i uprzężą",
+          "mapa",
+          "mundur dobrej jakości",
+          "oddział Żołnierzy",
+          "rozkazy",
+          "symbol rangi"
+        ]
+      }
+    ],
+    "class": "Wojownicy",
+    "source": "Podręcznik podstawowy",
+    "page": 116
+  }
+}

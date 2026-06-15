@@ -1,0 +1,106 @@
+{
+  "Uczeni": {
+    "description": "Wykształceni mieszkańcy Imperium parający się nauką, medycyną, prawem, magią i wiarą. Zwykle umieją czytać i pisać oraz cieszą się szacunkiem.",
+    "careers": [
+      "Aptekarka",
+      "Czarodziej",
+      "Inżynier",
+      "Kapłan",
+      "Medyczka",
+      "Mniszka",
+      "Prawniczka",
+      "Uczony"
+    ]
+  },
+  "Mieszczanie": {
+    "description": "Mieszkańcy miast i miasteczek: rzemieślnicy, kupcy, strażnicy i drobni urzędnicy utrzymujący codzienne życie osad Imperium.",
+    "careers": [
+      "Agitator",
+      "Kupiec",
+      "Mieszczka",
+      "Rzemieślniczka",
+      "Strażnik",
+      "Szczurołap",
+      "Śledczy",
+      "Żebrak"
+    ]
+  },
+  "Dworzanie": {
+    "description": "Ludzie obracający się wśród szlachty i na dworach: doradcy, posłowie, artyści, słudzy oraz intryganci żyjący z koneksji i etykiety.",
+    "careers": [
+      "Artystka",
+      "Doradca",
+      "Namiestnik",
+      "Poseł",
+      "Służąca",
+      "Szlachcic",
+      "Szpieg",
+      "Zwadźca"
+    ]
+  },
+  "Pospólstwo": {
+    "description": "Prości ludzie wsi i dziczy: chłopi, górnicy, łowcy i znachorzy żyjący blisko ziemi, z dala od wielkich miast.",
+    "careers": [
+      "Chłopka",
+      "Górnik",
+      "Guślarz",
+      "Łowczyni",
+      "Mistyczka",
+      "Zarządca",
+      "Zielarka",
+      "Zwiadowca"
+    ]
+  },
+  "Wędrowcy": {
+    "description": "Ludzie ciągle w drodze: posłańcy, kuglarze, łowcy nagród i strażnicy dróg, których życie toczy się na traktach Imperium.",
+    "careers": [
+      "Biczownik",
+      "Domokrążca",
+      "Kuglarka",
+      "Łowca Czarownic",
+      "Łowczyni Nagród",
+      "Posłaniec",
+      "Strażniczka Dróg",
+      "Woźnica"
+    ]
+  },
+  "Wodniacy": {
+    "description": "Ludzie rzek i wybrzeży: żeglarze, flisacy, przewoźnicy i przemytnicy, którzy zarabiają na życie na wodzie.",
+    "careers": [
+      "Doker",
+      "Flisak",
+      "Pilotka Rzeczna",
+      "Pirat Rzeczny",
+      "Przemytniczka",
+      "Przewoźnik",
+      "Strażnik Rzeczny",
+      "Żeglarz"
+    ]
+  },
+  "Łotry": {
+    "description": "Ludzie działający poza prawem: złodzieje, paserzy, czarownice i oszuści żyjący z występku i sprytu.",
+    "careers": [
+      "Banita",
+      "Czarownica",
+      "Hiena Cmentarna",
+      "Paser",
+      "Rajfur",
+      "Rekietierka",
+      "Szarlatan",
+      "Złodziej"
+    ]
+  },
+  "Wojownicy": {
+    "description": "Ludzie żyjący z walki: żołnierze, rycerze, gladiatorzy i ochroniarze, dla których oręż to chleb powszedni.",
+    "careers": [
+      "Gladiator",
+      "Kapłan Bitewny",
+      "Kawalerzysta",
+      "Ochroniarz",
+      "Oprych",
+      "Rycerz",
+      "Zabójca",
+      "Żołnierz"
+    ]
+  }
+}

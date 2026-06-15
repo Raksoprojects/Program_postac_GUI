@@ -1,5 +1,0 @@
-classes total: 64
-professions total: 64
-in classes not in professions: []
-in professions not in classes: []
-class mismatch: []

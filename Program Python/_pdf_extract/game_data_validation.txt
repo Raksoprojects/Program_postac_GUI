@@ -1,0 +1,16 @@
+Profesje: 64
+Klasy: 8
+Talenty: 167
+BŁĘDY: 0
+OSTRZEŻENIA: 64
+  ~ Profesja 'Aptekarka': cechy do rozwoju nieuzupełnione (characteristics_pending)
+  ~ Profesja 'Czarodziej': cechy do rozwoju nieuzupełnione (characteristics_pending)
+  ~ Profesja 'Inżynier': cechy do rozwoju nieuzupełnione (characteristics_pending)
+  ~ Profesja 'Kapłan': cechy do rozwoju nieuzupełnione (characteristics_pending)
+  ~ Profesja 'Medyczka': cechy do rozwoju nieuzupełnione (characteristics_pending)
+  ~ Profesja 'Mniszka': cechy do rozwoju nieuzupełnione (characteristics_pending)
+  ~ Profesja 'Prawniczka': cechy do rozwoju nieuzupełnione (characteristics_pending)
+  ~ Profesja 'Uczony': cechy do rozwoju nieuzupełnione (characteristics_pending)
+  ~ Profesja 'Agitator': cechy do rozwoju nieuzupełnione (characteristics_pending)
+  ~ Profesja 'Kupiec': cechy do rozwoju nieuzupełnione (characteristics_pending)
+  ... (łącznie 64 ostrzeżeń)
