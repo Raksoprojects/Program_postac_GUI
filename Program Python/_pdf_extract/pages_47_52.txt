@@ -1,0 +1,500 @@
+===== PAGE INDEX 47 =====
+47
+Poziomy  Profesji
+Każda Profesja ma cztery poziomy, a każdy kolejny jest lepszy od 
+poprzedniego. Na przykład Aptekarz, pierwsza profesja Uczonych, 
+ma cztery poziomy:
+1. Uczeń Aptekarza
+2. Aptekarz
+3. Farmaceuta
+4. Mistrz Aptekarstwa
+Wybierając Profesję nowego Bohatera, zawsze zaczynasz od jej 
+pierwszego poziomu. Zatem jeśli chcesz być Aptekarzem, zaczynasz 
+jako Uczeń Aptekarza.
+r ozwijanie  Profesji
+Profesja decyduje o tym, w jaki sposób twój Bohater będzie się roz-
+wijał dzięki zdobywaniu doświadczenia. Każda Profesja umożliwia 
+trzy formy Rozwoju: Rozwój Cech, Rozwój Umiejętności oraz Roz-
+wój Talentów. Każda z nich polega na wydawaniu pewnej liczby 
+Punktów Doświadczenia (PD). Możesz także użyć PD, jeśli chcesz 
+zmienić Profesję. Poziom Profesji określa dostępne do wykupywania 
+Cechy, Umiejętności i Talenty.
+Rozwój Cech
+Każda Profesja ma przypisany Schemat rozwoju opisujący jej Rozwój 
+Cech. Schemat rozwoju pokazuje 10 Cech twojego Bohatera, z któ-
+rych 3 oznaczone są symbolem h, 1 Cecha oznaczona jest symbo-
+lem  na brązowym tle, 1 oznaczona symbolem  na srebrnym tle 
+i ostatnia oznaczona symbolem  na złotym tle.
+Trzy Cechy oznaczone symbolem h możesz rozwijać na pierw -
+szym poziomie Profesji. Po osiągnięciu drugiego poziomu Profe -
+sji dostępna stanie się także Cecha . Po osiągnięciu trzeciego 
+poziomu dostępna stanie się także Cecha . A wreszcie po osią -
+gnięciu czwartego, ostatniego poziomu Profesji, wreszcie dostęp -
+na stanie się Cecha .
+Koszt Rozwoju Cech w PD podano w tabeli Koszt Rozwoju Cech 
+i Umiejętności w PD i zależy od liczby Rozwinięć Cech, które już 
+zostały wykorzystane dla danej Cechy.
+Każde Rozwinięcie Cech daje +1 do bieżącej wartości odpowiedniej 
+Cechy. Zatem jeśli kupisz 4 Rozwinięcia Zwinności, której wartość 
+początkowa wynosiła 27, Testy będziesz przeprowadzać dla bieżącej 
+Zwinności 31. Póki suma Rozwinięć zamyka się w przedziale 0-5, 
+tak jak w tym przypadku, każde +1 kosztuje 25 PD.
+Rozdział 5: Zasady wyjaśnia sposób wykorzystywania Cech w grze, 
+natomiast Rozdział 2: Bohater opisuje każdą Cechę. Nie ma górne-
+go limitu liczby Rozwinięć Cech, które można kupić, chociaż wyższe 
+poziomy stają się niezwykle kosztowne.
+Uwaga: Chociaż Umiejętności Strzeleckie mają w nazwie „Umiejęt-
+ność”, są one Cechą. To określenie pozostawiliśmy przez szacunek 
+dla tradycji WFRP . Pod względem zasad US są Cechą i tak też będą 
+rozwijane.
+KOSZT ROZWOJU CECH 
+I UMIEJĘTNOŚCI W PD
+Rozwinięcia Koszt w PD za Rozwinięcie
+Cechy Umiejętności
+0 do 5 25 10
+6 do 10 30 15
+11 do 15 40 20
+16 do 20 50 30
+21 do 25 70 40
+26 do 30 90 60
+31 do 35 120 80
+36 do 40 150 110
+41 do 45 190 140
+46 do 50 230 180
+51 do 55 280 220
+56 do 60 330 270
+61 do 65 390 320
+66 do 70 450 380
+ponad 70 520 440
+Rozwój Umiejętności
+Możesz rozwijać wszystkie Umiejętności dostępne na obecnym 
+poziomie danej Profesji i na poziomach niższych. Jeśli zatem jesteś 
+Uczniem Aptekarza (poziom 1), masz dostęp tylko do Umiejętności 
+przypisanych Uczniowi Aptekarza (poziom 1). Ale jeśli jesteś Mi -
+strzem Aptekarskim (poziom 3), masz dostęp do wszystkich Umie-
+jętności Mistrza Aptekarskiego (poziom 3), Aptekarza (poziom 2) 
+oraz Ucznia Aptekarza (poziom 1).
+Koszt Rozwoju Umiejętności w PD podano w tabeli Koszt Roz -
+woju Cech i Umiejętności w PD i zależy od liczby Rozwinięć, które 
+postać już posiada w danej Umiejętności.
+Każde Rozwinięcie Umiejętności dodaje +1 do jej poziomu, któ -
+ry zależy od Cechy. Zatem jeśli kupisz 9 Rozwinięć w Skradaniu, 
+a Zwinność postaci wynosi 31, w Testach będziesz korzystać ze 
+Skradania na poziomie 40. Pierwszych 5 Rozwinięć będzie koszto -
+wało 10 PD za każde, a 4 pozostałe Rozwinięcia będą kosztowały 
+15 PD za każde.
+Uwaga: Jedna z Umiejętności na pierwszym poziomie Profesji 
+będzie oznaczona kursywą. Jest to Umiejętność, którą testujesz, 
+gdy w trakcie gry poświęcasz czas na Zarabianie pieniędzy (patrz 
+strona 51).
+Kompletne zasady korzystania z Umiejętności zawiera Rozdział 4: 
+Umiejętności i Talenty. Podobnie jak w przypadku Rozwoju Cech, 
+nie ma górnego limitu liczby Rozwinięć Umiejętności, które można 
+kupić.
+IIIKLASY I PROFESJE
+Dawid Dachowski (Order #22703981)
+
+===== PAGE INDEX 48 =====
+WARHAMMER FANTASY ROLEPLAY
+48
+ROZWÓJ POZA PROFESJĄ
+Wcześniej czy później Bohaterowie będą chcieli rozwinąć 
+Cechy i Umiejętności, które nie zostały wymienione w ich 
+Profesjach. Jeśli MG się na to zgodzi, można tak zrobić, 
+ale koszt każdego Rozwinięcia jest dwukrotnie wyższy 
+niż normalnie. MG może zażądać od twojej postaci, 
+by znalazła nauczyciela, lub poprosić cię o odpowiednie 
+odegranie nietypowego szkolenia.
+Rozwój Cech i UmiejętnoÊci poza Profesją kosztuje 
+dwa razy więcej PD, niż podano w tabeli Koszt 
+Rozwoju Cech i UmiejętnoÊci w PD.
+Normalnie nie można kupować za PD Talentów 
+niedostępnych dla danej Profesji, aczkolwiek Zajęcia 
+Szkolenie i Szlifowanie talentu, które opisuje Rozdział 6: 
+Pomiędzy przygodami , umożliwiają kupowanie Rozwinięć 
+poza Profesją, tak jakby były one jej częścią, w szczególności 
+pozwalają na uczenie się zwykle niedostępnych Talentów.
+Rozwój Talentów
+Talenty są dostępne tylko na tym poziomie Profesji, przy którym zo-
+stały wymienione. A zatem jeśli jesteś Farmaceutą, możesz kupować 
+tylko Talenty dostępne dla Farmaceuty, a nie te, które są wymienione 
+dla Ucznia Aptekarza, Aptekarza czy Mistrza Aptekarskiego.
+Rozwinięcie Talentu kosztuje 100 PD + 100 PD za każde już po -
+siadane jego Rozwinięcie.
+Zasady dotyczące wszystkich Talentów znajdziecie w Rozdziale 4: 
+Umiejętności i Talenty. Gdy po raz pierwszy kupisz nowy Talent (za 
+100 PD), uzyskasz dostęp do jego specjalnych zasad. Jeśli możliwe jest 
+wykupienie Talentu kilka razy (drugi raz kosztuje 200 PD, a trzeci 300 
+PD), pojawią się dodatkowe możliwości. Są one podane w jego opisie.
+Uwaga: Nie wszystkie Talenty można kupować kilka razy. Sprawdź 
+w opisie, czy obowiązują w tej kwestii jakieś ograniczenia.
+Zmiana  Profesji
+Kiedy wykupisz wszystkie Rozwinięcia, które interesują cię w obecnej 
+Profesji, możesz ją zmienić. Wybierasz wtedy jedną z dwóch możli-
+wości:
+1) przechodzisz na inny poziom obecnej Profesji (z Aptekarza na 
+Mistrza Aptekarskiego);
+2) przechodzisz do całkiem nowej Profesji (z Aptekarza na Uczonego).
+ZASADA OPCJONALNA: WYBÓR 
+WŁASNEGO WYPOSAŻENIA
+Wyposażenie wymienione w każdej Profesji należy trakto-
+wać tylko jako sugestię. Możesz kreatywnie ustalać Wypo-
+sażenie i wybierać rzeczy, które pasują do twojej interpre-
+tacji Profesji Bohatera i sposobu, w jaki Profesja przejawia 
+się w jego życiu. Jeśli więc korzystasz z Profesji Żołnierza 
+i chcesz, by reprezentowała ona doświadczonego strzelca 
+z Reiklandzkiej Armii Prowincji, możesz zdecydować się 
+na modyfikację wymaganego Wyposażenia, aby włączyć do 
+niego proch i pociski.
+Wyposażenie określa, w jaki sposób postrzegana jest 
+osoba danej Profesji. Jeśli chcesz działać incognito, nie 
+musisz nosić ze sobą całego wyposażenia. Podobnie, jeśli 
+próbujesz wykorzystać autorytet swojej Profesji, brak 
+odpowiedniego wyposażenia może powodować, że inni nie 
+będą traktowali cię poważnie.
+W każdym przypadku musisz najpierw sprawdzić, czy twój obecny 
+poziom Profesji został skompletowany. Jeśli tak jest, zmiana Profesji 
+kosztuje 100 PD. Jeśli nie, zmiana Profesji kosztuje 200 PD.
+Kompletowanie Profesji
+Skompletowanie Profesji reprezentuje pełne opanowanie aktualnie 
+wykonywanego zawodu i gotowość, by zająć się czymś nowym.
+Aby skompletować Profesję, musisz wykorzystać podaną niżej 
+liczbę Rozwinięć wszystkich Cech dla danego poziomu Profesji 
+i ośmiu spośród dostępnych Umiejętności. Ponadto musisz mieć co 
+najmniej 1 Talent z aktualnego poziomu Profesji. Wliczają się do 
+tego Rozwinięcia Umiejętności i Talenty uzyskane przed rozpoczę-
+ciem bieżącej Profesji.
+Poziom Rozwinięcia
+1 5
+2 10
+3 15
+4 20
+Uwaga: Skompletowanie poziomu Profesji nie oznacza, że musisz 
+przejść na nowy poziom. Decyzja o awansie w Profesji należy wy -
+łącznie do ciebie. Jeśli chcesz na zawsze zostać na pierwszym pozio-
+mie Żebraka, to całkiem w porządku.
+III
+Dawid Dachowski (Order #22703981)
+
+===== PAGE INDEX 49 =====
+49
+Przejście na nowy poziom
+Jeśli aktualny poziom Profesji jest skompletowany, możesz przejść 
+na kolejny poziom Profesji albo na dowolny niższy poziom Profe -
+sji za 100 PD. Jeśli zatem masz ukończony poziom Łowcy (Łowca, 
+poziom 2), za 100 PD możesz przejść na Tropiciela (Łowca, poziom 
+3) lub na Trapera (Łowca, poziom 1), ale nie na Nadwornego Łowcę 
+(Łowca, poziom 4).
+Za pozwoleniem MG możesz także pomijać poziomy Profesji. Nor-
+malnie jest to wywoływane przez wydarzenia w grze. Na przykład: 
+Dziedzic (Szlachcic, poziom 1) podczas gry dostaje w spadku spory 
+majątek, więc MG proponuje zmianę Profesji na Lorda (Szlachcic, 
+poziom 4). Tak jak normalnie, przejście na ten poziom Profesji kosz-
+tuje 100 PD, jeśli masz ukończony aktualny poziom Profesji, lub 200 
+PD, jeśli nie.
+Przejście do nowej Profesji
+Jeśli masz skompletowany aktualny poziom swojej Profesji, możesz 
+przejść na pierwszy poziom dowolnej należącej do tej Klasy Profesji, 
+wydając 100 PD albo 200 PD, jeśli aktualny poziom Profesji nie jest 
+skompletowany. Jeśli chcesz przejść na pierwszy poziom Profesji na-
+leżącej do innej Klasy, kosztuje to dodatkowe 100 PD. Uwaga: MG 
+może wymagać uzasadnienia dowolnej zmiany Profesji i przedsta -
+wienia tego w grze. Ostatecznie nie każdy może stać się Szlachcicem, 
+nawet jeśli ma skompletowaną Profesję z Klasy Dworzanina.
+Co więcej, jeśli masz skompletowany aktualny poziom Profesji, za 
+zgodą MG i z odpowiednim uzasadnieniem możesz przejść na ten 
+sam poziom dowolnej Profesji należącej do tej samej Klasy. Jeśli 
+więc masz skompletowaną Profesję Farmaceuty (Aptekarz, poziom 
+3), możesz awansować na Wykładowcę (Uczony, poziom 3), co ma 
+pokazać, że udało ci się uzyskać posadę nauczyciela na Uniwersy -
+tecie Altdorfskim. To będzie kosztowało 100 PD. Pamiętaj jednak 
+o obowiązujących tu oczywistych ograniczeniach. Niektóre Pro -
+fesje, takie jak Czarodziej, wymagają opanowania podstaw, zanim 
+możliwe stanie się przyswojenie wiedzy zaawansowanej, a Talenty 
+wcześniejszych poziomów Profesji nie będą dostępne na wyższym 
+poziomie.
+I wreszcie – możesz także zmieniać Profesję pomiędzy przygodami, 
+wykorzystując Zajęcie Zmiana Profesji (patrz strona 200).
+KOSZT W PD ROZWOJU 
+TALENTÓW I PROFESJI
+Rozwój Koszt w PD
++1 Rozwinięcie Talentu
+100 PD + 100 PD za 
+każdy raz, kiedy Talent był 
+już wykupiony
+Opuszczenie 
+skompletowanej Profesji 100 PD
+Opuszczenie nieskomple-
+towanej Profesji 200 PD
+Przejście do innej Klasy +100 PD
+OPCJONALNE ZMIANY 
+PROFESJI
+Czasami podczas gry, w zupełnie niespodziewanych 
+okolicznościach, pojawia się propozycja pracy. Na przykład 
+miejscowy baron może cię zatrudnić jako członka swojej 
+gwardii honorowej (Wartownik, poziom 3). A może 
+uciekasz z Altdorfu przed strażą miejską, de facto stając się 
+banitą (Banita, poziom 2)? W takim przypadku MG może 
+zaproponować zmianę Profesji wykraczającą poza normalną 
+Ścieżkę Profesji. Jest to nie tylko w porządku, ale wręcz 
+zalecane, ponieważ zawsze ciekawiej wiązać wybory Profesji 
+z wydarzeniami w grze.
+STATUS
+Społeczeństwo Starego Świata jest wyraźnie hierarchiczne – pospól-
+stwo nie ma wątpliwości co do miejsca, jakie zajmuje w porządku 
+społecznym, podczas gdy elita cieszy się władzą i prestiżem, bru -
+talnie egzekwowanymi, a zatem zazwyczaj niekwestionowanymi. 
+Większość ludzi pomiędzy tymi warstwami jest w pełni świadoma 
+swojej pozycji i zajęta jej polepszaniem. Ten stan reprezentuje Status, 
+który może modyfikować interakcje między osobami należącymi do 
+różnych klas społecznych.
+Poziomy  i  Pozycja
+Status reprezentowany jest przez Poziom – od najniższego do naj -
+wyższego: Brąz, Srebro lub Złoto – oraz Pozycję wyrażaną liczbą, za-
+zwyczaj od 1 do 5, która określa, jakim szacunkiem cieszy się Bohater 
+w zakresie swojego Poziomu.
+Jeśli masz wyższy Poziom od innej postaci, twój Status jest bezdys-
+kusyjnie wyższy. Jeśli masz taki sam Poziom jak inna postać, wów -
+czas masz od niej wyższy Status, o ile zajmujesz wyższą Pozycję.
+Trzy Poziomy
+Najważniejszymi elementami wyróżniającymi Status są trzy Po -
+ziomy:
+Poziom Złota: Zastrzeżony dla władców społeczności oraz dla 
+tych, którzy służą im bezpośrednio jako doradcy, protektorzy 
+i strażnicy prawa. Mogą sobie też na niego pozwolić niezależni bo-
+gacze. Osiągnięcie takiego Statusu wymaga ciężkiej pracy, powo -
+dzenia i niemało szczęścia. Wszyscy na poziomie Złota są bogaci, 
+szanowani i stoją w porządku społecznym wyżej niż ci na pozio -
+mach Srebra i Brązu.
+IIIKLASY I PROFESJE
+Dawid Dachowski (Order #22703981)
+
+===== PAGE INDEX 50 =====
+WARHAMMER FANTASY ROLEPLAY
+50
+Poziom Srebra: Zajmują go dobrze sytuowani mieszczanie i oso -
+by trudniące się Profesjami wymagającymi dużej biegłości oraz do-
+świadczenia. Najwięcej do powiedzenia w tej grupie mają rzemieśl-
+nicy i kupcy, a najmniej osoby świadczące różne usługi. Ci ostatni 
+wiodą stosunkowo skromne życie, ale i tak cieszą się szacunkiem. 
+Osoby na poziomie Srebra mają Status wyższy od tych, którzy pozo-
+stają na poziomie Brązu.
+Poziom Brązu: Zajmowany jest przez wieśniaków i osoby wy -
+konujące najgorzej płatne zawody, które zwykle nie wymagają 
+żadnych konkretnych umiejętności. Ponadto poziom Brązu obej -
+muje wielu przestępców, nicponi i ludzi, którzy z niczego się nie 
+utrzymują.
+Określanie  Statu Su
+O Statusie decyduje poziom Profesji. Obok nazwy poziomu Profesji 
+podana jest informacja na ten temat, np. „Brąz 3”, „Srebro 1” lub po-
+dobnie. To Poziom i Pozycja. Kiedy zmienisz Profesję, sprawdź nowy 
+Status podany obok nazwy odpowiedniego poziomu nowej Profesji 
+i zapisz na Karcie Bohatera.
+Zmiana  Statu Su
+Pozycję społeczną można zmienić z następujących powodów:
+1. Zmieniono Profesję.
+2. Uzyskano Talent, który modyfikuje Status.
+3. MG narzuca zmianę Statusu wskutek wydarzeń w grze.
+Bez względu na to, co spowodowało zmianę Statusu, warto poświęcić 
+trochę czasu na wyjaśnienie, co dokładnie się stało i jaki ma to wpływ 
+na Bohatera. Jeśli przechodzisz na inny poziom Profesji, powiedzmy 
+ze Studenta na Uczonego, co to spowodowało? Jakie dziedziny stu-
+diował twój Bohater? Co twoja postać myśli teraz, po tym awansie? 
+Poświęcając czas na wyjaśnienie okoliczności tej zmiany, sprawisz, że 
+twój Bohater będzie pełniejszy i wiarygodniejszy.
+NA MARGINESIE SPOŁECZEŃSTWA
+Status pozwala ogólnie określić, jak zachowują się 
+ci mieszkańcy Starego Świata, którzy wpasowują się 
+w akceptowane normy. Jednakże niektóre postacie mogą 
+wykraczać poza te normy, co jest całkiem dopuszczalne. 
+Jeśli chcesz określić losowo, jak bohater niezależny reaguje 
+na Status, rzuć 1k10 i sprawdź wynik w poniższej tabeli:
+1k10 Wynik
+1-2
+Odrzuca Status. Postać opiera się obyczajom 
+związanym ze Statusem, więc nie działają na nią jego 
+efekty.
+3-8 Reakcja standardowa. Na postać działają normalne 
+zasady Statusu.
+9-10
+Ekstremalne poglądy. Postać wyraża ekstremalne 
+poglądy. Modyfikuj wszystkie Testy, na które ma 
+wpływ Status, o dalsze +/-10 (odpowiednio do 
+sytuacji).
+efekty  Statu Su
+Status wpływa na różne sytuacje dotyczące twojego Bohatera. Często 
+oznacza to ułatwienie lub utrudnienie wykonywanych Testów (patrz 
+strona 153). MG może rozszerzyć lub ograniczyć te wpływy według 
+własnej oceny sytuacji.
+III
+Dawid Dachowski (Order #22703981)
+
+===== PAGE INDEX 51 =====
+51
+Charyzma
+Status istotnie wpływa na Testy Charyzmy: osoby zajmujące 
+wyższe miejsce na drabinie społecznej łatwiej uzyskują to, czego 
+chcą, a te o niższym Statusie muszą się dużo bardziej natrudzić. 
+W większości przypadków osoby na wyższym Poziomie Statusu 
+dostają premię +10 do Testów Charyzmy, gdy starają się wpływać 
+na osoby stojące niżej w hierarchii. Podobnie osoby o niższym Sta -
+tusie dostają karę -10, gdy próbują wpływać na tych bardziej od 
+siebie znaczących. MG może zastosować te modyfikatory do osób 
+zajmujących różne Pozycje na tym samym Poziomie Statusu, ale to 
+zdarza się rzadziej.
+Jeśli jednak obiekt Testu Charyzmy jest nietypowy, zasada ta może 
+nie działać tak jak zwykle. W przypadku osobnika, który „Odrzuca 
+Status”, nie są stosowane żadne modyfikatory, a jeśli osoba ma „Eks-
+tremalne poglądy”, mogą być stosowane modyfikatory przeciwstaw-
+ne (na przykład -10 zamiast +10).
+ZASADA OPCJONALNA: 
+ŻEBRANIE I STATUS
+Żebractwo często przynosi najlepsze efekty, gdy jego 
+celem są osoby usytuowane tuż powyżej zajmowanej przez 
+żebrzącego pozycji w hierarchii społecznej.
+Na przykład: większość żebraków zajmuje Poziom Brąz, 
+a zatem korzysta z premii +10, gdy żebrze u ludzi na 
+Poziomie Srebro, zamiast ponosić karę -10.
+Dowodzenie
+Status odgrywa bardzo ważną rolę przy Dowodzeniu. Armie Pro -
+wincji Imperium zwykły awansować na stopnie oficerskie tylko szla-
+chetnie urodzonych.
+Jeśli masz wyższy Status niż cel Testu Dowodzenia, otrzymujesz pre-
+mię +10. Jeśli przewaga wynosi dwa poziomy, premia wzrasta do +20.
+Plotkowanie
+Osoby należące do różnych klas społecznych przeważnie niechętnie 
+wymieniają się plotkami. Wszelkie Testy Plotkowania obejmujące 
+osoby na różnych Poziomach Statusu obciążone są karą -10.
+Występy
+Normalnie Status nie wpływa na Testy Występów. Jednakże MG po-
+winien wziąć pod uwagę, że pewne rodzaje rozrywki przystoją tylko 
+osobom o stosownym miejscu w hierarchii społecznej i będą odbierane 
+odpowiednio tylko we właściwym otoczeniu. Wieśniak grający na lirze 
+korbowej zapewne nie zostanie dobrze przyjęty w operze, podczas gdy 
+nawet przeciętna orkiestra z pewnością przyciągnie sporą widownię, jeśli 
+zacznie występować pośrodku wsi.
+Dlatego MG powinien rozważyć, jaka widownia normalnie ogląda 
+danego rodzaju występy oraz czy taka widownia jest aktualnie do -
+stępna, a następnie zastosować odpowiednie modyfikatory.
+Zastraszanie
+Jeśli masz wyższy Status niż cel Zastraszania, zwykle otrzymujesz 
+premię +10.
+u trzymywanie  s tatusu
+Jeśli chcesz czerpać korzyści (lub ponosić straty) wynikające ze Sta-
+tusu, musisz zachowywać się stosownie do swojej roli w społeczności.
+Czasem trzeba zachować anonimowość i ukrywać tożsamość. W ta-
+kim przypadku zazwyczaj będzie to odpowiadało posiadaniu Statu-
+sowi Brąz 3.
+Przykład: Szlachcic Hans ubiera się wedle najnowszej mody i zawsze 
+kupuje najlepsze rzeczy. Wjeżdża do wsi na pieczołowicie wyczesanym 
+koniu, zatrzymując się co chwila, by prywatny herold ogłosił wszystkim 
+jego przybycie. Hans w pełni korzysta ze swojego Statusu Złoto 2. Jego 
+brat Heinrich zakłada stare ubrania, chowa swoje dworskie szaty pod 
+łóżkiem i zachowuje się jak bezimienny włóczykij. Traktowany jest tak, 
+jakby posiadał Status Brąz 3.
+Co ludzie powiedzą
+Bohaterowie muszą wydawać określoną kwotę pieniędzy, jeśli chcą 
+utrzymywać dotychczasowy standard stylu życia. Jak wyjaśniono 
+w sekcji Koszty utrzymania (patrz strona 289), każdy Poziom wiąże 
+się z pewnymi minimalnymi wymaganymi wydatkami.
+Jeśli postać nie będzie utrzymywała wydatków na odpowiednim po-
+ziomie, zacznie być postrzegana jako ktoś o niższym Statusie i będzie 
+tracić 1 punkt Pozycji na tydzień.
+Chcąc zatrzymać ten regres, Bohater musi wznowić wydatki w od -
+powiedniej wysokości, dzięki czemu będzie odzyskiwać 1 punkt Po-
+zycji na tydzień, dopóki nie odzyska wszystkich straconych punktów.
+Jeśli Pozycja osiągnie zero, Poziom obniży się o jeden, a Status na 
+tym nowym Poziomie przybierze wartość 5. Jeśli już zajmujesz naj-
+niższy Poziom, wówczas twój Status zatrzyma się na wartości Brąz 0.
+Przykład: Pietr jest Szlachcicem i od dwóch tygodni włóczy się po 
+Wschodnim Krańcu Altdorfu, pozwalając, by jego Status Złoto 3 spadł 
+do Pozycji Złoto 1. Żywi się podłym jedzeniem, pije tanie piwo i nocuje 
+w marnych spelunkach. Jeśli upłynie kolejny tydzień, a Pietr nie zmieni 
+zachowania, jego Status spadnie do Złoto 0, natychmiast stając się Statu-
+sem Srebro 5. W takim przypadku ojciec Pietra niemal na pewno wkro -
+czy, by zapobiec hańbie grożącej rodzinie...
+s tatus  i  Zarabianie
+Twój Status bezpośrednio wiąże się z tym, ile pieniędzy zarabiasz, 
+gdy wykonujesz pracę. Im wyższy Status, tym więcej pieniędzy mo-
+żesz zarobić. Odpowiednia reputacja napędza interesy. Jeśli MG się 
+zgodzi, podczas gry możesz spędzić tydzień, pracując w swojej Pro-
+fesji, o ile znajdujesz się w miejscu, w którym jest to możliwe (trudno 
+być Strażnikiem pośrodku pustkowia). Takie zajęcie nazywane jest 
+Zarabianiem.
+Zarabiając, wykonuj Przeciętny (+20) T est Ryzykowny (patrz stro-
+na 152) na Umiejętność Zarabiania w swojej Profesji (jest to Umie-
+jętność wyróżniona kursywą na pierwszym poziomie Profesji). Jeśli 
+IIIKLASY I PROFESJE
+Dawid Dachowski (Order #22703981)
+
+===== PAGE INDEX 52 =====
+WARHAMMER FANTASY ROLEPLAY
+52
+Test się uda, otrzymasz pieniądze w kwocie, którą podaje tabela po-
+niżej. Jeśli Test się nie uda, dostaniesz połowę tej kwoty. Jeśli trafi  
+się Zdumiewająca Porażka (–6), to był bardzo kiepski tydzień i nie 
+udało ci się nic zarobić (albo skradziono ci pieniądze lub wydarzyło 
+się podobne nieszczęście).
+Ta kwota nie określa dokładnie, ile zarabiasz, a raczej stanowi przy-
+bliżenie, jak wiele pieniędzy pozostanie ci pod koniec tygodnia po 
+odliczeniu wszystkich wydatków.
+Poziom Statusu Kwota zarobiona za punkt Pozycji
+Brąz 2k10 brązowych pensów
+Srebro 1k10 srebrnych szylingów
+Złoto 1 złota korona
+Uwaga: Jest to ta sama liczba monet, którą określa Zajęcie Dochód 
+(patrz strona 196).
+Przykład: Woźnica Gunther postanawia popracować dla Linii Przewo-
+zowej Cztery Pory Roku przez tydzień, podczas gdy jego kompani będą 
+szukać w bibliotece rzeczy, na których, prawdę mówiąc, on sam się nie 
+wyznaje i w głębi ducha myśli, że mogą być heretyckie. MG zgadza się, 
+by Gunther trochę zarobił, więc Gunther rzuca na Umiejętność Powoże-
+nie (Powóz) – jest to Umiejętność Zarabiania dla Woźnicy – i uzyskuje 
+sukces. Ponieważ ma Status Srebro 2, może rzucić 2k10 i zarobić właśnie 
+tyle srebra. Niestety wyrzuca tylko 1 i 2, co daje w sumie 3 srebrne szy -
+lingi; najwyraźniej Gunther tęgo pił po długich zmianach i zostało mu 
+niewiele monet...
+NAZWY PROFESJI A PŁEĆ
+Jakkolwiek niektóre Profesje mają nazwy w formach 
+męskich albo żeńskich, co wymuszają ograniczenia języka, 
+każda z nich otwarta jest na osoby dowolnej płci. Nieważne, 
+z którą płcią identyfikuje się twój Bohater, dostępne są dla 
+niej czy niego wszystkie Profesje.
+Na przykład: Każdy może służyć dowolnemu bóstwu. 
+Chociaż niektórzy bogowie (tacy jak Taal i Ulryk oraz 
+Rhya i Shallya) mają zapewne więcej sług, których 
+płeć odpowiada danemu bóstwu, inne wyznania (takie 
+jak Verena i Sigmar) są jednakowo atrakcyjne dla 
+wszystkich.
+FORMAT PROFESJI
+Poniżej znajduje się zestawienie informacji podawanych 
+przy każdej Profesji.
+• Nazwa: Nazwa Profesji.
+• Ograniczenia: Lista tych ras, które zazwyczaj 
+wykonują daną Profesję.
+• Podsumowanie: Krótkie wprowadzenie do Profesji.
+• Opis: Jeden lub dwa akapity opisujące Profesję oraz 
+alternatywne sposoby jej wykorzystania.
+• Schemat rozwoju: Schemat rozwoju Profesji.
+• Ścieżka Profesji: Nazwa, Status, Umiejętności, 
+Talenty i Wyposażenie na każdym z czterech 
+poziomów Profesji. Uwaga: jeśli przy Talencie lub 
+Umiejętności widnieje oznaczenie „(Dowolne)”, 
+oznacza to, że możesz wybrać jedną z opcji danego 
+Talentu lub danej Umiejętności na tym poziomie 
+Profesji. Zatem Wiedza (Dowolna) to może być 
+Wiedza (Geografia), Wiedza (Wiedza Ludowa), 
+Wiedza (Magia) albo dowolny inny, podobny 
+przykład. Tak samo oznaczenie „(Lokalne)” oznacza, 
+że możesz wybrać jedną z opcji danego Talentu lub 
+danej Umiejętności dotyczących lokalnego obszaru. 
+Zatem Wiedza (Lokalna) to może być Wiedza 
+(Altdorf), Wiedza (Szlaki Rzeczne), Wiedza (Jałowa 
+Kraina) lub dowolny inny, podobny przykład.
+• Cytaty: Kilka związanych z Profesją cytatów ze świata 
+gry.
+• Przygody: Kilka podpowiedzi i wskazówek, w jaki 
+sposób osoby wykonujące daną Profesję mogą znaleźć 
+się na szlaku przygody.
+III
+Dawid Dachowski (Order #22703981)

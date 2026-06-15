@@ -1,0 +1,25 @@
+# --- Python (desktop snapshot in "Program Python/") ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+Program Python/build/
+Program Python/dist/
+*.spec.bak
+
+# --- Node / Vite / web app (root) ---
+node_modules/
+dist/
+.vite/
+.cache/
+*.local
+
+# --- PWA / build output ---
+dev-dist/
+
+# --- Editor / OS ---
+.DS_Store
+Thumbs.db
+.idea/
+*.log
