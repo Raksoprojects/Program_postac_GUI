@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Tlo wypelnia caly obszar (wymagane dla ikon maskable) -->
+  <rect width="512" height="512" fill="#1a1714" />
+  <!-- Ramka w strefie bezpiecznej (~80% srodka) -->
+  <rect x="96" y="96" width="320" height="320" rx="40" fill="none" stroke="#c8a04e" stroke-width="14" />
+  <!-- Klejnot / grot (godlo) -->
+  <path d="M256 150 L322 226 L256 412 L190 226 Z" fill="#c8a04e" />
+  <path d="M256 150 L322 226 L256 280 Z" fill="#e0b85f" />
+  <circle cx="256" cy="212" r="22" fill="#1a1714" />
+</svg>
