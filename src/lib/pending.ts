@@ -92,6 +92,8 @@ const DEFAULT_MODE: CostMode = { outOfProfession: false, gmApproved: false };
  */
 export class PendingEngine {
   pending: PendingChanges = createEmptyPending();
+  /** Faktyczna suma PD odjeta od 'available' przy zakupach (koszt - zwrot). */
+  private spentDelta = 0;
 
   constructor(
     private dm: DataManager,
@@ -102,6 +104,7 @@ export class PendingEngine {
   /** Podmienia kontener pending (np. po wczytaniu/utworzeniu postaci). */
   reset(): void {
     this.pending = createEmptyPending();
+    this.spentDelta = 0;
   }
 
   has(): boolean {
@@ -140,6 +143,7 @@ export class PendingEngine {
     this.pending[key][name] = (this.pending[key][name] ?? 0) + amount;
     data.advanced += amount;
     this.dm.experience.available -= cost;
+    this.spentDelta += cost;
     return { ok: true, amount: cost };
   }
 
@@ -177,6 +181,7 @@ export class PendingEngine {
     this.pending[key][name] = (this.pending[key][name] ?? 0) - amount;
     data.advanced -= amount;
     this.dm.experience.available += refund;
+    this.spentDelta -= refund;
     return { ok: true, amount: refund };
   }
 
@@ -248,6 +253,7 @@ export class PendingEngine {
     this.pending.talent_changes[name] = (this.pending.talent_changes[name] ?? 0) + amount;
     talent.advances += amount;
     this.dm.experience.available -= cost;
+    this.spentDelta += cost;
     return { ok: true, amount: cost };
   }
 
@@ -269,6 +275,7 @@ export class PendingEngine {
     this.pending.talent_changes[name] = (this.pending.talent_changes[name] ?? 0) - amount;
     talent.advances -= amount;
     this.dm.experience.available += refund;
+    this.spentDelta -= refund;
     return { ok: true, amount: refund };
   }
 
@@ -282,7 +289,12 @@ export class PendingEngine {
     return true;
   }
 
-  /** Dodaje nowy talent (1 wykupienie) i oznacza go jako oczekujacy. */
+  /**
+   * Dodaje nowy talent (1 wykupienie) i oznacza go jako oczekujacy.
+   * Pierwsze wykupienie talentu kosztuje PD (jak rozwiniecie 0->1), wiec PD
+   * jest pobierane od razu z weryfikacja dostepnosci. Zwraca false, gdy talent
+   * juz istnieje albo brakuje PD (wtedy talent NIE jest dodawany).
+   */
   addNewTalent(
     name: string,
     description = "",
@@ -291,6 +303,12 @@ export class PendingEngine {
     source = "Lista",
     isCustom = false
   ): boolean {
+    if (name in this.dm.talents) return false;
+
+    const mode = this.talentMode();
+    const cost = calculateTalentCost(0, 1, mode.outOfProfession, mode.gmApproved);
+    if (this.dm.experience.available < cost) return false;
+
     const added = this.dm.addTalent(
       name,
       1,
@@ -302,8 +320,11 @@ export class PendingEngine {
       true
     );
     if (!added) return false;
+
     this.pending.new_talents.add(name);
     this.pending.talent_changes[name] = (this.pending.talent_changes[name] ?? 0) + 1;
+    this.dm.experience.available -= cost;
+    this.spentDelta += cost;
     return true;
   }
 
@@ -388,9 +409,12 @@ export class PendingEngine {
 
   /** Zatwierdza oczekujace zmiany: przenosi koszt do "wydane", utrwala bazy. */
   confirm(): ConfirmResult {
-    const result = this.computeCost();
+    // Rozbicie po pozycjach (informacyjnie), ale kwota nadrzedna = faktycznie
+    // odjete PD (spentDelta), aby zapis zgadzal sie z odjeciem na biezaco.
+    const details = this.computeCost().details;
+    const totalCost = this.spentDelta;
 
-    this.dm.experience.spent += result.totalCost;
+    this.dm.experience.spent += totalCost;
     this.dm.experience.total = this.dm.experience.available + this.dm.experience.spent;
 
     for (const name of Object.keys(this.pending.attribute_changes)) {
@@ -418,40 +442,19 @@ export class PendingEngine {
     }
 
     this.reset();
-    return result;
+    return { totalCost, details };
   }
 
   /** Cofa oczekujace zmiany: przywraca poziomy, usuwa nowe, zwraca PD. Zwraca refund. */
   revert(): number {
-    let totalRefund = 0;
+    // Zwracamy dokladnie tyle PD, ile faktycznie odjeto przy zakupach.
+    const totalRefund = this.spentDelta;
 
-    for (const [name, count] of Object.entries(this.pending.attribute_changes)) {
-      if (count > 0) {
-        const currentAdv = this.dm.attributes[name].advanced;
-        const mode = this.advMode("cecha", name);
-        totalRefund += calculateAdvancementCost(
-          "cecha",
-          currentAdv - count,
-          count,
-          mode.outOfProfession,
-          mode.gmApproved
-        );
-      }
+    for (const name of Object.keys(this.pending.attribute_changes)) {
       this.dm.attributes[name].advanced = this.dm.attributes[name].base_advanced;
     }
 
-    for (const [name, count] of Object.entries(this.pending.skill_changes)) {
-      if (count > 0) {
-        const currentAdv = this.dm.skills[name].advanced;
-        const mode = this.advMode("umiejetnosc", name);
-        totalRefund += calculateAdvancementCost(
-          "umiejetnosc",
-          currentAdv - count,
-          count,
-          mode.outOfProfession,
-          mode.gmApproved
-        );
-      }
+    for (const name of Object.keys(this.pending.skill_changes)) {
       if (this.dm.skills[name]) {
         this.dm.skills[name].advanced = this.dm.skills[name].base_advanced;
       }
@@ -461,18 +464,7 @@ export class PendingEngine {
       delete this.dm.skills[name];
     }
 
-    const talentMode = this.talentMode();
-    for (const [name, count] of Object.entries(this.pending.talent_changes)) {
-      if (count > 0) {
-        const talent = this.dm.talents[name];
-        const start = Math.max(0, (talent?.advances ?? count) - count);
-        totalRefund += calculateTalentCost(
-          start,
-          count,
-          talentMode.outOfProfession,
-          talentMode.gmApproved
-        );
-      }
+    for (const name of Object.keys(this.pending.talent_changes)) {
       if (this.dm.talents[name]) {
         this.dm.talents[name].advances = this.dm.talents[name].base_advances ?? 0;
       }

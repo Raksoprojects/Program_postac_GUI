@@ -10,15 +10,16 @@
   import TabKoszty from "./components/TabKoszty.svelte";
   import TabDoswiadczenie from "./components/TabDoswiadczenie.svelte";
   import TabHistoria from "./components/TabHistoria.svelte";
+  import CreatorModal from "./components/CreatorModal.svelte";
 
   const tabs = [
-    { id: "cechy", label: "Cechy" },
-    { id: "umiejetnosci", label: "Umiejętności" },
-    { id: "talenty", label: "Talenty" },
-    { id: "profesja", label: "Profesja" },
-    { id: "koszty", label: "Koszty" },
-    { id: "doswiadczenie", label: "Doświadczenie" },
-    { id: "historia", label: "Historia" }
+    { id: "cechy", label: "Cechy", badge: "cechy" },
+    { id: "umiejetnosci", label: "Umiejętności", badge: "umiejetnosci" },
+    { id: "talenty", label: "Talenty", badge: "talenty" },
+    { id: "profesja", label: "Profesja", badge: null },
+    { id: "koszty", label: "Koszty", badge: null },
+    { id: "doswiadczenie", label: "Doświadczenie", badge: null },
+    { id: "historia", label: "Historia", badge: null }
   ] as const;
 
   let activeTab = $state<(typeof tabs)[number]["id"]>("cechy");
@@ -32,6 +33,8 @@
     const name = prompt("Nazwa nowej postaci:", "Nowa Postać");
     if (name !== null) store.newCharacter(name.trim() || "Nowa Postać");
   }
+
+  let showCreator = $state(false);
 
   let busy = $state(false);
   let actionError = $state("");
@@ -104,7 +107,19 @@
   <header class="app-header panel">
     <div class="brand">
       <h1>Karta Postaci <span class="edition">WFRP 4ed</span></h1>
-      <span class="text-dim placeholder-note">kalkulator rozwinięć i planowania postaci</span>
+      <div class="brand-meta">
+        <span class="char-name">{store.characterName}</span>
+        {#if store.careerLabel}
+          <span class="career-chip">{store.careerLabel}</span>
+        {/if}
+        {#if store.hasPending}
+          <span class="pending-chip" title="Masz niezapisane zmiany">
+            ● Niezapisane: {store.pendingCount}
+          </span>
+        {:else}
+          <span class="saved-chip" title="Wszystko zapisane">✓ Zapisano</span>
+        {/if}
+      </div>
     </div>
 
     <div class="header-actions">
@@ -112,6 +127,7 @@
         <button title="Wczytaj postać z pliku PDF" onclick={loadPdf} disabled={busy}>Wczytaj z PDF</button>
         <button title="Wczytaj postać z pliku JSON" onclick={loadJson} disabled={busy}>Wczytaj JSON</button>
         <button title="Utwórz nową, pustą postać" onclick={newCharacter} disabled={busy}>Nowa</button>
+        <button title="Kreator postaci — rasa, pochodzenie i rzuty na cechy" onclick={() => (showCreator = true)} disabled={busy}>Kreator</button>
         <button title="Zapisz postać do pliku JSON" onclick={saveJson} disabled={busy}>Zapisz JSON</button>
         <button title="Eksportuj do wypełnionego PDF" onclick={exportPdf} disabled={busy}>Eksport PDF</button>
       </div>
@@ -151,6 +167,7 @@
 
   <nav class="tab-bar" aria-label="Sekcje karty">
     {#each tabs as tab (tab.id)}
+      {@const badgeCount = tab.badge ? store.pendingByTab[tab.badge] : 0}
       <button
         class="tab"
         class:active={activeTab === tab.id}
@@ -158,6 +175,9 @@
         onclick={() => (activeTab = tab.id)}
       >
         {tab.label}
+        {#if badgeCount > 0}
+          <span class="tab-badge" aria-label="oczekujące zmiany">{badgeCount}</span>
+        {/if}
       </button>
     {/each}
   </nav>
@@ -195,6 +215,10 @@
     <span>Warhammer Fantasy Roleplay 4ed · narzędzie pomocnicze gracza</span>
   </footer>
 </div>
+
+{#if showCreator}
+  <CreatorModal onClose={() => (showCreator = false)} />
+{/if}
 
 <style>
   .app-shell {
@@ -238,8 +262,59 @@
     font-weight: 700;
   }
 
-  .placeholder-note {
+  .brand-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
     font-size: var(--fs-sm);
+  }
+
+  .char-name {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .career-chip {
+    padding: 1px var(--space-2);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text-muted);
+  }
+
+  .pending-chip {
+    padding: 1px var(--space-2);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--warning);
+    background: var(--bg);
+    color: var(--warning);
+    font-weight: 600;
+  }
+
+  .saved-chip {
+    padding: 1px var(--space-2);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--success-strong);
+    background: var(--bg);
+    color: var(--success-strong);
+  }
+
+  .tab-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: calc(18px * var(--ui-scale));
+    height: calc(18px * var(--ui-scale));
+    margin-left: var(--space-1);
+    padding: 0 5px;
+    border-radius: 999px;
+    background: var(--warning);
+    color: var(--bg);
+    font-size: var(--fs-xs, 0.7rem);
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
   }
 
   .header-actions {

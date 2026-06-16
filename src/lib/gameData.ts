@@ -14,6 +14,10 @@ import type {
   GameClass,
   Profession,
   ProfessionsData,
+  RaceDef,
+  RacesData,
+  SkillDef,
+  SkillsData,
   Talent,
   TalentsData
 } from "./types";
@@ -21,16 +25,22 @@ import type {
 let professions: ProfessionsData | null = null;
 let classes: ClassesData | null = null;
 let talents: TalentsData | null = null;
+let skills: SkillsData | null = null;
+let races: RacesData | null = null;
 
 /** Wstrzykuje dane bezposrednio (uzywane w testach jednostkowych). */
 export function setGameData(data: {
   professions: ProfessionsData;
   classes: ClassesData;
   talents: TalentsData;
+  skills?: SkillsData;
+  races?: RacesData;
 }): void {
   professions = data.professions;
   classes = data.classes;
   talents = data.talents;
+  skills = data.skills ?? [];
+  races = data.races ?? null;
 }
 
 /** Czy dane zostaly juz zaladowane. */
@@ -41,14 +51,18 @@ export function isGameDataLoaded(): boolean {
 /** Laduje dane gry z katalogu /data (fetch). Wywolaj raz przy starcie aplikacji. */
 export async function loadGameData(baseUrl: string = import.meta.env.BASE_URL): Promise<void> {
   const prefix = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
-  const [p, c, t] = await Promise.all([
+  const [p, c, t, s, r] = await Promise.all([
     fetch(`${prefix}data/professions.json`).then((r) => r.json() as Promise<ProfessionsData>),
     fetch(`${prefix}data/classes.json`).then((r) => r.json() as Promise<ClassesData>),
-    fetch(`${prefix}data/talents.json`).then((r) => r.json() as Promise<TalentsData>)
+    fetch(`${prefix}data/talents.json`).then((r) => r.json() as Promise<TalentsData>),
+    fetch(`${prefix}data/skills.json`).then((r) => r.json() as Promise<SkillsData>),
+    fetch(`${prefix}data/races.json`).then((r) => r.json() as Promise<RacesData>)
   ]);
   professions = p;
   classes = c;
   talents = t;
+  skills = s;
+  races = r;
 }
 
 function requireProfessions(): ProfessionsData {
@@ -92,6 +106,65 @@ export function allClassNames(): string[] {
 
 export function allTalentNames(): string[] {
   return Object.keys(requireTalents()).sort((a, b) => a.localeCompare(b, "pl"));
+}
+
+/** Kanoniczne nazwy wszystkich umiejetnosci (skills.json), posortowane. */
+export function allSkillNames(): string[] {
+  return (skills ?? []).map((s) => s.name).sort((a, b) => a.localeCompare(b, "pl"));
+}
+
+/** Pelna definicja umiejetnosci kanonicznej wg nazwy (dokladne dopasowanie). */
+export function getSkillDef(name: string): SkillDef | undefined {
+  return (skills ?? []).find((s) => s.name === name);
+}
+
+/**
+ * Kod cechy wiodacej dla podanej nazwy umiejetnosci. Dopasowuje takze
+ * specjalizacje grupowe, np. "Wiedza (Medycyna)" -> "Wiedza (...)".
+ */
+export function skillBaseAttr(name: string): string | undefined {
+  const exact = getSkillDef(name);
+  if (exact) return exact.attr;
+  const paren = name.indexOf("(");
+  const base = (paren > 0 ? name.slice(0, paren) : name).trim();
+  const grouped = (skills ?? []).find(
+    (s) => s.grouped && s.name.slice(0, s.name.indexOf("(")).trim() === base
+  );
+  return grouped?.attr;
+}
+
+// ---------------------------------------------------------------------------
+// Rasy (races.json)
+// ---------------------------------------------------------------------------
+
+function requireRaces(): RacesData {
+  if (!races) throw new Error("Dane gry nie zostaly zaladowane (races).");
+  return races;
+}
+
+/** Nazwy ras w kolejnosci zdefiniowanej w pliku danych. */
+export function allRaceNames(): string[] {
+  return Object.keys(requireRaces().races);
+}
+
+/** Definicja rasy wg nazwy. */
+export function getRace(name: string): RaceDef | undefined {
+  return requireRaces().races[name];
+}
+
+/** Zwraca rase odpowiadajaca rzutowi k100 (1..100) wg tabeli losowania. */
+export function raceForRoll(roll: number): string | undefined {
+  const r = requireRaces().races;
+  for (const [name, def] of Object.entries(r)) {
+    if (roll >= def.randomMin && roll <= def.randomMax) return name;
+  }
+  return undefined;
+}
+
+/** Talent rasowy odpowiadajacy rzutowi k100 (1..100) z tabeli losowych talentow. */
+export function randomTalentForRoll(roll: number): string | undefined {
+  const row = requireRaces().randomTalentsTable.find((t) => roll >= t.min && roll <= t.max);
+  return row?.name;
 }
 
 export function careersForClass(className: string): string[] {

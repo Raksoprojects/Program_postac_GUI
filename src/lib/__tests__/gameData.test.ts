@@ -3,6 +3,7 @@ import { loadTestGameData } from "./loadData";
 import {
   allProfessionNames,
   allClassNames,
+  allSkillNames,
   allTalentNames,
   attributeBonus,
   careersForClass,
@@ -17,6 +18,7 @@ import {
   normalize,
   parseCareerLevel,
   resolveCareerPath,
+  skillBaseAttr,
   talentMax,
   careerTransitionCost
 } from "../gameData";
@@ -36,6 +38,24 @@ describe("gameData: ladowanie i akcesory", () => {
     const names = allProfessionNames();
     const sorted = [...names].sort((a, b) => a.localeCompare(b, "pl"));
     expect(names).toEqual(sorted);
+  });
+});
+
+describe("gameData: umiejetnosci kanoniczne (skills.json)", () => {
+  it("allSkillNames zwraca posortowana niepusta liste", () => {
+    const names = allSkillNames();
+    expect(names.length).toBeGreaterThan(0);
+    const sorted = [...names].sort((a, b) => a.localeCompare(b, "pl"));
+    expect(names).toEqual(sorted);
+  });
+
+  it("skillBaseAttr zwraca ceche dla nazwy dokladnej i grupowej", () => {
+    expect(skillBaseAttr("Charyzma")).toBe("Ogd");
+    expect(skillBaseAttr("Atletyka")).toBe("Zw");
+    // specjalizacja dopasowana do grupy "Wiedza (...)"
+    expect(skillBaseAttr("Wiedza (Medycyna)")).toBe("Int");
+    expect(skillBaseAttr("Rzemiosło (Aptekarstwo)")).toBe("Zr");
+    expect(skillBaseAttr("Nieistniejaca")).toBeUndefined();
   });
 });
 

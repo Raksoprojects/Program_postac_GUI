@@ -8,6 +8,7 @@
     type: AdvancementType;
     currentAdv: number;
     currentValue: number;
+    developable: boolean;
   }
 
   let items = $derived.by<Item[]>(() => {
@@ -18,7 +19,8 @@
         label: `${r.fullName} (${r.code})${r.developable ? " +" : ""}`,
         type: "cecha",
         currentAdv: r.entry.advanced,
-        currentValue: r.total
+        currentValue: r.total,
+        developable: r.developable
       });
     }
     for (const r of store.skillRows()) {
@@ -27,7 +29,8 @@
         label: `${r.name}${r.developable ? " +" : ""}`,
         type: "umiejetnosc",
         currentAdv: r.entry.advanced,
-        currentValue: r.total
+        currentValue: r.total,
+        developable: r.developable
       });
     }
     return out;
@@ -43,9 +46,14 @@
 
   // Tabela
   let tableFilter = $state("");
+  let onlyDevelopable = $state(false);
   const norm = (s: string) => s.trim().toLowerCase();
   let tableItems = $derived(
-    tableFilter.trim() ? items.filter((i) => norm(i.label).includes(norm(tableFilter))) : items
+    items.filter((i) => {
+      if (onlyDevelopable && !i.developable) return false;
+      if (tableFilter.trim() && !norm(i.label).includes(norm(tableFilter))) return false;
+      return true;
+    })
   );
 
   function cost(item: Item, n: number): number {
@@ -97,6 +105,10 @@
       <h3 class="section-title">Szybkie tabele kosztów</h3>
       <div class="filter">
         <input type="text" placeholder="Filtr tabeli…" bind:value={tableFilter} />
+        <label class="check">
+          <input type="checkbox" bind:checked={onlyDevelopable} />
+          Tylko rozwijalne na profesji (+)
+        </label>
         <button class="btn-sm ghost" onclick={() => (tableFilter = "")}>Wyczyść</button>
       </div>
     </div>

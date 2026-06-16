@@ -16,7 +16,9 @@ import type {
   AttributeEntry,
   CareerCompletion,
   CareerPathStep,
+  CharacterStats,
   ExperienceState,
+  RaceCreationInput,
   SkillEntry,
   TalentEntry,
   TalentMax
@@ -62,11 +64,25 @@ export interface CharacterDict {
   skills: Record<string, SkillEntry>;
   talents: Record<string, TalentEntry>;
   experience: ExperienceState;
+  stats: CharacterStats;
 }
 
 function toInt(value: unknown, fallback = 0): number {
   const n = Number.parseInt(String(value ?? ""), 10);
   return Number.isFinite(n) ? n : fallback;
+}
+
+/** Domyslne (zerowe) wartosci drugorzednych statystyk postaci. */
+export function defaultStats(): CharacterStats {
+  return {
+    wounds: 0,
+    movement: 0,
+    fate: 0,
+    fortune: 0,
+    resilience: 0,
+    resolve: 0,
+    motivation: ""
+  };
 }
 
 export class DataManager {
@@ -76,6 +92,7 @@ export class DataManager {
   skills: Record<string, SkillEntry> = {};
   talents: Record<string, TalentEntry> = {};
   experience: ExperienceState = { available: 0, spent: 0, total: 0 };
+  stats: CharacterStats = defaultStats();
   characterName = "Nowa Postać";
   pdfMapping: Record<string, unknown> = {};
   characterClass = "";
@@ -128,7 +145,9 @@ export class DataManager {
       const rawTalent = raw as unknown as RawTalent;
       const advances = DataManager.parseTalentAdvances(rawTalent.advances);
       const dbEntry = DataManager.matchTalentDbEntry(name, database, baseIndex);
-      const description = rawTalent.description || dbEntry?.description || "";
+      // Gdy talent rozpoznany w bazie -> uzyj oficjalnego opisu; w przeciwnym
+      // razie zachowaj opis z karty PDF.
+      const description = dbEntry?.description || rawTalent.description || "";
       enriched[name] = {
         advances,
         base_advances: advances,
@@ -394,6 +413,7 @@ export class DataManager {
     this.skills = {};
     this.experience = { available: 0, spent: 0, total: 0 };
     this.talents = {};
+    this.stats = defaultStats();
     this.characterClass = "";
     this.characterSpecies = "";
     this.currentCareer = "";
@@ -402,6 +422,67 @@ export class DataManager {
     this.professionRaw = {};
     this.pdfSourceBytes = null;
     this.pdfMappingTyped = null;
+  }
+
+  /**
+   * Tworzy postac na podstawie wynikow kreatora rasowego (Krok 1 + 3 + rasowe
+   * umiejetnosci/talenty). Ustawia wartosci poczatkowe cech, dodaje rasowe
+   * umiejetnosci (3x+5, 3x+3) oraz talenty, drugorzedne statystyki i PD.
+   */
+  createFromRace(input: RaceCreationInput): void {
+    this.createNewCharacter(input.name || "Nowa Postać");
+    this.characterSpecies = input.race;
+
+    for (const attr of ATTRIBUTES) {
+      const val = Math.max(0, Math.trunc(input.characteristics[attr] ?? 0));
+      this.attributes[attr] = {
+        initial: val,
+        advanced: 0,
+        current: val,
+        base_advanced: 0,
+        is_new: false,
+        profession_available: false
+      };
+    }
+
+    const addRacialSkill = (name: string, advanced: number): void => {
+      if (!name || name in this.skills) return;
+      const code = gameData.skillBaseAttr(name) || "Int";
+      const base = this.attributes[code]?.current ?? 0;
+      this.addSkill(name, code, base, advanced, false);
+    };
+    for (const s of input.skillsPlus5) addRacialSkill(s, 5);
+    for (const s of input.skillsPlus3) addRacialSkill(s, 3);
+
+    for (const tname of input.talents) {
+      if (!tname || tname in this.talents) continue;
+      const db = gameData.getTalent(tname);
+      this.talents[tname] = {
+        advances: 1,
+        base_advances: 1,
+        description: db?.description ?? "",
+        max: (db?.max ?? { type: "none" }) as TalentMax,
+        tests: db?.tests ?? "",
+        source: db?.source ?? "Rasowy",
+        is_new: false,
+        is_custom: db === undefined,
+        profession_available: false
+      };
+    }
+
+    const xp = Math.max(0, Math.trunc(input.experience));
+    this.experience = { available: xp, spent: 0, total: xp };
+
+    // Punkty Szczescia = Przeznaczenia, Determinacja = Bohatera (kopie startowe).
+    this.stats = {
+      wounds: Math.max(0, Math.trunc(input.wounds)),
+      movement: Math.max(0, Math.trunc(input.movement)),
+      fate: Math.max(0, Math.trunc(input.fate)),
+      fortune: Math.max(0, Math.trunc(input.fate)),
+      resilience: Math.max(0, Math.trunc(input.resilience)),
+      resolve: Math.max(0, Math.trunc(input.resilience)),
+      motivation: ""
+    };
   }
 
   // ----- Import / eksport PDF -------------------------------------------
@@ -419,6 +500,7 @@ export class DataManager {
       // Talenty z PDF sa surowe (advances jako tekst) - enrichTalents je domyka.
       this.talents = payload.talents as unknown as Record<string, TalentEntry>;
       this.experience = payload.experience;
+      this.stats = payload.stats;
       this.pdfMapping = payload.pdf_mapping as unknown as Record<string, unknown>;
       this.pdfMappingTyped = payload.pdf_mapping;
       this.pdfSourceBytes = bytes.slice();
@@ -437,6 +519,7 @@ export class DataManager {
       character_name: this.characterName,
       attributes: this.attributes,
       skills: this.skills,
+      stats: { ...this.stats },
       talents: Object.fromEntries(
         Object.entries(this.talents).map(([name, t]) => [
           name,
@@ -495,7 +578,8 @@ export class DataManager {
       ),
       skills: Object.fromEntries(Object.entries(this.skills).map(([k, v]) => [k, { ...v }])),
       talents: Object.fromEntries(Object.entries(this.talents).map(([k, v]) => [k, { ...v }])),
-      experience: { ...this.experience }
+      experience: { ...this.experience },
+      stats: { ...this.stats }
     };
   }
 
@@ -525,6 +609,18 @@ export class DataManager {
         spent: toInt(exp.spent, 0),
         total: toInt(exp.total, 0)
       };
+      const st = data.stats;
+      this.stats = st
+        ? {
+            wounds: toInt(st.wounds, 0),
+            movement: toInt(st.movement, 0),
+            fate: toInt(st.fate, 0),
+            fortune: toInt(st.fortune, 0),
+            resilience: toInt(st.resilience, 0),
+            resolve: toInt(st.resolve, 0),
+            motivation: String(st.motivation ?? "")
+          }
+        : defaultStats();
       this.pdfMapping = {};
       this.pdfSourceBytes = null;
       this.pdfMappingTyped = null;

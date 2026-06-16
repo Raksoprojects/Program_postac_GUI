@@ -67,6 +67,24 @@ export const PDF_EXPERIENCE_FIELDS: Record<string, string> = {
   total: "suma_doswiadczenia"
 };
 
+/**
+ * Pola drugorzednych statystyk (Zywotnosc, Szybkosc, pule punktow, Motywacja).
+ * Klucze znormalizowane (bez akcentow, male litery) - patrz normalizePdfFieldName.
+ */
+export const PDF_STAT_FIELDS = {
+  woundsBase: "zyw_bazowa",
+  woundsModifier: "modyf_zyw",
+  woundsCurrent: "zyw_aktualna",
+  movement: "szybkosc",
+  walk: "chod",
+  run: "bieg",
+  fate: "punkty_przeznaczenia",
+  fortune: "punkty_szczescia",
+  resilience: "punkty_bohaterarow1",
+  resolve: "punkty_determinacji",
+  motivation: "motywacja"
+} as const;
+
 /** Numery wierszy talentow (1..30) i umiejetnosci zaawansowanych (1..20). */
 export const PDF_TALENT_ROWS = Array.from({ length: 30 }, (_, i) => i + 1);
 export const PDF_ADVANCED_SKILL_ROWS = Array.from({ length: 20 }, (_, i) => i + 1);

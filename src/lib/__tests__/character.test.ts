@@ -24,6 +24,63 @@ describe("character: nowa postac", () => {
   });
 });
 
+describe("character: createFromRace (kreator rasowy)", () => {
+  it("ustawia cechy, umiejetnosci 3x+5/3x+3, talenty, statystyki i PD", () => {
+    const dm = new DataManager();
+    dm.createFromRace({
+      name: "Krasnolud Testowy",
+      race: "Krasnolud",
+      characteristics: {
+        WW: 41, US: 32, S: 33, Wt: 45, I: 30,
+        Zw: 22, Zr: 44, Int: 33, SW: 50, Ogd: 21
+      },
+      fate: 0,
+      resilience: 2,
+      wounds: 13,
+      movement: 3,
+      skillsPlus5: ["Opanowanie", "Wytrzymałość", "Wycena"],
+      skillsPlus3: ["Mocna Głowa", "Zastraszanie", "Hazard"],
+      talents: ["Tragarz", "Widzenie w Ciemności", "Twardziel"],
+      experience: 70
+    });
+
+    expect(dm.characterSpecies).toBe("Krasnolud");
+    expect(dm.attributes.SW.initial).toBe(50);
+    expect(dm.attributes.SW.current).toBe(50);
+
+    // Umiejetnosci rasowe: 3x+5 oraz 3x+3, z poprawna wartoscia (cecha + rozwiniecie).
+    const plus5 = ["Opanowanie", "Wytrzymałość", "Wycena"];
+    for (const name of plus5) {
+      const sk = dm.skills[name];
+      expect(sk).toBeDefined();
+      expect(sk.advanced).toBe(5);
+      expect(sk.current).toBe(dm.attributes[sk.attribute].current + 5);
+    }
+    const plus3 = ["Mocna Głowa", "Zastraszanie", "Hazard"];
+    for (const name of plus3) {
+      expect(dm.skills[name]).toBeDefined();
+      expect(dm.skills[name].advanced).toBe(3);
+    }
+
+    // Talenty rasowe (1 rozwiniecie kazdy).
+    for (const t of ["Tragarz", "Widzenie w Ciemności", "Twardziel"]) {
+      expect(dm.talents[t]).toBeDefined();
+      expect(dm.talents[t].advances).toBe(1);
+    }
+
+    // Statystyki drugorzedne (Determinacja = Bohatera, Szczescie = Przeznaczenia).
+    expect(dm.stats.wounds).toBe(13);
+    expect(dm.stats.movement).toBe(3);
+    expect(dm.stats.resilience).toBe(2);
+    expect(dm.stats.resolve).toBe(2);
+    expect(dm.stats.fate).toBe(0);
+    expect(dm.stats.fortune).toBe(0);
+
+    // PD startowe.
+    expect(dm.experience).toEqual({ available: 70, spent: 0, total: 70 });
+  });
+});
+
 describe("character: umiejetnosci", () => {
   it("dodaje umiejetnosc i nie duplikuje", () => {
     const dm = new DataManager();
@@ -171,6 +228,15 @@ describe("character: serializacja JSON", () => {
     dm.addTalent("Szczescie", 2);
     dm.experience = { available: 100, spent: 50, total: 150 };
     dm.setCurrentCareer(allProfessionNames()[0], 2);
+    dm.stats = {
+      wounds: 13,
+      movement: 4,
+      fate: 2,
+      fortune: 2,
+      resilience: 1,
+      resolve: 1,
+      motivation: "Honor"
+    };
 
     const json = dm.toJson();
     const dm2 = new DataManager();
@@ -183,6 +249,15 @@ describe("character: serializacja JSON", () => {
     expect(dm2.experience).toEqual({ available: 100, spent: 50, total: 150 });
     expect(dm2.currentCareer).toBe(allProfessionNames()[0]);
     expect(dm2.currentCareerLevel).toBe(2);
+    expect(dm2.stats).toEqual({
+      wounds: 13,
+      movement: 4,
+      fate: 2,
+      fortune: 2,
+      resilience: 1,
+      resolve: 1,
+      motivation: "Honor"
+    });
   });
 
   it("loadFromJson zwraca false dla niepoprawnego JSON", () => {

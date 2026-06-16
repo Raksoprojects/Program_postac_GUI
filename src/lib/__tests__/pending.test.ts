@@ -112,6 +112,31 @@ describe("pending: zakup umiejetnosci i talentow", () => {
     expect(dm.talents.Nowy.advances).toBe(1);
     expect(eng.pending.new_talents.has("Nowy")).toBe(true);
     expect(eng.pending.talent_changes.Nowy).toBe(1);
+    // Pierwsze wykupienie talentu kosztuje 100 PD (rozwiniecie 0->1).
+    expect(dm.experience.available).toBe(900);
+  });
+
+  it("addNewTalent pobiera 100 PD, a confirm zgadza sie z podgladem", () => {
+    const dm = freshDm(1000);
+    const eng = new PendingEngine(dm);
+    eng.addNewTalent("Nowy");
+    eng.addNewTalent("Drugi");
+    expect(dm.experience.available).toBe(800);
+    // Podglad kosztu == faktycznie odjete PD (brak rozjazdu preview/confirm).
+    expect(eng.computeCost().totalCost).toBe(200);
+    const res = eng.confirm();
+    expect(res.totalCost).toBe(200);
+    expect(dm.experience.spent).toBe(200);
+    expect(dm.experience.available).toBe(800);
+    expect(dm.experience.total).toBe(1000);
+  });
+
+  it("addNewTalent odmawia przy braku PD i nie dodaje talentu", () => {
+    const dm = freshDm(50); // mniej niz 100 (koszt 1. wykupienia)
+    const eng = new PendingEngine(dm);
+    expect(eng.addNewTalent("ZaDrogi")).toBe(false);
+    expect(dm.talents.ZaDrogi).toBeUndefined();
+    expect(dm.experience.available).toBe(50);
   });
 });
 
@@ -159,6 +184,41 @@ describe("pending: zatwierdzanie i cofanie", () => {
     expect(dm.experience.available).toBe(150);
     eng.revert();
     expect(dm.experience.available).toBe(100);
+  });
+
+  it("confirm zgadza sie z faktycznie odjetymi PD mimo zmiany trybu kosztu", () => {
+    const dm = freshDm(1000);
+    let outOfProf = false;
+    const eng = new PendingEngine(dm, () => ({
+      outOfProfession: outOfProf,
+      gmApproved: false
+    }));
+    const before = dm.experience.available;
+    eng.increaseAttribute("WW", 1); // w profesji: koszt 25
+    const deducted = before - dm.experience.available;
+    expect(deducted).toBe(25);
+    // tryb zmienia sie na spoza profesji (x2) PO zakupie
+    outOfProf = true;
+    const result = eng.confirm();
+    // zapisany koszt = faktycznie odjete PD, nie ponownie przeliczone 50
+    expect(result.totalCost).toBe(deducted);
+    expect(dm.experience.spent).toBe(deducted);
+    expect(dm.experience.available + dm.experience.spent).toBe(before);
+  });
+
+  it("revert zwraca dokladnie odjete PD mimo zmiany trybu kosztu", () => {
+    const dm = freshDm(1000);
+    let outOfProf = false;
+    const eng = new PendingEngine(dm, () => ({
+      outOfProfession: outOfProf,
+      gmApproved: false
+    }));
+    const before = dm.experience.available;
+    eng.increaseAttribute("WW", 1); // koszt 25
+    outOfProf = true;
+    const refund = eng.revert();
+    expect(refund).toBe(25);
+    expect(dm.experience.available).toBe(before);
   });
 });
 

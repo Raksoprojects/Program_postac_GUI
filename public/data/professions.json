@@ -1,6 +1,6 @@
 {
   "Aptekarka": {
-    "species": [
+    "races": [
       "człowiek",
       "elf wysoki",
       "krasnolud",
@@ -120,7 +120,7 @@
     "page": 53
   },
   "Czarodziej": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki"
@@ -237,19 +237,23 @@
     "page": 54
   },
   "Inżynier": {
-    "species": [
+    "races": [
       "człowiek",
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Student Inżynierii",
         "status": "Brąz 4",
-        "characteristics": [],
+        "characteristics": [
+          "Umiejętność Strzelecka",
+          "Zręczność",
+          "Inteligencja"
+        ],
         "skills": [
           "Broń Zasięgowa (Prochowa)",
           "Język (Klasyczny)",
@@ -275,7 +279,9 @@
         "level": 2,
         "title": "Inżynier",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Badania Naukowe",
           "Broń Zasięgowa (Eksperymentalna)",
@@ -299,7 +305,9 @@
         "level": 3,
         "title": "Renomowany Inżynier",
         "status": "Srebro 4",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość"
+        ],
         "skills": [
           "Dowodzenie",
           "Jeździectwo (Konie)",
@@ -320,7 +328,9 @@
         "level": 4,
         "title": "Mistrz Inżynierii",
         "status": "Złoto 2",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Język (Dowolny)",
           "Wiedza (Dowolna)"
@@ -335,9 +345,7 @@
           "biblioteka (Inżyniera)",
           "doskonałe narzędzia pracy (Inżyniera)",
           "duży warsztat (Inżyniera)",
-          "licencja Cechu Co to ma robić? W założeniu to służy do oskubywania kurcząt",
-          "Małonosie. Odsuń się jeszcze kilka kroków! – Wolfgang Kugelschrieber",
-          "wynalazca"
+          "licencja Cechu"
         ]
       }
     ],
@@ -346,17 +354,21 @@
     "page": 55
   },
   "Kapłan": {
-    "species": [
+    "races": [
       "człowiek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Kleryk",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość",
+          "Zwinność",
+          "Siła Woli"
+        ],
         "skills": [
           "Atletyka",
           "Badania Naukowe",
@@ -382,7 +394,9 @@
         "level": 2,
         "title": "Kapłan",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Charyzma",
@@ -406,7 +420,9 @@
         "level": 3,
         "title": "Arcykapłan",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Dowodzenie",
           "Sztuka (Pisarstwo)",
@@ -430,7 +446,9 @@
         "level": 4,
         "title": "Lektor",
         "status": "Złoto 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Język (Dowolny)",
           "Wiedza (Polityka)"
@@ -443,12 +461,7 @@
         ],
         "trappings": [
           "biblioteka (Teologia)",
-          "podwładni Arcykapłani Gdy szukam dobrej porady",
-          "wybieram się do kapłana Vereny. Gdy szukam czegokolwiek innego",
-          "wybieram się do kapłana Ranalda. – Wermer Losch",
-          "kupiec Ta shallyanka",
-          "młoda dziewczyna",
-          "pogładziła czoło mojego"
+          "podwładni Arcykapłani"
         ]
       }
     ],
@@ -457,20 +470,24 @@
     "page": 56
   },
   "Medyczka": {
-    "species": [
+    "races": [
       "człowiek",
       "elf wysoki",
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Studentka Medycyny",
         "status": "Brąz 4",
-        "characteristics": [],
+        "characteristics": [
+          "Zręczność",
+          "Inteligencja",
+          "Siła Woli"
+        ],
         "skills": [
           "Leczenie",
           "Odporność",
@@ -496,7 +513,9 @@
         "level": 2,
         "title": "Medyczka",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Charyzma",
           "Język (Gildii)",
@@ -521,7 +540,9 @@
         "level": 3,
         "title": "Doktor",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Badania Naukowe",
           "Dowodzenie",
@@ -543,7 +564,9 @@
         "level": 4,
         "title": "Nadworna Medyczka",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Zwinność"
+        ],
         "skills": [
           "Wiedza (Szlachta)",
           "Występy (Taniec)"
@@ -565,7 +588,7 @@
     "page": 57
   },
   "Mniszka": {
-    "species": [
+    "races": [
       "człowiek"
     ],
     "characteristics_pending": true,
@@ -675,7 +698,7 @@
     "page": 58
   },
   "Prawniczka": {
-    "species": [
+    "races": [
       "człowiek",
       "elf wysoki",
       "krasnolud",
@@ -788,7 +811,7 @@
     "page": 59
   },
   "Uczony": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",
@@ -897,7 +920,7 @@
     "page": 60
   },
   "Agitator": {
-    "species": [
+    "races": [
       "człowiek",
       "krasnolud",
       "niziołek"
@@ -1007,7 +1030,7 @@
     "page": 61
   },
   "Kupiec": {
-    "species": [
+    "races": [
       "człowiek",
       "elf wysoki",
       "krasnolud",
@@ -1121,7 +1144,7 @@
     "page": 62
   },
   "Mieszczka": {
-    "species": [
+    "races": [
       "człowiek",
       "elf wysoki",
       "krasnolud",
@@ -1231,7 +1254,7 @@
     "page": 63
   },
   "Rzemieślniczka": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",
@@ -1342,7 +1365,7 @@
     "page": 64
   },
   "Strażnik": {
-    "species": [
+    "races": [
       "człowiek",
       "elf wysoki",
       "krasnolud",
@@ -1454,7 +1477,7 @@
     "page": 65
   },
   "Szczurołap": {
-    "species": [
+    "races": [
       "człowiek",
       "krasnolud",
       "niziołek"
@@ -1578,7 +1601,7 @@
     "page": 66
   },
   "Śledczy": {
-    "species": [
+    "races": [
       "człowiek",
       "elf wysoki",
       "krasnolud",
@@ -1699,7 +1722,7 @@
     "page": 67
   },
   "Żebrak": {
-    "species": [
+    "races": [
       "człowiek",
       "krasnolud",
       "niziołek"
@@ -1810,7 +1833,7 @@
     "page": 68
   },
   "Artystka": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",
@@ -1919,7 +1942,7 @@
     "page": 69
   },
   "Doradca": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",
@@ -2026,7 +2049,7 @@
     "page": 70
   },
   "Namiestnik": {
-    "species": [
+    "races": [
       "człowiek",
       "elf wysoki",
       "krasnolud",
@@ -2145,7 +2168,7 @@
     "page": 71
   },
   "Poseł": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",
@@ -2257,7 +2280,7 @@
     "page": 72
   },
   "Służąca": {
-    "species": [
+    "races": [
       "człowiek",
       "krasnolud",
       "niziołek"
@@ -2363,7 +2386,7 @@
     "page": 73
   },
   "Szlachcic": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",
@@ -2482,7 +2505,7 @@
     "page": 74
   },
   "Szpieg": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",
@@ -2596,7 +2619,7 @@
     "page": 75
   },
   "Zwadźca": {
-    "species": [
+    "races": [
       "człowiek",
       "elf wysoki",
       "krasnolud"
@@ -2708,7 +2731,7 @@
     "page": 76
   },
   "Chłopka": {
-    "species": [
+    "races": [
       "człowiek",
       "krasnolud",
       "niziołek"
@@ -2822,7 +2845,7 @@
     "page": 77
   },
   "Górnik": {
-    "species": [
+    "races": [
       "człowiek",
       "krasnolud",
       "niziołek"
@@ -2938,7 +2961,7 @@
     "page": 78
   },
   "Guślarz": {
-    "species": [
+    "races": [
       "człowiek"
     ],
     "characteristics_pending": true,
@@ -3044,7 +3067,7 @@
     "page": 79
   },
   "Łowczyni": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",
@@ -3156,7 +3179,7 @@
     "page": 80
   },
   "Mistyczka": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny"
     ],
@@ -3258,7 +3281,7 @@
     "page": 81
   },
   "Zarządca": {
-    "species": [
+    "races": [
       "człowiek",
       "krasnolud",
       "niziołek"
@@ -3370,7 +3393,7 @@
     "page": 82
   },
   "Zielarka": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",
@@ -3480,7 +3503,7 @@
     "page": 83
   },
   "Zwiadowca": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",
@@ -3592,7 +3615,7 @@
     "page": 84
   },
   "Biczownik": {
-    "species": [
+    "races": [
       "człowiek"
     ],
     "characteristics_pending": true,
@@ -3696,7 +3719,7 @@
     "page": 85
   },
   "Domokrążca": {
-    "species": [
+    "races": [
       "człowiek",
       "krasnolud",
       "niziołek"
@@ -3810,7 +3833,7 @@
     "page": 86
   },
   "Kuglarka": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",
@@ -3921,7 +3944,7 @@
     "page": 87
   },
   "Łowca Czarownic": {
-    "species": [
+    "races": [
       "człowiek"
     ],
     "characteristics_pending": true,
@@ -4029,7 +4052,7 @@
     "page": 88
   },
   "Łowczyni Nagród": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",
@@ -4146,7 +4169,7 @@
     "page": 89
   },
   "Posłaniec": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",
@@ -4256,7 +4279,7 @@
     "page": 90
   },
   "Strażniczka Dróg": {
-    "species": [
+    "races": [
       "człowiek",
       "niziołek"
     ],
@@ -4369,7 +4392,7 @@
     "page": 91
   },
   "Woźnica": {
-    "species": [
+    "races": [
       "człowiek",
       "krasnolud",
       "niziołek"
@@ -4478,7 +4501,7 @@
     "page": 92
   },
   "Doker": {
-    "species": [
+    "races": [
       "człowiek",
       "krasnolud",
       "niziołek"
@@ -4599,7 +4622,7 @@
     "page": 93
   },
   "Flisak": {
-    "species": [
+    "races": [
       "człowiek",
       "krasnolud",
       "niziołek"
@@ -4707,7 +4730,7 @@
     "page": 94
   },
   "Pilotka Rzeczna": {
-    "species": [
+    "races": [
       "człowiek",
       "krasnolud",
       "niziołek"
@@ -4816,7 +4839,7 @@
     "page": 95
   },
   "Pirat Rzeczny": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "krasnolud"
@@ -4937,7 +4960,7 @@
     "page": 96
   },
   "Przemytniczka": {
-    "species": [
+    "races": [
       "człowiek",
       "elf wysoki",
       "krasnolud",
@@ -5058,7 +5081,7 @@
     "page": 97
   },
   "Przewoźnik": {
-    "species": [
+    "races": [
       "człowiek",
       "elf wysoki",
       "krasnolud",
@@ -5166,7 +5189,7 @@
     "page": 98
   },
   "Strażnik Rzeczny": {
-    "species": [
+    "races": [
       "człowiek",
       "niziołek"
     ],
@@ -5276,7 +5299,7 @@
     "page": 99
   },
   "Żeglarz": {
-    "species": [
+    "races": [
       "człowiek",
       "elf wysoki",
       "krasnolud",
@@ -5385,7 +5408,7 @@
     "page": 100
   },
   "Banita": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",
@@ -5507,7 +5530,7 @@
     "page": 101
   },
   "Czarownica": {
-    "species": [
+    "races": [
       "człowiek"
     ],
     "characteristics_pending": true,
@@ -5617,7 +5640,7 @@
     "page": 102
   },
   "Hiena Cmentarna": {
-    "species": [
+    "races": [
       "człowiek",
       "niziołek"
     ],
@@ -5736,7 +5759,7 @@
     "page": 103
   },
   "Paser": {
-    "species": [
+    "races": [
       "człowiek",
       "krasnolud",
       "niziołek"
@@ -5845,7 +5868,7 @@
     "page": 104
   },
   "Rajfur": {
-    "species": [
+    "races": [
       "człowiek",
       "elf wysoki",
       "niziołek"
@@ -5949,7 +5972,7 @@
     "page": 105
   },
   "Rekietierka": {
-    "species": [
+    "races": [
       "człowiek",
       "krasnolud",
       "niziołek"
@@ -6060,7 +6083,7 @@
     "page": 106
   },
   "Szarlatan": {
-    "species": [
+    "races": [
       "człowiek",
       "elf wysoki",
       "niziołek"
@@ -6171,7 +6194,7 @@
     "page": 107
   },
   "Złodziej": {
-    "species": [
+    "races": [
       "człowiek",
       "krasnolud",
       "niziołek"
@@ -6279,7 +6302,7 @@
     "page": 108
   },
   "Gladiator": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",
@@ -6389,7 +6412,7 @@
     "page": 109
   },
   "Kapłan Bitewny": {
-    "species": [
+    "races": [
       "człowiek"
     ],
     "characteristics_pending": true,
@@ -6494,7 +6517,7 @@
     "page": 110
   },
   "Kawalerzysta": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki"
@@ -6602,7 +6625,7 @@
     "page": 111
   },
   "Ochroniarz": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",
@@ -6713,7 +6736,7 @@
     "page": 112
   },
   "Oprych": {
-    "species": [
+    "races": [
       "człowiek",
       "elf wysoki",
       "krasnolud"
@@ -6829,7 +6852,7 @@
     "page": 113
   },
   "Rycerz": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki"
@@ -6941,7 +6964,7 @@
     "page": 114
   },
   "Zabójca": {
-    "species": [
+    "races": [
       "krasnolud"
     ],
     "characteristics_pending": true,
@@ -7047,7 +7070,7 @@
     "page": 115
   },
   "Żołnierz": {
-    "species": [
+    "races": [
       "człowiek",
       "elf leśny",
       "elf wysoki",

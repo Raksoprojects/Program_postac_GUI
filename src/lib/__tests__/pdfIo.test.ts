@@ -68,12 +68,25 @@ describe("pdfIo: eksport (round-trip)", () => {
     extracted.attributes.WW.advanced += 5;
     extracted.attributes.WW.current = extracted.attributes.WW.initial + extracted.attributes.WW.advanced;
 
+    // Modyfikujemy drugorzedne statystyki (Zywotnosc, pule punktow).
+    const stats = {
+      ...extracted.stats,
+      wounds: 17,
+      movement: 4,
+      fate: 2,
+      fortune: 3,
+      resilience: 1,
+      resolve: 1,
+      motivation: "Zemsta"
+    };
+
     const out = await writePdfCharacterData(
       bytes,
       {
         character_name: "Round Trip",
         attributes: extracted.attributes,
         skills: extracted.skills,
+        stats,
         talents: Object.fromEntries(
           Object.entries(extracted.talents).map(([n, t]) => [
             n,
@@ -90,6 +103,10 @@ describe("pdfIo: eksport (round-trip)", () => {
 
     const reread = await extractPdfCharacterData(out);
     expect(reread.attributes.WW.advanced).toBe(extracted.attributes.WW.advanced);
+    expect(reread.stats.wounds).toBe(17);
+    expect(reread.stats.fate).toBe(2);
+    expect(reread.stats.resilience).toBe(1);
+    expect(reread.stats.motivation).toBe("Zemsta");
   });
 
   it.runIf(hasEmpty)("eksportuje nowa postac na pustym szablonie", async () => {
@@ -97,6 +114,11 @@ describe("pdfIo: eksport (round-trip)", () => {
     dm.createNewCharacter("Świeża Postać");
     dm.attributes.WW.advanced = 10;
     dm.attributes.WW.current = 40;
+    dm.stats.wounds = 14;
+    dm.stats.movement = 4;
+    dm.stats.fate = 2;
+    dm.stats.resilience = 1;
+    dm.stats.motivation = "Chwała";
 
     const template = new Uint8Array(readFileSync(emptyPdf));
     const out = await dm.exportToPdf(template);
@@ -104,5 +126,10 @@ describe("pdfIo: eksport (round-trip)", () => {
 
     const reread = await extractPdfCharacterData(out);
     expect(reread.attributes.WW.advanced).toBe(10);
+    expect(reread.stats.wounds).toBe(14);
+    expect(reread.stats.movement).toBe(4);
+    expect(reread.stats.fate).toBe(2);
+    expect(reread.stats.resilience).toBe(1);
+    expect(reread.stats.motivation).toBe("Chwała");
   });
 });

@@ -3,6 +3,7 @@
   import { ATTRIBUTES } from "../lib/rules";
   import { characteristicToCode } from "../lib/gameData";
   import Modal from "./Modal.svelte";
+  import Autocomplete from "./Autocomplete.svelte";
 
   let textFilter = $state("");
   let attrFilter = $state("");
@@ -31,6 +32,9 @@
     })
   );
 
+  let phantoms = $derived(onlyDevelopable ? store.phantomSkills() : []);
+  let skillSuggestions = $derived(store.availableSkillNames());
+
   function clearFilters() {
     textFilter = "";
     attrFilter = "";
@@ -43,6 +47,16 @@
     newAdv = 0;
     addError = "";
     showAdd = true;
+  }
+
+  function onPickSkill(name: string) {
+    const code = store.skillBaseAttr(name);
+    if (code) newAttr = code;
+  }
+
+  function addPhantom(name: string) {
+    const code = store.skillBaseAttr(name) ?? "Int";
+    store.addSkill(name, code);
   }
 
   function submitAdd() {
@@ -136,9 +150,20 @@
         </div>
       </div>
     {/each}
-    {#if allRows.length === 0}
+    {#each phantoms as name (name)}
+      <div class="row panel dev-row phantom">
+        <div class="name">
+          <strong>{name}</strong> <span class="text-dim">+</span>
+        </div>
+        <div class="stats text-dim">Umiejętność z profesji – jeszcze nieposiadana.</div>
+        <div class="btns">
+          <button class="btn-sm success" onclick={() => addPhantom(name)}>+ Dodaj</button>
+        </div>
+      </div>
+    {/each}
+    {#if allRows.length === 0 && phantoms.length === 0}
       <p class="text-dim empty">Brak umiejętności. Dodaj pierwszą przyciskiem „Dodaj umiejętność".</p>
-    {:else if rows.length === 0}
+    {:else if rows.length === 0 && phantoms.length === 0}
       <p class="text-dim empty">Brak umiejętności spełniających filtr.</p>
     {/if}
   </div>
@@ -148,7 +173,12 @@
   <Modal title="Dodaj umiejętność" onClose={() => (showAdd = false)}>
     <label class="fld">
       <span>Nazwa umiejętności</span>
-      <input type="text" bind:value={newName} placeholder="np. Broń biała (Podstawowa)" />
+      <Autocomplete
+        bind:value={newName}
+        options={skillSuggestions}
+        placeholder="np. Wiedza (Medycyna) – zacznij pisać"
+        onpick={onPickSkill}
+      />
     </label>
     <label class="fld">
       <span>Atrybut</span>

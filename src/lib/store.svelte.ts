@@ -30,7 +30,9 @@ import type {
   Developable,
   SkillEntry,
   TalentEntry,
-  TalentMax
+  TalentMax,
+  CharacterStats,
+  RaceCreationInput
 } from "./types";
 
 /** Pelne nazwy cech (kod -> nazwa) do prezentacji w UI. */
@@ -253,6 +255,14 @@ class CharacterStore {
     return this.dm.characterName;
   }
 
+  /** Aktualna profesja i poziom (do prezentacji w naglowku). */
+  get careerLabel(): string {
+    void this.tick;
+    const name = this.dm.currentCareer;
+    if (!name) return "";
+    return `${name} (poz. ${this.dm.currentCareerLevel})`;
+  }
+
   get experience() {
     void this.tick;
     return { ...this.dm.experience };
@@ -266,6 +276,19 @@ class CharacterStore {
   get hasPending(): boolean {
     void this.tick;
     return this.engine.has();
+  }
+
+  /** Rozbicie liczby oczekujacych zmian na zakladki (do wskaznikow w UI). */
+  get pendingByTab(): { cechy: number; umiejetnosci: number; talenty: number } {
+    void this.tick;
+    const p = this.engine.pending;
+    const sum = (o: Record<string, number>) =>
+      Object.values(o).reduce((a, b) => a + Math.abs(b), 0);
+    return {
+      cechy: sum(p.attribute_changes),
+      umiejetnosci: sum(p.skill_changes) + p.new_skills.size,
+      talenty: sum(p.talent_changes) + p.new_talents.size
+    };
   }
 
   attributeRows(): AttributeRow[] {
@@ -319,6 +342,18 @@ class CharacterStore {
     const out: string[] = [];
     for (const name of dev.talents) {
       if (!(name in this.dm.talents)) out.push(name);
+    }
+    return out.sort((a, b) => a.localeCompare(b, "pl"));
+  }
+
+  /** Umiejetnosci ze schematu profesji jeszcze nie posiadane (phantom). */
+  phantomSkills(): string[] {
+    void this.tick;
+    const dev = this.developable();
+    if (!dev.resolved) return [];
+    const out: string[] = [];
+    for (const name of dev.skills) {
+      if (!(name in this.dm.skills)) out.push(name);
     }
     return out.sort((a, b) => a.localeCompare(b, "pl"));
   }
@@ -452,6 +487,20 @@ class CharacterStore {
       .sort((a, b) => a.localeCompare(b, "pl"));
   }
 
+  /** Lista kanonicznych umiejetnosci mozliwych do dodania (nie posiadane). */
+  availableSkillNames(): string[] {
+    void this.tick;
+    return gameData
+      .allSkillNames()
+      .filter((n) => !(n in this.dm.skills))
+      .sort((a, b) => a.localeCompare(b, "pl"));
+  }
+
+  /** Kod cechy wiodacej dla nazwy umiejetnosci (kanon skills.json). */
+  skillBaseAttr(name: string): string | undefined {
+    return gameData.skillBaseAttr(name);
+  }
+
   // ----- Akcje: profesja ------------------------------------------------
 
   setCurrentCareer(profession: string, level: number): void {
@@ -560,6 +609,37 @@ class CharacterStore {
     this.overrideTalents = new Set();
     this.history = [];
     this.addHistory("Utworzono nową postać", name);
+    this.touch();
+  }
+
+  /**
+   * Tworzy postac na podstawie wynikow kreatora rasowego (Krok 1 + 3 + rasowe
+   * umiejetnosci/talenty). Deleguje do DataManager i resetuje stan UI/PD.
+   */
+  createFromRace(input: RaceCreationInput): void {
+    this.dm.createFromRace(input);
+    this.engine.reset();
+    this.overrideSkills = new Set();
+    this.overrideTalents = new Set();
+    this.history = [];
+    this.addHistory(
+      "Utworzono postać (kreator)",
+      `${input.race} — ${input.name || "Nowa Postać"} (Przeznaczenie ${input.fate}, Bohatera ${input.resilience})`
+    );
+    this.touch();
+  }
+
+  // ----- Drugorzedne statystyki (Zywotnosc, Punkty itd.) ----------------
+
+  get stats(): CharacterStats {
+    void this.tick;
+    return this.dm.stats;
+  }
+
+  /** Aktualizuje pojedyncza statystyke drugorzedna (z zapisem). */
+  setStat<K extends keyof CharacterStats>(key: K, value: CharacterStats[K]): void {
+    if (this.dm.stats[key] === value) return;
+    this.dm.stats[key] = value;
     this.touch();
   }
 

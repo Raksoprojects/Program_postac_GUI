@@ -8,8 +8,13 @@
 
   let textFilter = $state("");
   let onlyDevelopable = $state(false);
+  let expandedDesc = $state<Record<string, boolean>>({});
 
   const norm = (s: string) => s.trim().toLowerCase();
+
+  function toggleDesc(name: string) {
+    expandedDesc[name] = !expandedDesc[name];
+  }
 
   let allRows = $derived(store.talentRows());
 
@@ -194,7 +199,14 @@
           </div>
         </div>
         {#if row.entry.description}
-          <p class="desc text-dim" title={row.entry.description}>ⓘ {row.entry.description}</p>
+          <button
+            type="button"
+            class="desc text-dim"
+            class:expanded={expandedDesc[row.name]}
+            title={row.entry.description}
+            aria-expanded={expandedDesc[row.name] ? "true" : "false"}
+            onclick={() => toggleDesc(row.name)}
+          >ⓘ {row.entry.description}</button>
         {/if}
       </div>
     {/each}
@@ -415,6 +427,23 @@
     -webkit-line-clamp: 2;
     line-clamp: 2;
     -webkit-box-orient: vertical;
+    text-align: left;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: var(--space-2) 0 0;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .desc.expanded {
+    display: block;
+    -webkit-line-clamp: none;
+    line-clamp: none;
+    overflow: visible;
+    white-space: pre-line;
   }
 
   .empty {

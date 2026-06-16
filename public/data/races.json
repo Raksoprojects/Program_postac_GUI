@@ -1,0 +1,205 @@
+{
+  "randomTalentsTable": [
+    { "min": 1, "max": 3, "name": "Atrakcyjny" },
+    { "min": 4, "max": 6, "name": "Bardzo Silny" },
+    { "min": 7, "max": 8, "name": "Błękitna Krew" },
+    { "min": 9, "max": 11, "name": "Błyskotliwość" },
+    { "min": 12, "max": 14, "name": "Charyzmatyczny" },
+    { "min": 15, "max": 17, "name": "Chodu!" },
+    { "min": 18, "max": 20, "name": "Czujny" },
+    { "min": 21, "max": 24, "name": "Czysta Dusza" },
+    { "min": 25, "max": 27, "name": "Czytanie/Pisanie" },
+    { "min": 28, "max": 31, "name": "Geniusz Arytmetyczny" },
+    { "min": 32, "max": 34, "name": "Naśladowca" },
+    { "min": 35, "max": 37, "name": "Niezwykle Odporny" },
+    { "min": 38, "max": 40, "name": "Oburęczność" },
+    { "min": 41, "max": 43, "name": "Odporny na (Dowolne Zagrożenie)" },
+    { "min": 44, "max": 46, "name": "Poliglota" },
+    { "min": 47, "max": 49, "name": "Posłuch u Zwierząt" },
+    { "min": 50, "max": 52, "name": "Silne Nogi" },
+    { "min": 53, "max": 55, "name": "Słuch Absolutny" },
+    { "min": 56, "max": 58, "name": "Strzelec Wyborowy" },
+    { "min": 59, "max": 62, "name": "Szczęście" },
+    { "min": 63, "max": 66, "name": "Szósty Zmysł" },
+    { "min": 67, "max": 69, "name": "Szybki Refleks" },
+    { "min": 70, "max": 72, "name": "Talent Artystyczny" },
+    { "min": 73, "max": 75, "name": "Tragarz" },
+    { "min": 76, "max": 79, "name": "Twardziel" },
+    { "min": 80, "max": 82, "name": "Urodzony Wojownik" },
+    { "min": 83, "max": 85, "name": "Widzenie w Ciemności" },
+    { "min": 86, "max": 88, "name": "Wyczucie Kierunku" },
+    { "min": 89, "max": 91, "name": "Wyczulony Zmysł (Dowolny)" },
+    { "min": 92, "max": 94, "name": "Wytwórca (Dowolny)" },
+    { "min": 95, "max": 97, "name": "Zimna Krew" },
+    { "min": 98, "max": 100, "name": "Zręczny" }
+  ],
+  "races": {
+    "Człowiek": {
+      "randomMin": 1,
+      "randomMax": 90,
+      "characteristics": {
+        "WW": 20, "US": 20, "S": 20, "Wt": 20, "I": 20,
+        "Zw": 20, "Zr": 20, "Int": 20, "SW": 20, "Ogd": 20
+      },
+      "woundsIncludeStrength": true,
+      "fate": 2,
+      "resilience": 1,
+      "extraPoints": 3,
+      "movement": 4,
+      "skills": [
+        "Broń Biała (Podstawowa)",
+        "Broń Zasięgowa (Łuk)",
+        "Charyzma",
+        "Dowodzenie",
+        "Język (bretoński)",
+        "Język (Jałowej Krainy)",
+        "Opanowanie",
+        "Opieka nad Zwierzętami",
+        "Plotkowanie",
+        "Targowanie",
+        "Wiedza (Reikland)",
+        "Wycena"
+      ],
+      "talents": [
+        { "type": "choice", "options": ["Błyskotliwość", "Charyzmatyczny"] },
+        { "type": "fixed", "name": "Wróżba Losu" },
+        { "type": "random", "count": 3 }
+      ]
+    },
+    "Krasnolud": {
+      "randomMin": 95,
+      "randomMax": 98,
+      "characteristics": {
+        "WW": 30, "US": 20, "S": 20, "Wt": 30, "I": 20,
+        "Zw": 10, "Zr": 30, "Int": 20, "SW": 40, "Ogd": 10
+      },
+      "woundsIncludeStrength": true,
+      "fate": 0,
+      "resilience": 2,
+      "extraPoints": 2,
+      "movement": 3,
+      "skills": [
+        "Broń Biała (Podstawowa)",
+        "Język (Khazalid)",
+        "Opanowanie",
+        "Mocna Głowa",
+        "Rzemiosło (Dowolne)",
+        "Wiedza (Geologia)",
+        "Wiedza (Krasnoludy)",
+        "Wiedza (Metalurgia)",
+        "Wycena",
+        "Występy (Gawędziarstwo)",
+        "Zastraszanie"
+      ],
+      "talents": [
+        { "type": "choice", "options": ["Czytanie/Pisanie", "Nieustępliwy"] },
+        { "type": "choice", "options": ["Odporność Psychiczna", "Nieugięty"] },
+        { "type": "fixed", "name": "Odporny na Magię" },
+        { "type": "fixed", "name": "Tragarz" },
+        { "type": "fixed", "name": "Widzenie w Ciemności" }
+      ]
+    },
+    "Niziołek": {
+      "randomMin": 91,
+      "randomMax": 94,
+      "characteristics": {
+        "WW": 10, "US": 30, "S": 10, "Wt": 20, "I": 20,
+        "Zw": 20, "Zr": 30, "Int": 20, "SW": 30, "Ogd": 30
+      },
+      "woundsIncludeStrength": false,
+      "fate": 0,
+      "resilience": 2,
+      "extraPoints": 3,
+      "movement": 3,
+      "skills": [
+        "Charyzma",
+        "Hazard",
+        "Intuicja",
+        "Język (Krainy Zgromadzenia)",
+        "Mocna Głowa",
+        "Percepcja",
+        "Rzemiosło (Kucharz)",
+        "Skradanie (Dowolne)",
+        "Targowanie",
+        "Unik",
+        "Wiedza (Reikland)",
+        "Zwinne Palce"
+      ],
+      "talents": [
+        { "type": "fixed", "name": "Mały" },
+        { "type": "fixed", "name": "Odporność na Chaos" },
+        { "type": "fixed", "name": "Widzenie w Ciemności" },
+        { "type": "fixed", "name": "Wyczulony Zmysł (Smak)" },
+        { "type": "random", "count": 2 }
+      ]
+    },
+    "Wysoki elf": {
+      "randomMin": 99,
+      "randomMax": 99,
+      "characteristics": {
+        "WW": 30, "US": 30, "S": 20, "Wt": 20, "I": 40,
+        "Zw": 30, "Zr": 30, "Int": 30, "SW": 30, "Ogd": 20
+      },
+      "woundsIncludeStrength": true,
+      "fate": 0,
+      "resilience": 1,
+      "extraPoints": 2,
+      "movement": 5,
+      "skills": [
+        "Broń Biała (Podstawowa)",
+        "Broń Zasięgowa (Łuk)",
+        "Dowodzenie",
+        "Język (Eltharin)",
+        "Muzyka (Dowolny instrument)",
+        "Nawigacja",
+        "Opanowanie",
+        "Pływanie",
+        "Percepcja",
+        "Wycena",
+        "Występy (Śpiewanie)",
+        "Żeglarstwo"
+      ],
+      "talents": [
+        { "type": "choice", "options": ["Błyskotliwość", "Zimna Krew"] },
+        { "type": "fixed", "name": "Czytanie/Pisanie" },
+        { "type": "fixed", "name": "Wyczulony Zmysł (Wzrok)" },
+        { "type": "fixed", "name": "Widzenie w Ciemności" },
+        { "type": "choice", "options": ["Szósty Zmysł", "Percepcja Magiczna"] }
+      ]
+    },
+    "Leśny elf": {
+      "randomMin": 100,
+      "randomMax": 100,
+      "characteristics": {
+        "WW": 30, "US": 30, "S": 20, "Wt": 20, "I": 40,
+        "Zw": 30, "Zr": 30, "Int": 30, "SW": 30, "Ogd": 20
+      },
+      "woundsIncludeStrength": true,
+      "fate": 0,
+      "resilience": 1,
+      "extraPoints": 2,
+      "movement": 5,
+      "skills": [
+        "Atletyka",
+        "Broń Biała (Podstawowa)",
+        "Broń Zasięgowa (Łuk)",
+        "Język (Eltharin)",
+        "Odporność",
+        "Percepcja",
+        "Skradanie",
+        "Sztuka Przetrwania",
+        "Tropienie",
+        "Wspinaczka",
+        "Występy (Śpiewanie)",
+        "Zastraszanie"
+      ],
+      "talents": [
+        { "type": "choice", "options": ["Czytanie/Pisanie", "Niezwykle Odporny"] },
+        { "type": "fixed", "name": "Włóczykij" },
+        { "type": "choice", "options": ["Twardziel", "Percepcja Magiczna"] },
+        { "type": "fixed", "name": "Widzenie w Ciemności" },
+        { "type": "fixed", "name": "Wyczulony Zmysł (Wzrok)" }
+      ]
+    }
+  }
+}

@@ -61,6 +61,54 @@
       <p class="text-dim empty">Brak cech spełniających filtr.</p>
     {/if}
   </div>
+
+  <div class="secondary panel">
+    <h3 class="section-title sm">Wartości drugorzędne</h3>
+    <p class="section-sub">
+      Żywotność, Szybkość oraz pule punktów. Zapisywane w postaci i eksportowane do PDF.
+    </p>
+    <div class="stat-grid">
+      <label class="stat-fld">
+        <span>Żywotność</span>
+        <input type="number" min="0" value={store.stats.wounds}
+          oninput={(e) => store.setStat("wounds", Math.max(0, +(e.currentTarget as HTMLInputElement).value))} />
+      </label>
+      <label class="stat-fld">
+        <span>Szybkość</span>
+        <input type="number" min="0" value={store.stats.movement}
+          oninput={(e) => store.setStat("movement", Math.max(0, +(e.currentTarget as HTMLInputElement).value))} />
+      </label>
+      <div class="stat-fld ro">
+        <span>Chód / Bieg</span>
+        <output>{store.stats.movement * 2} / {store.stats.movement * 4}</output>
+      </div>
+      <label class="stat-fld">
+        <span>Punkty Przeznaczenia</span>
+        <input type="number" min="0" value={store.stats.fate}
+          oninput={(e) => store.setStat("fate", Math.max(0, +(e.currentTarget as HTMLInputElement).value))} />
+      </label>
+      <label class="stat-fld">
+        <span>Punkty Szczęścia</span>
+        <input type="number" min="0" value={store.stats.fortune}
+          oninput={(e) => store.setStat("fortune", Math.max(0, +(e.currentTarget as HTMLInputElement).value))} />
+      </label>
+      <label class="stat-fld">
+        <span>Punkty Bohatera</span>
+        <input type="number" min="0" value={store.stats.resilience}
+          oninput={(e) => store.setStat("resilience", Math.max(0, +(e.currentTarget as HTMLInputElement).value))} />
+      </label>
+      <label class="stat-fld">
+        <span>Determinacja</span>
+        <input type="number" min="0" value={store.stats.resolve}
+          oninput={(e) => store.setStat("resolve", Math.max(0, +(e.currentTarget as HTMLInputElement).value))} />
+      </label>
+      <label class="stat-fld wide">
+        <span>Motywacja</span>
+        <input type="text" value={store.stats.motivation}
+          oninput={(e) => store.setStat("motivation", (e.currentTarget as HTMLInputElement).value)} />
+      </label>
+    </div>
+  </div>
 </section>
 
 <style>
@@ -68,6 +116,42 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
+  }
+
+  .secondary {
+    padding: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .section-title.sm {
+    font-size: var(--fs-md, 1rem);
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--space-2) var(--space-3);
+  }
+  .stat-fld {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .stat-fld > span {
+    font-size: var(--fs-sm);
+    color: var(--text-dim, #999);
+  }
+  .stat-fld.wide {
+    grid-column: 1 / -1;
+  }
+  .stat-fld.ro output {
+    font-size: var(--fs-lg);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    padding: var(--space-1) 0;
+  }
+  .stat-fld input {
+    font-variant-numeric: tabular-nums;
   }
 
   .controls {

@@ -27,9 +27,10 @@ import {
   PDF_BASIC_SKILL_LAYOUT,
   PDF_EXPERIENCE_FIELDS,
   PDF_PAGE_ONE_PROFESSION_CHECKBOX_COUNT,
+  PDF_STAT_FIELDS,
   PDF_TALENT_ROWS
 } from "./pdfConstants";
-import type { AttributeEntry, SkillEntry } from "./types";
+import type { AttributeEntry, CharacterStats, SkillEntry } from "./types";
 
 // ---------------------------------------------------------------------------
 // Pomocnicze
@@ -172,6 +173,7 @@ export interface PdfMapping {
   talents: Record<string, Record<string, unknown>>;
   talents_free: Array<Record<string, string | null>>;
   profession: Record<string, string | null>;
+  stats: Record<string, string | null>;
 }
 
 export interface PdfExtractResult {
@@ -180,6 +182,7 @@ export interface PdfExtractResult {
   skills: Record<string, SkillEntry>;
   talents: Record<string, PdfRawTalent>;
   experience: { available: number; spent: number; total: number };
+  stats: CharacterStats;
   profession_info: PdfProfessionInfo;
   pdf_mapping: PdfMapping;
 }
@@ -216,6 +219,19 @@ export async function extractPdfCharacterData(
     total: safeInt(readFieldValue(index, PDF_EXPERIENCE_FIELDS.total))
   };
 
+  // Drugorzedne statystyki (Zywotnosc, Szybkosc, pule punktow, Motywacja).
+  const woundsCurrent = safeInt(readFieldValue(index, PDF_STAT_FIELDS.woundsCurrent));
+  const woundsBase = safeInt(readFieldValue(index, PDF_STAT_FIELDS.woundsBase));
+  const stats: CharacterStats = {
+    wounds: woundsCurrent || woundsBase,
+    movement: safeInt(readFieldValue(index, PDF_STAT_FIELDS.movement)),
+    fate: safeInt(readFieldValue(index, PDF_STAT_FIELDS.fate)),
+    fortune: safeInt(readFieldValue(index, PDF_STAT_FIELDS.fortune)),
+    resilience: safeInt(readFieldValue(index, PDF_STAT_FIELDS.resilience)),
+    resolve: safeInt(readFieldValue(index, PDF_STAT_FIELDS.resolve)),
+    motivation: readFieldValue(index, PDF_STAT_FIELDS.motivation)
+  };
+
   const pdfMapping: PdfMapping = {
     character_name: fieldNameFor(index, "imie"),
     experience: {},
@@ -229,7 +245,10 @@ export async function extractPdfCharacterData(
       level_field: fieldNameFor(index, "poziom_profesji"),
       path_field: fieldNameFor(index, "sciezka_profesji"),
       species_field: fieldNameFor(index, "rasa")
-    }
+    },
+    stats: Object.fromEntries(
+      Object.entries(PDF_STAT_FIELDS).map(([key, norm]) => [key, fieldNameFor(index, norm)])
+    )
   };
 
   const professionInfo: PdfProfessionInfo = {
@@ -367,6 +386,7 @@ export async function extractPdfCharacterData(
     skills,
     talents,
     experience,
+    stats,
     profession_info: professionInfo,
     pdf_mapping: pdfMapping
   };
@@ -383,6 +403,7 @@ export interface PdfWritePayload {
   skills: Record<string, SkillEntry>;
   talents: Record<string, { advances?: number | string; description?: string }>;
   experience: { available: number; spent: number; total: number };
+  stats: CharacterStats;
   profession: Record<string, string>;
 }
 
@@ -426,6 +447,22 @@ export async function writePdfCharacterData(
 
   for (const [key, fieldName] of Object.entries(mapping.experience)) {
     setUpdate(fieldName, stringify(payload.experience[key as keyof typeof payload.experience] || ""));
+  }
+
+  // Drugorzedne statystyki. Zywotnosc -> bazowa i aktualna; ruch -> Chod/Bieg.
+  if (mapping.stats) {
+    const s = payload.stats;
+    const woundsStr = s.wounds ? String(s.wounds) : "";
+    setUpdate(mapping.stats.woundsBase, woundsStr);
+    setUpdate(mapping.stats.woundsCurrent, woundsStr);
+    setUpdate(mapping.stats.movement, s.movement ? String(s.movement) : "");
+    setUpdate(mapping.stats.walk, s.movement ? String(s.movement * 2) : "");
+    setUpdate(mapping.stats.run, s.movement ? String(s.movement * 4) : "");
+    setUpdate(mapping.stats.fate, s.fate ? String(s.fate) : "");
+    setUpdate(mapping.stats.fortune, s.fortune ? String(s.fortune) : "");
+    setUpdate(mapping.stats.resilience, s.resilience ? String(s.resilience) : "");
+    setUpdate(mapping.stats.resolve, s.resolve ? String(s.resolve) : "");
+    setUpdate(mapping.stats.motivation, stringify(s.motivation || ""));
   }
 
   for (const [attrName, attrMapping] of Object.entries(mapping.attributes)) {
