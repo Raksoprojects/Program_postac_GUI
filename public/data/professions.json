@@ -250,7 +250,7 @@
         "title": "Student Inżynierii",
         "status": "Brąz 4",
         "characteristics": [
-          "Umiejętność Strzelecka",
+          "Umiejętności Strzeleckie",
           "Zręczność",
           "Inteligencja"
         ],
@@ -591,14 +591,18 @@
     "races": [
       "człowiek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Nowicjuszka",
         "status": "Brąz 1",
-        "characteristics": [],
+        "characteristics": [
+          "Zręczność",
+          "Inteligencja",
+          "Ogłada"
+        ],
         "skills": [
           "Leczenie",
           "Modlitwa",
@@ -624,7 +628,9 @@
         "level": 2,
         "title": "Mniszka",
         "status": "Brąz 4",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Badania Naukowe",
           "Broń Biała (Dowolna)",
@@ -649,7 +655,9 @@
         "level": 3,
         "title": "Przeorysza",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Dowodzenie",
           "Percepcja",
@@ -671,7 +679,9 @@
         "level": 4,
         "title": "Matka Przełożona",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość"
+        ],
         "skills": [
           "Język (Dowolny)",
           "Wiedza (Dowolna)"
@@ -704,14 +714,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Studentka Prawa",
         "status": "Brąz 4",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa",
+          "Zręczność",
+          "Inteligencja"
+        ],
         "skills": [
           "Badania Naukowe",
           "Język (Klasyczny)",
@@ -737,7 +751,9 @@
         "level": 2,
         "title": "Prawniczka",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Przekupstwo",
           "Charyzma",
@@ -762,7 +778,9 @@
         "level": 3,
         "title": "Obrońca",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Sztuka (Pisarstwo)",
           "Wiedza (Dowolna)",
@@ -784,7 +802,9 @@
         "level": 4,
         "title": "Sędzia",
         "status": "Złoto 2",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość"
+        ],
         "skills": [
           "Opanowanie",
           "Wiedza (Polityka)"
@@ -797,12 +817,7 @@
         ],
         "trappings": [
           "młotek Sędziego",
-          "pretensjonalna peruka Rekiny! Nie",
-          "gorzej! To pijawki! Ale nie te dobre",
-          "które wysysają złe humory",
-          "o nie. To pijawki",
-          "które osuszą twoje kufry i zostawią cię z niczym. – Stefan Bachler",
-          "kupiec"
+          "pretensjonalna peruka"
         ]
       }
     ],
@@ -818,14 +833,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Student",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość",
+          "Inteligencja",
+          "Siła Woli"
+        ],
         "skills": [
           "Badania Naukowe",
           "Hazard",
@@ -853,7 +872,9 @@
         "level": 2,
         "title": "Uczony",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Intuicja",
           "Język (Dowolny)",
@@ -877,7 +898,9 @@
         "level": 3,
         "title": "Wykładowca",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Język (Dowolny)",
           "Wiedza (Dowolna)",
@@ -899,7 +922,9 @@
         "level": 4,
         "title": "Profesor",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Zręczność"
+        ],
         "skills": [
           "Wiedza (Dowolna)",
           "Występy (Retoryka)"
@@ -925,14 +950,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Pamflecista",
         "status": "Brąz 1",
-        "characteristics": [],
+        "characteristics": [
+          "Umiejętności Strzeleckie",
+          "Inteligencja",
+          "Ogłada"
+        ],
         "skills": [
           "Charyzma",
           "Mocna Głowa",
@@ -959,7 +988,9 @@
         "level": 2,
         "title": "Agitator",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Zwinność"
+        ],
         "skills": [
           "Dowodzenie",
           "Hazard",
@@ -982,7 +1013,9 @@
         "level": 3,
         "title": "Podżegacz",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz"
+        ],
         "skills": [
           "Atletyka",
           "Broń Biała (Bijatyka)",
@@ -1004,7 +1037,9 @@
         "level": 4,
         "title": "Demagog",
         "status": "Brąz 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Jeździectwo (Konie)",
           "Wiedza (Heraldyka)"
@@ -1019,9 +1054,7 @@
           "imponujący kapelusz",
           "Patron",
           "prasa drukarska",
-          "3 Pamflecistów ALTDORF DLA ALTDORFCZYKÓW! MIDDENLANDCZYCY PRECZ! – ulotka",
-          "ulica Stu Karczm",
-          "Altdorf"
+          "3 Pamflecistów"
         ]
       }
     ],
@@ -1036,14 +1069,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Handlarz",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Zwinność",
+          "Siła Woli",
+          "Ogłada"
+        ],
         "skills": [
           "Charyzma",
           "Hazard",
@@ -1071,7 +1108,9 @@
         "level": 2,
         "title": "Kupiec",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Intuicja",
           "Język (Dowolny)",
@@ -1096,7 +1135,9 @@
         "level": 3,
         "title": "Mistrz Kupiectwa",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Język (Klasyczny)",
           "Opanowanie",
@@ -1119,7 +1160,9 @@
         "level": 4,
         "title": "Patrycjusz",
         "status": "Złoto 3",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz"
+        ],
         "skills": [
           "Wiedza (Dowolna)",
           "Zastraszanie"
@@ -1135,7 +1178,7 @@
           "dobre ubranie",
           "duża posiadłość w mieście",
           "2 magazyny",
-          "1000 ZK Skoro"
+          "1000 ZK"
         ]
       }
     ],
@@ -1150,14 +1193,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Przekupka",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Zwinność",
+          "Inteligencja",
+          "Ogłada"
+        ],
         "skills": [
           "Charyzma",
           "Hazard",
@@ -1183,7 +1230,9 @@
         "level": 2,
         "title": "Mieszczka",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Broń Biała (Bijatyka)",
           "Intuicja",
@@ -1208,7 +1257,9 @@
         "level": 3,
         "title": "Rajczyni Miejska",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Zręczność"
+        ],
         "skills": [
           "Badania Naukowe",
           "Opanowanie",
@@ -1230,7 +1281,9 @@
         "level": 4,
         "title": "Burmistrz",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Wiedza (Polityka)",
           "Zastraszanie"
@@ -1261,14 +1314,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Czeladniczka",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Siła",
+          "Wytrzymałość",
+          "Zręczność"
+        ],
         "skills": [
           "Atletyka",
           "Opanowanie",
@@ -1295,7 +1352,9 @@
         "level": 2,
         "title": "Rzemieślniczka",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Charyzma",
           "Język (Cechu)",
@@ -1319,7 +1378,9 @@
         "level": 3,
         "title": "Mistrzyni Rzemiosła",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Badania Naukowe",
           "Dowodzenie",
@@ -1341,7 +1402,9 @@
         "level": 4,
         "title": "Mistrzyni Cechu",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Przekupstwo",
           "Zastraszanie"
@@ -1371,14 +1434,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Rekrut Straży",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Siła",
+          "Ogłada"
+        ],
         "skills": [
           "Atletyka",
           "Broń Biała (Dowolna)",
@@ -1405,7 +1472,9 @@
         "level": 2,
         "title": "Strażnik",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Charyzma",
           "Intuicja",
@@ -1430,7 +1499,9 @@
         "level": 3,
         "title": "Sierżant Straży",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Dowodzenie",
           "Targowanie",
@@ -1453,7 +1524,9 @@
         "level": 4,
         "title": "Kapitan Straży",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Wiedza (Polityka)",
           "Jeździectwo (Konie)"
@@ -1482,14 +1555,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Uczeń Szczurołapa",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Umiejętności Strzeleckie",
+          "Siła Woli"
+        ],
         "skills": [
           "Atletyka",
           "Tresura (Psy)",
@@ -1507,8 +1584,7 @@
           "Widzenie w Ciemności"
         ],
         "trappings": [
-          "mały",
-          "ale zajadły pies",
+          "mały, ale zajadły pies",
           "proca z amunicją",
           "worek"
         ]
@@ -1517,7 +1593,9 @@
         "level": 2,
         "title": "Szczurołap",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość"
+        ],
         "skills": [
           "Opieka nad Zwierzętami",
           "Percepcja",
@@ -1541,7 +1619,9 @@
         "level": 3,
         "title": "Strażnik Kanałów",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Broń Zasięgowa (Kusza Pistoletowa)",
           "Opanowanie",
@@ -1564,7 +1644,9 @@
         "level": 4,
         "title": "T ępiciel",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Siła"
+        ],
         "skills": [
           "Dowodzenie",
           "Tropienie"
@@ -1578,21 +1660,7 @@
         "trappings": [
           "Asystent",
           "duży i zajadły pies",
-          "worek zatrutej przynęty (10 Porcji Sercoboju) ‘ Otmar",
-          "widzisz tego tam",
-          "obok stosu gnoju? To dopiero duży skurczybyk! Upewnij się",
-          "że jest martwy",
-          "zanim go podniesiesz. Inaczej pogryzie ci dłoń jadowitymi zębami. – Annaliese Rattenfänger",
-          "Strażniczka Kanałów Wybacz",
-          "kolego. Zwykłymi szczurami zajmuje się reszta cechu. Ja i moi ludzie bierzemy się za te większe okazy",
-          "w kanałach. Jest ich tam prawdziwy wysyp... – Marten Stormdal",
-          "Tępiciel z Ubersreiku Gdy szczury stają się „za duże” lub „za sprytne” albo gdy wyrasta ostra konkurencja",
-          "Szczurołapy przenoszą się do nowych miast. Podczas po - dróży mogą zaprzyjaźnić się z poszukiwaczami przygód",
-          "którzy chętnie korzystają z pomocy cwanego najemnika. Szczurołapy nie boją się włazić tam",
-          "dokąd nie wchodzą zwykli ludzie. Jeśli chcesz grać bohaterem",
-          "który być może jest świadomy istnienia szczurów „za dużych” i „za sprytnych”",
-          "czyli skavenów (patrz strona 336)",
-          "profesja"
+          "worek zatrutej przynęty (10 Porcji Sercoboju)"
         ]
       }
     ],
@@ -1607,14 +1675,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Szpicel",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa",
+          "Zwinność",
+          "Inteligencja"
+        ],
         "skills": [
           "Charyzma",
           "Intuicja",
@@ -1642,7 +1714,9 @@
         "level": 2,
         "title": "Śledczy",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Broń Biała (Bijatyka)",
           "Mocna Głowa",
@@ -1668,7 +1742,9 @@
         "level": 3,
         "title": "Starszy Śledczy",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Zręczność"
+        ],
         "skills": [
           "Dowodzenie",
           "Przekupstwo",
@@ -1690,7 +1766,9 @@
         "level": 4,
         "title": "Detektyw",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Wiedza (Dowolna)",
           "Zastraszanie"
@@ -1703,17 +1781,7 @@
         ],
         "trappings": [
           "luneta",
-          "sieć Informatorów Z żalem informuję",
-          "że pani mąż jest pogrzebany w ogródku warzywnym Frau Kohl",
-          "pod rzepami. To będzie 6 szylingów i 4 pensy. – Hemlock Surelight",
-          "elfi szpicel Te rozbite drzwi pozwalają nam wydedukować",
-          "że złodziej wyszedł stąd z pomocą bardzo dużego stworzenia. Jednak wspomniane stworzenie nie mogłoby zejść wąskimi schodami. To pozostawia jedynie dwa możliwe wnioski. Albo stwór zmaterializował się z powietrza",
-          "albo nasz złodziej jest zmien - nokształtnym... – Zavant Konniger",
-          "Mędrzec-detektyw Mes amis",
-          "jestem",
-          "jak wam zapewne wiadomo",
-          "największym detektywem na świecie. Musieliście słyszeliście o Alphonse",
-          "nieprawdaż? – Alphonse"
+          "sieć Informatorów"
         ]
       }
     ],
@@ -1727,14 +1795,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Biedak",
         "status": "Brąz 0",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość",
+          "Zwinność",
+          "Ogłada"
+        ],
         "skills": [
           "Atletyka",
           "Charyzma",
@@ -1760,7 +1832,9 @@
         "level": 2,
         "title": "Żebrak",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Percepcja",
           "Plotkowanie",
@@ -1784,7 +1858,9 @@
         "level": 3,
         "title": "Mistrz Żebraków",
         "status": "Brąz 4",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz"
+        ],
         "skills": [
           "Dowodzenie",
           "Oswajanie",
@@ -1807,7 +1883,9 @@
         "level": 4,
         "title": "Król Żebraków",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Przekupstwo",
           "Zastraszanie"
@@ -1820,11 +1898,7 @@
         ],
         "trappings": [
           "kryjówka",
-          "duża grupa towarzyszących Żebraków Proszę",
-          "frau",
-          "pokornie błagam o parę miedziaków",
-          "bym mogła dziś kupić sobie chleb. Wystarczy nawet fenig – Gutbäcker sprzedaje wczorajsze pieczywo. – Elsie",
-          "niziołkowa żebraczka"
+          "duża grupa towarzyszących Żebraków"
         ]
       }
     ],
@@ -1840,14 +1914,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Uczennica Artysty",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Siła",
+          "Inicjatywa",
+          "Zręczność"
+        ],
         "skills": [
           "Mocna Głowa",
           "Odporność",
@@ -1865,15 +1943,16 @@
           "Wytrwały"
         ],
         "trappings": [
-          "dłuto albo pędzel",
-          "albo pióro"
+          "dłuto albo pędzel, albo pióro"
         ]
       },
       {
         "level": 2,
         "title": "Artystka",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Język (Klasyczny)",
           "Hazard",
@@ -1896,7 +1975,9 @@
         "level": 3,
         "title": "Mistrzyni Sztuki",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Charyzma",
           "Dowodzenie",
@@ -1919,7 +2000,9 @@
         "level": 4,
         "title": "Maestro",
         "status": "Złoto 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Badania Naukowe",
           "Jeździectwo (Konie)"
@@ -1949,14 +2032,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Asystent",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość",
+          "Inicjatywa",
+          "Zwinność"
+        ],
         "skills": [
           "Język (Klasyczny)",
           "Mocna Głowa",
@@ -1981,7 +2068,9 @@
         "level": 2,
         "title": "Doradca",
         "status": "Srebro 4",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Hazard",
           "Intuicja",
@@ -2004,7 +2093,9 @@
         "level": 3,
         "title": "Radca",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Dowodzenie",
           "Język (Dowolny)",
@@ -2026,7 +2117,9 @@
         "level": 4,
         "title": "Kanclerz",
         "status": "Złoto 3",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Jeździectwo (Konie)",
           "Wiedza (Heraldyka)"
@@ -2055,14 +2148,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Nadzorca",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Siła",
+          "Wytrzymałość",
+          "Siła Woli"
+        ],
         "skills": [
           "Atletyka",
           "Intuicja",
@@ -2090,7 +2187,9 @@
         "level": 2,
         "title": "Namiestnik",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Broń Zasięgowa (Łuk)",
@@ -2115,7 +2214,9 @@
         "level": 3,
         "title": "Seneszal",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Charyzma",
           "Plotkowanie",
@@ -2137,7 +2238,9 @@
         "level": 4,
         "title": "Gubernator",
         "status": "Złoto 3",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Język (Dowolny)",
           "Wycena"
@@ -2151,15 +2254,7 @@
         "trappings": [
           "Asystent",
           "rezydencja Gubernatora",
-          "Służący Tak",
-          "mój panie",
-          "diuk spoczywa w łożu złożony niemocą już od dekady. Owszem",
-          "mój panie",
-          "ja zawiaduję jego posiadłością. Nie",
-          "mój panie",
-          "nie sądzę",
-          "by to się miało zmienić w najbliższym czasie. W końcu teraz w Penzkirchen to moje słowo jest prawem... Aresztować go! – W. Edvart Kurtz",
-          "Gubernator Penzkirchen"
+          "Służący"
         ]
       }
     ],
@@ -2175,14 +2270,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Herold",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość",
+          "Zwinność",
+          "Ogłada"
+        ],
         "skills": [
           "Atletyka",
           "Charyzma",
@@ -2209,7 +2308,9 @@
         "level": 2,
         "title": "Poseł",
         "status": "Srebro 4",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Opanowanie",
           "Plotkowanie",
@@ -2233,7 +2334,9 @@
         "level": 3,
         "title": "Dyplomata",
         "status": "Złoto 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Dowodzenie",
           "Język (Dowolny)",
@@ -2256,7 +2359,9 @@
         "level": 4,
         "title": "Ambasador",
         "status": "Złoto 5",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Język (Dowolny)",
           "Wiedza (Dowolna)"
@@ -2285,14 +2390,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Posługaczka",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Siła",
+          "Wytrzymałość",
+          "Zwinność"
+        ],
         "skills": [
           "Atletyka",
           "Intuicja",
@@ -2317,7 +2426,9 @@
         "level": 2,
         "title": "Służąca",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Hazard",
           "Mocna Głowa",
@@ -2340,7 +2451,9 @@
         "level": 3,
         "title": "Pokojowa",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Charyzma",
           "Wiedza (Lokalna)",
@@ -2363,7 +2476,9 @@
         "level": 4,
         "title": "Ochmistrzyni",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Dowodzenie"
@@ -2392,14 +2507,18 @@
       "elf wysoki",
       "krasnolud"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Dziedzic",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Inicjatywa",
+          "Zręczność"
+        ],
         "skills": [
           "Broń Biała (Szermiercza)",
           "Hazard",
@@ -2427,7 +2546,9 @@
         "level": 2,
         "title": "Szlachcic",
         "status": "Złoto 3",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Broń Biała (Parująca)",
           "Charyzma",
@@ -2455,7 +2576,9 @@
         "level": 3,
         "title": "Magnat",
         "status": "Złoto 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Intuicja",
           "Język (Dowolny)",
@@ -2480,7 +2603,9 @@
         "level": 4,
         "title": "Lord",
         "status": "Złoto 7",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Tropienie",
           "Wiedza (Dowolna)"
@@ -2512,14 +2637,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Informator",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Zwinność",
+          "Siła Woli",
+          "Ogłada"
+        ],
         "skills": [
           "Charyzma",
           "Hazard",
@@ -2546,7 +2675,9 @@
         "level": 2,
         "title": "Szpieg",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Intuicja",
@@ -2573,7 +2704,9 @@
         "level": 3,
         "title": "Agent",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Dowodzenie",
           "Język (Dowolny)",
@@ -2596,7 +2729,9 @@
         "level": 4,
         "title": "Mistrz Szpiegów",
         "status": "Złoto 4",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Badania Naukowe",
           "Wiedza (Dowolna)"
@@ -2624,14 +2759,18 @@
       "elf wysoki",
       "krasnolud"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Szermierz",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Inicjatywa",
+          "Zwinność"
+        ],
         "skills": [
           "Atletyka",
           "Broń Biała (Dowolna)",
@@ -2657,7 +2796,9 @@
         "level": 2,
         "title": "Zwadźca",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Umiejętności Strzeleckie"
+        ],
         "skills": [
           "Broń Biała (Parująca)",
           "Broń Zasięgowa (Prochowa)",
@@ -2681,7 +2822,9 @@
         "level": 3,
         "title": "Mistrz Pojedynków",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Siła"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Dowodzenie",
@@ -2705,7 +2848,9 @@
         "level": 4,
         "title": "Szampierz Sądowy",
         "status": "Złoto 3",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Broń Biała (Dowolna)",
           "Wiedza (Prawo)"
@@ -2717,12 +2862,7 @@
           "Morderczy Atak"
         ],
         "trappings": [
-          "2 sztuki broni dobrej jakości Do pierwszej krwi",
-          "szalona! Miało być do pierwszej krwi! A ty musiałaś go przebić na wylot! – Ortolf Ehardt",
-          "mieszczanin Sir",
-          "na swoją obronę pragnę zauważyć",
-          "że to on puścił pierwszą krew. – Rosabel Viernau",
-          "Zwadźca"
+          "2 sztuki broni dobrej jakości"
         ]
       }
     ],
@@ -2736,14 +2876,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Wyrobnica",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Siła",
+          "Wytrzymałość",
+          "Zwinność"
+        ],
         "skills": [
           "Atletyka",
           "Broń Biała (Bijatyka)",
@@ -2768,7 +2912,9 @@
         "level": 2,
         "title": "Chłopka",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Powożenie",
@@ -2793,7 +2939,9 @@
         "level": 3,
         "title": "Gospodyni",
         "status": "Brąz 4",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Charyzma",
           "Dowodzenie",
@@ -2815,7 +2963,9 @@
         "level": 4,
         "title": "Starsza Wioski",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Intuicja",
           "Wiedza (Historia)"
@@ -2827,16 +2977,7 @@
           "Zręczny"
         ],
         "trappings": [
-          "szacunek wioski To ciężkie życie",
-          "z pewnością",
-          "ale dobre. Co roku pani z dworu wysyła strażników",
-          "by oczyścili las",
-          "przepędzili zwierzoludzi i im podobnych. Rodzina dba o nasze bezpieczeństwo",
-          "a my dbamy o jej stada. Zazwyczaj to uczciwa wymiana. – Gunni Ackermann",
-          "pastereczka Słuchaj",
-          "możesz sobie drwić",
-          "ile wlezie",
-          "ale sam cholerny Konrad"
+          "szacunek wioski"
         ]
       }
     ],
@@ -2850,14 +2991,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Poszukiwacz",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Siła",
+          "Wytrzymałość",
+          "Siła Woli"
+        ],
         "skills": [
           "Broń Biała (Dwuręczna)",
           "Intuicja",
@@ -2885,7 +3030,9 @@
         "level": 2,
         "title": "Górnik",
         "status": "Brąz 4",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Mocna Głowa",
@@ -2901,7 +3048,7 @@
           "Widzenie w Ciemności"
         ],
         "trappings": [
-          "broń ręczna (kilof )",
+          "broń ręczna (kilof)",
           "lampa Davricha",
           "lampa oliwna",
           "skórzana kurta"
@@ -2911,7 +3058,9 @@
         "level": 3,
         "title": "Sztygar",
         "status": "Brąz 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Plotkowanie",
           "Rzemiosło (Inżynieria)",
@@ -2934,7 +3083,9 @@
         "level": 4,
         "title": "Mistrz Górnictwa",
         "status": "Srebro 4",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Charyzma",
           "Dowodzenie"
@@ -2947,12 +3098,7 @@
         ],
         "trappings": [
           "brygada Górników",
-          "zestaw do pisania Po odjęciu kosztu zapasów",
-          "które kupiłeś w sklepie i dodaniu szesnastu ton twojego urobku",
-          "zarobiłeś... Zobaczmy... Nie",
-          "właściwie to za dzisiaj jesteś nam winien dwie monety. Postarzałeś się o kolejny dzień i powiększyłeś swój dług",
-          "chłopcze. – Frederika",
-          "zaopatrzeniowiec"
+          "zestaw do pisania"
         ]
       }
     ],
@@ -2964,14 +3110,18 @@
     "races": [
       "człowiek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Uczeń Guślarza",
         "status": "Brąz 1",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość",
+          "Inicjatywa",
+          "Zręczność"
+        ],
         "skills": [
           "Intuicja",
           "Język (Magiczny)",
@@ -2998,7 +3148,9 @@
         "level": 2,
         "title": "Guślarz",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Opanowanie",
           "Plotkowanie",
@@ -3023,7 +3175,9 @@
         "level": 3,
         "title": "Starszy Guślarzy",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Targowanie",
           "Wiedza (Duchy)",
@@ -3045,7 +3199,9 @@
         "level": 4,
         "title": "Wiedzący",
         "status": "Brąz 5",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Modlitwa",
           "Zastraszanie"
@@ -3074,14 +3230,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Traperka",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Siła",
+          "Wytrzymałość",
+          "Zręczność"
+        ],
         "skills": [
           "Broń Zasięgowa (Proca)",
           "Odporność",
@@ -3109,7 +3269,9 @@
         "level": 2,
         "title": "Łowczyni",
         "status": "Brąz 4",
-        "characteristics": [],
+        "characteristics": [
+          "Umiejętności Strzeleckie"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Broń Zasięgowa (Łuk)",
@@ -3132,7 +3294,9 @@
         "level": 3,
         "title": "Tropicielka",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Jeździectwo (Konie)",
           "Nawigacja",
@@ -3155,7 +3319,9 @@
         "level": 4,
         "title": "Nadworna Łowczyni",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Opieka nad Zwierzętami",
           "Tresura (Dowolna)"
@@ -3168,9 +3334,7 @@
         ],
         "trappings": [
           "koń wierzchowy z rzędem",
-          "psiarnia z psami łowieckimi Mój panie",
-          "te tropy... Nie śledzimy jelenia. W tych lasach żyją Zmiennoskórzy. – Gundred Maynir",
-          "Mistrz Łowów"
+          "psiarnia z psami łowieckimi"
         ]
       }
     ],
@@ -3183,14 +3347,18 @@
       "człowiek",
       "elf leśny"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Wróżbiarka",
         "status": "Brąz 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa",
+          "Zręczność",
+          "Ogłada"
+        ],
         "skills": [
           "Charyzma",
           "Intuicja",
@@ -3216,7 +3384,9 @@
         "level": 2,
         "title": "Mistyczka",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Opanowanie",
           "Przekupstwo",
@@ -3239,7 +3409,9 @@
         "level": 3,
         "title": "Widząca",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Zwinność"
+        ],
         "skills": [
           "Język (Dowolny)",
           "Oswajanie",
@@ -3260,7 +3432,9 @@
         "level": 4,
         "title": "Prorokini",
         "status": "Brąz 4",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Splatanie Magii (Azyr)",
           "Wiedza (Proroctwa)"
@@ -3286,14 +3460,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Poborca Podatków",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Inicjatywa",
+          "Siła Woli"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Odporność",
@@ -3319,7 +3497,9 @@
         "level": 2,
         "title": "Zarządca",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Dowodzenie",
           "Intuicja",
@@ -3343,7 +3523,9 @@
         "level": 3,
         "title": "Włodarz",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Zwinność"
+        ],
         "skills": [
           "Jeździectwo (Konie)",
           "Nawigacja",
@@ -3366,7 +3548,9 @@
         "level": 4,
         "title": "Komornik",
         "status": "Złoto 3",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Język (Klasyczny)",
           "Wiedza (Prawo)"
@@ -3380,11 +3564,7 @@
         "trappings": [
           "biblioteka (Prawo)",
           "pieczęć urzędowa",
-          "szata dobrej jakości Owszem",
-          "to były kiepskie żniwa",
-          "ale danina to danina. Wezmę połowę teraz i połowę w Marktag. Co ty na to? To najlepsze",
-          "co mogę zaproponować. Uczciwiej się nie da. – Lena Sauer",
-          "Zarządca"
+          "szata dobrej jakości"
         ]
       }
     ],
@@ -3399,14 +3579,18 @@
       "elf wysoki",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Zbieraczka Ziół",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość",
+          "Inicjatywa",
+          "Zwinność"
+        ],
         "skills": [
           "Odporność",
           "Oswajanie",
@@ -3433,7 +3617,9 @@
         "level": 2,
         "title": "Zielarka",
         "status": "Brąz 4",
-        "characteristics": [],
+        "characteristics": [
+          "Zręczność"
+        ],
         "skills": [
           "Leczenie",
           "Mocna Głowa",
@@ -3458,7 +3644,9 @@
         "level": 3,
         "title": "Mistrzyni Ziołolecznictwa",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Dowodzenie",
           "Intuicja",
@@ -3482,7 +3670,9 @@
         "level": 4,
         "title": "Arcyzielarka",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Powożenie",
           "Nawigacja"
@@ -3510,14 +3700,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Przewodnik",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość",
+          "Inicjatywa",
+          "Zwinność"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Odporność",
@@ -3545,7 +3739,9 @@
         "level": 2,
         "title": "Zwiadowca",
         "status": "Brąz 5",
-        "characteristics": [],
+        "characteristics": [
+          "Umiejętności Strzeleckie"
+        ],
         "skills": [
           "Atletyka",
           "Broń Zasięgowa (Łuk)",
@@ -3569,7 +3765,9 @@
         "level": 3,
         "title": "Przepatrywacz",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Opieka nad Zwierzętami",
           "Pływanie",
@@ -3593,10 +3791,12 @@
         "level": 4,
         "title": "Odkrywca",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Zręczność"
+        ],
         "skills": [
           "Język (Dowolny)",
-          "Rzemiosło (Kartograf )"
+          "Rzemiosło (Kartograf)"
         ],
         "talents": [
           "Poliglota",
@@ -3618,14 +3818,18 @@
     "races": [
       "człowiek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Gorliwiec",
         "status": "Brąz 0",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Siła",
+          "Wytrzymałość"
+        ],
         "skills": [
           "Broń Biała (Korbacz)",
           "Intuicja",
@@ -3651,7 +3855,9 @@
         "level": 2,
         "title": "Biczownik",
         "status": "Brąz 0",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Atletyka",
           "Broń Zasięgowa (Proca)",
@@ -3676,7 +3882,9 @@
         "level": 3,
         "title": "Pokutnik",
         "status": "Brąz 0",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Charyzma",
           "Język (Dowolny)",
@@ -3697,7 +3905,9 @@
         "level": 4,
         "title": "Piewca Zagłady",
         "status": "Brąz 0",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Dowodzenie",
           "Występy (Przemowy)"
@@ -3724,14 +3934,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Powsinoga",
         "status": "Brąz 1",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość",
+          "Zręczność",
+          "Siła Woli"
+        ],
         "skills": [
           "Charyzma",
           "Intuicja",
@@ -3759,7 +3973,9 @@
         "level": 2,
         "title": "Domokrążca",
         "status": "Brąz 4",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Jeździectwo (Konie)",
           "Mocna Głowa",
@@ -3785,7 +4001,9 @@
         "level": 3,
         "title": "Doświadczony Domokrążca",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Język (Dowolny)",
           "Percepcja",
@@ -3807,7 +4025,9 @@
         "level": 4,
         "title": "Wędrowny Handlarz",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Wiedza (Geografia)",
           "Wiedza (Lokalna)"
@@ -3820,11 +4040,7 @@
         ],
         "trappings": [
           "wóz z koniem pociągowym",
-          "towary warte co najmniej 5k10 złotych i 50 srebrnych monet Oto absolutnie unikalny",
-          "całkowicie niepowtarzalny",
-          "jedyny istniejący egzemplarz tego dzieła sztuki. Jeśli chcecie więcej",
-          "nie martwcie się. Mam jeszcze tuzin z tyłu wozu. – Delberz Trötte",
-          "handlarz"
+          "towary warte co najmniej 5k10 złotych i 50 srebrnych monet"
         ]
       }
     ],
@@ -3840,14 +4056,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Muzykantka",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Zwinność",
+          "Zręczność",
+          "Ogłada"
+        ],
         "skills": [
           "Atletyka",
           "Charyzma",
@@ -3873,7 +4093,9 @@
         "level": 2,
         "title": "Kuglarka",
         "status": "Brąz 5",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Broń Zasięgowa (Miotana)",
@@ -3899,7 +4121,9 @@
         "level": 3,
         "title": "Trubadurka",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Umiejętności Strzeleckie"
+        ],
         "skills": [
           "Język (Dowolny)",
           "Opieka nad Zwierzętami",
@@ -3921,7 +4145,9 @@
         "level": 4,
         "title": "Przywódczyni Trupy",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość"
+        ],
         "skills": [
           "Dowodzenie",
           "Powożenie"
@@ -3947,14 +4173,18 @@
     "races": [
       "człowiek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Oprawca",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Wytrzymałość",
+          "Siła Woli"
+        ],
         "skills": [
           "Broń Biała (Bijatyka)",
           "Charyzma",
@@ -3980,7 +4210,9 @@
         "level": 2,
         "title": "Łowca Czarownic",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Umiejętności Strzeleckie"
+        ],
         "skills": [
           "Broń Biała (Dowolna)",
           "Broń Zasięgowa (Dowolna)",
@@ -4008,7 +4240,9 @@
         "level": 3,
         "title": "Inkwizytor",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Dowodzenie",
           "Odporność",
@@ -4030,7 +4264,9 @@
         "level": 4,
         "title": "Generał Łowców Czarownic",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Wiedza (Chaos)",
           "Wiedza (Polityka)"
@@ -4059,14 +4295,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Pogromczyni Złodziei",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Wytrzymałość",
+          "Zwinność"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Charyzma",
@@ -4093,7 +4333,9 @@
         "level": 2,
         "title": "Łowczyni Nagród",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Umiejętności Strzeleckie"
+        ],
         "skills": [
           "Atletyka",
           "Broń Zasięgowa (Kusza)",
@@ -4120,7 +4362,9 @@
         "level": 3,
         "title": "Doświadczona Łowczyni Nagród",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Siła"
+        ],
         "skills": [
           "Jeździectwo (Konie)",
           "Opieka nad Zwierzętami",
@@ -4142,7 +4386,9 @@
         "level": 4,
         "title": "Legendarna Łowczyni Nagród",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Powożenie",
           "Wiedza (Prawo)"
@@ -4156,11 +4402,7 @@
         "trappings": [
           "kaftan kolczy",
           "powóz z koniem pociągowym",
-          "4 pary kajdan To zdumiewające",
-          "jak wielu chłopców chętnie daje się skuć w kajdany",
-          "jeśli tylko uśmiechniesz się do nich słodko. A gdy to nie zadziała",
-          "w ruch idą noże! – Anke Dorflinger",
-          "Łowczyni Nagród"
+          "4 pary kajdan"
         ]
       }
     ],
@@ -4176,14 +4418,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Goniec",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość",
+          "Inicjatywa",
+          "Zwinność"
+        ],
         "skills": [
           "Atletyka",
           "Broń Biała (Bijatyka)",
@@ -4208,7 +4454,9 @@
         "level": 2,
         "title": "Posłaniec",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Charyzma",
@@ -4233,7 +4481,9 @@
         "level": 3,
         "title": "Kurier",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Mocna Głowa",
           "Oswajanie",
@@ -4256,7 +4506,9 @@
         "level": 4,
         "title": "Kapitan Kurierów",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Dowodzenie",
           "Zastraszanie"
@@ -4283,14 +4535,18 @@
       "człowiek",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Mytniczka",
         "status": "Brąz 5",
-        "characteristics": [],
+        "characteristics": [
+          "Umiejętności Strzeleckie",
+          "Wytrzymałość",
+          "Inicjatywa"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Broń Zasięgowa (Kusza)",
@@ -4316,7 +4572,9 @@
         "level": 2,
         "title": "Strażniczka Dróg",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz"
+        ],
         "skills": [
           "Intuicja",
           "Jeździectwo (Konie)",
@@ -4342,7 +4600,9 @@
         "level": 3,
         "title": "Sierżant Strażników Dróg",
         "status": "Srebro 4",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Atletyka",
           "Broń Zasięgowa (Prochowa)",
@@ -4366,7 +4626,9 @@
         "level": 4,
         "title": "Kapitan Strażników Dróg",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Nawigacja",
           "Wiedza (Imperium)"
@@ -4381,9 +4643,7 @@
           "kapelusz i płaszcz dobrej jakości",
           "lekki koń bojowy",
           "pistolet z 10 nabojami",
-          "oddział Strażników Dróg Co mogę rzec? Fenig za nogę. Takie są przepisy. Nic z tym nie zrobię. Może powinniście poszukać innej drogi",
-          "jeśli chcecie dowieźć swoje pszczoły do Grünburga. – Andreas Muller",
-          "mytnik służbista"
+          "oddział Strażników Dróg"
         ]
       }
     ],
@@ -4397,14 +4657,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Foryś",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Umiejętności Strzeleckie",
+          "Wytrzymałość",
+          "Siła Woli"
+        ],
         "skills": [
           "Broń Zasięgowa (Oplątująca)",
           "Jeździectwo (Konie)",
@@ -4430,7 +4694,9 @@
         "level": 2,
         "title": "Woźnica",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Zwinność"
+        ],
         "skills": [
           "Broń Zasięgowa (Prochowa)",
           "Intuicja",
@@ -4456,7 +4722,9 @@
         "level": 3,
         "title": "Mistrz Woźniców",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz"
+        ],
         "skills": [
           "Język (Dowolny)",
           "Tresura (Konie)",
@@ -4479,7 +4747,9 @@
         "level": 4,
         "title": "Mistrz Szlaków",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Charyzma",
           "Dowodzenie"
@@ -4506,14 +4776,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Pomocnik Dokera",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Wytrzymałość",
+          "Inicjatywa"
+        ],
         "skills": [
           "Atletyka",
           "Broń Biała (Podstawowa)",
@@ -4539,7 +4813,9 @@
         "level": 2,
         "title": "Doker",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Siła"
+        ],
         "skills": [
           "Hazard",
           "Percepcja",
@@ -4565,7 +4841,9 @@
         "level": 3,
         "title": "Brygadzista",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Dowodzenie",
           "Intuicja",
@@ -4587,7 +4865,9 @@
         "level": 4,
         "title": "Mistrz Dokerów",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Charyzma",
           "Wiedza (Podatki)"
@@ -4600,20 +4880,7 @@
         ],
         "trappings": [
           "kantor z Pracownikami",
-          "zestaw do pisania Wiem",
-          "że specjalizujemy się w węglu",
-          "ale nie szufladkuj nas. Przeniesiemy cokolwiek",
-          "jeśli pieniądz jest dobry. Zatem daj nam się tym zająć",
-          "zanim przyjdą nosiciele drewna; tu możliwe jest wszystko",
-          "koleżko. – Albert Pförtner",
-          "nosiciel węgla Słuchaj",
-          "chłopcze. Nie myśl sobie",
-          "że dokerzy mają łatwo. To niebezpieczna praca w ciasnych przestrzeniach z wysokimi stertami ciężkich towarów. Jeśli zostanie wykonana źle",
-          "ładunek może przeważyć",
-          "a nawet przewrócić łódź. Chcę przez to powiedzieć",
-          "żebyś płacił dokerom należycie – a jeśli pragniesz zatopić jakąś łódź",
-          "zapłać im ekstra. – Aleida Fuchs",
-          "kupiec"
+          "zestaw do pisania"
         ]
       }
     ],
@@ -4627,14 +4894,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Rybak",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość",
+          "Zwinność",
+          "Zręczność"
+        ],
         "skills": [
           "Atletyka",
           "Mocna Głowa",
@@ -4661,7 +4932,9 @@
         "level": 2,
         "title": "Flisak",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz"
+        ],
         "skills": [
           "Broń Zasięgowa (Miotana)",
           "Broń Zasięgowa (Oplątująca)",
@@ -4687,7 +4960,9 @@
         "level": 3,
         "title": "Znawca Rzeki",
         "status": "Brąz 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Broń Biała (Drzewcowa)",
           "Intuicja",
@@ -4709,7 +4984,9 @@
         "level": 4,
         "title": "Starszy Rzeczny",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Wiedza (Ludowa)",
           "Występy (Gawędziarstwo)"
@@ -4735,14 +5012,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Przewodniczka Rzeczna",
         "status": "Brąz 4",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Wytrzymałość",
+          "Inicjatywa"
+        ],
         "skills": [
           "Intuicja",
           "Mocna Głowa",
@@ -4768,7 +5049,9 @@
         "level": 2,
         "title": "Pilotka Rzeczna",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Charyzma",
@@ -4793,7 +5076,9 @@
         "level": 3,
         "title": "Starsza Pilotka",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Targowanie",
           "Wiedza (Lokalna)",
@@ -4815,7 +5100,9 @@
         "level": 4,
         "title": "Legendarna Pilotka",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Dowodzenie",
           "Żeglarstwo"
@@ -4828,9 +5115,7 @@
         ],
         "trappings": [
           "Chłopiec Pokładowy",
-          "mała łódź rzeczna Z Marienburga przybył wielki statek",
-          "głęboko zanurzony i załadowany po burty. Powiedziałam",
-          "że przeprowadzenie przez"
+          "mała łódź rzeczna"
         ]
       }
     ],
@@ -4844,14 +5129,18 @@
       "elf leśny",
       "krasnolud"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Szabrownik",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Siła",
+          "Inicjatywa"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Mocna Głowa",
@@ -4878,7 +5167,9 @@
         "level": 2,
         "title": "Pirat Rzeczny",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Intuicja",
           "Nawigacja",
@@ -4903,7 +5194,9 @@
         "level": 3,
         "title": "Łupieżca",
         "status": "Brąz 5",
-        "characteristics": [],
+        "characteristics": [
+          "Umiejętności Strzeleckie"
+        ],
         "skills": [
           "Broń Zasięgowa (Kusza)",
           "Plotkowanie",
@@ -4926,7 +5219,9 @@
         "level": 4,
         "title": "Kapitan Łupieżców",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Dowodzenie",
           "Wiedza (Szlaki Wodne)"
@@ -4940,18 +5235,7 @@
         "trappings": [
           "beczułka piwa",
           "flota łodzi rzecznych z załogą Piratów",
-          "kajdany Tuż przed nadejściem nocy wypatrzyliśmy ten smakowity slup w drodze do Carroburga. Rozpaliliśmy ognie na lewym brzegu",
-          "by pomyśleli",
-          "że wioska leży kilkaset jardów bliżej. Halsowali na sterburtę",
-          "tak jak zaplanowaliśmy",
-          "i utknęli na piaszczystej mieliźnie. Znakomicie. Tylko skąd mogliśmy wie - dzieć",
-          "że łódź przewozi kompanię rajtarów? – Greta Lachsmann",
-          "na krótko przed powieszeniem Słuchaj",
-          "jeśli darujemy życie załodze",
-          "powiedzą strażnikom",
-          "gdzie działamy",
-          "więc jedynym rozsądnym wyjściem jest zabicie ich wszystkich. – Mandel Stein",
-          "pragmatyczny Pirat Rzeczny"
+          "kajdany"
         ]
       }
     ],
@@ -4966,14 +5250,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Szmuglerka Rzeczna",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Zwinność",
+          "Zręczność",
+          "Siła Woli"
+        ],
         "skills": [
           "Atletyka",
           "Mocna Głowa",
@@ -5001,7 +5289,9 @@
         "level": 2,
         "title": "Przemytniczka",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Percepcja",
@@ -5027,7 +5317,9 @@
         "level": 3,
         "title": "Doświadczona Przemytniczka",
         "status": "Brąz 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Intuicja",
           "Wiedza (Szlaki Rzeczne)",
@@ -5049,7 +5341,9 @@
         "level": 4,
         "title": "Królowa Przemytników",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Dowodzenie",
           "Język (Dowolny)"
@@ -5062,17 +5356,7 @@
         ],
         "trappings": [
           "mała flota łodzi rzecznych",
-          "zestaw do charakteryzacji Zobacz",
-          "tutaj wsadzę butelkę najlepszego Bordeleaux. Strażnik rzeczny przeszuka to miejsce",
-          "znajdzie ją i skonfiskuje. I tego chcemy",
-          "ponieważ to oznacza",
-          "że nie znajdzie dwunastu butelek",
-          "które ukryliśmy tam. A jeśli je znajdzie",
-          "nie wszystko stracone",
-          "będzie bowiem tak zadowolony z siebie",
-          "że da sobie spokój i nie poszuka jeszcze tam",
-          "gdzie ukryte są dwadzieścia cztery butelki. – Hansel Solomon",
-          "Przemytnik"
+          "zestaw do charakteryzacji"
         ]
       }
     ],
@@ -5087,14 +5371,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Chłopiec Pokładowy",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Siła",
+          "Wytrzymałość",
+          "Zwinność"
+        ],
         "skills": [
           "Broń Biała (Bijatyka)",
           "Mocna Głowa",
@@ -5121,7 +5409,9 @@
         "level": 2,
         "title": "Przewoźnik",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Atletyka",
           "Intuicja",
@@ -5145,7 +5435,9 @@
         "level": 3,
         "title": "Sternik",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Zręczność"
+        ],
         "skills": [
           "Leczenie",
           "Rzemiosło (Szkutnictwo)",
@@ -5167,7 +5459,9 @@
         "level": 4,
         "title": "Kapitan Barki",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Dowodzenie",
           "Nawigacja"
@@ -5193,14 +5487,18 @@
       "człowiek",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Rekrut Rzeczny",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Umiejętności Strzeleckie",
+          "Siła",
+          "Ogłada"
+        ],
         "skills": [
           "Atletyka",
           "Broń Biała (Podstawowa)",
@@ -5227,7 +5525,9 @@
         "level": 2,
         "title": "Strażnik Rzeczny",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz"
+        ],
         "skills": [
           "Broń Zasięgowa (Prochowa)",
           "Charyzma",
@@ -5252,7 +5552,9 @@
         "level": 3,
         "title": "Żołnierz Okrętowy",
         "status": "Srebro 4",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Dowodzenie",
           "Intuicja",
@@ -5275,7 +5577,9 @@
         "level": 4,
         "title": "Mistrz Żołnierzy Okrętowych",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Nawigacja",
           "Wiedza (Prawo)"
@@ -5288,9 +5592,7 @@
         ],
         "trappings": [
           "łodzie patrolowe z załogą",
-          "symbol rangi Kiedyś",
-          "kiedy byłem Strażnikiem Rzeki",
-          "Duży"
+          "symbol rangi"
         ]
       }
     ],
@@ -5305,14 +5607,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Szczur Lądowy",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Zwinność",
+          "Zręczność",
+          "Ogłada"
+        ],
         "skills": [
           "Broń Biała (Bijatyka)",
           "Hazard",
@@ -5339,7 +5645,9 @@
         "level": 2,
         "title": "Żeglarz",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz"
+        ],
         "skills": [
           "Atletyka",
           "Broń Biała (Podstawowa)",
@@ -5363,7 +5671,9 @@
         "level": 3,
         "title": "Bosman",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Dowodzenie",
           "Opanowanie",
@@ -5384,7 +5694,9 @@
         "level": 4,
         "title": "Kapitan Statku",
         "status": "Złoto 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Charyzma",
           "Nawigacja"
@@ -5415,14 +5727,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Zbój",
         "status": "Brąz 1",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Siła",
+          "Wytrzymałość"
+        ],
         "skills": [
           "Atletyka",
           "Broń Biała (Podstawowa)",
@@ -5450,7 +5766,9 @@
         "level": 2,
         "title": "Banita",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Umiejętności Strzeleckie"
+        ],
         "skills": [
           "Broń Zasięgowa (Łuk)",
           "Leczenie",
@@ -5475,7 +5793,9 @@
         "level": 3,
         "title": "Herszt Banitów",
         "status": "Brąz 4",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Dowodzenie",
           "Intuicja",
@@ -5498,7 +5818,9 @@
         "level": 4,
         "title": "Król Banitów",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Charyzma",
           "Wiedza (Imperium)"
@@ -5511,17 +5833,7 @@
         ],
         "trappings": [
           "hołd od miejscowych Hersztów Banitów",
-          "kryjówka To były dzieci",
-          "nie bandyci. Wygłodzone",
-          "brudne",
-          "chore. Wycelowały w nas łuki",
-          "a my nie ustąpiliśmy... Były w wieku mojego syna. Dzieci. Zabiły sześciu z nas... – Valentin Behr",
-          "Strażnik Dróg ...a on pyta: „Titus",
-          "po co nosisz nożyce?”. Ja pytam: „Te?”. A on mówi: „No",
-          "nie widzę tu innych nożyc”. Więc się zaśmiałem i odparłem: „Czasami oni nie chcą zdejmować pierścionków",
-          "gdy ich o to proszę. Jak im pokażę nożyce",
-          "większość szybko zaczyna śpiewać inaczej. A jeśli tego nie zrobią...”. Hehehe. – Titus Widmann",
-          "Banita Nie wszystkie bandy"
+          "kryjówka"
         ]
       }
     ],
@@ -5533,14 +5845,18 @@
     "races": [
       "człowiek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Szeptucha",
         "status": "Brąz 1",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Wytrzymałość",
+          "Siła Woli"
+        ],
         "skills": [
           "Język (Magiczny)",
           "Odporność",
@@ -5568,7 +5884,9 @@
         "level": 2,
         "title": "Czarownica",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Broń Biała (Drzewcowa)",
           "Intuicja",
@@ -5594,7 +5912,9 @@
         "level": 3,
         "title": "Wiedźma",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Charyzma",
           "Przekupstwo",
@@ -5617,7 +5937,9 @@
         "level": 4,
         "title": "Arcyczarownica",
         "status": "Brąz 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Wiedza (Demonologia)",
           "Wiedza (Magia)"
@@ -5630,8 +5952,7 @@
         ],
         "trappings": [
           "czaszka",
-          "szata Myślisz",
-          "że tylko czarodzieje mogą władać magią? Zastanów się dobrze! Ja także pojmuję działanie magii i nie zgadzam się zostać niewolnikiem tak zwanych Kolegiów. – uczeń Franz"
+          "szata"
         ]
       }
     ],
@@ -5644,14 +5965,18 @@
       "człowiek",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Porywaczka Zwłok",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Siła",
+          "Inicjatywa",
+          "Siła Woli"
+        ],
         "skills": [
           "Intuicja",
           "Odporność",
@@ -5679,7 +6004,9 @@
         "level": 2,
         "title": "Hiena Cmentarna",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Powożenie",
@@ -5705,7 +6032,9 @@
         "level": 3,
         "title": "Rabuś Grobowców",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Zręczność"
+        ],
         "skills": [
           "Badania Naukowe",
           "Otwieranie Zamków",
@@ -5730,7 +6059,9 @@
         "level": 4,
         "title": "Łowczyni Skarbów",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Nawigacja",
           "Rzemiosło (Inżynier)"
@@ -5746,11 +6077,7 @@
           "namiot",
           "narzędzia pracy (Inżyniera)",
           "zestaw do pisania",
-          "zwijane posłanie Nie zabierzesz tego ze sobą... Ale ja z pewnością mogę to sobie wziąć. – Symon Schreiber",
-          "Porywacz Zwłok To nie tylko klejnoty",
-          "Herbert. Spójrz na te wszystkie kości! W Altdorfie jest profesor",
-          "który dobrze za nie zapłaci! – Tyle „Ghul” Grubsch",
-          "Hiena Cmentarna Koszmary"
+          "zwijane posłanie"
         ]
       }
     ],
@@ -5764,14 +6091,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Pośrednik",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa",
+          "Zwinność",
+          "Ogłada"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Charyzma",
@@ -5797,7 +6128,9 @@
         "level": 2,
         "title": "Paser",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Zręczność"
+        ],
         "skills": [
           "Intuicja",
           "Opanowanie",
@@ -5822,7 +6155,9 @@
         "level": 3,
         "title": "Mistrz Paserów",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Przekupstwo",
           "Wiedza (Lokalna)",
@@ -5843,7 +6178,9 @@
         "level": 4,
         "title": "Broker Informacji",
         "status": "Srebro 4",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Badania Naukowe",
           "Wiedza (Heraldyka)"
@@ -5857,9 +6194,7 @@
         "trappings": [
           "magazyn",
           "sieć Informatorów",
-          "wynajęty Mięśniak Wiem",
-          "że to jest skradzione. Ty wiesz",
-          "że to jest skradzione. Nawet stary"
+          "wynajęty Mięśniak"
         ]
       }
     ],
@@ -5873,14 +6208,18 @@
       "elf wysoki",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Naganiacz",
         "status": "Brąz 1",
-        "characteristics": [],
+        "characteristics": [
+          "Zwinność",
+          "Zręczność",
+          "Ogłada"
+        ],
         "skills": [
           "Charyzma",
           "Hazard",
@@ -5905,7 +6244,9 @@
         "level": 2,
         "title": "Rajfur",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Intuicja",
@@ -5929,7 +6270,9 @@
         "level": 3,
         "title": "Stręczyciel",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Język (Dowolny)",
           "Opanowanie",
@@ -5950,7 +6293,9 @@
         "level": 4,
         "title": "Herszt Rajfurów",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Dowodzenie",
           "Wiedza (Heraldyka)"
@@ -5977,14 +6322,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Zakapiorka",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Siła",
+          "Wytrzymałość"
+        ],
         "skills": [
           "Broń Biała (Bijatyka)",
           "Mocna Głowa",
@@ -6010,7 +6359,9 @@
         "level": 2,
         "title": "Rekietierka",
         "status": "Brąz 5",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Charyzma",
@@ -6035,7 +6386,9 @@
         "level": 3,
         "title": "Głowa Gangu",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Intuicja",
           "Dowodzenie",
@@ -6056,7 +6409,9 @@
         "level": 4,
         "title": "Królowa Podziemia",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Wiedza (Polityka)",
           "Wiedza (Prawo)"
@@ -6070,11 +6425,7 @@
         "trappings": [
           "dobre ubranie z kapeluszem",
           "kilka podporządkowanych Głów Gangów",
-          "sieć Informatorów Mam nadzieję",
-          "że przynosisz pieniądze Hazelmanna",
-          "bo naprawdę nie cierpię odgłosu łamanych palców. – Claus Betelhof",
-          "wrażliwy Rekieter JEŚLI NIE MOŻESZ SPŁACIĆ DŁUGU",
-          "NIE ZAKŁADAJ SIĘ. – szyld w Kościach Bosco (altdorfskiej jaskini hazardu) abo bosco pogruchocze ci kulasy – nagryzmolone kredą uzupełnienie szyldu w Kościach Bosco"
+          "sieć Informatorów"
         ]
       }
     ],
@@ -6088,14 +6439,18 @@
       "elf wysoki",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Kanciarz",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa",
+          "Zręczność",
+          "Ogłada"
+        ],
         "skills": [
           "Charyzma",
           "Hazard",
@@ -6123,7 +6478,9 @@
         "level": 2,
         "title": "Szarlatan",
         "status": "Brąz 5",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Intuicja",
           "Opanowanie",
@@ -6149,7 +6506,9 @@
         "level": 3,
         "title": "Oszust",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Zwinność"
+        ],
         "skills": [
           "Język (Grypsera)",
           "Wiedza (Heraldyka)",
@@ -6172,7 +6531,9 @@
         "level": 4,
         "title": "Łajdak",
         "status": "Srebro 4",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Badania Naukowe",
           "Wiedza (Genealogia)"
@@ -6199,14 +6560,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Bandzior",
         "status": "Brąz 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa",
+          "Zwinność",
+          "Siła Woli"
+        ],
         "skills": [
           "Atletyka",
           "Intuicja",
@@ -6233,7 +6598,9 @@
         "level": 2,
         "title": "Złodziej",
         "status": "Brąz 3",
-        "characteristics": [],
+        "characteristics": [
+          "Zręczność"
+        ],
         "skills": [
           "Otwieranie Zamków",
           "Plotkowanie",
@@ -6258,7 +6625,9 @@
         "level": 3,
         "title": "Mistrz Złodziejski",
         "status": "Brąz 5",
-        "characteristics": [],
+        "characteristics": [
+          "Siła"
+        ],
         "skills": [
           "Broń Zasięgowa (Kusza)",
           "Hazard",
@@ -6279,7 +6648,9 @@
         "level": 4,
         "title": "Włamywacz",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Charyzma",
           "Zastawianie Pułapek"
@@ -6309,14 +6680,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Pięściarz",
         "status": "Brąz 4",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Siła",
+          "Wytrzymałość"
+        ],
         "skills": [
           "Atletyka",
           "Broń Biała (Bijatyka)",
@@ -6343,7 +6718,9 @@
         "level": 2,
         "title": "Gladiator",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Targowanie",
           "Intuicja",
@@ -6369,7 +6746,9 @@
         "level": 3,
         "title": "Mistrz Areny",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Zwinność"
+        ],
         "skills": [
           "Kuglarstwo (Walka Pokazowa)",
           "Mocna Głowa",
@@ -6391,7 +6770,9 @@
         "level": 4,
         "title": "Legenda Areny",
         "status": "Złoto 2",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Broń Zasięgowa (Dowolna)",
           "Charyzma"
@@ -6403,7 +6784,7 @@
           "Wściekły Atak"
         ],
         "trappings": [
-          "hełm dobrej jakości To była moja wielka szansa. Najważniejsza walka życia. Wtedy przyszły"
+          "hełm dobrej jakości"
         ]
       }
     ],
@@ -6415,14 +6796,18 @@
     "races": [
       "człowiek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Nowicjusz Kapłanów Bitewnych",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Wytrzymałość",
+          "Siła Woli"
+        ],
         "skills": [
           "Broń Biała (Dowolna)",
           "Dowodzenie",
@@ -6451,7 +6836,9 @@
         "level": 2,
         "title": "Kapłan Bitewny",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Siła"
+        ],
         "skills": [
           "Broń Biała (Dowolna)",
           "Broń Zasięgowa (Dowolna)",
@@ -6475,7 +6862,9 @@
         "level": 3,
         "title": "Kapłan-sierżant",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Intuicja",
           "Jeździectwo (Konie)",
@@ -6496,7 +6885,9 @@
         "level": 4,
         "title": "Kapłan-kapitan",
         "status": "Srebro 4",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Mocna Głowa",
           "Wiedza (Sztuka Wojenna)"
@@ -6522,14 +6913,18 @@
       "elf leśny",
       "elf wysoki"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Jeździec",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Siła",
+          "Zwinność"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Jeździectwo (Konie)",
@@ -6555,7 +6950,9 @@
         "level": 2,
         "title": "Kawalerzysta",
         "status": "Srebro 4",
-        "characteristics": [],
+        "characteristics": [
+          "Umiejętności Strzeleckie"
+        ],
         "skills": [
           "Broń Biała (Kawaleryjska)",
           "Broń Zasięgowa (Prochowa)",
@@ -6582,7 +6979,9 @@
         "level": 3,
         "title": "Sierżant Kawalerii",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Intuicja",
           "Dowodzenie",
@@ -6603,7 +7002,9 @@
         "level": 4,
         "title": "Oficer Kawalerii",
         "status": "Złoto 2",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Hazard",
           "Wiedza (Heraldyka)"
@@ -6632,14 +7033,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Stróż",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Wytrzymałość",
+          "Zwinność"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Hazard",
@@ -6666,7 +7071,9 @@
         "level": 2,
         "title": "Ochroniarz",
         "status": "Srebro 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Atletyka",
           "Broń Biała (Drzewcowa)",
@@ -6692,7 +7099,9 @@
         "level": 3,
         "title": "Gwardzista",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Siła"
+        ],
         "skills": [
           "Broń Biała (Dwuręczna)",
           "Język (Bitewny)",
@@ -6715,7 +7124,9 @@
         "level": 4,
         "title": "Oficer Gwardii",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inteligencja"
+        ],
         "skills": [
           "Dowodzenie",
           "Wiedza (Sztuka Wojenna)"
@@ -6741,14 +7152,18 @@
       "elf wysoki",
       "krasnolud"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Tani Drań",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Wytrzymałość",
+          "Zwinność"
+        ],
         "skills": [
           "Atletyka",
           "Broń Biała (Dowolna)",
@@ -6775,7 +7190,9 @@
         "level": 2,
         "title": "Oprych",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Charyzma",
@@ -6801,7 +7218,9 @@
         "level": 3,
         "title": "Płatny Morderca",
         "status": "Srebro 4",
-        "characteristics": [],
+        "characteristics": [
+          "Umiejętności Strzeleckie"
+        ],
         "skills": [
           "Broń Zasięgowa (Miotana)",
           "Nawigacja",
@@ -6825,7 +7244,9 @@
         "level": 4,
         "title": "Skrytobójca",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Broń Zasięgowa (Kusza)",
           "Występy (Aktorstwo)"
@@ -6838,12 +7259,7 @@
         ],
         "trappings": [
           "kusza z 10 bełtami",
-          "zestaw do charakteryzacji Pamiętasz Tommiego Dwa Noże? Nie mówię",
-          "że zalazł mi za skórę. Mówię tylko",
-          "że już nie widuje się go na mieście",
-          "prawda? – Gilly Trzy Noże",
-          "Oprych Owszem",
-          "Duży"
+          "zestaw do charakteryzacji"
         ]
       }
     ],
@@ -6857,14 +7273,18 @@
       "elf leśny",
       "elf wysoki"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Giermek",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Siła",
+          "Inicjatywa",
+          "Zwinność"
+        ],
         "skills": [
           "Atletyka",
           "Broń Biała (Kawaleryjska)",
@@ -6893,7 +7313,9 @@
         "level": 2,
         "title": "Rycerz",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz"
+        ],
         "skills": [
           "Broń Biała (Dowolna)",
           "Język (Bitewny)",
@@ -6919,7 +7341,9 @@
         "level": 3,
         "title": "Pierwszy Rycerz",
         "status": "Złoto 2",
-        "characteristics": [],
+        "characteristics": [
+          "Siła Woli"
+        ],
         "skills": [
           "Charyzma",
           "Mocna Głowa",
@@ -6941,7 +7365,9 @@
         "level": 4,
         "title": "Rycerz Wewnętrznego Kręgu",
         "status": "Złoto 4",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Sekretne Znaki (Zakonu Rycerskiego)",
           "Wiedza (Dowolna)"
@@ -6967,14 +7393,18 @@
     "races": [
       "krasnolud"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Zabójca Trolli",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Siła",
+          "Siła Woli"
+        ],
         "skills": [
           "Broń Biała (Podstawowa)",
           "Hazard",
@@ -7002,7 +7432,9 @@
         "level": 2,
         "title": "Zabójca Olbrzymów",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Wytrzymałość"
+        ],
         "skills": [
           "Broń Biała (Dwuręczna)",
           "Język (Bitewny)",
@@ -7027,7 +7459,9 @@
         "level": 3,
         "title": "Zabójca Smoków",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Zwinność"
+        ],
         "skills": [
           "Broń Zasięgowa (Miotana)",
           "Percepcja",
@@ -7049,7 +7483,9 @@
         "level": 4,
         "title": "Zabójca Demonów",
         "status": "Brąz 2",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Intuicja",
           "Wiedza (Chaos)"
@@ -7077,14 +7513,18 @@
       "krasnolud",
       "niziołek"
     ],
-    "characteristics_pending": true,
+    "characteristics_pending": false,
     "level1_marker_hint": 3,
     "levels": [
       {
         "level": 1,
         "title": "Rekrut",
         "status": "Srebro 1",
-        "characteristics": [],
+        "characteristics": [
+          "Walka Wręcz",
+          "Wytrzymałość",
+          "Siła Woli"
+        ],
         "skills": [
           "Atletyka",
           "Broń Biała (Podstawowa)",
@@ -7111,7 +7551,9 @@
         "level": 2,
         "title": "Żołnierz",
         "status": "Srebro 3",
-        "characteristics": [],
+        "characteristics": [
+          "Umiejętności Strzeleckie"
+        ],
         "skills": [
           "Broń Biała (Dowolna)",
           "Broń Zasięgowa (Dowolna)",
@@ -7136,7 +7578,9 @@
         "level": 3,
         "title": "Sierżant",
         "status": "Srebro 5",
-        "characteristics": [],
+        "characteristics": [
+          "Inicjatywa"
+        ],
         "skills": [
           "Dowodzenie",
           "Intuicja",
@@ -7158,7 +7602,9 @@
         "level": 4,
         "title": "Oficer",
         "status": "Złoto 1",
-        "characteristics": [],
+        "characteristics": [
+          "Ogłada"
+        ],
         "skills": [
           "Nawigacja",
           "Wiedza (Sztuka Wojenna)"

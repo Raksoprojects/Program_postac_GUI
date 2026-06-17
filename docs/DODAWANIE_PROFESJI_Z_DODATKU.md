@@ -14,7 +14,7 @@ kompletowania) warto dodać je ręcznie.
 - Taką profesję nadal można ustawić i rozwijać postać ręcznie, ale:
   - nie pojawi się schemat 4 poziomów,
   - nie zadziała automatyczne oznaczanie „rozwijalne w profesji”,
-  - można je wymusić ręcznie przyciskiem profesjonalności („★/☆ Prof.”) przy
+  - można je wymusić ręcznie przyciskiem profesji („★/☆ Prof.”) przy
     danej umiejętności/talencie (per postać).
 
 ## Krok po kroku: dodanie profesji *Piromanta*

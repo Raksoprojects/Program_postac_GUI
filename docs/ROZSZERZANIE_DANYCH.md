@@ -83,18 +83,11 @@ wpis bazowy z placeholderem**. Placeholdery już używane w bazie:
 
 ## 2. Dodawanie umiejętności
 
-Aplikacja **nie posiada osobnego pliku ze słownikiem umiejętności**.
-Umiejętności postaci pochodzą z wczytanej karty PDF/Excel, a gracz może dodać
-własną umiejętność bezpośrednio w aplikacji (przycisk „Dodaj umiejętność”).
-
-Umiejętności pojawiają się w danych gry tylko w **schemacie rozwoju profesji**
-(`professions.json`), gdzie decydują o tym, co jest „rozwijalne w profesji”.
-Aby umiejętność była oznaczana jako rozwijalna dla danej profesji, dopisz jej
-nazwę do listy `skills` na odpowiednim poziomie tej profesji (patrz sekcja 3).
 
 Nazwy umiejętności grupowych zapisuj z konkretną lub placeholderową
 specjalizacją w nawiasie, np. `"Wiedza (Chemia)"`, `"Język (Klasyczny)"`,
 `"Splatanie Magii (Dowolny Kolor)"`.
+Przykład `{ "name": "Opieka nad Zwierzętami", "attr": "Int", "grouped": false }`
 
 ---
 
