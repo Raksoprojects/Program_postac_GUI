@@ -1,0 +1,24 @@
+# Zaleznosci zarchiwizowanej, desktopowej wersji aplikacji (Python 3.10+).
+# Instalacja (z katalogu "Program Python"):
+#   python -m venv .venv
+#   .venv\Scripts\Activate.ps1        # PowerShell (Windows)
+#   pip install -r requirements.txt
+# Uruchomienie testow:
+#   python -m unittest discover -p "test_*.py"
+# Uruchomienie aplikacji:
+#   python Postac_program_gui.py
+
+# GUI
+customtkinter>=5.2
+
+# Odczyt/zapis arkuszy XLSX (model postaci, szablon karty)
+openpyxl>=3.1
+
+# Odczyt/zapis formularzy PDF
+pypdf>=4.0
+
+# Uzywane przez alternatywny prototyp Postac_program_v2.py
+pandas>=2.0
+
+# Budowanie pliku .exe (build_exe.ps1)
+pyinstaller>=6.0

@@ -18,6 +18,7 @@ import {
   normalize,
   parseCareerLevel,
   resolveCareerPath,
+  resolveProfessionName,
   skillBaseAttr,
   talentMax,
   careerTransitionCost
@@ -168,6 +169,21 @@ describe("gameData: rozwijalnosc (developable)", () => {
     const dev = getCareerDevelopable("Nieistniejaca Profesja", 1);
     expect(dev.resolved).toBe(false);
     expect(dev.skills.size).toBe(0);
+  });
+
+  it("resolveProfessionName dopasowuje mimo roznic w bialych znakach/wielkosci", () => {
+    const name = allProfessionNames()[0];
+    expect(resolveProfessionName(name)).toBe(name);
+    expect(resolveProfessionName(`  ${name.toUpperCase()}  `)).toBe(name);
+    expect(resolveProfessionName("kompletnie nieznana")).toBeUndefined();
+  });
+
+  it("getProfession i developable dzialaja dla nazwy z innym zapisem", () => {
+    const name = allProfessionNames()[0];
+    const variant = `  ${name.toLowerCase()} `;
+    expect(getProfession(variant)).toBeDefined();
+    const dev = getCareerDevelopable(variant, 1);
+    expect(dev.resolved).toBe(true);
   });
 
   it("poziom 2 zawiera umiejetnosci z poziomu 1 i 2", () => {

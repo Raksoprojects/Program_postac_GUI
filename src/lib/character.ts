@@ -313,16 +313,18 @@ export class DataManager {
 
   /** Ustawia/poprawia biezaca profesje i poziom (bez kosztu). */
   setCurrentCareer(profession: string, level: number): void {
-    this.currentCareer = profession;
+    const canonical = gameData.resolveProfessionName(profession);
+    const name = canonical ?? profession;
+    this.currentCareer = name;
     this.currentCareerLevel = Math.max(1, Math.min(4, toInt(level, 1)));
-    const resolvedClass = gameData.classOfCareer(profession);
+    const resolvedClass = gameData.classOfCareer(name);
     if (resolvedClass) this.characterClass = resolvedClass;
-    const resolved = Boolean(gameData.getProfession(profession));
+    const resolved = Boolean(canonical);
     if (!this.careerPath.length) {
       this.careerPath = [
         {
-          title: profession,
-          profession: resolved ? profession : null,
+          title: name,
+          profession: resolved ? name : null,
           level: this.currentCareerLevel,
           resolved,
           completed: false
@@ -330,8 +332,8 @@ export class DataManager {
       ];
     } else {
       const last = this.careerPath[this.careerPath.length - 1];
-      last.title = profession;
-      last.profession = resolved ? profession : null;
+      last.title = name;
+      last.profession = resolved ? name : null;
       last.level = this.currentCareerLevel;
       last.resolved = resolved;
       last.completed = false;
@@ -344,17 +346,19 @@ export class DataManager {
     if (this.careerPath.length) {
       this.careerPath[this.careerPath.length - 1].completed = true;
     }
-    const resolved = Boolean(gameData.getProfession(profession));
+    const canonical = gameData.resolveProfessionName(profession);
+    const name = canonical ?? profession;
+    const resolved = Boolean(canonical);
     this.careerPath.push({
-      title: profession,
-      profession: resolved ? profession : null,
+      title: name,
+      profession: resolved ? name : null,
       level: lvl,
       resolved,
       completed: false
     });
-    this.currentCareer = profession;
+    this.currentCareer = name;
     this.currentCareerLevel = lvl;
-    const resolvedClass = gameData.classOfCareer(profession);
+    const resolvedClass = gameData.classOfCareer(name);
     if (resolvedClass) this.characterClass = resolvedClass;
   }
 

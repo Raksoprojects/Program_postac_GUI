@@ -17,3 +17,13 @@ Uwagi:
 
 Budowa nowej wersji EXE:
 - uruchom skrypt build_exe.ps1 w PowerShell
+
+Uruchomienie ze zrodel (dla deweloperow):
+1. Zainstaluj Python 3.10+ i z katalogu "Program Python" utworz srodowisko:
+     python -m venv .venv
+     .venv\Scripts\Activate.ps1
+     pip install -r requirements.txt
+2. Uruchom aplikacje:  python Postac_program_gui.py
+3. Uruchom testy:      python -m unittest discover -p "test_*.py"
+Katalog .venv jest pomijany w repozytorium (.gitignore), wiec po sklonowaniu
+repo nalezy odtworzyc srodowisko powyzszymi krokami.

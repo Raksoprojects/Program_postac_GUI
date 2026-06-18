@@ -546,13 +546,14 @@ class CharacterStore {
     const path = steps
       .filter((s) => s.profession.trim())
       .map((s, i, arr) => {
-        const resolved = Boolean(gameData.getProfession(s.profession));
+        const canonical = gameData.resolveProfessionName(s.profession.trim());
+        const name = canonical ?? s.profession.trim();
         const isLast = i === arr.length - 1;
         return {
-          title: s.profession,
-          profession: resolved ? s.profession : null,
+          title: name,
+          profession: canonical ? name : null,
           level: s.level,
-          resolved,
+          resolved: Boolean(canonical),
           completed: isLast ? false : s.completed
         };
       });

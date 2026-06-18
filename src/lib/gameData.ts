@@ -85,7 +85,29 @@ function requireTalents(): TalentsData {
 // ---------------------------------------------------------------------------
 
 export function getProfession(name: string): Profession | undefined {
-  return requireProfessions()[name];
+  const profs = requireProfessions();
+  const direct = profs[name];
+  if (direct) return direct;
+  const key = resolveProfessionName(name);
+  return key ? profs[key] : undefined;
+}
+
+/**
+ * Zwraca kanoniczny klucz profesji dla podanej nazwy. Najpierw dokladne
+ * dopasowanie, a gdy zawiedzie - dopasowanie po normalizacji (ignoruje
+ * roznice w bialych znakach i wielkosci liter). Dzieki temu profesja ustawiona
+ * z lekko innym zapisem nadal odnajduje swoj schemat i cechy rozwijalne.
+ */
+export function resolveProfessionName(name: string): string | undefined {
+  if (!name) return undefined;
+  const profs = requireProfessions();
+  if (name in profs) return name;
+  const target = normalize(name);
+  if (!target) return undefined;
+  for (const key of Object.keys(profs)) {
+    if (normalize(key) === target) return key;
+  }
+  return undefined;
 }
 
 export function getClass(name: string): GameClass | undefined {

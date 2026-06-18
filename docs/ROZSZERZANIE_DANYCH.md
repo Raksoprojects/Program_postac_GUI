@@ -1,22 +1,24 @@
 # Rozszerzanie danych gry (umiejętności, talenty, profesje)
 
 Ten dokument opisuje, jak ręcznie dodawać nowe elementy mechaniki WFRP 4ed do
-plików danych aplikacji. Wszystkie pliki danych leżą w katalogu `data/` i są
-zwykłymi plikami JSON kodowanymi w **UTF-8** (z polskimi znakami).
+plików danych aplikacji webowej. Wszystkie pliki danych leżą w katalogu
+`public/data/` (kanoniczne źródło edytowane w repozytorium) i są zwykłymi
+plikami JSON kodowanymi w **UTF-8** (z polskimi znakami).
 
 Po każdej edycji JSON-a:
 
 1. Sprawdź poprawność składni, np. uruchamiając w terminalu:
-   `& ".venv/Scripts/python.exe" -c "import json; json.load(open('data/talents.json', encoding='utf-8'))"`
-2. Uruchom testy regresyjne: `& ".venv/Scripts/python.exe" -m unittest test_regression`.
-3. Uruchom aplikację i sprawdź, czy nowy element pojawia się na liście.
+   `node -e "JSON.parse(require('fs').readFileSync('public/data/talents.json','utf-8'))"`
+2. Uruchom testy jednostkowe: `npm test`.
+3. Uruchom aplikację (`npm run dev`) i sprawdź, czy nowy element pojawia się na liście.
 
-> Uwaga: dane są wczytywane z pamięcią podręczną (`lru_cache`). Po edycji JSON-a
-> należy zrestartować aplikację, aby zmiany zostały wczytane.
+> Uwaga: w trybie deweloperskim (`npm run dev`) zmiany w plikach `public/data/`
+> są wczytywane po odświeżeniu strony. Build produkcyjny (`npm run build`)
+> kopiuje aktualne pliki do katalogu `dist/`.
 
 ---
 
-## 1. Dodawanie talentu (`data/talents.json`)
+## 1. Dodawanie talentu (`public/data/talents.json`)
 
 Plik `talents.json` to słownik, w którym **kluczem jest nazwa talentu**, a
 wartością obiekt opisujący talent. Schemat pojedynczego wpisu:
@@ -91,14 +93,14 @@ Przykład `{ "name": "Opieka nad Zwierzętami", "attr": "Int", "grouped": false 
 
 ---
 
-## 3. Dodawanie / edycja profesji (`data/professions.json`)
+## 3. Dodawanie / edycja profesji (`public/data/professions.json`)
 
 Plik `professions.json` to słownik, w którym **kluczem jest nazwa profesji**.
 Schemat wpisu:
 
 ```json
 "Nazwa Profesji": {
-  "species": ["człowiek", "elf wysoki", "krasnolud", "niziołek"],
+  "races": ["Człowiek", "Wysokie Elfy", "Krasnoludy", "Niziołki"],
   "characteristics_pending": false,
   "level1_marker_hint": 3,
   "levels": [
@@ -119,7 +121,7 @@ Schemat wpisu:
 
 | Pole                      | Opis |
 |---------------------------|------|
-| `species`                 | Lista ras, które mogą wybrać profesję. |
+| `races`                   | Lista ras, które mogą wybrać profesję (nazwy jak w `races.json`). |
 | `characteristics_pending` | `false`, gdy cechy są uzupełnione; `true`, gdy schemat cech wymaga jeszcze ręcznego wpisania. |
 | `level1_marker_hint`      | Liczba rozwinięć cech na 1. poziomie (podpowiedź UI). |
 | `levels`                  | Lista 4 poziomów profesji (zob. niżej). |
@@ -144,6 +146,9 @@ Schemat wpisu:
 ### Powiązanie z klasą
 
 Profesja zostaje przypisana do klasy poprzez listę `careers` w pliku
-`classes.json`. Aby nowa profesja należała do klasy „Uczeni”, dopisz jej nazwę
-do tablicy `careers` tej klasy. Bez tego powiązania profesja nadal działa, ale
-nie będzie filtrowana po klasie w edytorze profesji.
+`public/data/classes.json`. Aby nowa profesja należała do klasy „Uczeni”, dopisz
+jej nazwę do tablicy `careers` tej klasy. **Nazwa w `careers` musi dokładnie
+odpowiadać kluczowi profesji** w `professions.json` (te same znaki, wielkość
+liter i spacje), inaczej schemat profesji i znaczniki „rozwijalne (+)” nie
+zostaną dopasowane. Bez powiązania profesja nadal działa, ale nie będzie
+filtrowana po klasie w edytorze profesji.
