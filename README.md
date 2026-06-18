@@ -90,6 +90,7 @@ Dane talentów, profesji i klas są przechowywane jako pliki JSON w
 
 - [docs/ROZSZERZANIE_DANYCH.md](docs/ROZSZERZANIE_DANYCH.md) — jak dodać talent lub umiejętność.
 - [docs/DODAWANIE_PROFESJI_Z_DODATKU.md](docs/DODAWANIE_PROFESJI_Z_DODATKU.md) — jak dodać profesję z dodatku.
+- [docs/STRUKTURA_PROJEKTU.md](docs/STRUKTURA_PROJEKTU.md) — opis wszystkich plików projektu i jak je modyfikować.
 
 Aby zmienić dane gry: edytuj plik `*.json` → `commit` → `push`. Po przebudowaniu w CI
 zmiany pojawią się na żywo. Format JSON postaci jest zgodny z wersją desktopową.
