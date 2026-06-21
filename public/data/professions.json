@@ -193,7 +193,7 @@
         "skills": [
           "Jeździectwo (Konie)",
           "Opieka nad Zwierzętami",
-          "Wiedza (Wojna)",
+          "Wiedza (Sztuka Wojenna)",
           "Wycena"
         ],
         "talents": [
@@ -615,7 +615,7 @@
         ],
         "talents": [
           "Błogosławieństwo (Dowolne Bóstwo)",
-          "Czytanie/ Pisanie",
+          "Czytanie/Pisanie",
           "Naciągacz",
           "Wstrzemięźliwy"
         ],
@@ -943,6 +943,1330 @@
     "class": "Uczeni",
     "source": "Podręcznik podstawowy",
     "page": 60
+  },
+  "Świecki Alchemik": {
+    "races": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": false,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Majsterkowicz",
+        "status": "Brąz 3",
+        "characteristics": [
+          "Wytrzymałość",
+          "Zręczność",
+          "Inteligencja"
+        ],
+        "skills": [
+          "Charyzma",
+          "Język (Klasyczny)",
+          "Mocna Głowa",
+          "Plotkowanie",
+          "Rzemiosło (Alchemik)",
+          "Rzemiosło (Truciciel)",
+          "Targowanie",
+          "Wiedza (Chemia)",
+          "Wiedza (Geologia)",
+          "Wiedza (Nauka)"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Czytanie/Pisanie",
+          "Przyrządzanie Mikstur",
+          "Wytwórca (Alchemik)"
+        ],
+        "trappings": [
+          "księga (pusta)",
+          "skórzany kaftan",
+          "moździerz z tłuczkiem",
+          "probówki i alembik",
+          "trójnóg",
+          "zestaw do pisania"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Świecki Alchemik",
+        "status": "Srebro 1",
+        "characteristics": [
+          "Inicjatywa"
+        ],
+        "skills": [
+          "Badania Naukowe",
+          "Intuicja",
+          "Język (Gildii)",
+          "Percepcja",
+          "Sekretne Znaki (Gildii)",
+          "Wiedza (Medycyna)"
+        ],
+        "talents": [
+          "Etykieta (Członkowie Gildii)",
+          "Mól Książkowy",
+          "Przestępca",
+          "Zręczny"
+        ],
+        "trappings": [
+          "licencja Gildii Alchemików",
+          "narzędzia pracy (Alchemika)"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrz Alchemii",
+        "status": "Srebro 3",
+        "characteristics": [
+          "Siła Woli"
+        ],
+        "skills": [
+          "Dowodzenie",
+          "Język (Dowolny)",
+          "Powożenie",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Mistrz Rzemiosła (Alchemik)",
+          "Magia Prosta",
+          "Percepcja Magiczna",
+          "Rozpoznanie Artefaktu"
+        ],
+        "trappings": [
+          "uczeń",
+          "księga (Alchemia)",
+          "laboratorium"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Transmutator",
+        "status": "Złoto 1",
+        "characteristics": [
+          "Zwinność"
+        ],
+        "skills": [
+          "Jeździectwo (Konie)",
+          "Splatanie Magii (Chamon)"
+        ],
+        "talents": [
+          "Magia Tajemna (Metalu)",
+          "Mistrz Rzemiosła (Truciciel)",
+          "Odporny na (Trucizny)",
+          "Znawca (Alchemia)"
+        ],
+        "trappings": [
+          "dobrze wyposażone laboratorium",
+          "list polecający"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Wiatry Magii",
+    "page": 38
+  },
+  "Magister Rewizor": {
+    "races": [
+      "człowiek"
+    ],
+    "characteristics_pending": false,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Uczeń Rewizora",
+        "status": "Brąz 4",
+        "characteristics": [
+          "Walka Wręcz",
+          "Inteligencja",
+          "Siła Woli"
+        ],
+        "skills": [
+          "Broń Biała (Drzewcowa)",
+          "Broń Biała (Podstawowa)",
+          "Charyzma",
+          "Intuicja",
+          "Język (Magiczny)",
+          "Opanowanie",
+          "Percepcja",
+          "Splatanie Magii (Dowolny Kolor)",
+          "Unik",
+          "Wiedza (Magia)"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Magia Prosta",
+          "Percepcja Magiczna",
+          "Wykrywanie Magii"
+        ],
+        "trappings": [
+          "przebranie",
+          "Księga Zaklęć"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Magister Rewizor",
+        "status": "Srebro 3",
+        "characteristics": [
+          "Zwinność"
+        ],
+        "skills": [
+          "Badania Naukowe",
+          "Język (Bitewny)",
+          "Otwieranie Zamków",
+          "Plotkowanie",
+          "Tropienie",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Gadanina",
+          "Groźny",
+          "Magia Tajemna (Dowolna Tradycja)",
+          "Ruchliwe Dłonie"
+        ],
+        "trappings": [
+          "licencja na Uprawianie Magii"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Magister Inkwizytor",
+        "status": "Złoto 1",
+        "characteristics": [
+          "Inicjatywa"
+        ],
+        "skills": [
+          "Nawigacja",
+          "Sekretne Znaki (Dowolne)",
+          "Skradanie (Miasto)",
+          "Zwinne Palce"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Cień",
+          "Szósty Zmysł",
+          "Wtargnięcie z Włamaniem"
+        ],
+        "trappings": [
+          "przedmiot magiczny"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Arcymag Rewizor",
+        "status": "Złoto 2",
+        "characteristics": [
+          "Siła"
+        ],
+        "skills": [
+          "Wiedza (Dowolna)",
+          "Zastawianie Pułapek"
+        ],
+        "talents": [
+          "Nos do Kłopotów",
+          "Straszny",
+          "Ulicznik",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "zwykłe szaty"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Wiatry Magii",
+    "page": 40
+  },
+  "Hierofant": {
+    "races": [
+      "człowiek"
+    ],
+    "characteristics_pending": false,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Akolita Kolegium Światła",
+        "status": "Brąz 3",
+        "characteristics": [
+          "Inicjatywa",
+          "Inteligencja",
+          "Siła Woli"
+        ],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Broń Biała (Drzewcowa)",
+          "Intuicja",
+          "Język (Magiczny)",
+          "Percepcja",
+          "Splatanie Magii (Hysh)",
+          "Unik",
+          "Wiedza (Magia)",
+          "Wiedza (Nehekhara)",
+          "Występy (Śpiewanie)"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Magia Prosta",
+          "Percepcja Magiczna",
+          "Zmysł Magii"
+        ],
+        "trappings": [
+          "świeczka ze stojakiem",
+          "Księga Zaklęć",
+          "kostur"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Hierofant",
+        "status": "Srebro 3",
+        "characteristics": [
+          "Zwinność"
+        ],
+        "skills": [
+          "Charyzma",
+          "Dowodzenie",
+          "Język (Dowolny)",
+          "Opanowanie",
+          "Plotkowanie",
+          "Wiedza (Sztuka Wojenna)"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Magia Tajemna (Światła)",
+          "Rozpoznanie Artefaktu",
+          "Szósty Zmysł"
+        ],
+        "trappings": [
+          "licencja na Uprawianie Magii",
+          "praktyczne szaty"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrz Hierofantów",
+        "status": "Złoto 1",
+        "characteristics": [
+          "Walka Wręcz"
+        ],
+        "skills": [
+          "Badania Naukowe",
+          "Jeździectwo (Konie)",
+          "Wiedza (Demonologia)",
+          "Wycena"
+        ],
+        "talents": [
+          "Dwie Bronie",
+          "Precyzyjne Inkantowanie",
+          "Wieża Pamięci",
+          "Wykrywanie Magii"
+        ],
+        "trappings": [
+          "Uczeń",
+          "lekki rumak bojowy",
+          "przedmiot magiczny",
+          "zwykłe szaty"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Strażnik Kolegium Śwatła",
+        "status": "Złoto 2",
+        "characteristics": [
+          "Ogłada"
+        ],
+        "skills": [
+          "Język (Dowolny)",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Groźny",
+          "Odporny na (Chaos)",
+          "Zmysł Bitewny",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "biblioteka (Magia)",
+          "gabinet",
+          "wyszukane szaty"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Wiatry Magii",
+    "page": 56
+  },
+  "Alchemik": {
+    "races": [
+      "człowiek"
+    ],
+    "characteristics_pending": false,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Uczeń Alchemika",
+        "status": "Brąz 4",
+        "characteristics": [
+          "Wytrzymałość",
+          "Inteligencja",
+          "Siła Woli"
+        ],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Broń Biała (Drzewcowa)",
+          "Intuicja",
+          "Język (Magiczny)",
+          "Percepcja",
+          "Rzemiosło (Alchemik)",
+          "Splatanie Magii (Chamon)",
+          "Targowanie",
+          "Wiedza (Magia)",
+          "Wycena"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Magia Prosta",
+          "Percepcja Magiczna",
+          "Zmysł Magii"
+        ],
+        "trappings": [
+          "kostur",
+          "Księga Zaklęć"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Alchemik",
+        "status": "Srebro 4",
+        "characteristics": [
+          "Zręczność"
+        ],
+        "skills": [
+          "Badania Naukowe",
+          "Charyzma",
+          "Opanowanie",
+          "Rzemiosło (Kowalstwo albo Złotnik)",
+          "Wiedza (Metalurgia)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Magia Tajemna (Metalu)",
+          "Przekonujący",
+          "Rozpoznanie Artefaktu",
+          "Szósty Zmysł"
+        ],
+        "trappings": [
+          "licencja na Uprawianie Magii",
+          "przenośne laboratorium alchemiczne",
+          "praktyczne szaty"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrz Transmutacji",
+        "status": "Złoto 3",
+        "characteristics": [
+          "Inicjatywa"
+        ],
+        "skills": [
+          "Jeździectwo (Konie)",
+          "Rzemiosło (Inżynier)",
+          "Wiedza (Inżynier)",
+          "Wiedza (Nauka)"
+        ],
+        "talents": [
+          "Mól Książkowy",
+          "Precyzyjne Inkantowanie",
+          "Wykrywanie Magii",
+          "Wytwórca (Inżynier albo Kowalstwo albo Złotnik)"
+        ],
+        "trappings": [
+          "Uczeń",
+          "lekki rumak bojowy",
+          "przedmiot magiczny",
+          "zwykłe szaty"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Arcyalchemik",
+        "status": "Złoto 6",
+        "characteristics": [
+          "Ogłada"
+        ],
+        "skills": [
+          "Język (Khazalid)",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Mag Bitewny",
+          "Majętny",
+          "Straszny",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "biblioteka (Inżyniera albo Magia albo Nauka)",
+          "warsztat (Magia albo Inżynieria)",
+          "wyszukane szaty"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Wiatry Magii",
+    "page": 68
+  },
+  "Druidka": {
+    "races": [
+      "człowiek"
+    ],
+    "characteristics_pending": false,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Uczennica Druidki",
+        "status": "Brąz 3",
+        "characteristics": [
+          "Zwinność",
+          "Inteligencja",
+          "Siła Woli"
+        ],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Broń Biała (Drzewcowa)",
+          "Intuicja",
+          "Język (Magiczny)",
+          "Oswajanie",
+          "Percepcja",
+          "Splatanie Magii (Ghyran)",
+          "Sztuka Przetrwania",
+          "Unik",
+          "Wiedza (Magia)"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Magia Prosta",
+          "Percepcja Magiczna",
+          "Zmysł Magii"
+        ],
+        "trappings": [
+          "miedzany sierp",
+          "kostur",
+          "Księga Zaklęć"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Druidka",
+        "status": "Srebro 3",
+        "characteristics": [
+          "Inicjatywa"
+        ],
+        "skills": [
+          "Badania Naukowe",
+          "Charyzma",
+          "Język (Bitewny)",
+          "Język (Dowolny)",
+          "Nawigacja",
+          "Plotkowanie"
+        ],
+        "talents": [
+          "Magia Tajemna (Życia)",
+          "Rozpoznanie Artefaktu",
+          "Ruchliwe Dłonie",
+          "Szósty Zmysł"
+        ],
+        "trappings": [
+          "licencja na Uprawianie Magii",
+          "praktyczne szaty",
+          "srebrny sierp"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrzyni Druidek",
+        "status": "Złoto 1",
+        "characteristics": [
+          "Ogłada"
+        ],
+        "skills": [
+          "Jeździectwo (Konie)",
+          "Opieka nad Zwierzętami",
+          "Wiedza (Rośliny)",
+          "Wycena"
+        ],
+        "talents": [
+          "Groźny",
+          "Precyzyjne Inkantowanie",
+          "Włóczykij",
+          "Wykrywanie Magii"
+        ],
+        "trappings": [
+          "Uczeń",
+          "złoty sierp",
+          "przedmiot magiczny",
+          "zwykłe szaty"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Arcydruidka",
+        "status": "Złoto 2",
+        "characteristics": [
+          "Walka Wręcz"
+        ],
+        "skills": [
+          "Język (Dowolny)",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Mag Bitewny",
+          "Straszny",
+          "Zmysł Bitewny",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "biblioteka (Magia)",
+          "schronienie w ogrodzie",
+          "wyszukane szaty"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Wiatry Magii",
+    "page": 80
+  },
+  "Astromanta": {
+    "races": [
+      "człowiek"
+    ],
+    "characteristics_pending": false,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Akolita Niebios",
+        "status": "Brąz 4",
+        "characteristics": [
+          "Walka Wręcz",
+          "Inteligencja",
+          "Siła Woli"
+        ],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Broń Biała (Drzewcowa)",
+          "Intuicja",
+          "Język (Magiczny)",
+          "Percepcja",
+          "Splatanie Magii (Azyr)",
+          "Unik",
+          "Wiedza (Magia)",
+          "Wróżbiarstwo",
+          "Występy (Wróżenie)"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Magia Prosta",
+          "Percepcja Magiczna",
+          "Zmysł Magii"
+        ],
+        "trappings": [
+          "kostur",
+          "Księga Zaklęć",
+          "podręcznik obserwatora gwiazd"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Astromanta",
+        "status": "Srebro 4",
+        "characteristics": [
+          "Zwinność"
+        ],
+        "skills": [
+          "Badania Naukowe",
+          "Język (Bitewny)",
+          "Opanowanie",
+          "Plotkowanie",
+          "Wiedza (Astronomia)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Magia Tajemna (Niebios)",
+          "Rozpoznanie Artefaktu",
+          "Szósty Zmysł",
+          "Wyczucie Kierunku"
+        ],
+        "trappings": [
+          "ceremonialna luneta",
+          "licencja na Uprawianie Magii",
+          "praktyczne szaty",
+          "sekstant"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Wielki Astromanta",
+        "status": "Złoto 1",
+        "characteristics": [
+          "Inicjatywa"
+        ],
+        "skills": [
+          "Jeździectwo (Konie)",
+          "Nawigacja",
+          "Wiedza (Proroctwa)",
+          "Wycena"
+        ],
+        "talents": [
+          "Dobrze Przygotowany",
+          "Obieżyświat",
+          "Precyzyjne Inkantowanie",
+          "Wykrywanie Magii"
+        ],
+        "trappings": [
+          "Uczeń",
+          "drogie tellurium albo sfera armilarna",
+          "lekki rumak bojowy",
+          "przedmiot magiczny",
+          "zwykłe szaty"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Arcyniebianin",
+        "status": "Złoto 2",
+        "characteristics": [
+          "Ogłada"
+        ],
+        "skills": [
+          "Język (Dowolny)",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Mag Bitewny",
+          "Straszny",
+          "Widzenie w Ciemności",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "biblioteka (Magia)",
+          "wieża albo obserwatorium na szczycie góry",
+          "wyszukane szaty"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Wiatry Magii",
+    "page": 92
+  },
+  "Iluzjonista": {
+    "races": [
+      "człowiek"
+    ],
+    "characteristics_pending": false,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Uczeń Iluzjonisty",
+        "status": "Brąz 3",
+        "characteristics": [
+          "Inteligencja",
+          "Siła Woli",
+          "Ogłada"
+        ],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Broń Biała (Drzewcowa)",
+          "Intuicja",
+          "Język (Magiczny)",
+          "Percepcja",
+          "Sekretne Znaki (Szarego Zakonu)",
+          "Skradanie (Miasto)",
+          "Splatanie Magii (Ulgu)",
+          "Unik",
+          "Wiedza (Magia)"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Magia Prosta",
+          "Percepcja Magiczna",
+          "Zmysł Magii"
+        ],
+        "trappings": [
+          "kostur",
+          "Księga Zaklęć",
+          "płaszcz z kapturem"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Iluzjonista",
+        "status": "Srebro 3",
+        "characteristics": [
+          "Inicjatywa"
+        ],
+        "skills": [
+          "Charyzma",
+          "Język (Dowolny)",
+          "Opanowanie",
+          "Plotkowanie",
+          "Występy (Aktorstwo)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Magia Tajemna (Ciena)",
+          "Rozpoznanie Artefaktu",
+          "Ruchliwe Dłonie",
+          "Szósty Zmysł"
+        ],
+        "trappings": [
+          "licencja na Uprawianie Magii",
+          "praktyczne szaty"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Szary Strażnik",
+        "status": "Złoto 1",
+        "characteristics": [
+          "Walka Wręcz"
+        ],
+        "skills": [
+          "Badania Naukowe",
+          "Jeździectwo (Konie)",
+          "Wiedza (Polityka)",
+          "Wycena"
+        ],
+        "talents": [
+          "Gadanina",
+          "Naśladowca",
+          "Precyzyjne Inkantowanie",
+          "Wykrywanie Magii"
+        ],
+        "trappings": [
+          "Uczeń",
+          "lekki rumak bojowy",
+          "przedmiot magiczny",
+          "zwykłe szaty"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Arcyiluzjonista",
+        "status": "Złoto 2",
+        "characteristics": [
+          "Zwinność"
+        ],
+        "skills": [
+          "Język (Dowolny)",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Cień",
+          "Mag Bitewny",
+          "Sekretna Tożsamość",
+          "Wieża Pamięci"
+        ],
+        "trappings": [
+          "biblioteka (Magia)",
+          "krąg informatorów",
+          "warsztat (Magia)",
+          "wyszukane szaty"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Wiatry Magii",
+    "page": 104
+  },
+  "Spirytysta": {
+    "races": [
+      "człowiek"
+    ],
+    "characteristics_pending": false,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Uczeń Spirytysty",
+        "status": "Brąz 2",
+        "characteristics": [
+          "Zręczność",
+          "Siła Woli",
+          "Ogłada"
+        ],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Broń Biała (Drzewcowa)",
+          "Intuicja",
+          "Język (Magiczny)",
+          "Opanowanie",
+          "Percepcja",
+          "Splatanie Magii (Shyish)",
+          "Unik",
+          "Wiedza (Magia)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Magia Prosta",
+          "Percepcja Magiczna",
+          "Zmysł Magii"
+        ],
+        "trappings": [
+          "kostur ze skamieniałego drewna",
+          "Księga Zaklęć"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Spirytysta",
+        "status": "Srebro 3",
+        "characteristics": [
+          "Zwinność"
+        ],
+        "skills": [
+          "Badania Naukowe",
+          "Język (Bitewny)",
+          "Odporność",
+          "Sztuka (Grawerstwo)",
+          "Wiedza (Ożywieńcy)",
+          "Wycena"
+        ],
+        "talents": [
+          "Magia Tajemna (Śmierci)",
+          "Rozpoznanie Artefaktu",
+          "Ruchliwe Dłonie",
+          "Szósty Zmysł"
+        ],
+        "trappings": [
+          "licencja na Uprawianie Magii",
+          "praktyczne szaty",
+          "kosa"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrz Spirytyzmu",
+        "status": "Złoto 1",
+        "characteristics": [
+          "Walka Wręcz"
+        ],
+        "skills": [
+          "Dowodzenie",
+          "Jeździectwo (Konie)",
+          "Opieka nad Zwierzętami",
+          "Wiedza (Sztuka Wojenna)"
+        ],
+        "talents": [
+          "Groźny",
+          "Odporny na (Choroby albo Trucizny)",
+          "Precyzyjne Inkantowanie",
+          "Wykrywanie Magii"
+        ],
+        "trappings": [
+          "Uczeń",
+          "lekki rumak bojowy",
+          "przedmiot magiczny",
+          "zwykłe szaty"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Arcyspirytysta",
+        "status": "Złoto 2",
+        "characteristics": [
+          "Zwinność"
+        ],
+        "skills": [
+          "Język (Dowolny)",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Mag Bitewny",
+          "Straszny",
+          "Zmysł Bitewny",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "biblioteka (Magia)",
+          "warsztat (Magia)",
+          "wyszukane szaty"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Wiatry Magii",
+    "page": 116
+  },
+  "Piromanta": {
+    "races": [
+      "człowiek"
+    ],
+    "characteristics_pending": false,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Uczeń Piromanty",
+        "status": "Brąz 3",
+        "characteristics": [
+          "Walka Wręcz",
+          "Inteligencja",
+          "Siła Woli"
+        ],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Broń Biała (Drzewcowa)",
+          "Intuicja",
+          "Język (Bitewny)",
+          "Język (Magiczny)",
+          "Percepcja",
+          "Splatanie Magii (Aqshy)",
+          "Unik",
+          "Wiedza (Magia)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Magia Prosta",
+          "Percepcja Magiczna",
+          "Zmysł Magii"
+        ],
+        "trappings": [
+          "kostur",
+          "Księga Zaklęć",
+          "pierwszy Klucz Tajemnic"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Piromanta",
+        "status": "Srebro 3",
+        "characteristics": [
+          "Wytrzymałość"
+        ],
+        "skills": [
+          "Charyzma",
+          "Dowodzenie",
+          "Język (Dowolny)",
+          "Opanowanie",
+          "Plotkowanie",
+          "Wiedza (Sztuka Wojenna)"
+        ],
+        "talents": [
+          "Magia Tajemna (Ognia)",
+          "Rozpoznanie Artefaktu",
+          "Ruchliwe Dłonie",
+          "Szósty Zmysł"
+        ],
+        "trappings": [
+          "licencja na Uprawianie Magii",
+          "praktyczne szaty",
+          "drugi i trzeci Klucz Tajemnic",
+          "miecz"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrz Piromancji",
+        "status": "Złoto 1",
+        "characteristics": [
+          "Walka Wręcz"
+        ],
+        "skills": [
+          "Badania Naukowe",
+          "Jeździectwo (Konie)",
+          "Opieka nad Zwierzętami",
+          "Wycena"
+        ],
+        "talents": [
+          "Dwie Bronie",
+          "Groźny",
+          "Precyzyjne Inkantowanie",
+          "Wykrywanie Magii"
+        ],
+        "trappings": [
+          "Uczeń",
+          "czwarty i piąty Klucz Tajemnic",
+          "lekki rumak bojowy",
+          "przedmiot magiczny",
+          "zwykłe szaty"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Arcypiromanta",
+        "status": "Złoto 2",
+        "characteristics": [
+          "Zwinność"
+        ],
+        "skills": [
+          "Język (Dowolny)",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Mag Bitewny",
+          "Straszny",
+          "Zmysł Bitewny",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "biblioteka (Magia)",
+          "szósty i siódmy Klucz Tajemnic",
+          "warsztat (Magia)",
+          "wyszukane szaty"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Wiatry Magii",
+    "page": 128
+  },
+  "Szamanka": {
+    "races": [
+      "człowiek"
+    ],
+    "characteristics_pending": false,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Uczennica Szamanki",
+        "status": "Brąz 2",
+        "characteristics": [
+          "Walka Wręcz",
+          "Inteligencja",
+          "Siła Woli"
+        ],
+        "skills": [
+          "Broń Biała (Drzewcowa)",
+          "Intuicja",
+          "Język (Magiczny)",
+          "Opanowanie",
+          "Opieka nad Zwierzętami",
+          "Percepcja",
+          "Splatanie Magii (Ghur)",
+          "Sztuka Przetrwania",
+          "Unik",
+          "Wiedza (Magia)"
+        ],
+        "talents": [
+          "Czytanie/Pisanie",
+          "Magia Prosta",
+          "Percepcja Magiczna",
+          "Zmysł Magii"
+        ],
+        "trappings": [
+          "kostur",
+          "Księga Zaklęć (rzeźbione kości i kły)"        
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Szamanka",
+        "status": "Brąz 5",
+        "characteristics": [
+          "Zwinność"
+        ],
+        "skills": [
+          "Broń Zasięgowa (Łuk)",
+          "Oswajanie",
+          "Skradanie (Wieś)",
+          "Tresura (Dowolna)",
+          "Tropienie",
+          "Wiedza (Zwierzęta)"
+        ],
+        "talents": [
+          "Magia Tajemna (Zwierząt)",
+          "Ruchliwe Dłonie",
+          "Szósty Zmysł",
+          "Zimna Krew"
+        ],
+        "trappings": [
+          "licencja na Uprawianie Magii",
+          "praktyczne szaty"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrzyni Szamanek",
+        "status": "Srebro 5",
+        "characteristics": [
+          "Inicjatywa"
+        ],
+        "skills": [
+          "Badania Naukowe",
+          "Jeździectwo (Konie)",
+          "Nawigacja",
+          "Sekretne Znaki (Kolegium Bursztynu)"
+        ],
+        "talents": [
+          "Groźny",
+          "Posłuch u Zwierząt",
+          "Precyzyjne Inkantowanie",
+          "Wykrywanie Magii"
+        ],
+        "trappings": [
+          "Uczeń",
+          "przedmiot magiczny",
+          "zwykłe szaty"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Arcyszamanka",
+        "status": "Złoto 1",
+        "characteristics": [
+          "Zwinność"
+        ],
+        "skills": [
+          "Dowodzenie",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Mag Bitewny",
+          "Straszny",
+          "Szybki Refleks",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "konklawe szamanów",
+          "szamańskie leże",
+          "wyszukane szaty"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Wiatry Magii",
+    "page": 140
+  },
+  "Kowal Run": {
+    "races": [
+      "krasnolud"
+    ],
+    "characteristics_pending": false,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Uczeń Kowala Run",
+        "status": "Srebro 2",
+        "characteristics": [
+          "Zręczność",
+          "Inteligencja",
+          "Siła Woli"
+        ],
+        "skills": [
+          "Sztuka (Rzeźbiarstwo albo Grawerstwo)",
+          "Opanowanie",
+          "Mocna Głowa",
+          "Odporność",
+          "Wycena",
+          "Intuicja",
+          "Wiedza (Runy)",
+          "Kowalstwo Run",
+          "Broń Biała (Drzewcowa lub Podstawowa)",
+          "Rzemiosło (Kowalstwo)"
+        ],
+        "talents": [
+          "Rozpoznanie Artefaktu",
+          "Odporny na (Magię)",
+          "Magia Runiczna (Runa Kamienia)",
+          "Mocne Plecy"
+        ],
+        "trappings": [
+          "Narzędzia kowalskie",
+          "Topór lub Topór Dwuręczny",
+          "napierśnik",
+          "spódnica kolcza",
+          "Hełm płytowy otwarty"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Kowal Run",
+        "status": "Srebro 5",
+        "characteristics": [
+          "Walka Wręcz"
+        ],
+        "skills": [
+          "Atletyka",
+          "Percepcja",
+          "Skradanie (Dowolne)",
+          "Unik",
+          "Wiedza (Geologia albo Metalurgia)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Magia Runiczna (Dowolna)",
+          "Pogarda Magii",
+          "Zmysł Magii",
+          "Żar Kuźni"
+        ],
+        "trappings": [
+          "przedmiot runiczny",
+          "Napierśnik z Gromrilu",
+          "Hełm z Gromrilu (Otwarty)"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrz Runiczny",
+        "status": "Złoto 2",
+        "characteristics": [
+          "Wytrzymałość"
+        ],
+        "skills": [
+          "Wspinaczka",
+          "Nawigacja",
+          "Otwieranie Zamków",
+          "Zastawianie Pułapek"
+        ],
+        "talents": [
+          "Mistrzowska Magia Runiczna (Wszystkie formy)",
+          "Niestrudzony",
+          "Pamiętliwy",
+          "Wyczulony Zmysł (Dotyk)"
+        ],
+        "trappings": [
+          "Runiczny sprzęt bojowy",
+          "tarcza",
+          "Uczeń",
+          "warsztat"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Arcykowal Runiczny",
+        "status": "Złoto 4",
+        "characteristics": [
+          "Siła"
+        ],
+        "skills": [
+          "Dowodzenie",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Czysta Dusza",
+          "Groźny",
+          "Rodowa Uraza",
+          "Żelazna Wola"
+        ],
+        "trappings": [
+          "Mistrzowski Runiczny sprzęt wojenny"
+        ]
+      }
+    ],
+    "class": "Uczeni",
+    "source": "Podręcznik gracza Krasnoluda",
+    "page": 76
   },
   "Agitator": {
     "races": [
@@ -1417,9 +2741,7 @@
         ],
         "trappings": [
           "Cech",
-          "dobre ubranie Pani",
-          "wybacz. Wszystkie buty zniknęły! Zeszłego wieczora zapomniałem postawić przed drzwiami mleko. Pewnie zabrały je złośliwe skrzaty. – Wiebke",
-          "uczeń szewca i złodziej"
+          "dobre ubranie"
         ]
       }
     ],
@@ -1905,6 +3227,130 @@
     "class": "Mieszczanie",
     "source": "Podręcznik podstawowy",
     "page": 68
+  },
+  "Piwowar": {
+    "races": [
+      "krasnolud"
+    ],
+    "characteristics_pending": false,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Uczeń Piwowara",
+        "status": "Brąz 3",
+        "characteristics": [
+          "Wytrzymałość",
+          "Inicjatywa",
+          "Zręczność"
+        ],
+        "skills": [
+          "Atletyka",
+          "Broń Biała (Podstawowa albo Dwuręczna)",
+          "Mocna Głowa",
+          "Odporność",
+          "Opanowanie",
+          "Percepcja",
+          "Powożenie",
+          "Rzemiosło (Piwowar)",
+          "Wycena",
+          "Występy (Śpiewanie albo Gawędziarstwo)"
+        ],
+        "talents": [
+          "Hulaka",
+          "Wytwórca (Piwowar)",
+          "Mocne Plecy",
+          "Bardzo Silny"
+        ],
+        "trappings": [
+          "narzędzia pracy (Piwowara)",
+          "Mop i wiadro"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Piwowar",
+        "status": "Srebro 2",
+        "characteristics": [
+          "Ogłada"
+        ],
+        "skills": [
+          "Broń Zasięgowa (Kusza albo Miotana)",
+          "Charyzma",
+          "Język (Gildii)",
+          "Leczenie",
+          "Plotkowanie",
+          "Unik"
+        ],
+        "talents": [
+          "Płynna Fortyfikacja",
+          "Towarzyski",
+          "Tragarz",
+          "Żyłka Handlowa"
+        ],
+        "trappings": [
+          "beczułka piwa",
+          "Hełm płytowy (otwarty)",
+          "kufel z pokrywą",
+          "księga (Przepisy)",
+          "napierśnik",
+          "spódnica kolcza",
+          "topór"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Mistrz Piwowarstwa",
+        "status": "Srebro 4",
+        "characteristics": [
+          "Inteligencja"
+        ],
+        "skills": [
+          "Dowodzenie",
+          "Sekretne Znaki (Gildii)",
+          "Targowanie",
+          "Rzemiosło (Aptekarstwo)"
+        ],
+        "talents": [
+          "Mistrz Rzemiosła (Piwowar)",
+          "Przyrządzanie Mikstur",
+          "Waleczne Serce",
+          "Wyczulony Zmysł (Smak)"
+        ],
+        "trappings": [
+          "piwiarnia",
+          "składniki",
+          "termometr",
+          "Uczeń"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Szef Zaopatrzenia",
+        "status": "Złoto 3",
+        "characteristics": [
+          "Siła Woli"
+        ],
+        "skills": [
+          "Intuicja",
+          "Rzemiosło (Gotowanie)"
+        ],
+        "talents": [
+          "Arcydzieło",
+          "Mistrz Rzemiosła (Kucharz)",
+          "Odporny na (Trucizny)",
+          "Wyczulony Zmysł (Zapach)"
+        ],
+        "trappings": [
+          "narzędzia pracy (Kucharza)",
+          "łyżka do próbowania",
+          "kuchnia z personelem"
+        ]
+      }
+    ],
+    "class": "Mieszczanie",
+    "source": "Podręcznik gracza Krasnoluda",
+    "page": 62
   },
   "Artystka": {
     "races": [
@@ -2589,7 +4035,7 @@
           "Intrygant",
           "Mówca",
           "Zimna krew",
-          "Żyłka handlowa"
+          "Żyłka Handlowa"
         ],
         "trappings": [
           "biżuteria warta 200 ZK",
@@ -3650,7 +5096,7 @@
         "skills": [
           "Dowodzenie",
           "Intuicja",
-          "Rzemiosło (Trucizny)",
+          "Rzemiosło (Truciciel)",
           "Wiedza (Medycyna)"
         ],
         "talents": [
@@ -3813,6 +5259,121 @@
     "class": "Pospólstwo",
     "source": "Podręcznik podstawowy",
     "page": 84
+  },
+  "Jasnowidząca": {
+    "races": [
+      "człowiek"
+    ],
+    "characteristics_pending": false,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Nawiedzona",
+        "status": "Brąz 1",
+        "characteristics": [
+          "Inteligencja",
+          "Siła Woli",
+          "Ogłada"
+        ],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Intuicja",
+          "Nawigacja",
+          "Percepcja",
+          "Psychometria",
+          "Skradanie (Wieś)",
+          "Sztuka Przetrwania",
+          "Unik",
+          "Wiedza (Lokalna)",
+          "Zwinne Palce"
+        ],
+        "talents": [
+          "Niegodny Uwagi",
+          "Percepcja Magiczna",
+          "Szczęście",
+          "Wyczucie Kierunku"
+        ],
+        "trappings": [
+          "plecak z namiotem",
+          "sztylet",
+          "praktyczne odzienie wyjściowe"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Jasnowidząca",
+        "status": "Brąz 2",
+        "characteristics": [
+          "Inicjatywa"
+        ],
+        "skills": [
+          "Odporność",
+          "Opanowanie",
+          "Plotkowanie",
+          "Przekupstwo",
+          "Targowanie",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Przestępca",
+          "Szósty Zmysł",
+          "Zimna Krew"
+        ],
+        "trappings": [
+          "stałe miejsce zamieszkania"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Psychometryczka",
+        "status": "Srebro 1",
+        "characteristics": [
+          "Zwinność"
+        ],
+        "skills": [
+          "Charyzma",
+          "Wiedza (Historia)",
+          "Wiedza (Polityka)",
+          "Wycena"
+        ],
+        "talents": [
+          "Dobrze Przygotowany",
+          "Etykieta (Szlachta)",
+          "Groźny",
+          "Nos do Kłopotów"
+        ],
+        "trappings": [
+          "budzące szacunek ubranie"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Czytająca Prszyszłość",
+        "status": "Srebro 5",
+        "characteristics": [
+          "Zręczność"
+        ],
+        "skills": [
+          "Dowodzenie",
+          "Występy (Gawędziarstwo)"
+        ],
+        "talents": [
+          "Odporność Psychiczna",
+          "Straszny",
+          "Władcza Postura",
+          "Wykrywanie Magii"
+        ],
+        "trappings": [
+          "dobre ubranie",
+          "dom w mieście"
+        ]
+      }
+    ],
+    "class": "Pospólstwo",
+    "source": "Wiatry Magii",
+    "page": 42
   },
   "Biczownik": {
     "races": [
@@ -6820,7 +8381,7 @@
         ],
         "talents": [
           "Błogosławieństwo (Dowolne Bóstwo)",
-          "Czytanie/ Pisanie",
+          "Czytanie/Pisanie",
           "Etykieta (Kultyści)",
           "Odporność Psychiczna"
         ],
@@ -7629,5 +9190,122 @@
     "class": "Wojownicy",
     "source": "Podręcznik podstawowy",
     "page": 116
+  },
+  "Bedel": {
+    "races": [
+      "człowiek",
+      "krasnolud",
+      "niziołek"
+    ],
+    "characteristics_pending": false,
+    "level1_marker_hint": 3,
+    "levels": [
+      {
+        "level": 1,
+        "title": "Laborant",
+        "status": "Brąz 5",
+        "characteristics": [
+          "Walka Wręcz",
+          "Inteligencja",
+          "Siła Woli"
+        ],
+        "skills": [
+          "Broń Biała (Podstawowa)",
+          "Hazard",
+          "Intuicja",
+          "Mocna Głowa",
+          "Odporność",
+          "Percepcja",
+          "Plotkowanie",
+          "Rzemiosło (Cieśla)",
+          "Skradanie (Miasto)",
+          "Unik"
+        ],
+        "talents": [
+          "Błyskotliwość",
+          "Czytanie/Pisanie",
+          "Szuler Kościany",
+          "Urodzony Wojownik"
+        ],
+        "trappings": [
+          "mundur w kolorach wydziału"
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Bedel",
+        "status": "Srebro 1",
+        "characteristics": [
+          "Zwinność"
+        ],
+        "skills": [
+          "Atletyka",
+          "Broń Zasięgowa (Prochowa)",
+          "Charyzma",
+          "Opanowanie",
+          "Wiedza (Dowolna)",
+          "Zastraszanie"
+        ],
+        "talents": [
+          "Etykieta (Uczeni)",
+          "Hulaka",
+          "Odwrócenie Szans",
+          "Silny Cios"
+        ],
+        "trappings": [
+          "pistolet albo garłacz z 12 nabojami",
+          "kolczuga"
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Dozorca",
+        "status": "Srebro 3",
+        "characteristics": [
+          "Inicjatywa"
+        ],
+        "skills": [
+          "Broń Biała (Dowolna)",
+          "Leczenie",
+          "Tropienie",
+          "Występy (Gawędziarstwo)"
+        ],
+        "talents": [
+          "Groźny",
+          "Nieustraszony (Intruzi)",
+          "Przekonujący",
+          "Waleczne Serce"
+        ],
+        "trappings": [
+          "hełm",
+          "klucz otwierający wszystkie drzwi na wydziale"
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Postrach Wydziału",
+        "status": "Srebro 5",
+        "characteristics": [
+          "Ogłada"
+        ],
+        "skills": [
+          "Dowodzenie",
+          "Wiedza (Dowolna)"
+        ],
+        "talents": [
+          "Charyzmatyczny",
+          "Mówca",
+          "Niewzruszony",
+          "Straszny"
+        ],
+        "trappings": [
+          "napierśnik",
+          "drużyna bedli"
+        ]
+      }
+    ],
+    "class": "Wojownicy",
+    "source": "Wiatry Magii",
+    "page": 36
   }
 }

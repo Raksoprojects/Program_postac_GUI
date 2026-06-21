@@ -513,6 +513,17 @@
     "description": "Zawsze miałeś smykałkę do rzucania czarów i opanowałeś metody ich podstawowej kontroli. Kiedy wykupujesz ten Talent, uczysz się i zapamiętujesz tyle czarów, ile wynosi modyfikator z twojej Siły Woli. Kolejnych czarów możesz się nauczyć, korzystając z poniższej tabeli kosztów: Liczba znanych czarów Magii Prostej Koszt nowego czaru w PD Bonus z Siły Woli x1 50 PD Bonus z Siły Woli x2 100 PD Bonus z Siły Woli x3 150 PD Bonus z Siły Woli x4 200 PD …i tak dalej Jeśli twój Bonus z Siły Woli wynosi 3 i znasz 3 zaklęcia Magii Prostej, to pierwsze wykupywane zaklęcie kosztuje 50 PD, kolejne trzy 100 PD i tak dalej…",
     "source": "Podręcznik podstawowy"
   },
+  "Magia Runiczna": {
+    "max": {
+      "type": "characteristic",
+      "attr": "Int + SW",
+      "attr_name": "Inteligencji + Siła Woli"
+    },
+    "max_raw": "Bonus z Inteligencji + Siły Woli",
+    "tests": "Kowalstwo Run",
+    "description": "Dostałeś dostęp do sekretu Magicznych Run Krasnoludzkich. Wybierz Runę (127 - 131 str). Nie możesz wybrać Mistrzowskiej Runy. Jeżeli Talent prezuje konkretną formę (np. Runy Ochrony) muszisz wybrać runę z danej listy. Możesz użyć Zajęcia Wykucie Run, by wyryć wybraną Runę w przedmiocie.",
+    "source": "Podręcznik gracza Krasnoluda"
+  },
   "Magia Tajemna (Tradycja)": {
     "max": {
       "type": "fixed",
@@ -684,6 +695,17 @@
     "tests": "Siła Woli (Opieranie się Grupie)",
     "description": "Coś w Starym Świecie powoduje twoją nienawiść, jak to opisano na stronie 190. Każde wykupienie tego Talentu to jej nowy obiekt, a przykładowe grupy to: Banici, Czarownice, Ożywieńcy, Potwory, Sigmaryci, Zielonoskórzy, Zwierzoludzie.",
     "source": "Podręcznik podstawowy"
+  },
+  "Niestrudzony": {
+    "max": {
+      "type": "characteristic",
+      "attr": "Wt",
+      "attr_name": "Wytrzymałości"
+    },
+    "max_raw": "Bonus z Wytrzymałości",
+    "tests": null,
+    "description": "Wytrzymujesz trudy z godnym podziwu uporem. Kiedy liczysz kary wynikające ze Stanu Zmęczenie możesz zignorować jeden Poziom Zmęczenia za każde wykupienie Talentu.",
+    "source": "Podręcznik gracza Krasnoluda"
   },
   "Nieubłagany": {
     "max": {
@@ -903,6 +925,28 @@
     "description": "Znasz wszystkie tajniki żeglowania po rzekach. Nie musisz wykonywać Testu, by przeprowadzić jednostkę przez niebezpieczne wody, chyba że jego trudność wynosi -10 lub więcej. Łatwiejsze Testy automatycznie kończą się sukcesem. Co więcej, jeśli posiadasz Wiedzę (Okolica), w ogóle nie musisz przeprowadzać Testów, tak dobrze znasz te tereny i lokalny nurt.",
     "source": "Podręcznik podstawowy"
   },
+  "Płynna Fortyfikacja": {
+    "max": {
+      "type": "characteristic",
+      "attr": "Wt",
+      "attr_name": "Wytrzymałości"
+    },
+    "max_raw": "Bonus z Wytrzymałości",
+    "tests": "Testy Mocnej Głowy",
+    "description": "Wiele Krasnoludów przysięga, że dobry trunek zwiększa odwagę i potencjał wojownika. Natychmiast otrzymujesz +10 Siły i Wytrzymałości po spożyciu alkoholu. Efekt utrzymuje się do godziny po twoim ostatnim trunku.",
+    "source": "Podręcznik gracza Krasnoluda"
+  },
+  "Pogarda Magii": {
+    "max": {
+      "type": "characteristic",
+      "attr": "SW",
+      "attr_name": "Siły Woli"
+    },
+    "max_raw": "Bonus z Siły Woli",
+    "tests": "Testy Siły Woli przeciw Magii",
+    "description": "Uziemiasz magię przeciwnika własnym ciałem, odmawiając bycia dotkniętym ich podłym sztuczkom. Możesz odwrócić każdy rzut, który musisz podjąć w wyniku zaklęcia, jak i rozpraszania go.",
+    "source": "Podręcznik gracza Krasnoluda"
+  },
   "Poliglota": {
     "max": {
       "type": "characteristic",
@@ -1009,6 +1053,17 @@
     "tests": "Broń Biała w obronie",
     "description": "Wyznajesz zasadę, że najlepszą obroną jest atak, dlatego w walce błyskawicznie kontratakujesz, gdy tylko przeciwnik wyprowadzi cios. Jeśli twoja broń posiada zaletę Szybka, możesz zadać obrażenia, gdy jesteś atakowany, jakbyś wykonywał swoją Akcję. Ripostę możesz wykonać tyle razy w Rundzie, ile razy wykupisz ten Talent.",
     "source": "Podręcznik podstawowy"
+  },
+  "Rodowa Uraza": {
+    "max": {
+      "type": "characteristic",
+      "attr": "Wt",
+      "attr_name": "Wytrzymałości"
+    },
+    "max_raw": "Bonus z Wytrzymałości",
+    "tests": null,
+    "description": "Są takie pozycje w Wielkiej Księdze Uraz, które są na tyle poważne, że mogą być pomszczone jedynie przez eksterminacje wszystkich osobników danej grupy. Wybierz grupę lub frakcję twojej Rodowej Urazy (Orkowie, Gobliny, Skaveny, Deamony Khorna itp.). Za każdym razem gdy wygrasz istotną potyczkę (odebrać skradzioną rzecz, zniszczyć ich wytwory, zabicie wielu osobników itp.) przeciwko danej grupie dostajesz 50 PD. Im konkretniejszą grupę wybierzesz tym więcej PD zapewni Ci wygrana przeciw niej.",
+    "source": "Podręcznik gracza Krasnoluda"
   },
   "Rozbrojenie": {
     "max": {
@@ -1766,6 +1821,16 @@
     "max_raw": "1",
     "tests": null,
     "description": "Zyskujesz premię +5 do początkowej wartości Zręczności. Nie liczy się ona do sumy Rozwinięć.",
+    "source": "Podręcznik podstawowy"
+  },
+  "Żar Kuźni": {
+    "max": {
+      "type": "fixed",
+      "value": 1
+    },
+    "max_raw": "1",
+    "tests": null,
+    "description": "Jesteś żywą baterią mocy runicznej, promieniując aurą furii bitewnej nasycając pobliskie bronie gorącem ich wykuwania. Jeśli jesteś Związany Walką każda Broń Ręczna używana przez Ciebie lub Twojego Sojusznika w promieniu Siły Woli w metrach dostają Zaletę Przekłuwająca. Jeżeli już ją mają to ignorują dodatkowy punkt niemetalowej zbroji.",
     "source": "Podręcznik podstawowy"
   },
   "Żelazna Szczęka": {

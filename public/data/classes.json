@@ -9,7 +9,18 @@
       "Medyczka",
       "Mniszka",
       "Prawniczka",
-      "Uczony"
+      "Uczony",
+      "Świecki Alchemik",
+      "Magister Rewizor",
+      "Hierofant",
+      "Alchemik",
+      "Druidka",
+      "Astromanta",
+      "Iluzjonista",
+      "Spirytysta",
+      "Piromanta",
+      "Szamanka",
+      "Kowal Run"
     ]
   },
   "Mieszczanie": {
@@ -22,7 +33,8 @@
       "Strażnik",
       "Szczurołap",
       "Śledczy",
-      "Żebrak"
+      "Żebrak",
+      "Piwowar"
     ]
   },
   "Dworzanie": {
@@ -48,7 +60,8 @@
       "Mistyczka",
       "Zarządca",
       "Zielarka",
-      "Zwiadowca"
+      "Zwiadowca",
+      "Jasnowidząca"
     ]
   },
   "Wędrowcy": {
@@ -100,7 +113,8 @@
       "Oprych",
       "Rycerz",
       "Zabójca",
-      "Żołnierz"
+      "Żołnierz",
+      "Bedel"
     ]
   }
 }
