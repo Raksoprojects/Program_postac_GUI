@@ -63,7 +63,11 @@
 
   // Krok 5 - talenty rasowe
   let talentChoice = $state<Record<number, string>>({});
-  let randomTalents = $state<string[]>([]);
+  // Losowe talenty rasowe - kazdy losowany OSOBNO, z widocznym rzutem k100 (pkt 3).
+  let randomRolls = $state<{ roll: number; talent: string }[]>([]);
+  let randomTalents = $derived(randomRolls.map((r) => r.talent));
+  // Komunikat przy rzucie na duplikat / puste pole tabeli (trzeba rzucic ponownie).
+  let talentRollMsg = $state<string | null>(null);
 
   // Kolejka wyboru bonusu dla wylosowanych/wybranych talentow +cecha (pkt 22).
   let charBonusQueue = $state<{ name: string; code: string }[]>([]);
@@ -161,7 +165,8 @@
     resilience = def ? def.resilience : 0;
     skillChoice = {};
     talentChoice = {};
-    randomTalents = [];
+    randomRolls = [];
+    talentRollMsg = null;
   }
 
   // --- Krok 2 ---
@@ -344,20 +349,32 @@
     return out;
   }
 
-  function rollRandomTalents(): void {
+  function rollNextTalent(): void {
     if (!race) return;
-    const taken = new Set<string>(fixedAndChosenTalents());
-    const result: string[] = [];
-    let guard = 0;
-    while (result.length < randomTalentCount && guard < 500) {
-      guard++;
-      const r = rollK100();
-      const t = gameData.randomTalentForRoll(r);
-      if (!t) continue;
-      if (taken.has(t) || result.includes(t)) continue;
-      result.push(t);
+    if (randomRolls.length >= randomTalentCount) return;
+    const taken = new Set<string>([...fixedAndChosenTalents(), ...randomTalents]);
+    const roll = rollK100();
+    const t = gameData.randomTalentForRoll(roll);
+    if (!t) {
+      talentRollMsg = `Rzut ${roll}: brak talentu w tabeli — rzuć ponownie.`;
+      return;
     }
-    randomTalents = result;
+    if (taken.has(t)) {
+      talentRollMsg = `Rzut ${roll}: „${t}" już wylosowany — rzuć ponownie.`;
+      return;
+    }
+    talentRollMsg = null;
+    randomRolls = [...randomRolls, { roll, talent: t }];
+  }
+
+  function undoLastTalent(): void {
+    randomRolls = randomRolls.slice(0, -1);
+    talentRollMsg = null;
+  }
+
+  function clearRandomTalents(): void {
+    randomRolls = [];
+    talentRollMsg = null;
   }
 
   // --- Walidacja krokow ---
@@ -698,12 +715,29 @@
       {/each}
     </ul>
     {#if randomTalentCount > 0}
-      <div class="row">
-        <button class="ghost" onclick={rollRandomTalents}>
-          🎲 {randomTalents.length ? "Przelosuj" : "Losuj"} talenty ({randomTalentCount})
-        </button>
-        {#if randomTalents.length}
-          <span class="text-dim">{randomTalents.join(", ")}</span>
+      <div class="random-talents">
+        <div class="row">
+          <button
+            class="ghost"
+            onclick={rollNextTalent}
+            disabled={randomRolls.length >= randomTalentCount}
+          >
+            🎲 Rzuć na talent (k100) — {randomRolls.length}/{randomTalentCount}
+          </button>
+          {#if randomRolls.length}
+            <button class="btn-sm ghost" onclick={undoLastTalent}>← Cofnij ostatni</button>
+            <button class="btn-sm ghost" onclick={clearRandomTalents}>Wyczyść</button>
+          {/if}
+        </div>
+        {#if talentRollMsg}
+          <p class="msg text-dim">{talentRollMsg}</p>
+        {/if}
+        {#if randomRolls.length}
+          <ol class="roll-list">
+            {#each randomRolls as r (r.talent)}
+              <li><span class="roll-num">🎲 {r.roll}</span> → <strong>{r.talent}</strong></li>
+            {/each}
+          </ol>
         {/if}
       </div>
     {/if}
@@ -1007,6 +1041,29 @@
     display: flex;
     gap: var(--space-2);
     flex-wrap: wrap;
+  }
+
+  .random-talents {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .roll-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .roll-list li {
+    padding: 4px 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius, 6px);
+  }
+  .roll-num {
+    font-variant-numeric: tabular-nums;
+    color: var(--text-dim, inherit);
   }
 
   .summary {

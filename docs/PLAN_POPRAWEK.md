@@ -27,10 +27,6 @@
 
 ---
 
-## FAZA H — Tworzenie postaci (pkt 3)
-
-- [ ] `rollRandomTalents`: losować każdy talent osobno (osobne kroki/rzuty w UI).
-
 ## FAZA J — Koszty: filtr rozwijalnych (pkt 1)
 
 - [ ] Zweryfikować filtr rozwijalnych w `TabKoszty` po naprawie Fazy B.
