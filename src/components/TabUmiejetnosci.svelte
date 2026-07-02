@@ -149,9 +149,10 @@
     {#each rows as row (row.name)}
       <div class="row panel" class:dev-row={row.developable}>
         <div class="name">
-          <strong>{row.name}</strong>
+          <strong class:earning={row.earning}>{row.name}</strong>
           <span class="text-dim">({row.attribute}){row.developable ? " +" : ""}</span>
           {#if row.entry.is_new}<span class="chip accent tag">nowa</span>{/if}
+          {#if row.earning}<span class="chip tag earning-tag" title="Umiejętność zarobkowa profesji">zarobkowa</span>{/if}
         </div>
         <div class="stats">
           <span><span class="text-dim">Pocz:</span> {row.entry.initial}</span>
@@ -184,7 +185,8 @@
     {#each phantoms as name (name)}
       <div class="row panel dev-row phantom">
         <div class="name">
-          <strong>{name}</strong> <span class="text-dim">+</span>
+          <strong class:earning={store.isEarningSkill(name)}>{name}</strong> <span class="text-dim">+</span>
+          {#if store.isEarningSkill(name)}<span class="chip tag earning-tag" title="Umiejętność zarobkowa profesji">zarobkowa</span>{/if}
         </div>
         <div class="stats text-dim">Umiejętność z profesji – jeszcze nieposiadana.</div>
         <div class="btns">
@@ -297,6 +299,16 @@
 
   .tag {
     font-size: calc(11px * var(--ui-scale));
+  }
+
+  .earning {
+    font-style: italic;
+  }
+
+  .earning-tag {
+    background: var(--surface-3, var(--surface-2));
+    color: var(--text-dim, inherit);
+    font-style: italic;
   }
 
   .stats {

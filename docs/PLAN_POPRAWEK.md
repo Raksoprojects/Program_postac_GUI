@@ -27,12 +27,6 @@
 
 ---
 
-## FAZA E — Prezentacja umiejętności/talentów (pkt 16, 19)
-
-- [ ] Talent niewykupiony (phantom) pokazuje opis z `talents.json`.
-- [ ] Sufiks `+` w skills L1 = umiejętność zarobkowa: parser odcina `+`, flaga earning,
-      UI kursywą, uzupełniana wg profesji poziomu 1. Uzupełnić `professions.json`.
-
 ## FAZA F — Import/eksport PDF (pkt 2, 18)
 
 - [ ] Odczyt nazw talentów z karty → dopasowanie do bazy → oficjalny talent (weryfikacja).

@@ -41,6 +41,7 @@ export function setGameData(data: {
   talents = data.talents;
   skills = data.skills ?? [];
   races = data.races ?? null;
+  normalizeEarningSkills(professions);
 }
 
 /** Czy dane zostaly juz zaladowane. */
@@ -63,6 +64,31 @@ export async function loadGameData(baseUrl: string = import.meta.env.BASE_URL): 
   talents = t;
   skills = s;
   races = r;
+  normalizeEarningSkills(professions);
+}
+
+/**
+ * Normalizuje umiejetnosci zarobkowe (pkt 19): sufiks "+" przy nazwie
+ * umiejetnosci w schemacie profesji oznacza umiejetnosc zarobkowa. Odcinamy
+ * "+" (nazwa pozostaje czysta dla dopasowan) i zapisujemy baze do earning_skills.
+ */
+function normalizeEarningSkills(data: ProfessionsData | null): void {
+  if (!data) return;
+  for (const prof of Object.values(data)) {
+    for (const lvl of prof.levels ?? []) {
+      const earning: string[] = [];
+      lvl.skills = (lvl.skills ?? []).map((raw) => {
+        const trimmed = raw.trimEnd();
+        if (trimmed.endsWith("+")) {
+          const name = trimmed.slice(0, -1).trimEnd();
+          earning.push(name);
+          return name;
+        }
+        return raw;
+      });
+      if (earning.length) lvl.earning_skills = earning;
+    }
+  }
 }
 
 function requireProfessions(): ProfessionsData {
@@ -590,4 +616,26 @@ export function isSkillDevelopable(skillName: string, developable: Developable):
 /** Czy talent jest rozwijalny w profesji (obecny poziom lub juz wykupiony). */
 export function isTalentDevelopable(talentName: string, developable: Developable): boolean {
   return developable.talents.has(talentName);
+}
+
+/** Zbior umiejetnosci zarobkowych profesji (nazwy bazowe ze wszystkich poziomow; pkt 19). */
+export function getEarningSkills(professionName: string | null): Set<string> {
+  const out = new Set<string>();
+  if (!professionName) return out;
+  const prof = getProfession(professionName);
+  if (!prof) return out;
+  for (const lvl of prof.levels ?? []) {
+    for (const s of lvl.earning_skills ?? []) out.add(s);
+  }
+  return out;
+}
+
+/** Czy dana umiejetnosc jest zarobkowa w podanej profesji (dopasowanie po normalizacji). */
+export function isEarningSkill(professionName: string | null, skillName: string): boolean {
+  const set = getEarningSkills(professionName);
+  if (!set.size) return false;
+  if (set.has(skillName)) return true;
+  const target = normalize(skillName);
+  for (const s of set) if (normalize(s) === target) return true;
+  return false;
 }

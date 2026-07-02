@@ -201,7 +201,10 @@
             <p class="text-dim"><b>Cechy:</b> {lvl.characteristics.join(", ")}</p>
           {/if}
           {#if lvl.skills?.length}
-            <p class="text-dim"><b>Umiejętności:</b> {lvl.skills.join(", ")}</p>
+            <p class="text-dim"><b>Umiejętności:</b> {#each lvl.skills as s, i (s)}<span
+                  class:earning={lvl.earning_skills?.includes(s)}
+                  title={lvl.earning_skills?.includes(s) ? "Umiejętność zarobkowa" : undefined}
+                >{s}</span>{#if i < lvl.skills.length - 1}, {/if}{/each}</p>
           {/if}
           {#if lvl.talents?.length}
             <p class="text-dim"><b>Talenty:</b> {lvl.talents.join(", ")}</p>
@@ -341,6 +344,11 @@
   .lvl.current {
     border-color: var(--accent);
     border-width: 2px;
+  }
+
+  .earning {
+    font-style: italic;
+    font-weight: 600;
   }
 
   .lvl-head {

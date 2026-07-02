@@ -12,6 +12,8 @@ export interface ProfessionLevel {
   skills: string[];
   talents: string[];
   trappings: string[];
+  /** Umiejetnosci zarobkowe (oznaczone sufiksem "+" w danych; pkt 19). */
+  earning_skills?: string[];
 }
 
 export interface Profession {

@@ -73,6 +73,8 @@ export interface SkillRow {
   developable: boolean;
   override: boolean;
   maxBuy: number;
+  /** Umiejetnosc zarobkowa profesji (pkt 19) - wyswietlana kursywa. */
+  earning: boolean;
 }
 
 export interface TalentRow {
@@ -315,6 +317,13 @@ class CharacterStore {
 
   skillRows(): SkillRow[] {
     void this.tick;
+    const earning = this.earningSkillNames();
+    const isEarning = (name: string): boolean => {
+      if (earning.has(name)) return true;
+      const target = gameData.normalize(name);
+      for (const s of earning) if (gameData.normalize(s) === target) return true;
+      return false;
+    };
     return Object.entries(this.dm.skills)
       .map(([name, entry]) => ({
         name,
@@ -323,9 +332,37 @@ class CharacterStore {
         total: (this.dm.attributes[entry.attribute]?.current ?? entry.initial ?? 0) + (entry.advanced ?? 0),
         developable: this.skillDevelopable(name),
         override: this.overrideSkills.has(name),
-        maxBuy: this.engine.maxAdvancements("umiejetnosc", name)
+        maxBuy: this.engine.maxAdvancements("umiejetnosc", name),
+        earning: isEarning(name)
       }))
       .sort((a, b) => a.name.localeCompare(b.name, "pl"));
+  }
+
+  /**
+   * Zbior umiejetnosci zarobkowych (pkt 19) z profesji na sciezce kariery i
+   * profesji biezacej. Nazwy bazowe; dopasowanie po normalizacji w skillRows.
+   */
+  earningSkillNames(): Set<string> {
+    void this.tick;
+    const out = new Set<string>();
+    const add = (prof: string | null): void => {
+      for (const s of gameData.getEarningSkills(prof)) out.add(s);
+    };
+    add(this.dm.currentCareer || null);
+    for (const step of this.dm.careerPath ?? []) {
+      add(step.profession || step.title || null);
+    }
+    return out;
+  }
+
+  /** Czy dana umiejetnosc (posiadana lub phantom) jest zarobkowa (pkt 19). */
+  isEarningSkill(name: string): boolean {
+    void this.tick;
+    const earning = this.earningSkillNames();
+    if (earning.has(name)) return true;
+    const target = gameData.normalize(name);
+    for (const s of earning) if (gameData.normalize(s) === target) return true;
+    return false;
   }
 
   talentRows(): TalentRow[] {
