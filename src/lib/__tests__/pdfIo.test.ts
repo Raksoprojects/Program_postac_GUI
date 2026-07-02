@@ -132,4 +132,77 @@ describe("pdfIo: eksport (round-trip)", () => {
     expect(reread.stats.resilience).toBe(1);
     expect(reread.stats.motivation).toBe("Chwała");
   });
+
+  it.runIf(hasSample)("dopisuje NOWA umiejetnosc do wolnego wiersza (round-trip)", async () => {
+    const bytes = new Uint8Array(readFileSync(samplePdf));
+    const extracted = await extractPdfCharacterData(bytes);
+    // Karta musi miec co najmniej jeden wolny wiersz zaawansowany.
+    expect(extracted.pdf_mapping.skills_free.length).toBeGreaterThan(0);
+
+    const newName = "Wiedza (Testowa Faza F)";
+    const skills = {
+      ...extracted.skills,
+      [newName]: {
+        attribute: "Int",
+        initial: 30,
+        advanced: 7,
+        current: 37,
+        base_advanced: 7,
+        is_new: true,
+        profession_available: true
+      }
+    };
+
+    const out = await writePdfCharacterData(
+      bytes,
+      {
+        character_name: "Free Row",
+        attributes: extracted.attributes,
+        skills,
+        stats: extracted.stats,
+        talents: {},
+        experience: extracted.experience,
+        profession: {}
+      },
+      extracted.pdf_mapping
+    );
+
+    const reread = await extractPdfCharacterData(out);
+    expect(reread.skills[newName]).toBeDefined();
+    expect(reread.skills[newName].advanced).toBe(7);
+    expect(reread.skills[newName].current).toBe(37);
+    expect(reread.skills[newName].attribute).toBe("Int");
+    // Rozwijalnosc nowej umiejetnosci trafia na checkbox jej wiersza.
+    expect(reread.skills[newName].profession_available).toBe(true);
+  });
+
+  it.runIf(hasSample)("zapisuje checkboxy rozwijalnosci cech i umiejetnosci (round-trip)", async () => {
+    const bytes = new Uint8Array(readFileSync(samplePdf));
+    const extracted = await extractPdfCharacterData(bytes);
+
+    extracted.attributes.WW.profession_available = true;
+    extracted.attributes.S.profession_available = false;
+    // Pierwsza umiejetnosc podstawowa na karcie to Atletyka.
+    expect(extracted.skills["Atletyka"]).toBeDefined();
+    extracted.skills["Atletyka"].profession_available = true;
+
+    const out = await writePdfCharacterData(
+      bytes,
+      {
+        character_name: "Checkbox",
+        attributes: extracted.attributes,
+        skills: extracted.skills,
+        stats: extracted.stats,
+        talents: {},
+        experience: extracted.experience,
+        profession: {}
+      },
+      extracted.pdf_mapping
+    );
+
+    const reread = await extractPdfCharacterData(out);
+    expect(reread.attributes.WW.profession_available).toBe(true);
+    expect(reread.attributes.S.profession_available).toBe(false);
+    expect(reread.skills["Atletyka"].profession_available).toBe(true);
+  });
 });

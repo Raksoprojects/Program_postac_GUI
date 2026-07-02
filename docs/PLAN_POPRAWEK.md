@@ -27,14 +27,6 @@
 
 ---
 
-## FAZA F — Import/eksport PDF (pkt 2, 18)
-
-- [ ] Odczyt nazw talentów z karty → dopasowanie do bazy → oficjalny talent (weryfikacja).
-- [ ] Eksport: zapisywać rozwinięte/grupowe/NOWE umiejętności (wolne wiersze).
-- [ ] Wartości umiejętności z żywego przeliczania (Faza A).
-- [ ] Zaznaczać checkboxy rozwijalności cech i umiejętności zgodnie z developable.
-- [ ] Testy round-trip: `public/data/empty_card.pdf` + `Program Python/Rein_Nuhr_lepsza_4ed.pdf`.
-
 ## FAZA G — Profesja/klasa i eksport ścieżki (pkt 17)
 
 - [ ] Umożliwić zmianę klasy po wyborze profesji.

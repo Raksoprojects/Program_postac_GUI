@@ -147,6 +147,69 @@ function pageCheckboxStates(doc: PDFDocument, pageIndex: number): boolean[] {
   return states;
 }
 
+/** Nazwa stanu "wlaczony" checkboxa (klucz /AP /N rozny od /Off; domyslnie /Yes). */
+function checkboxOnState(annot: PDFDict, doc: PDFDocument): PDFName {
+  try {
+    const apRef = annot.get(PDFName.of("AP"));
+    const ap = apRef instanceof PDFDict ? apRef : doc.context.lookup(apRef);
+    if (ap instanceof PDFDict) {
+      const nRef = ap.get(PDFName.of("N"));
+      const n = nRef instanceof PDFDict ? nRef : doc.context.lookup(nRef);
+      if (n instanceof PDFDict) {
+        for (const key of n.keys()) {
+          if (key.toString() !== "/Off") return key;
+        }
+      }
+    }
+  } catch {
+    // brak /AP - uzyj domyslnej nazwy
+  }
+  return PDFName.of("Yes");
+}
+
+/**
+ * Ustawia stany checkboxow "rozwijalne w profesji" na danej stronie zgodnie z
+ * lista flag (kolejnosc anotacji Btn = mirror pageCheckboxStates). Zapisuje /V na
+ * polu (lub jego rodzicu) oraz /AS na widgecie, aby zaznaczenie bylo widoczne.
+ */
+function setPageCheckboxes(doc: PDFDocument, pageIndex: number, flags: boolean[]): void {
+  const page = doc.getPage(pageIndex);
+  const annots = page.node.Annots();
+  if (!annots) return;
+  let pos = 0;
+  for (let i = 0; i < annots.size(); i++) {
+    if (pos >= flags.length) break;
+    const ref = annots.get(i);
+    const annot = doc.context.lookup(ref);
+    if (!(annot instanceof PDFDict)) continue;
+    let ft = annot.get(PDFName.of("FT"));
+    let field: PDFDict = annot;
+    if (!ft) {
+      const parentRef = annot.get(PDFName.of("Parent"));
+      if (parentRef) {
+        const parent = doc.context.lookup(parentRef);
+        if (parent instanceof PDFDict) {
+          ft = parent.get(PDFName.of("FT"));
+          field = parent;
+        }
+      }
+    }
+    if (ft && ft.toString() === "/Btn") {
+      const state = flags[pos] ? checkboxOnState(annot, doc) : PDFName.of("Off");
+      field.set(PDFName.of("V"), state);
+      annot.set(PDFName.of("AS"), state);
+      pos += 1;
+    }
+  }
+}
+
+/** Wyciaga numer wiersza z nazwy pola typu "skillnamerow12" (po normalizacji). */
+function advancedRowIndexFromField(fieldName: string | null | undefined): number | null {
+  if (!fieldName) return null;
+  const match = normalizePdfFieldName(fieldName).match(/row(\d+)$/);
+  return match ? Number.parseInt(match[1], 10) : null;
+}
+
 // ---------------------------------------------------------------------------
 // Typy wyniku importu
 // ---------------------------------------------------------------------------
@@ -170,6 +233,8 @@ export interface PdfMapping {
   experience: Record<string, string | null>;
   attributes: Record<string, Record<string, string | null>>;
   skills: Record<string, Record<string, unknown>>;
+  /** Wolne (puste) wiersze umiejetnosci zaawansowanych do zapisu NOWYCH umiejetnosci. */
+  skills_free: Array<Record<string, string | null>>;
   talents: Record<string, Record<string, unknown>>;
   talents_free: Array<Record<string, string | null>>;
   profession: Record<string, string | null>;
@@ -237,6 +302,7 @@ export async function extractPdfCharacterData(
     experience: {},
     attributes: {},
     skills: {},
+    skills_free: [],
     talents: {},
     talents_free: [],
     profession: {
@@ -320,10 +386,22 @@ export async function extractPdfCharacterData(
   });
 
   // Umiejetnosci zaawansowane (wiersze)
+  const skillsFree: Array<Record<string, string | null>> = [];
   PDF_ADVANCED_SKILL_ROWS.forEach((rowIndex, rowPosition) => {
     const nameField = `skillnamerow${rowIndex}`;
     const skillName = readFieldValue(index, nameField);
-    if (!skillName) return;
+    if (!skillName) {
+      // Pusty wiersz -> dostepny dla NOWYCH umiejetnosci przy zapisie.
+      skillsFree.push({
+        name_field: fieldNameFor(index, nameField),
+        attribute_field: fieldNameFor(index, `listboxrow${rowIndex}`),
+        advanced_field: fieldNameFor(index, `advrow${rowIndex}`),
+        initial_field: fieldNameFor(index, `characteristicrow${rowIndex}`),
+        current_field: fieldNameFor(index, `skillrow${rowIndex}`),
+        row_index: String(rowIndex)
+      });
+      return;
+    }
     const attribute = canonicalAttribute(readFieldValue(index, `listboxrow${rowIndex}`));
     if (!attribute) return;
 
@@ -349,9 +427,11 @@ export async function extractPdfCharacterData(
       initial_field: fieldNameFor(index, `characteristicrow${rowIndex}`),
       current_field: fieldNameFor(index, `skillrow${rowIndex}`),
       name_value: skillName,
-      attribute_value: attribute
+      attribute_value: attribute,
+      row_index: rowIndex
     };
   });
+  pdfMapping.skills_free = skillsFree;
 
   // Talenty (wiersze)
   const talents: Record<string, PdfRawTalent> = {};
@@ -470,8 +550,13 @@ export async function writePdfCharacterData(
     if (!attrData) continue;
     setUpdate(attrMapping.initial, stringify(attrData.initial || ""));
     setUpdate(attrMapping.advanced, stringify(attrData.advanced || ""));
-    setUpdate(attrMapping.current, stringify(attrData.initial + attrData.advanced));
+    // Zywa wartosc aktualna (uwzglednia bonusy cech z talentow +cecha).
+    const attrCurrent = attrData.current || attrData.initial + attrData.advanced;
+    setUpdate(attrMapping.current, stringify(attrCurrent));
   }
+
+  // Wiersz zaawansowany -> nazwa umiejetnosci (do checkboxow rozwijalnosci).
+  const advancedRowNames: Record<number, string> = {};
 
   for (const [skillName, skillMapping] of Object.entries(mapping.skills)) {
     const skillData = payload.skills[skillName];
@@ -495,7 +580,32 @@ export async function writePdfCharacterData(
       }
       setUpdate(skillMapping.initial_field as string, stringify(skillData.initial || ""));
       setUpdate(skillMapping.current_field as string, stringify(currentValue || ""));
+      const rowIdx =
+        skillMapping.row_index != null
+          ? Number(skillMapping.row_index)
+          : advancedRowIndexFromField(skillMapping.name_field as string);
+      if (rowIdx != null) advancedRowNames[rowIdx] = skillName;
     }
+  }
+
+  // Nowe/grupowe umiejetnosci (bez mapowania) -> wolne wiersze zaawansowane.
+  const mappedSkills = new Set(Object.keys(mapping.skills));
+  const freeSkillRows = [...(mapping.skills_free ?? [])];
+  for (const [skillName, skillData] of Object.entries(payload.skills)) {
+    if (mappedSkills.has(skillName)) continue;
+    const row = freeSkillRows.shift();
+    if (!row) break;
+    const currentValue = skillData.initial + skillData.advanced;
+    setUpdate(row.name_field, stringify(skillName));
+    if (row.attribute_field) setUpdate(row.attribute_field, stringify(skillData.attribute));
+    setUpdate(row.advanced_field, stringify(skillData.advanced || ""));
+    setUpdate(row.initial_field, stringify(skillData.initial || ""));
+    setUpdate(row.current_field, stringify(currentValue || ""));
+    const rowIdx =
+      row.row_index != null
+        ? Number(row.row_index)
+        : advancedRowIndexFromField(row.name_field);
+    if (rowIdx != null) advancedRowNames[rowIdx] = skillName;
   }
 
   for (const [talentName, talentMapping] of Object.entries(mapping.talents)) {
@@ -555,6 +665,30 @@ export async function writePdfCharacterData(
     const field = index.byName[fieldName];
     if (field) setRawFieldValue(field, value);
   }
+
+  // Checkboxy "rozwijalne w profesji" (10 cech + 26 podstawowych + 20 zaawansowanych).
+  const flags: boolean[] = new Array(PDF_PAGE_ONE_PROFESSION_CHECKBOX_COUNT).fill(false);
+  const attrCodes = Object.keys(PDF_ATTRIBUTE_FIELDS);
+  attrCodes.forEach((code, i) => {
+    flags[i] = Boolean(payload.attributes[code]?.profession_available);
+  });
+  // Podstawowe: pole sumy (total_field) -> nazwa umiejetnosci z mapowania.
+  const basicNameByTotal: Record<string, string> = {};
+  for (const [name, m] of Object.entries(mapping.skills)) {
+    if (m.type === "basic" && m.total_field) {
+      basicNameByTotal[normalizePdfFieldName(String(m.total_field))] = name;
+    }
+  }
+  PDF_BASIC_SKILL_LAYOUT.forEach((layout, j) => {
+    const name = basicNameByTotal[normalizePdfFieldName(layout.total_field)];
+    flags[10 + j] = Boolean(name && payload.skills[name]?.profession_available);
+  });
+  // Zaawansowane: wiersz -> nazwa (mapowane + nowo dopisane w wolnych wierszach).
+  PDF_ADVANCED_SKILL_ROWS.forEach((rowIndex, k) => {
+    const name = advancedRowNames[rowIndex];
+    flags[36 + k] = Boolean(name && payload.skills[name]?.profession_available);
+  });
+  setPageCheckboxes(doc, 0, flags);
 
   // Wymus regeneracje wygladu pol przez czytnik PDF.
   form.acroForm.dict.set(PDFName.of("NeedAppearances"), PDFBool.True);
