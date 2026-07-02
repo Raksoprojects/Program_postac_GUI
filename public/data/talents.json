@@ -1120,7 +1120,7 @@
     "description": "Jesteś obrotnym rybakiem i wiesz, jak zapełnić sieci. Jeżeli masz dostęp do odpowiednio dużego zbiornika wodnego, jesteś w stanie wyżywić siebie oraz tyle osób, ile razy wykupiłeś ten Talent, jeśli poświęcisz godzinę dziennie na wędkowanie. Liczbę złowionych ryb możesz zwiększyć, stosując zasady zbieractwa (patrz strona 129).",
     "source": "Podręcznik podstawowy"
   },
-  "Sekretna T ożsamość": {
+  "Sekretna Tożsamość": {
     "max": {
       "type": "characteristic",
       "attr": "Int",
@@ -1258,7 +1258,7 @@
     "description": "Powiadają, że kiedy się rodziłeś, Ranald się uśmiechnął. Maksymalna liczba twoich Punktów Szczęścia jest równa sumie liczby Punktów Przeznaczenia i liczby wykupień tego Talentu.",
     "source": "Podręcznik podstawowy"
   },
-  "Szczur Tunelowy": {
+  "Szczur Kanałowy": {
     "max": {
       "type": "characteristic",
       "attr": "Zw",
@@ -1865,5 +1865,59 @@
     "tests": "Targowanie",
     "description": "Jesteś sprawnym przekupniem i znasz sposoby na dobicie targu. Kiedy używasz Umiejętności Targowanie, obniżasz lub podwyższasz cenę o dodatkowe 10%. Uwaga: MG ma prawo do limitowania zmniejszania cen, by pokazać, że kupiec nie sprzeda przedmiotu poniżej poniesionych przez siebie kosztów.",
     "source": "Podręcznik podstawowy"
+  },
+  "Twardziel": {
+    "max": {
+      "type": "none"
+    },
+    "max_raw": null,
+    "tests": null,
+    "description": "",
+    "source": "Do uzupełnienia"
+  },
+  "Towarzyski": {
+    "max": {
+      "type": "none"
+    },
+    "max_raw": null,
+    "tests": null,
+    "description": "",
+    "source": "Do uzupełnienia"
+  },
+  "Pamiętliwy": {
+    "max": {
+      "type": "none"
+    },
+    "max_raw": null,
+    "tests": null,
+    "description": "",
+    "source": "Do uzupełnienia"
+  },
+  "Zręczne Palce": {
+    "max": {
+      "type": "none"
+    },
+    "max_raw": null,
+    "tests": null,
+    "description": "",
+    "source": "Do uzupełnienia"
+  },
+  "Przemawianie": {
+    "max": {
+      "type": "none"
+    },
+    "max_raw": null,
+    "tests": null,
+    "description": "",
+    "source": "Do uzupełnienia"
+  },
+  "Mistrzowska Magia Runiczna": {
+    "max": {
+      "type": "none"
+    },
+    "max_raw": null,
+    "tests": null,
+    "description": "",
+    "source": "Do uzupełnienia"
   }
 }

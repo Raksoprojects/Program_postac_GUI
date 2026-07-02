@@ -144,6 +144,8 @@ export class PendingEngine {
     data.advanced += amount;
     this.dm.experience.available -= cost;
     this.spentDelta += cost;
+    this.dm.recompute();
+    if (type === "cecha") this.dm.recomputeWounds();
     return { ok: true, amount: cost };
   }
 
@@ -182,6 +184,8 @@ export class PendingEngine {
     data.advanced -= amount;
     this.dm.experience.available += refund;
     this.spentDelta -= refund;
+    this.dm.recompute();
+    if (type === "cecha") this.dm.recomputeWounds();
     return { ok: true, amount: refund };
   }
 

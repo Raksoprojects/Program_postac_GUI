@@ -102,6 +102,12 @@ export class DataManager {
   careerPath: CareerPathStep[] = [];
   professionRaw: Record<string, unknown> = {};
 
+  /**
+   * Plaskie bonusy do wartosci cech z talentow modyfikujacych cechy (np. Urodzony
+   * Wojownik). Kod cechy -> bonus. Nie licza sie jako rozwiniecia profesyjne.
+   */
+  characteristicBonuses: Record<string, number> = {};
+
   /** Surowe bajty zrodlowego PDF (do ponownego eksportu jako wzorzec). */
   pdfSourceBytes: Uint8Array | null = null;
   /** Typowane mapowanie pol PDF (gdy postac wczytano z PDF). */
@@ -235,6 +241,47 @@ export class DataManager {
       profession_available: false
     };
     return true;
+  }
+
+  // ----- Przeliczanie wartosci pochodnych (na zywo) ----------------------
+
+  /**
+   * Przelicza wartosci pochodne na zywo: aktualne wartosci cech
+   * (initial + advanced + bonus talentowy) oraz wartosci umiejetnosci
+   * (wartosc cechy wiodacej + rozwiniecia). Wywolywac po kazdej zmianie cech,
+   * rozwiniec lub talentow modyfikujacych cechy. NIE zmienia Zywotnosci -
+   * do tego sluzy recomputeWounds().
+   */
+  recompute(): void {
+    for (const code of ATTRIBUTES) {
+      const attr = this.attributes[code];
+      if (!attr) continue;
+      attr.current = attr.initial + attr.advanced + (this.characteristicBonuses[code] ?? 0);
+    }
+    for (const entry of Object.values(this.skills)) {
+      const attrCurrent = this.attributes[entry.attribute]?.current ?? entry.initial;
+      entry.initial = attrCurrent;
+      entry.current = attrCurrent + entry.advanced;
+    }
+  }
+
+  /**
+   * Przelicza Zywotnosc z bonusow cech (BS + 2xBWt + BSW; Niziolek bez BS).
+   * Wywolywac po zmianie wartosci cech S/Wt/SW lub talentow je modyfikujacych.
+   */
+  recomputeWounds(): void {
+    let includeStrength = true;
+    try {
+      includeStrength =
+        gameData.getRace(this.characterSpecies)?.woundsIncludeStrength ?? true;
+    } catch {
+      // Dane gry moga nie byc jeszcze zaladowane - domyslnie wliczamy Krzepe.
+      includeStrength = true;
+    }
+    const sB = gameData.attributeBonus(this.attributes["S"]?.current ?? 0);
+    const wtB = gameData.attributeBonus(this.attributes["Wt"]?.current ?? 0);
+    const swB = gameData.attributeBonus(this.attributes["SW"]?.current ?? 0);
+    this.stats.wounds = (includeStrength ? sB : 0) + 2 * wtB + swB;
   }
 
   // ----- Profesja / klasa / sciezka kariery ------------------------------
@@ -382,7 +429,8 @@ export class DataManager {
       this.currentCareerLevel,
       this.skills,
       this.talents,
-      this.attributes
+      this.attributes,
+      this.careerPath
     );
     return { ...result, unknown_profession: false };
   }
@@ -424,8 +472,10 @@ export class DataManager {
     this.currentCareerLevel = 1;
     this.careerPath = [];
     this.professionRaw = {};
+    this.characteristicBonuses = {};
     this.pdfSourceBytes = null;
     this.pdfMappingTyped = null;
+    this.recompute();
   }
 
   /**
@@ -487,6 +537,10 @@ export class DataManager {
       resolve: Math.max(0, Math.trunc(input.resilience)),
       motivation: ""
     };
+
+    // Wartosci cech/umiejetnosci sa juz spojne; normalizacja na wszelki wypadek.
+    // Zywotnosc pozostaje wartoscia wyliczona przez kreator (input.wounds).
+    this.recompute();
   }
 
   // ----- Import / eksport PDF -------------------------------------------
@@ -508,8 +562,10 @@ export class DataManager {
       this.pdfMapping = payload.pdf_mapping as unknown as Record<string, unknown>;
       this.pdfMappingTyped = payload.pdf_mapping;
       this.pdfSourceBytes = bytes.slice();
+      this.characteristicBonuses = {};
       this.enrichTalents();
       this.loadProfession(payload.profession_info);
+      this.recompute();
       return true;
     } catch (e) {
       console.error("PDF load error:", e);
@@ -628,6 +684,8 @@ export class DataManager {
       this.pdfMapping = {};
       this.pdfSourceBytes = null;
       this.pdfMappingTyped = null;
+      this.characteristicBonuses = {};
+      this.recompute();
       return true;
     } catch (e) {
       console.error("JSON decode error:", e);

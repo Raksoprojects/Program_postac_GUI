@@ -395,13 +395,60 @@ export function findOwnedSkill<T extends { advanced?: number }>(
   return null;
 }
 
-/** Sprawdza kompletowanie profesji na danym poziomie (kryteria WFRP 4ed). */
+/** Krok ścieżki kariery na potrzeby agregacji pul (profesja + osiągnięty poziom). */
+export interface CareerPathPoolStep {
+  profession?: string | null;
+  level?: number | null;
+}
+
+/**
+ * Agreguje elementy rozwijalne z CAŁEJ ścieżki kariery: cechy (kody), umiejętności
+ * i talenty ze wszystkich poziomów wszystkich profesji (poziomy ≤ osiągnięty).
+ * Służy do kryteriów ukończenia profesji liczonych przez całą ścieżkę.
+ */
+export function careerPathPools(careerPath: CareerPathPoolStep[]): {
+  characteristics: Set<string>;
+  skills: Set<string>;
+  talents: Set<string>;
+} {
+  const pools = {
+    characteristics: new Set<string>(),
+    skills: new Set<string>(),
+    talents: new Set<string>()
+  };
+  for (const step of careerPath ?? []) {
+    const profName = step.profession;
+    if (!profName) continue;
+    const prof = getProfession(profName);
+    if (!prof) continue;
+    const maxLevel = step.level ?? 1;
+    for (const lvl of prof.levels ?? []) {
+      const lvlNum = lvl.level;
+      if (lvlNum === null || lvlNum === undefined || lvlNum > maxLevel) continue;
+      for (const charName of lvl.characteristics ?? []) {
+        const code = characteristicToCode(charName);
+        if (code) pools.characteristics.add(code);
+      }
+      for (const skillName of lvl.skills ?? []) pools.skills.add(skillName);
+      for (const talentName of lvl.talents ?? []) pools.talents.add(talentName);
+    }
+  }
+  return pools;
+}
+
+/**
+ * Sprawdza kompletowanie profesji na danym poziomie (kryteria WFRP 4ed).
+ * Pula umiejętności/cech/talentów liczona z CAŁEJ ścieżki kariery (jeśli podana),
+ * a rozwinięcia zliczane z istniejących wartości (bez wymuszania zakupu od zera).
+ * Próg = 5×poziom dla cech/umiejętności, 1×poziom dla talentów.
+ */
 export function isCareerCompleted(
   professionName: string,
   level: number,
   skills: Record<string, { advanced?: number }> = {},
   talents_: Record<string, { advances?: number }> = {},
-  attributes: Record<string, { advanced?: number }> = {}
+  attributes: Record<string, { advanced?: number }> = {},
+  careerPath?: CareerPathPoolStep[]
 ): CareerCompletion {
   const result: CareerCompletion = {
     completed: false,
@@ -415,18 +462,15 @@ export function isCareerCompleted(
   const prof = getProfession(professionName);
   if (!prof) return result;
 
-  let levelData: Profession["levels"][number] | null = null;
-  for (const lvl of prof.levels ?? []) {
-    if (lvl.level === level) {
-      levelData = lvl;
-      break;
-    }
-  }
-  if (!levelData) return result;
+  // Pula elementów: cała ścieżka (jeśli podana) albo poziomy ≤ level bieżącej profesji.
+  const pools =
+    careerPath && careerPath.length > 0
+      ? careerPathPools(careerPath)
+      : careerPathPools([{ profession: professionName, level }]);
 
   const skillThreshold = 5 * level;
   let skillsDone = 0;
-  for (const skillName of levelData.skills ?? []) {
+  for (const skillName of pools.skills) {
     const owned = findOwnedSkill(skills, skillName);
     if (owned !== null && (owned.advanced ?? 0) >= skillThreshold) {
       skillsDone += 1;
@@ -437,7 +481,7 @@ export function isCareerCompleted(
 
   const talentThreshold = 1 * level;
   let talentsDone = 0;
-  for (const talentName of levelData.talents ?? []) {
+  for (const talentName of pools.talents) {
     const owned = talents_[talentName];
     if (owned && (owned.advances ?? 0) >= talentThreshold) {
       talentsDone += 1;
@@ -446,15 +490,13 @@ export function isCareerCompleted(
   result.talents_done = talentsDone;
   result.talents_ok = talentsDone >= 1;
 
-  const schemeChars = levelData.characteristics ?? [];
-  if (prof.characteristics_pending || schemeChars.length === 0) {
+  if (prof.characteristics_pending || pools.characteristics.size === 0) {
     result.characteristics_pending = true;
     result.characteristics_ok = true;
   } else {
     const charThreshold = 5 * level;
     let charsOk = true;
-    for (const charName of schemeChars) {
-      const code = characteristicToCode(charName);
+    for (const code of pools.characteristics) {
       const attr = attributes[code];
       if (!attr || (attr.advanced ?? 0) < charThreshold) {
         charsOk = false;

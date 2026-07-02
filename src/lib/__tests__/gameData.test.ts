@@ -21,7 +21,8 @@ import {
   resolveProfessionName,
   skillBaseAttr,
   talentMax,
-  careerTransitionCost
+  careerTransitionCost,
+  careerPathPools
 } from "../gameData";
 
 beforeAll(() => {
@@ -222,5 +223,47 @@ describe("gameData: kompletowanie profesji", () => {
     if (result.characteristics_pending) {
       expect(result.completed).toBe(true);
     }
+  });
+});
+
+describe("gameData: pula i ukonczenie przez cala sciezke (Faza B)", () => {
+  it("careerPathPools laczy umiejetnosci/cechy z wielu profesji sciezki", () => {
+    const names = allProfessionNames();
+    const a = names[0];
+    const b = names[1];
+    const poolsA = careerPathPools([{ profession: a, level: 1 }]);
+    const poolsBoth = careerPathPools([
+      { profession: a, level: 1 },
+      { profession: b, level: 1 }
+    ]);
+    // Suma po dwoch profesjach jest nadzbiorem pojedynczej.
+    for (const s of poolsA.skills) expect(poolsBoth.skills.has(s)).toBe(true);
+    expect(poolsBoth.skills.size).toBeGreaterThanOrEqual(poolsA.skills.size);
+  });
+
+  it("umiejetnosc rozwinieta w poprzedniej profesji liczy sie do ukonczenia", () => {
+    const names = allProfessionNames();
+    const prev = names[0];
+    const curr = names[1];
+    const prof1 = getProfession(prev)!;
+    // 8 umiejetnosci z poziomu 1 poprzedniej profesji, kazda na 5 rozwiniec.
+    const skills: Record<string, { advanced: number }> = {};
+    for (const s of prof1.levels[0].skills.slice(0, 8)) {
+      skills[s] = { advanced: 5 };
+    }
+    const talents: Record<string, { advances: number }> = {};
+    const t = prof1.levels[0].talents[0];
+    if (t) talents[t] = { advances: 1 };
+
+    // Bez sciezki (tylko biezaca profesja) - umiejetnosci spoza schematu nie licza.
+    const single = isCareerCompleted(curr, 1, skills, talents, {});
+    // Ze sciezka obejmujaca poprzednia profesje - licza sie istniejace rozwiniecia.
+    const withPath = isCareerCompleted(curr, 1, skills, talents, {}, [
+      { profession: prev, level: 1 },
+      { profession: curr, level: 1 }
+    ]);
+    expect(withPath.skills_done).toBeGreaterThanOrEqual(single.skills_done);
+    expect(withPath.skills_done).toBeGreaterThanOrEqual(8);
+    expect(withPath.skills_ok).toBe(true);
   });
 });

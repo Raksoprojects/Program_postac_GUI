@@ -29,7 +29,17 @@
     })
   );
 
-  let phantoms = $derived(onlyDevelopable ? store.phantomTalents() : []);
+  // Pkt 5/16: talenty rozwijalne (jeszcze nie wykupione) pokazujemy ZAWSZE,
+  // wraz z opisem z bazy, niezależnie od filtra „tylko rozwijalne".
+  let phantoms = $derived(
+    store.phantomTalents()
+      .filter((name) => {
+        if (!textFilter.trim()) return true;
+        const q = norm(textFilter);
+        return norm(name).includes(q) || norm(getTalent(name)?.description ?? "").includes(q);
+      })
+      .map((name) => ({ name, description: getTalent(name)?.description ?? "" }))
+  );
 
   // --- Modal: dodaj z listy ---
   let showPicker = $state(false);
@@ -211,13 +221,17 @@
       </div>
     {/each}
 
-    {#each phantoms as name (name)}
+    {#each phantoms as ph (ph.name)}
       <div class="row panel dev-row phantom">
         <div class="top">
-          <div class="name"><strong>{name}</strong> +</div>
-          <button class="btn-sm success" onclick={() => store.addTalentFromList(name)}>+ Dodaj</button>
+          <div class="name"><strong>{ph.name}</strong> +</div>
+          <button class="btn-sm success" onclick={() => store.addTalentFromList(ph.name)}>+ Dodaj</button>
         </div>
-        <p class="desc text-dim">Talent z profesji – jeszcze nie wykupiony.</p>
+        {#if ph.description}
+          <p class="desc text-dim">ⓘ {ph.description}</p>
+        {:else}
+          <p class="desc text-dim">Talent z profesji – jeszcze nie wykupiony.</p>
+        {/if}
       </div>
     {/each}
 

@@ -248,6 +248,12 @@ class CharacterStore {
     this.touch();
   }
 
+  /** Czyści ręczne oznaczenia rozwoju (przy zmianie/awansie/edycji kariery). */
+  private clearDevelopableOverrides(): void {
+    if (this.overrideSkills.size) this.overrideSkills = new Set<string>();
+    if (this.overrideTalents.size) this.overrideTalents = new Set<string>();
+  }
+
   // ----- Snapshoty dla widokow ------------------------------------------
 
   get characterName(): string {
@@ -299,7 +305,7 @@ class CharacterStore {
         code,
         fullName: ATTRIBUTE_FULL_NAMES[code] ?? code,
         entry,
-        total: (entry?.initial ?? 0) + (entry?.advanced ?? 0),
+        total: entry?.current ?? (entry?.initial ?? 0) + (entry?.advanced ?? 0),
         developable: this.attrDevelopable(code),
         maxBuy: this.engine.maxAdvancements("cecha", code)
       };
@@ -313,7 +319,7 @@ class CharacterStore {
         name,
         entry,
         attribute: entry.attribute,
-        total: (entry.initial ?? 0) + (entry.advanced ?? 0),
+        total: (this.dm.attributes[entry.attribute]?.current ?? entry.initial ?? 0) + (entry.advanced ?? 0),
         developable: this.skillDevelopable(name),
         override: this.overrideSkills.has(name),
         maxBuy: this.engine.maxAdvancements("umiejetnosc", name)
@@ -339,9 +345,16 @@ class CharacterStore {
     void this.tick;
     const dev = this.developable();
     if (!dev.resolved) return [];
+    // Dopasowanie po znormalizowanej nazwie (case/spacje) - talent posiadany pod
+    // inną pisownią nie może być pokazany jako nieposiadany (pkt 4).
+    const ownedNorm = new Set(
+      Object.keys(this.dm.talents).map((n) => gameData.normalize(n))
+    );
     const out: string[] = [];
     for (const name of dev.talents) {
-      if (!(name in this.dm.talents)) out.push(name);
+      if (name in this.dm.talents) continue;
+      if (ownedNorm.has(gameData.normalize(name))) continue;
+      out.push(name);
     }
     return out.sort((a, b) => a.localeCompare(b, "pl"));
   }
@@ -353,7 +366,8 @@ class CharacterStore {
     if (!dev.resolved) return [];
     const out: string[] = [];
     for (const name of dev.skills) {
-      if (!(name in this.dm.skills)) out.push(name);
+      // findOwnedSkill uwzglednia specjalizacje/grupy i roznice pisowni (pkt 4).
+      if (!gameData.findOwnedSkill(this.dm.skills, name)) out.push(name);
     }
     return out.sort((a, b) => a.localeCompare(b, "pl"));
   }
@@ -414,7 +428,7 @@ class CharacterStore {
   private attributeValue(attribute: string): number {
     const code = gameData.characteristicToCode(attribute) || attribute;
     const entry = this.dm.attributes[code];
-    return entry ? entry.initial + entry.advanced : 0;
+    return entry ? entry.current : 0;
   }
 
   // ----- Akcje: talenty -------------------------------------------------
@@ -505,6 +519,7 @@ class CharacterStore {
 
   setCurrentCareer(profession: string, level: number): void {
     this.dm.setCurrentCareer(profession, level);
+    this.clearDevelopableOverrides();
     this.addHistory("Ustawiono profesję", `${profession} (poziom ${level})`);
     this.touch();
   }
@@ -521,6 +536,7 @@ class CharacterStore {
     this.dm.experience.available -= cost;
     this.dm.experience.spent += cost;
     this.dm.advanceToCareer(profession, level);
+    this.clearDevelopableOverrides();
     this.addHistory("Awans profesji", `${profession} (poziom ${level}) — koszt ${cost} PD`);
     this.touch();
     return { ok: true, cost };
@@ -565,6 +581,7 @@ class CharacterStore {
       const cls = gameData.classOfCareer(this.dm.currentCareer);
       if (cls) this.dm.characterClass = cls;
     }
+    this.clearDevelopableOverrides();
     this.addHistory("Zapisano ścieżkę kariery", `${path.length} krok(ów)`);
     this.touch();
   }

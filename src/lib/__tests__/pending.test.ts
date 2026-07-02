@@ -234,3 +234,44 @@ describe("pending: tryb spoza profesji", () => {
     expect(res.amount).toBe(50); // 25 x2
   });
 });
+
+describe("pending: zywe przeliczanie wartosci (Faza A)", () => {
+  it("zmiana cechy aktualizuje wartosc umiejetnosci wiodacej", () => {
+    const dm = freshDm(1000);
+    dm.addSkill("Atletyka", "Zw", dm.attributes.Zw.current, 0, true);
+    const before = dm.skills.Atletyka.current;
+    const eng = new PendingEngine(dm);
+    eng.increaseAttribute("Zw", 5); // +5 do wartosci cechy
+    expect(dm.attributes.Zw.current).toBe(35);
+    // Wartosc umiejetnosci sledzi ceche wiodaca na zywo.
+    expect(dm.skills.Atletyka.current).toBe(before + 5);
+    expect(dm.skills.Atletyka.initial).toBe(35);
+  });
+
+  it("zmiana cechy aktualizuje limit talentu zaleznego od cechy", () => {
+    const dm = freshDm(1000);
+    dm.addTalent("Test", 1, "", { type: "characteristic", attr: "Int" });
+    expect(dm.talentMaxAdvances("Test")).toBe(3); // Int 30 -> bonus 3
+    const eng = new PendingEngine(dm);
+    eng.increaseAttribute("Int", 10); // Int 40 -> bonus 4
+    expect(dm.talentMaxAdvances("Test")).toBe(4);
+  });
+
+  it("zmiana Wytrzymalosci przelicza Zywotnosc na zywo", () => {
+    const dm = freshDm(1000);
+    dm.recomputeWounds();
+    const before = dm.stats.wounds; // 3 + 2*3 + 3 = 12 (cechy 30)
+    expect(before).toBe(12);
+    const eng = new PendingEngine(dm);
+    eng.increaseAttribute("Wt", 10); // Wt 40 -> bonus 4 (+2 do Zywotnosci)
+    expect(dm.stats.wounds).toBe(before + 2);
+  });
+
+  it("bonus cechy z talentu wchodzi do wartosci cechy po recompute", () => {
+    const dm = freshDm(1000);
+    dm.characteristicBonuses.WW = 5;
+    dm.recompute();
+    expect(dm.attributes.WW.current).toBe(35);
+  });
+});
+

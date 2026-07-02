@@ -32,7 +32,15 @@
     })
   );
 
-  let phantoms = $derived(onlyDevelopable ? store.phantomSkills() : []);
+  // Pkt 5/14: umiejętności rozwijalne (jeszcze nieposiadane) pokazujemy ZAWSZE,
+  // niezależnie od filtra „tylko rozwijalne", z uwzględnieniem filtra cechy i tekstu.
+  let phantoms = $derived(
+    store.phantomSkills().filter((name) => {
+      if (attrFilter && (store.skillBaseAttr(name) ?? "") !== attrFilter) return false;
+      if (textFilter.trim()) return norm(name).includes(norm(textFilter));
+      return true;
+    })
+  );
   let skillSuggestions = $derived(store.availableSkillNames());
 
   function clearFilters() {
