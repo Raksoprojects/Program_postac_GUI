@@ -269,7 +269,8 @@ describe("pending: zywe przeliczanie wartosci (Faza A)", () => {
 
   it("bonus cechy z talentu wchodzi do wartosci cechy po recompute", () => {
     const dm = freshDm(1000);
-    dm.characteristicBonuses.WW = 5;
+    dm.addTalent("Urodzony Wojownik");
+    dm.talents["Urodzony Wojownik"].characteristicBonus = { code: "WW", value: 5 };
     dm.recompute();
     expect(dm.attributes.WW.current).toBe(35);
   });

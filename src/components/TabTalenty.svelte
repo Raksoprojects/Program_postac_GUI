@@ -5,10 +5,47 @@
   import { getTalent } from "../lib/gameData";
   import type { TalentMax, TalentMaxType } from "../lib/types";
   import Modal from "./Modal.svelte";
+  import SpecializationModal from "./SpecializationModal.svelte";
+  import CharacteristicBonusModal from "./CharacteristicBonusModal.svelte";
+  import {
+    parseSpecialization,
+    needsSpecialization,
+    type SpecInfo
+  } from "../lib/specialization";
 
   let textFilter = $state("");
   let onlyDevelopable = $state(false);
   let expandedDesc = $state<Record<string, boolean>>({});
+
+  // Modal specjalizacji (pkt 9/10/21)
+  let specInfo = $state<SpecInfo | null>(null);
+
+  // Modal bonusu do cechy dla talentow +cecha (pkt 22)
+  let charBonus = $state<{ name: string; code: string } | null>(null);
+
+  function addTalentPhantom(name: string) {
+    const info = parseSpecialization(name);
+    const db = getTalent(name) ?? getTalent(info.base);
+    if (db?.adds_characteristic) {
+      charBonus = { name, code: db.adds_characteristic };
+      return;
+    }
+    if (needsSpecialization(info)) {
+      specInfo = info;
+      return;
+    }
+    store.addTalentFromList(name);
+  }
+
+  function onSpecConfirm(fullName: string) {
+    specInfo = null;
+    store.addTalentFromList(fullName);
+  }
+
+  function onCharBonusConfirm(value: number) {
+    if (charBonus) store.addCharacteristicTalent(charBonus.name, charBonus.code, value);
+    charBonus = null;
+  }
 
   const norm = (s: string) => s.trim().toLowerCase();
 
@@ -59,8 +96,14 @@
   }
   function confirmPicker() {
     if (pickerSel) {
-      store.addTalentFromList(pickerSel);
+      const db =
+        getTalent(pickerSel) ?? getTalent(parseSpecialization(pickerSel).base);
       showPicker = false;
+      if (db?.adds_characteristic) {
+        charBonus = { name: pickerSel, code: db.adds_characteristic };
+        return;
+      }
+      store.addTalentFromList(pickerSel);
     }
   }
 
@@ -225,7 +268,7 @@
       <div class="row panel dev-row phantom">
         <div class="top">
           <div class="name"><strong>{ph.name}</strong> +</div>
-          <button class="btn-sm success" onclick={() => store.addTalentFromList(ph.name)}>+ Dodaj</button>
+          <button class="btn-sm success" onclick={() => addTalentPhantom(ph.name)}>+ Dodaj</button>
         </div>
         {#if ph.description}
           <p class="desc text-dim">ⓘ {ph.description}</p>
@@ -343,6 +386,23 @@
       <button class="primary" onclick={submitMaxEdit}>Zapisz</button>
     {/snippet}
   </Modal>
+{/if}
+
+{#if specInfo}
+  <SpecializationModal
+    info={specInfo}
+    onConfirm={onSpecConfirm}
+    onClose={() => (specInfo = null)}
+  />
+{/if}
+
+{#if charBonus}
+  <CharacteristicBonusModal
+    talentName={charBonus.name}
+    charCode={charBonus.code}
+    onConfirm={onCharBonusConfirm}
+    onClose={() => (charBonus = null)}
+  />
 {/if}
 
 <style>

@@ -253,6 +253,14 @@ export class DataManager {
    * do tego sluzy recomputeWounds().
    */
   recompute(): void {
+    // Bonusy cech z talentow +cecha (pkt 22) - odtwarzane z wpisow talentow,
+    // dzieki czemu dodanie/usuniecie talentu automatycznie aktualizuje cechy.
+    const bonuses: Record<string, number> = {};
+    for (const t of Object.values(this.talents)) {
+      const cb = t.characteristicBonus;
+      if (cb && cb.code) bonuses[cb.code] = (bonuses[cb.code] ?? 0) + cb.value;
+    }
+    this.characteristicBonuses = bonuses;
     for (const code of ATTRIBUTES) {
       const attr = this.attributes[code];
       if (!attr) continue;
@@ -281,7 +289,19 @@ export class DataManager {
     const sB = gameData.attributeBonus(this.attributes["S"]?.current ?? 0);
     const wtB = gameData.attributeBonus(this.attributes["Wt"]?.current ?? 0);
     const swB = gameData.attributeBonus(this.attributes["SW"]?.current ?? 0);
-    this.stats.wounds = (includeStrength ? sB : 0) + 2 * wtB + swB;
+    // Talenty typu Twardziel: +Zywotnosc = Bonus z Wytrzymalosci na wykupienie
+    // (retroaktywnie rosnie wraz z Bonusem z Wt).
+    let talentWounds = 0;
+    for (const [tname, entry] of Object.entries(this.talents)) {
+      let addsWounds = false;
+      try {
+        addsWounds = gameData.getTalent(tname)?.wounds_toughness_bonus === true;
+      } catch {
+        addsWounds = false;
+      }
+      if (addsWounds) talentWounds += wtB * Math.max(1, entry.advances || 1);
+    }
+    this.stats.wounds = (includeStrength ? sB : 0) + 2 * wtB + swB + talentWounds;
   }
 
   // ----- Profesja / klasa / sciezka kariery ------------------------------

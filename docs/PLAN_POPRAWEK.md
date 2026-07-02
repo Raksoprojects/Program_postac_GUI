@@ -27,16 +27,6 @@
 
 ---
 
-## FAZA C — Specjalizacje i wybory (pkt 9, 10, 21)
-
-## FAZA D — Talenty modyfikujące cechy (pkt 22)
-
-- [ ] Oznaczyć talenty dodające do cechy (kod cechy). Model: osobny bonus (nie advances).
-- [ ] Zakup: modal wyboru +5 albo rzut 1k10 (wynik stały).
-- [ ] Limit: taki talent tylko raz na postać (blokada po zmianie profesji).
-- [ ] Bonus wchodzi do wartości cechy → żywotność, limity talentów, umiejętności (Faza A).
-- [ ] Testy.
-
 ## FAZA E — Prezentacja umiejętności/talentów (pkt 16, 19)
 
 - [ ] Talent niewykupiony (phantom) pokazuje opis z `talents.json`.

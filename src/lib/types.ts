@@ -44,6 +44,10 @@ export interface Talent {
   tests?: string;
   description?: string;
   source?: string;
+  /** Kod cechy, do ktorej talent dodaje staly bonus (pkt 22), np. "WW". */
+  adds_characteristic?: string;
+  /** Talent zwieksza Zywotnosc o Bonus z Wytrzymalosci (np. Twardziel). */
+  wounds_toughness_bonus?: boolean;
 }
 
 export type ProfessionsData = Record<string, Profession>;
@@ -158,6 +162,8 @@ export interface TalentEntry {
   is_new: boolean;
   is_custom: boolean;
   profession_available: boolean;
+  /** Wybrany staly bonus do cechy z talentu +cecha (pkt 22). */
+  characteristicBonus?: { code: string; value: number };
 }
 
 export interface ExperienceState {

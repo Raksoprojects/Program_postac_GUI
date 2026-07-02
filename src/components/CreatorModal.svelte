@@ -1,7 +1,13 @@
 <script lang="ts">
   import Modal from "./Modal.svelte";
+  import SpecializationModal from "./SpecializationModal.svelte";
   import { store, ATTRIBUTE_FULL_NAMES } from "../lib/store.svelte";
   import * as gameData from "../lib/gameData";
+  import {
+    parseSpecialization,
+    needsSpecialization,
+    type SpecInfo
+  } from "../lib/specialization";
   import {
     rollK100,
     rollRaceCharacteristics,
@@ -49,6 +55,10 @@
 
   // Krok 4 - umiejetnosci rasowe (nazwa -> 0 | 5 | 3)
   let skillChoice = $state<Record<string, number>>({});
+  // Wybrana specjalizacja dla umiejetnosci typu "(Dowolny)"/wyboru (raw -> pelna nazwa).
+  let skillSpec = $state<Record<string, string>>({});
+  // Oczekujacy wybor specjalizacji przy zaznaczaniu umiejetnosci.
+  let specTarget = $state<{ skill: string; val: number; info: SpecInfo } | null>(null);
 
   // Krok 5 - talenty rasowe
   let talentChoice = $state<Record<number, string>>({});
@@ -283,15 +293,32 @@
     const cur = skillChoice[skill] ?? 0;
     if (cur === val) {
       skillChoice = { ...skillChoice, [skill]: 0 };
+      const { [skill]: _drop, ...rest } = skillSpec;
+      skillSpec = rest;
       return;
     }
     if (val === 5 && plus5Count >= 3) return;
     if (val === 3 && plus3Count >= 3) return;
+    // Umiejetnosc ze specjalizacja "(Dowolny)"/wyboru — zapytaj przed przydzialem.
+    const info = parseSpecialization(skill);
+    if (needsSpecialization(info) && !skillSpec[skill]) {
+      specTarget = { skill, val, info };
+      return;
+    }
     skillChoice = { ...skillChoice, [skill]: val };
+  }
+
+  function onSkillSpecConfirm(fullName: string): void {
+    if (!specTarget) return;
+    const { skill, val } = specTarget;
+    skillSpec = { ...skillSpec, [skill]: fullName };
+    skillChoice = { ...skillChoice, [skill]: val };
+    specTarget = null;
   }
 
   function resetSkills(): void {
     skillChoice = {};
+    skillSpec = {};
   }
 
   // --- Krok 5 ---
@@ -380,10 +407,10 @@
     if (!race) return;
     const skillsPlus5 = Object.entries(skillChoice)
       .filter(([, v]) => v === 5)
-      .map(([k]) => k);
+      .map(([k]) => skillSpec[k] ?? k);
     const skillsPlus3 = Object.entries(skillChoice)
       .filter(([, v]) => v === 3)
-      .map(([k]) => k);
+      .map(([k]) => skillSpec[k] ?? k);
     const talents = [...fixedAndChosenTalents(), ...randomTalents];
     const input: RaceCreationInput = {
       name: name.trim() || "Nowa Postać",
@@ -592,7 +619,7 @@
       {#each race.skills as skill (skill)}
         {@const val = skillChoice[skill] ?? 0}
         <li class:has5={val === 5} class:has3={val === 3}>
-          <span class="sk-name">{skill}</span>
+          <span class="sk-name">{skillSpec[skill] ?? skill}</span>
           <span class="sk-attr dim">{gameData.skillBaseAttr(skill) ?? "?"}</span>
           <button
             class="pick"
@@ -685,6 +712,14 @@
     {/if}
   {/snippet}
 </Modal>
+
+{#if specTarget}
+  <SpecializationModal
+    info={specTarget.info}
+    onConfirm={onSkillSpecConfirm}
+    onClose={() => (specTarget = null)}
+  />
+{/if}
 
 <style>
   .steps {

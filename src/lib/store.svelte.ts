@@ -25,6 +25,7 @@ import {
   downloadBlob,
   safeFileName
 } from "./storage";
+import { parseSpecialization } from "./specialization";
 import type {
   AttributeEntry,
   Developable,
@@ -435,18 +436,26 @@ class CharacterStore {
 
   increaseTalent(name: string, amount = 1): boolean {
     const r = this.engine.increaseTalent(name, amount);
-    if (r.ok) this.touch();
+    if (r.ok) {
+      this.dm.recomputeWounds();
+      this.touch();
+    }
     return r.ok;
   }
 
   decreaseTalent(name: string, amount = 1): boolean {
     const r = this.engine.decreaseTalent(name, amount);
-    if (r.ok) this.touch();
+    if (r.ok) {
+      this.dm.recomputeWounds();
+      this.touch();
+    }
     return r.ok;
   }
 
   addTalentFromList(name: string): boolean {
-    const db = gameData.getTalent(name);
+    // Dla talentu ze specjalizacją, np. "Wyczulony Zmysł (Wzrok)", opis/limit
+    // pobieramy z wpisu bazowego "Wyczulony Zmysł", zachowując pełną nazwę (pkt 21).
+    const db = gameData.getTalent(name) ?? gameData.getTalent(parseSpecialization(name).base);
     const ok = this.engine.addNewTalent(
       name,
       db?.description ?? "",
@@ -456,7 +465,35 @@ class CharacterStore {
       db === undefined
     );
     if (ok) {
+      // Twardziel i pokrewne moga zmieniac Zywotnosc.
+      this.dm.recomputeWounds();
       this.addHistory("Dodano talent", name);
+      this.touch();
+    }
+    return ok;
+  }
+
+  /**
+   * Dodaje talent +cecha (pkt 22) ze stalym bonusem do wybranej cechy.
+   * Wartosc (np. +5 albo wynik rzutu 1k10) jest wybierana raz i zapisana.
+   */
+  addCharacteristicTalent(name: string, code: string, value: number): boolean {
+    const db =
+      gameData.getTalent(name) ?? gameData.getTalent(parseSpecialization(name).base);
+    const ok = this.engine.addNewTalent(
+      name,
+      db?.description ?? "",
+      (db?.max ?? { type: "none" }) as TalentMax,
+      db?.tests ?? null,
+      db?.source ?? "Lista",
+      db === undefined
+    );
+    if (ok) {
+      const entry = this.dm.talents[name];
+      if (entry) entry.characteristicBonus = { code, value };
+      this.dm.recompute();
+      this.dm.recomputeWounds();
+      this.addHistory("Dodano talent", `${name} (+${value} ${code})`);
       this.touch();
     }
     return ok;
@@ -488,6 +525,9 @@ class CharacterStore {
     delete this.dm.talents[name];
     this.engine.pending.new_talents.delete(name);
     delete this.engine.pending.talent_changes[name];
+    // Po usunieciu talentu +cecha/Twardziela przelicz cechy i Zywotnosc.
+    this.dm.recompute();
+    this.dm.recomputeWounds();
     this.addHistory("Usunięto talent", name);
     this.touch();
   }

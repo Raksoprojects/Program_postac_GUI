@@ -4,6 +4,12 @@
   import { characteristicToCode } from "../lib/gameData";
   import Modal from "./Modal.svelte";
   import Autocomplete from "./Autocomplete.svelte";
+  import SpecializationModal from "./SpecializationModal.svelte";
+  import {
+    parseSpecialization,
+    needsSpecialization,
+    type SpecInfo
+  } from "../lib/specialization";
 
   let textFilter = $state("");
   let attrFilter = $state("");
@@ -15,6 +21,9 @@
   let newAttr = $state<string>("Int");
   let newAdv = $state(0);
   let addError = $state("");
+
+  // Modal specjalizacji (pkt 9/10/21)
+  let specInfo = $state<SpecInfo | null>(null);
 
   const norm = (s: string) => s.trim().toLowerCase();
 
@@ -63,8 +72,22 @@
   }
 
   function addPhantom(name: string) {
+    const info = parseSpecialization(name);
+    if (needsSpecialization(info)) {
+      specInfo = info;
+      return;
+    }
+    doAddSkill(name);
+  }
+
+  function doAddSkill(name: string) {
     const code = store.skillBaseAttr(name) ?? "Int";
     store.addSkill(name, code);
+  }
+
+  function onSpecConfirm(fullName: string) {
+    specInfo = null;
+    doAddSkill(fullName);
   }
 
   function submitAdd() {
@@ -207,6 +230,14 @@
       <button class="primary" onclick={submitAdd}>Dodaj</button>
     {/snippet}
   </Modal>
+{/if}
+
+{#if specInfo}
+  <SpecializationModal
+    info={specInfo}
+    onConfirm={onSpecConfirm}
+    onClose={() => (specInfo = null)}
+  />
 {/if}
 
 <style>
