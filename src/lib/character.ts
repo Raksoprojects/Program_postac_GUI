@@ -559,8 +559,10 @@ export class DataManager {
     };
 
     // Wartosci cech/umiejetnosci sa juz spojne; normalizacja na wszelki wypadek.
-    // Zywotnosc pozostaje wartoscia wyliczona przez kreator (input.wounds).
+    // Zywotnosc przeliczamy z cech (ta sama formula co kreator) - dzieki temu
+    // talent Twardziel dolicza Bonus z Wytrzymalosci takze na starcie postaci.
     this.recompute();
+    this.recomputeWounds();
   }
 
   // ----- Import / eksport PDF -------------------------------------------

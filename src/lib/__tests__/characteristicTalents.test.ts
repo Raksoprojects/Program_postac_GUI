@@ -92,3 +92,44 @@ describe("Faza D: Twardziel (Zywotnosc = Bonus z Wytrzymalosci)", () => {
     expect(dm.stats.wounds).toBe(sB + 2 * wtB + swB + wtB);
   });
 });
+
+describe("Faza D: talenty +cecha przy tworzeniu postaci", () => {
+  function creatorInput(talents: string[]) {
+    return {
+      name: "Kreator Testowy",
+      race: "Człowiek",
+      characteristics: {
+        WW: 30, US: 30, S: 30, Wt: 30, I: 30,
+        Zw: 30, Zr: 30, Int: 30, SW: 30, Ogd: 30
+      },
+      fate: 0,
+      resilience: 0,
+      wounds: 0,
+      movement: 4,
+      skillsPlus5: [],
+      skillsPlus3: [],
+      talents,
+      experience: 0
+    };
+  }
+
+  it("wylosowany talent +cecha po wyborze bonusu podnosi ceche", () => {
+    const dm = new DataManager();
+    dm.createFromRace(creatorInput(["Urodzony Wojownik"]));
+    const before = dm.attributes.WW.current;
+
+    // Kreator ustawia bonus po utworzeniu (np. rzut 1k10 => 7).
+    dm.talents["Urodzony Wojownik"].characteristicBonus = { code: "WW", value: 7 };
+    dm.recompute();
+    expect(dm.attributes.WW.current).toBe(before + 7);
+  });
+
+  it("Twardziel wylosowany w kreatorze dolicza Zywotnosc od razu", () => {
+    const dm = new DataManager();
+    dm.createFromRace(creatorInput(["Twardziel"]));
+    const wtB = gameData.attributeBonus(dm.attributes.Wt.current);
+    const sB = gameData.attributeBonus(dm.attributes.S.current);
+    const swB = gameData.attributeBonus(dm.attributes.SW.current);
+    expect(dm.stats.wounds).toBe(sB + 2 * wtB + swB + wtB);
+  });
+});

@@ -519,6 +519,20 @@ class CharacterStore {
     this.touch();
   }
 
+  /**
+   * Ustawia staly bonus do cechy dla juz posiadanego talentu +cecha (pkt 22).
+   * Uzywane m.in. przez kreator, gdy talent zostal wylosowany/wybrany przy
+   * tworzeniu postaci, a wartosc (+5 albo rzut 1k10) wybieramy po fakcie.
+   */
+  setTalentCharacteristicBonus(name: string, code: string, value: number): void {
+    const entry = this.dm.talents[name];
+    if (!entry) return;
+    entry.characteristicBonus = { code, value };
+    this.dm.recompute();
+    this.dm.recomputeWounds();
+    this.touch();
+  }
+
   removeNewTalent(name: string): void {
     const entry = this.dm.talents[name];
     if (!entry?.is_new) return;

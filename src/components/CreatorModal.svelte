@@ -1,6 +1,7 @@
 <script lang="ts">
   import Modal from "./Modal.svelte";
   import SpecializationModal from "./SpecializationModal.svelte";
+  import CharacteristicBonusModal from "./CharacteristicBonusModal.svelte";
   import { store, ATTRIBUTE_FULL_NAMES } from "../lib/store.svelte";
   import * as gameData from "../lib/gameData";
   import {
@@ -63,6 +64,10 @@
   // Krok 5 - talenty rasowe
   let talentChoice = $state<Record<number, string>>({});
   let randomTalents = $state<string[]>([]);
+
+  // Kolejka wyboru bonusu dla wylosowanych/wybranych talentow +cecha (pkt 22).
+  let charBonusQueue = $state<{ name: string; code: string }[]>([]);
+  let charBonusIndex = $state(0);
 
   const race = $derived(raceName ? gameData.getRace(raceName) : undefined);
 
@@ -426,7 +431,36 @@
       experience: totalBonusPd
     };
     store.createFromRace(input);
+    // Wylosowane/wybrane talenty +cecha wymagaja jeszcze wyboru bonusu
+    // (+5 albo rzut 1k10). Pokazujemy modal po kolei; zamykamy dopiero po
+    // ostatnim wyborze.
+    const queue: { name: string; code: string }[] = [];
+    for (const tname of talents) {
+      const code = gameData.getTalent(tname)?.adds_characteristic;
+      if (code) queue.push({ name: tname, code });
+    }
+    if (queue.length > 0) {
+      charBonusQueue = queue;
+      charBonusIndex = 0;
+      return;
+    }
     onClose();
+  }
+
+  function onCharBonusConfirm(value: number): void {
+    const cur = charBonusQueue[charBonusIndex];
+    if (cur) store.setTalentCharacteristicBonus(cur.name, cur.code, value);
+    charBonusIndex++;
+    if (charBonusIndex >= charBonusQueue.length) {
+      charBonusQueue = [];
+      charBonusIndex = 0;
+      onClose();
+    }
+  }
+
+  function onCharBonusClose(): void {
+    // Zamkniecie bez wyboru = domyslne +5 (talent zawsze podnosi ceche).
+    onCharBonusConfirm(5);
   }
 </script>
 
@@ -718,6 +752,15 @@
     info={specTarget.info}
     onConfirm={onSkillSpecConfirm}
     onClose={() => (specTarget = null)}
+  />
+{/if}
+
+{#if charBonusQueue.length > 0 && charBonusIndex < charBonusQueue.length}
+  <CharacteristicBonusModal
+    talentName={charBonusQueue[charBonusIndex].name}
+    charCode={charBonusQueue[charBonusIndex].code}
+    onConfirm={onCharBonusConfirm}
+    onClose={onCharBonusClose}
   />
 {/if}
 

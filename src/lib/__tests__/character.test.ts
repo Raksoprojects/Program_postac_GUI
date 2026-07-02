@@ -69,7 +69,8 @@ describe("character: createFromRace (kreator rasowy)", () => {
     }
 
     // Statystyki drugorzedne (Determinacja = Bohatera, Szczescie = Przeznaczenia).
-    expect(dm.stats.wounds).toBe(13);
+    // Zywotnosc liczona z cech: BS(3)+2*BWt(4)+BSW(5)=16, plus Twardziel (+BWt=4) => 20.
+    expect(dm.stats.wounds).toBe(20);
     expect(dm.stats.movement).toBe(3);
     expect(dm.stats.resilience).toBe(2);
     expect(dm.stats.resolve).toBe(2);
