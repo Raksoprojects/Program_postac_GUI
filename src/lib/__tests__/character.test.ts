@@ -168,6 +168,19 @@ describe("character: profesja i sciezka kariery", () => {
     expect(dm.currentCareer).toBe(names[1]);
   });
 
+  it("professionPayload eksportuje sciezke z sufiksem poziomu (pkt 17)", () => {
+    const dm = new DataManager();
+    dm.createNewCharacter();
+    const names = allProfessionNames();
+    dm.setCurrentCareer(names[0], 1);
+    dm.advanceToCareer(names[1], 2);
+    const payload = dm.professionPayload();
+    // Kazdy krok z numerem poziomu: "Nazwa 1, Nazwa 2".
+    expect(payload.path_text).toBe(`${names[0]} 1, ${names[1]} 2`);
+    expect(payload.profession).toBe(names[1]);
+    expect(payload.level_text).toBe(`${names[1]} (2)`);
+  });
+
   it("poziom jest ograniczony do zakresu 1..4", () => {
     const dm = new DataManager();
     dm.createNewCharacter();

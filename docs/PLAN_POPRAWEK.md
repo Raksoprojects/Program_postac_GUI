@@ -27,11 +27,6 @@
 
 ---
 
-## FAZA G — Profesja/klasa i eksport ścieżki (pkt 17)
-
-- [ ] Umożliwić zmianę klasy po wyborze profesji.
-- [ ] Eksport ścieżki PDF z sufiksem poziomu (np. „Piromanta 2").
-
 ## FAZA H — Tworzenie postaci (pkt 3)
 
 - [ ] `rollRandomTalents`: losować każdy talent osobno (osobne kroki/rzuty w UI).

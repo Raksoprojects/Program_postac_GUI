@@ -29,6 +29,7 @@
   let careerPath = $derived((store.pendingCount, store.dm.careerPath.map((s) => ({ ...s }))));
   let currentCareer = $derived((store.pendingCount, store.dm.currentCareer));
   let currentLevel = $derived((store.pendingCount, store.dm.currentCareerLevel));
+  let charClass = $derived((store.pendingCount, store.dm.characterClass));
   let profSchema = $derived(currentCareer ? gameData.getProfession(currentCareer) : undefined);
 
   function statusBadge() {
@@ -107,7 +108,19 @@
         <b>{currentCareer || "—"}</b>
         {#if currentCareer}<span class="text-dim">(poziom {currentLevel})</span>{/if}
       </span>
-      <span class="text-dim">Klasa: {store.dm.characterClass || "—"}</span>
+      <label class="inline-class text-dim">
+        Klasa:
+        <select
+          value={charClass}
+          onchange={(e) => store.setCharacterClass(e.currentTarget.value)}
+          aria-label="Klasa postaci"
+        >
+          <option value="">—</option>
+          {#each classNames as c (c)}
+            <option value={c}>{c}</option>
+          {/each}
+        </select>
+      </label>
       <span class="text-dim">Rasa: {store.dm.characterSpecies || "—"}</span>
       {#if currentCareer}
         {@const b = statusBadge()}
@@ -272,6 +285,16 @@
     align-items: center;
     gap: var(--space-3);
     font-size: var(--fs-lg);
+  }
+
+  .inline-class {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .inline-class select {
+    font-size: var(--fs-sm, 0.85em);
   }
 
   .ed-row {

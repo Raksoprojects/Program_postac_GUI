@@ -362,8 +362,15 @@ export class DataManager {
 
   /** Buduje slownik pol profesji do zapisu w PDF. */
   professionPayload(): Record<string, string> {
+    // Sciezka kariery z sufiksem poziomu (np. "Piromanta 2"), zeby na karcie
+    // bylo widac na jakim poziomie ukonczono/osiagnieto kazda profesje.
     const pathTitles = this.careerPath
-      .map((step) => step.title || step.profession || "")
+      .map((step) => {
+        const title = step.title || step.profession || "";
+        if (!title) return "";
+        const lvl = step.level || 1;
+        return `${title} ${lvl}`;
+      })
       .filter((t) => t);
     let levelText = (this.professionRaw.level_text as string) || "";
     if (this.currentCareer) {

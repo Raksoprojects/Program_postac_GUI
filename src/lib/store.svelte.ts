@@ -615,6 +615,18 @@ class CharacterStore {
     this.touch();
   }
 
+  /**
+   * Ustawia klase postaci niezaleznie od profesji (pkt 17). Pozwala poprawic
+   * klase po wyborze profesji, np. gdy auto-dopasowanie z profesji jest niewlasciwe.
+   */
+  setCharacterClass(cls: string): void {
+    const value = cls.trim();
+    if (this.dm.characterClass === value) return;
+    this.dm.characterClass = value;
+    this.addHistory("Zmieniono klasę", value || "—");
+    this.touch();
+  }
+
   advanceCareer(profession: string, level: number): { ok: boolean; cost: number; reason?: string } {
     const completion = this.dm.currentCareerCompletion();
     const sameClass =
