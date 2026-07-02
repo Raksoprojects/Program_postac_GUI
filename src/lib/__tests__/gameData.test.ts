@@ -15,6 +15,7 @@ import {
   getTalent,
   isCareerCompleted,
   isSkillDevelopable,
+  isCharacteristicDevelopable,
   normalize,
   parseCareerLevel,
   resolveCareerPath,
@@ -194,6 +195,29 @@ describe("gameData: rozwijalnosc (developable)", () => {
     for (const skill of [...prof.levels[0].skills, ...prof.levels[1].skills]) {
       expect(isSkillDevelopable(skill, dev)).toBe(true);
     }
+  });
+
+  it("isCharacteristicDevelopable rozpoznaje cechy z profesji (filtr Koszty, pkt 1)", () => {
+    // Wybierz profesje, ktora ma cechy rozwijalne na 1. poziomie.
+    const name = allProfessionNames().find((n) => {
+      const p = getProfession(n);
+      return (p?.levels?.[0]?.characteristics?.length ?? 0) > 0;
+    });
+    expect(name).toBeDefined();
+    const prof = getProfession(name!)!;
+    const dev = getCareerDevelopable(name!, 1);
+    // Kazda cecha z poziomu 1 (po zamianie na kod) jest rozwijalna.
+    const codes = prof.levels[0].characteristics
+      .map((c) => characteristicToCode(c))
+      .filter((c): c is string => Boolean(c));
+    expect(codes.length).toBeGreaterThan(0);
+    for (const code of codes) {
+      expect(isCharacteristicDevelopable(code, dev)).toBe(true);
+    }
+    // Cecha spoza zbioru nie jest rozwijalna.
+    const allCodes = ["WW", "US", "S", "Wt", "I", "Zw", "Zr", "Int", "SW", "Ogd"];
+    const outside = allCodes.find((c) => !codes.includes(c));
+    if (outside) expect(isCharacteristicDevelopable(outside, dev)).toBe(false);
   });
 });
 

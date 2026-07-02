@@ -27,12 +27,9 @@
 
 ---
 
-## FAZA J — Koszty: filtr rozwijalnych (pkt 1)
+## Status
 
-- [ ] Zweryfikować filtr rozwijalnych w `TabKoszty` po naprawie Fazy B.
-
-## Weryfikacja końcowa
-
-- [ ] `npm test` zielone (+ nowe testy A–I).
-- [ ] `npm run build`: svelte-check 0 błędów/0 ostrzeżeń.
-- [ ] Testy ręczne wg scenariuszy z faz A/B/D/F.
+- Wszystkie zaplanowane punkty (fazy 0, A–J) **ukończone**. `npm test` zielone (126
+  testów), `npm run build` — svelte-check 0 błędów/0 ostrzeżeń.
+- Pozostają jedynie **testy ręczne** wg scenariuszy z faz A/B/D/F (do wykonania przez
+  użytkownika).
