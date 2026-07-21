@@ -11,6 +11,19 @@ import type { Attribute } from "./rules";
  */
 export type Ruleset = "core" | "pod_bronia" | "domowe";
 
+/** Grupa proweniencji wpisu (do filtra źródeł, niezależnego od wariantu). */
+export type SourceGroup = "podstawka" | "oficjalny_dodatek" | "domowe";
+
+/**
+ * Preset filtra źródeł w UI (co widać przy wyborze profesji/talentów):
+ *  - podstawka_dodatki: podstawka + oficjalne dodatki (domyślny),
+ *  - podstawka: tylko podstawka,
+ *  - wszystko: podstawka + dodatki + domowe,
+ *  - domowe: tylko domowe.
+ */
+export type SourceFilter = "podstawka" | "podstawka_dodatki" | "wszystko" | "domowe";
+
+
 /**
  * Bloki wariantow wpisu (talentu/profesji). Zawieraja TYLKO pola nadpisujace
  * baze; brak pola = wartosc z podrecznika podstawowego (fallback pole-po-polu).

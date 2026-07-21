@@ -5,7 +5,11 @@ import {
   getRuleset,
   getTalent,
   getProfession,
-  allProfessionNames
+  allProfessionNames,
+  sourceGroup,
+  matchesSourceFilter,
+  professionSourceGroup,
+  talentSourceGroup
 } from "../gameData";
 import type { ProfessionsData, TalentsData } from "../types";
 
@@ -138,5 +142,36 @@ describe("Faza 1: warianty i nakładka profesji", () => {
     setRuleset("core");
     expect(getProfession("Łowca Nagród")).toBeUndefined();
     expect(getProfession("Rycerz")?.class).toBe("Wojownicy");
+  });
+});
+
+describe("Faza 1b: filtr źródła (oś B, niezależna od wariantu)", () => {
+  it("sourceGroup klasyfikuje po polu source", () => {
+    expect(sourceGroup("Podręcznik podstawowy")).toBe("podstawka");
+    expect(sourceGroup("Wiatry Magii")).toBe("oficjalny_dodatek");
+    expect(sourceGroup("Podręcznik gracza Krasnoluda")).toBe("oficjalny_dodatek");
+    expect(sourceGroup("Domowe")).toBe("domowe");
+    expect(sourceGroup(undefined)).toBe("oficjalny_dodatek");
+    expect(sourceGroup("")).toBe("oficjalny_dodatek");
+  });
+
+  it("matchesSourceFilter respektuje presety", () => {
+    expect(matchesSourceFilter("podstawka", "podstawka")).toBe(true);
+    expect(matchesSourceFilter("oficjalny_dodatek", "podstawka")).toBe(false);
+    expect(matchesSourceFilter("oficjalny_dodatek", "podstawka_dodatki")).toBe(true);
+    expect(matchesSourceFilter("domowe", "podstawka_dodatki")).toBe(false);
+    expect(matchesSourceFilter("domowe", "wszystko")).toBe(true);
+    expect(matchesSourceFilter("podstawka", "domowe")).toBe(false);
+    expect(matchesSourceFilter("domowe", "domowe")).toBe(true);
+  });
+
+  it("grupa źródła profesji/talentu po nazwie", () => {
+    inject();
+    expect(professionSourceGroup("Rycerz")).toBe("podstawka");
+    expect(talentSourceGroup("Talent Bazowy")).toBe("podstawka");
+    // W trybie domowym nowa profesja ma źródło domowe.
+    setRuleset("domowe");
+    expect(professionSourceGroup("Łowca Nagród")).toBe("domowe");
+    setRuleset("core");
   });
 });

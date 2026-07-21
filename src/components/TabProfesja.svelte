@@ -3,6 +3,7 @@
   import * as gameData from "../lib/gameData";
   import Autocomplete from "./Autocomplete.svelte";
   import Modal from "./Modal.svelte";
+  import SourceFilterSelect from "./SourceFilterSelect.svelte";
 
   // Edytor profesji
   let selClass = $state("");
@@ -12,7 +13,9 @@
 
   let classNames = $derived(gameData.allClassNames());
   let professionsForClass = $derived(
-    selClass ? gameData.careersForClass(selClass) : gameData.allProfessionNames()
+    store.filterProfessionNames(
+      selClass ? gameData.careersForClass(selClass) : gameData.allProfessionNames()
+    )
   );
 
   // Synchronizuj edytor z biezaca profesja przy zmianie postaci
@@ -88,7 +91,7 @@
     selClass = store.dm.characterClass;
   }
 
-  let allProfessions = $derived(gameData.allProfessionNames());
+  let allProfessions = $derived(store.filterProfessionNames(gameData.allProfessionNames()));
 </script>
 
 <section class="tab">
@@ -166,6 +169,7 @@
           {/each}
         </select>
       </label>
+      <SourceFilterSelect />
     </div>
     <div class="ed-actions">
       <button class="ghost" onclick={onSetCareer}>Ustaw / popraw (bez kosztu)</button>

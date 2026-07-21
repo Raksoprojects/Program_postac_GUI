@@ -20,6 +20,8 @@ import type {
   Ruleset,
   SkillDef,
   SkillsData,
+  SourceFilter,
+  SourceGroup,
   Talent,
   TalentsData
 } from "./types";
@@ -107,6 +109,40 @@ export function getRuleset(): Ruleset {
 export function setRuleset(ruleset: Ruleset): void {
   activeRuleset = ruleset;
   applyRuleset();
+}
+
+/** Grupa proweniencji wg pola `source` (do filtra zrodel). */
+export function sourceGroup(source: string | null | undefined): SourceGroup {
+  const s = normalize(source ?? "");
+  if (!s) return "oficjalny_dodatek";
+  if (s.includes("podstaw")) return "podstawka"; // "Podrecznik podstawowy"
+  if (s.includes("domow")) return "domowe";
+  return "oficjalny_dodatek";
+}
+
+/** Grupa proweniencji profesji (po nazwie). */
+export function professionSourceGroup(name: string): SourceGroup {
+  return sourceGroup(getProfession(name)?.source);
+}
+
+/** Grupa proweniencji talentu (po nazwie). */
+export function talentSourceGroup(name: string): SourceGroup {
+  return sourceGroup(getTalent(name)?.source);
+}
+
+/** Czy grupa proweniencji przechodzi przez wybrany preset filtra. */
+export function matchesSourceFilter(group: SourceGroup, filter: SourceFilter): boolean {
+  switch (filter) {
+    case "podstawka":
+      return group === "podstawka";
+    case "podstawka_dodatki":
+      return group === "podstawka" || group === "oficjalny_dodatek";
+    case "domowe":
+      return group === "domowe";
+    case "wszystko":
+    default:
+      return true;
+  }
 }
 
 /** Wybiera blok wariantu dla danego trybu (fallback domowe -> pod_bronia). */

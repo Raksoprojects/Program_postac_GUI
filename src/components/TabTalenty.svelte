@@ -7,6 +7,7 @@
   import Modal from "./Modal.svelte";
   import SpecializationModal from "./SpecializationModal.svelte";
   import CharacteristicBonusModal from "./CharacteristicBonusModal.svelte";
+  import SourceFilterSelect from "./SourceFilterSelect.svelte";
   import {
     parseSpecialization,
     needsSpecialization,
@@ -82,7 +83,7 @@
   let showPicker = $state(false);
   let pickerSearch = $state("");
   let pickerSel = $state<string | null>(null);
-  let available = $derived(store.availableTalentNames());
+  let available = $derived(store.filterTalentNames(store.availableTalentNames()));
   let pickerList = $derived(
     pickerSearch.trim()
       ? available.filter((n) => norm(n).includes(norm(pickerSearch)))
@@ -286,7 +287,10 @@
 
 {#if showPicker}
   <Modal title="Dodaj talent z listy" onClose={() => (showPicker = false)}>
-    <input type="text" placeholder="Szukaj talentu…" bind:value={pickerSearch} />
+    <div class="picker-head">
+      <input type="text" placeholder="Szukaj talentu…" bind:value={pickerSearch} />
+      <SourceFilterSelect />
+    </div>
     <div class="picker-list">
       {#each pickerList.slice(0, 200) as name (name)}
         <button
@@ -555,6 +559,19 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     padding: var(--space-1);
+  }
+
+  .picker-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .picker-head input {
+    flex: 1;
+    min-width: calc(160px * var(--ui-scale));
   }
 
   .pick-item {

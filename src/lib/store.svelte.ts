@@ -33,6 +33,7 @@ import type {
   Developable,
   Ruleset,
   SkillEntry,
+  SourceFilter,
   TalentEntry,
   TalentMax,
   CharacterStats,
@@ -111,6 +112,9 @@ class CharacterStore {
   /** Ostrzezenia po ostatniej zmianie wariantu (do modala). */
   rulesetWarnings = $state<string[]>([]);
 
+  /** Globalny filtr zrodel (co widac przy wyborze profesji/talentow). */
+  sourceFilter = $state<SourceFilter>("podstawka_dodatki");
+
   /** Tryby kosztu sterowane checkboxami w UI. */
   attrGmApproved = $state(false);
   talentOutOfProfession = $state(false);
@@ -153,6 +157,15 @@ class CharacterStore {
       if (saved === "core" || saved === "pod_bronia" || saved === "domowe") {
         this.ruleset = saved;
       }
+      const sf = settings.sourceFilter;
+      if (
+        sf === "podstawka" ||
+        sf === "podstawka_dodatki" ||
+        sf === "wszystko" ||
+        sf === "domowe"
+      ) {
+        this.sourceFilter = sf;
+      }
       await gameData.loadGameData(import.meta.env.BASE_URL, this.ruleset);
       this.restoreAutosave();
       this.ready = true;
@@ -184,6 +197,32 @@ class CharacterStore {
   /** Kasuje liste ostrzezen (po zamknieciu modala). */
   dismissRulesetWarnings(): void {
     this.rulesetWarnings = [];
+  }
+
+  /** Zmienia globalny filtr zrodel (co widac przy wyborze z listy). */
+  setSourceFilter(filter: SourceFilter): void {
+    if (this.sourceFilter === filter) return;
+    this.sourceFilter = filter;
+    saveSettings({ sourceFilter: filter });
+    this.touch();
+  }
+
+  /** Filtruje nazwy profesji wg aktywnego filtra zrodel. */
+  filterProfessionNames(names: string[]): string[] {
+    void this.tick;
+    const filter = this.sourceFilter;
+    return names.filter((n) =>
+      gameData.matchesSourceFilter(gameData.professionSourceGroup(n), filter)
+    );
+  }
+
+  /** Filtruje nazwy talentow wg aktywnego filtra zrodel. */
+  filterTalentNames(names: string[]): string[] {
+    void this.tick;
+    const filter = this.sourceFilter;
+    return names.filter((n) =>
+      gameData.matchesSourceFilter(gameData.talentSourceGroup(n), filter)
+    );
   }
 
   /** Buduje ostrzezenia o niespojnosciach postaci po zmianie wariantu. */
