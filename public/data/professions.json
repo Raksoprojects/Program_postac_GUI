@@ -9923,5 +9923,49 @@
         "trappings": ["buława komendanta", "chorąży", "lekki rumak bojowy z rzędem", "dobrej jakości mundur", "naramienniki i nagolenniki płytowe", "sztandar jednostki"]
       }
     ]
+  },
+  "Kapłanka Bitewna Myrmidii": {
+    "races": ["człowiek"],
+    "characteristics_pending": true,
+    "class": "Wojownicy",
+    "source": "Pod Bronią",
+    "levels": [
+      {
+        "level": 1,
+        "title": "Pierwsza Orlica",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": ["Broń Biała (Drzewcowa)", "Broń Biała (Podstawowa)", "Dowodzenie", "Język (Bitewny)", "Modlitwa", "Opanowanie", "Percepcja", "Unik", "Wiedza (Sztuka Wojenna)", "Wiedza (Teologia)"],
+        "talents": ["Błogosławieństwo (Myrmidia)", "Czytanie/Pisanie", "Etykieta (Kultyści)", "Zmysł Bitewny"],
+        "trappings": ["święta księga Myrmidii", "skórzany kaftan", "myrmidiańska ikona", "białe szaty", "włócznia"]
+      },
+      {
+        "level": 2,
+        "title": "Kapłanka Bitewna Myrmidii",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": ["Broń Biała (Dowolna)", "Broń Zasięgowa (Dowolna)", "Charyzma", "Intuicja", "Leczenie", "Występy (Przemowy)"],
+        "talents": ["Inspirujący", "Inwokacja (Myrmidia)", "Musztra", "Tarczownik"],
+        "trappings": ["napierśnik płytowy i hełm", "tarcza"]
+      },
+      {
+        "level": 3,
+        "title": "Kapłanka-Sierżant Myrmidii",
+        "status": "Srebro 4",
+        "characteristics": [],
+        "skills": ["Badania Naukowe", "Broń Biała (Dowolna)", "Rzemiosło (Płatnerz albo Zbrojmistrz)", "Wiedza (Dowolna)"],
+        "talents": ["Czysta Dusza", "Mól Książkowy", "Święte Wizje", "Waleczne Serce"],
+        "trappings": ["pełna zbroja płytowa"]
+      },
+      {
+        "level": 4,
+        "title": "Kapłanka-Kapitan Myrmidii",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": ["Jeździectwo (Konie)", "Opieka nad Zwierzętami"],
+        "talents": ["Bitewny Refleks", "Mistrz Walki", "Nieustraszony (Dowolny)", "Wódz"],
+        "trappings": ["relikwia (myrmidiańska)"]
+      }
+    ]
   }
 }
