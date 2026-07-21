@@ -1,7 +1,8 @@
 <script lang="ts">
   import { uiScale } from "./lib/uiScale";
-  import { store } from "./lib/store.svelte";
+  import { store, RULESET_LABELS } from "./lib/store.svelte";
   import { pickFile } from "./lib/storage";
+  import Modal from "./components/Modal.svelte";
   import SummaryCards from "./components/SummaryCards.svelte";
   import TabCechy from "./components/TabCechy.svelte";
   import TabUmiejetnosci from "./components/TabUmiejetnosci.svelte";
@@ -20,6 +21,13 @@
     { id: "koszty", label: "Koszty", badge: null },
     { id: "doswiadczenie", label: "Doświadczenie", badge: null },
     { id: "historia", label: "Historia", badge: null }
+  ] as const;
+
+  /** Warianty zasad (globalny przełącznik na górze aplikacji). */
+  const rulesets = [
+    { id: "core", label: "Podstawowe" },
+    { id: "pod_bronia", label: "Pod Bronią" },
+    { id: "domowe", label: "Pełne Domowe" }
   ] as const;
 
   let activeTab = $state<(typeof tabs)[number]["id"]>("cechy");
@@ -156,6 +164,21 @@
     </div>
   </header>
 
+  <div class="ruleset-bar panel" role="group" aria-label="Wariant zasad">
+    <span class="ruleset-label">Wariant zasad:</span>
+    <div class="ruleset-seg">
+      {#each rulesets as r (r.id)}
+        <button
+          class="ruleset-opt"
+          class:active={store.ruleset === r.id}
+          aria-pressed={store.ruleset === r.id}
+          title={`Przełącz na: ${RULESET_LABELS[r.id]}`}
+          onclick={() => store.setRuleset(r.id)}
+        >{r.label}</button>
+      {/each}
+    </div>
+  </div>
+
   {#if actionError}
     <div class="action-banner" role="alert">
       <span class="val-danger">{actionError}</span>
@@ -218,6 +241,22 @@
 
 {#if showCreator}
   <CreatorModal onClose={() => (showCreator = false)} />
+{/if}
+
+{#if store.rulesetWarnings.length}
+  <Modal title="Zmiana wariantu zasad — uwagi" onClose={() => store.dismissRulesetWarnings()}>
+    <p class="text-dim">
+      Po przełączeniu na „{RULESET_LABELS[store.ruleset]}” wykryto sytuacje do sprawdzenia:
+    </p>
+    <ul class="warn-list">
+      {#each store.rulesetWarnings as w (w)}
+        <li>{w}</li>
+      {/each}
+    </ul>
+    {#snippet footer()}
+      <button class="primary" onclick={() => store.dismissRulesetWarnings()}>Rozumiem</button>
+    {/snippet}
+  </Modal>
 {/if}
 
 <style>
@@ -375,6 +414,57 @@
     border: 1px solid var(--danger-strong);
     border-radius: var(--radius);
     background: var(--bg-panel);
+  }
+
+  .ruleset-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .ruleset-label {
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .ruleset-seg {
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .ruleset-opt {
+    background: var(--bg-panel);
+    color: var(--text-muted);
+    border: none;
+    border-right: 1px solid var(--border);
+    border-radius: 0;
+    padding: var(--space-2) var(--space-3);
+    font-weight: 600;
+  }
+
+  .ruleset-opt:last-child {
+    border-right: none;
+  }
+
+  .ruleset-opt:hover {
+    color: var(--text);
+  }
+
+  .ruleset-opt.active {
+    background: var(--accent-strong);
+    color: #fff;
+  }
+
+  .warn-list {
+    margin: var(--space-2) 0 0;
+    padding-left: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
   }
 
   .tab {

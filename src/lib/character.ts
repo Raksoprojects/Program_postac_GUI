@@ -169,6 +169,32 @@ export class DataManager {
     this.talents = enriched;
   }
 
+  /**
+   * Odswieza definicje posiadanych talentow z aktualnego datasetu (po zmianie
+   * wariantu zasad). Aktualizuje pola pochodzace z bazy (opis, max, testy,
+   * zrodlo), ZACHOWUJE dane postaci (advances, base_advances, is_new,
+   * profession_available, characteristicBonus). Talent nieznany w nowym
+   * wariancie -> is_custom=true (pozostaje bez zmian definicji).
+   */
+  refreshTalentDefinitions(): void {
+    const names = gameData.allTalentNames();
+    const database: Record<string, ReturnType<typeof gameData.getTalent>> = {};
+    for (const name of names) database[name] = gameData.getTalent(name);
+    const baseIndex = DataManager.talentBaseIndex(names);
+    for (const [name, entry] of Object.entries(this.talents)) {
+      const db = DataManager.matchTalentDbEntry(name, database, baseIndex);
+      if (!db) {
+        entry.is_custom = true;
+        continue;
+      }
+      entry.description = db.description || entry.description;
+      entry.max = (db.max ?? { type: "none" }) as TalentMax;
+      entry.tests = db.tests ?? "";
+      entry.source = db.source ?? entry.source;
+      entry.is_custom = false;
+    }
+  }
+
   /** Indeks {nazwa_bazowa_bez_specjalizacji -> klucz_bazy} do dopasowan. */
   static talentBaseIndex(names: string[]): Record<string, string> {
     const index: Record<string, string> = {};

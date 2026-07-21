@@ -4,6 +4,22 @@ import type { Attribute } from "./rules";
 
 // --- Statyczne dane gry (public/data/*.json) ---
 
+/**
+ * Wariant zasad (globalny przelacznik). "core" = Podrecznik podstawowy,
+ * "pod_bronia" = aktualizacje z dodatku "Pod Bronia", "domowe" = Pelne Domowe
+ * Zasady (start = Pod Bronia, potem modyfikowane recznie/w plikach domowych).
+ */
+export type Ruleset = "core" | "pod_bronia" | "domowe";
+
+/**
+ * Bloki wariantow wpisu (talentu/profesji). Zawieraja TYLKO pola nadpisujace
+ * baze; brak pola = wartosc z podrecznika podstawowego (fallback pole-po-polu).
+ */
+export interface EntryVariants<T> {
+  pod_bronia?: Partial<T>;
+  domowe?: Partial<T>;
+}
+
 export interface ProfessionLevel {
   level: number;
   title: string;
@@ -24,6 +40,8 @@ export interface Profession {
   class?: string;
   source?: string;
   page?: number | string;
+  /** Warianty regul profesji (Pod Bronia / Domowe). Pola nadpisuja baze. */
+  variants?: EntryVariants<Profession>;
 }
 
 export interface GameClass {
@@ -50,6 +68,8 @@ export interface Talent {
   adds_characteristic?: string;
   /** Talent zwieksza Zywotnosc o Bonus z Wytrzymalosci (np. Twardziel). */
   wounds_toughness_bonus?: boolean;
+  /** Warianty regul talentu (Pod Bronia / Domowe). Pola nadpisuja baze. */
+  variants?: EntryVariants<Talent>;
 }
 
 export type ProfessionsData = Record<string, Profession>;

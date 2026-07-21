@@ -8,12 +8,40 @@
  */
 
 const AUTOSAVE_KEY = "wfrp4e:autosave";
+const SETTINGS_KEY = "wfrp4e:settings";
 
 export interface AutosaveSnapshot {
   character: unknown;
   history: unknown;
   overrideSkills: string[];
   overrideTalents: string[];
+}
+
+/** Globalne ustawienia aplikacji (niezalezne od postaci). */
+export interface AppSettings {
+  ruleset?: string;
+  sourceFilter?: string;
+}
+
+/** Odczytuje globalne ustawienia (wariant zasad, filtr zrodel). */
+export function loadSettings(): AppSettings {
+  try {
+    const raw = localStorage.getItem(SETTINGS_KEY);
+    if (!raw) return {};
+    return JSON.parse(raw) as AppSettings;
+  } catch {
+    return {};
+  }
+}
+
+/** Zapisuje globalne ustawienia (best-effort, scala z istniejacymi). */
+export function saveSettings(patch: AppSettings): void {
+  try {
+    const current = loadSettings();
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify({ ...current, ...patch }));
+  } catch (e) {
+    console.warn("Zapis ustawien nieudany:", e);
+  }
 }
 
 /** Zapisuje migawke stanu do localStorage (best-effort). */

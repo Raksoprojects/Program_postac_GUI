@@ -11,22 +11,31 @@ import type {
   CareerPathStep,
   ClassesData,
   Developable,
+  EntryVariants,
   GameClass,
   Profession,
   ProfessionsData,
   RaceDef,
   RacesData,
+  Ruleset,
   SkillDef,
   SkillsData,
   Talent,
   TalentsData
 } from "./types";
 
+// Dane "resolved" (po zastosowaniu wariantu) - czytane przez akcesory.
 let professions: ProfessionsData | null = null;
 let classes: ClassesData | null = null;
 let talents: TalentsData | null = null;
 let skills: SkillsData | null = null;
 let races: RacesData | null = null;
+
+// Dane surowe (z wariantami) + nakladka domowa z pliku + aktywny wariant.
+let rawProfessions: ProfessionsData | null = null;
+let rawTalents: TalentsData | null = null;
+let professionsDomowe: ProfessionsData = {};
+let activeRuleset: Ruleset = "core";
 
 /** Wstrzykuje dane bezposrednio (uzywane w testach jednostkowych). */
 export function setGameData(data: {
@@ -35,13 +44,17 @@ export function setGameData(data: {
   talents: TalentsData;
   skills?: SkillsData;
   races?: RacesData;
+  professionsDomowe?: ProfessionsData;
+  ruleset?: Ruleset;
 }): void {
-  professions = data.professions;
+  rawProfessions = data.professions;
+  rawTalents = data.talents;
+  professionsDomowe = data.professionsDomowe ?? {};
   classes = data.classes;
-  talents = data.talents;
   skills = data.skills ?? [];
   races = data.races ?? null;
-  normalizeEarningSkills(professions);
+  activeRuleset = data.ruleset ?? "core";
+  applyRuleset();
 }
 
 /** Czy dane zostaly juz zaladowane. */
@@ -50,21 +63,126 @@ export function isGameDataLoaded(): boolean {
 }
 
 /** Laduje dane gry z katalogu /data (fetch). Wywolaj raz przy starcie aplikacji. */
-export async function loadGameData(baseUrl: string = import.meta.env.BASE_URL): Promise<void> {
+export async function loadGameData(
+  baseUrl: string = import.meta.env.BASE_URL,
+  ruleset: Ruleset = "core"
+): Promise<void> {
   const prefix = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
-  const [p, c, t, s, r] = await Promise.all([
+  const [p, c, t, s, r, dom] = await Promise.all([
     fetch(`${prefix}data/professions.json`).then((r) => r.json() as Promise<ProfessionsData>),
     fetch(`${prefix}data/classes.json`).then((r) => r.json() as Promise<ClassesData>),
     fetch(`${prefix}data/talents.json`).then((r) => r.json() as Promise<TalentsData>),
     fetch(`${prefix}data/skills.json`).then((r) => r.json() as Promise<SkillsData>),
-    fetch(`${prefix}data/races.json`).then((r) => r.json() as Promise<RacesData>)
+    fetch(`${prefix}data/races.json`).then((r) => r.json() as Promise<RacesData>),
+    // Nakladka domowa profesji (opcjonalna - moze jeszcze nie istniec).
+    fetchOptionalJson<ProfessionsData>(`${prefix}data/professions.domowe.json`)
   ]);
-  professions = p;
+  rawProfessions = p;
+  rawTalents = t;
+  professionsDomowe = dom ?? {};
   classes = c;
-  talents = t;
   skills = s;
   races = r;
-  normalizeEarningSkills(professions);
+  activeRuleset = ruleset;
+  applyRuleset();
+}
+
+/** Fetch JSON tolerujacy brak pliku (404 -> null zamiast wyjatku). */
+async function fetchOptionalJson<T>(url: string): Promise<T | null> {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    return (await res.json()) as T;
+  } catch {
+    return null;
+  }
+}
+
+/** Aktywny wariant zasad. */
+export function getRuleset(): Ruleset {
+  return activeRuleset;
+}
+
+/** Zmienia wariant zasad i przelicza dane resolved. */
+export function setRuleset(ruleset: Ruleset): void {
+  activeRuleset = ruleset;
+  applyRuleset();
+}
+
+/** Wybiera blok wariantu dla danego trybu (fallback domowe -> pod_bronia). */
+function pickVariant<T>(
+  variants: EntryVariants<T> | undefined,
+  ruleset: Ruleset
+): Partial<T> | null {
+  if (!variants) return null;
+  if (ruleset === "domowe") return variants.domowe ?? variants.pod_bronia ?? null;
+  if (ruleset === "pod_bronia") return variants.pod_bronia ?? null;
+  return null;
+}
+
+/** Talent po zastosowaniu wariantu (pola wariantu nadpisuja baze). */
+function resolveTalentEntry(base: Talent, ruleset: Ruleset): Talent {
+  const { variants, ...rest } = base;
+  const v = pickVariant(variants, ruleset);
+  return (v ? { ...rest, ...v } : rest) as Talent;
+}
+
+/**
+ * Profesja po zastosowaniu wariantu. Kolejnosc nadpisan (pole-po-polu):
+ * baza -> inline variant (pod_bronia/domowe) -> nakladka z professions.domowe.json.
+ */
+function resolveProfessionEntry(name: string, base: Profession, ruleset: Ruleset): Profession {
+  const { variants, ...rest } = base;
+  let out = rest as Profession;
+  const v = pickVariant(variants, ruleset);
+  if (v) out = { ...out, ...v };
+  if (ruleset === "domowe") {
+    const dom = professionsDomowe[name] ?? domoweByNormalized(name);
+    if (dom) {
+      const { variants: _dv, ...domRest } = dom;
+      out = { ...out, ...domRest };
+    }
+  }
+  return out;
+}
+
+/** Znajduje wpis nakladki domowej po dopasowaniu znormalizowanym. */
+function domoweByNormalized(name: string): Profession | undefined {
+  const target = normalize(name);
+  if (!target) return undefined;
+  for (const key of Object.keys(professionsDomowe)) {
+    if (normalize(key) === target) return professionsDomowe[key];
+  }
+  return undefined;
+}
+
+/**
+ * Derywuje dane resolved (talenty + profesje) z danych surowych wg aktywnego
+ * wariantu. W trybie domowym dokleja tez NOWE profesje z professions.domowe.json.
+ */
+function applyRuleset(): void {
+  if (rawTalents) {
+    const out: TalentsData = {};
+    for (const [name, base] of Object.entries(rawTalents)) {
+      out[name] = resolveTalentEntry(base, activeRuleset);
+    }
+    talents = out;
+  }
+  if (rawProfessions) {
+    const out: ProfessionsData = {};
+    for (const [name, base] of Object.entries(rawProfessions)) {
+      out[name] = resolveProfessionEntry(name, base, activeRuleset);
+    }
+    if (activeRuleset === "domowe") {
+      for (const [name, dom] of Object.entries(professionsDomowe)) {
+        if (name in out) continue;
+        const { variants: _v, ...rest } = dom;
+        out[name] = rest as Profession;
+      }
+    }
+    professions = out;
+    normalizeEarningSkills(professions);
+  }
 }
 
 /**

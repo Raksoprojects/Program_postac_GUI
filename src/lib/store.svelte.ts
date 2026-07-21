@@ -22,6 +22,8 @@ import {
 import {
   saveAutosave,
   loadAutosave,
+  loadSettings,
+  saveSettings,
   downloadBlob,
   safeFileName
 } from "./storage";
@@ -29,12 +31,20 @@ import { parseSpecialization } from "./specialization";
 import type {
   AttributeEntry,
   Developable,
+  Ruleset,
   SkillEntry,
   TalentEntry,
   TalentMax,
   CharacterStats,
   RaceCreationInput
 } from "./types";
+
+/** Etykiety wariantow zasad do prezentacji w UI/historii. */
+export const RULESET_LABELS: Record<Ruleset, string> = {
+  core: "Podstawowe zasady",
+  pod_bronia: "Pod Bronią",
+  domowe: "Pełne Domowe Zasady"
+};
 
 /** Pelne nazwy cech (kod -> nazwa) do prezentacji w UI. */
 export const ATTRIBUTE_FULL_NAMES: Record<string, string> = {
@@ -96,6 +106,11 @@ class CharacterStore {
   ready = $state(false);
   loadError = $state<string | null>(null);
 
+  /** Globalny wariant zasad (Podstawowe / Pod Bronia / Domowe). */
+  ruleset = $state<Ruleset>("core");
+  /** Ostrzezenia po ostatniej zmianie wariantu (do modala). */
+  rulesetWarnings = $state<string[]>([]);
+
   /** Tryby kosztu sterowane checkboxami w UI. */
   attrGmApproved = $state(false);
   talentOutOfProfession = $state(false);
@@ -133,13 +148,81 @@ class CharacterStore {
 
   async init(): Promise<void> {
     try {
-      await gameData.loadGameData(import.meta.env.BASE_URL);
+      const settings = loadSettings();
+      const saved = settings.ruleset;
+      if (saved === "core" || saved === "pod_bronia" || saved === "domowe") {
+        this.ruleset = saved;
+      }
+      await gameData.loadGameData(import.meta.env.BASE_URL, this.ruleset);
       this.restoreAutosave();
       this.ready = true;
       this.touch();
     } catch (e) {
       this.loadError = e instanceof Error ? e.message : String(e);
     }
+  }
+
+  /**
+   * Zmienia globalny wariant zasad: przelicza dane resolved w gameData, odswieza
+   * definicje talentow postaci (zachowujac dane postaci) i przelicza cechy/zywotnosc.
+   * Buduje liste ostrzezen o niespojnosciach (talenty +cecha, znikniete profesje).
+   */
+  setRuleset(ruleset: Ruleset): void {
+    if (this.ruleset === ruleset) return;
+    this.ruleset = ruleset;
+    gameData.setRuleset(ruleset);
+    saveSettings({ ruleset });
+    this.dm.refreshTalentDefinitions();
+    this.dm.recompute();
+    this.dm.recomputeWounds();
+    this.rulesetWarnings = this.buildRulesetWarnings();
+    this.clearDevelopableOverrides();
+    this.addHistory("Zmieniono wariant zasad", RULESET_LABELS[ruleset]);
+    this.touch();
+  }
+
+  /** Kasuje liste ostrzezen (po zamknieciu modala). */
+  dismissRulesetWarnings(): void {
+    this.rulesetWarnings = [];
+  }
+
+  /** Buduje ostrzezenia o niespojnosciach postaci po zmianie wariantu. */
+  private buildRulesetWarnings(): string[] {
+    const warnings: string[] = [];
+    for (const [name, entry] of Object.entries(this.dm.talents)) {
+      let adds: string | undefined;
+      try {
+        adds = gameData.getTalent(name)?.adds_characteristic;
+      } catch {
+        adds = undefined;
+      }
+      if (entry.characteristicBonus && !adds) {
+        warnings.push(
+          `Talent „${name}” ma wybrany bonus cechy, ale w tym wariancie już nie dodaje cechy — sprawdź w zakładce Talenty.`
+        );
+      } else if (adds && !entry.characteristicBonus) {
+        warnings.push(
+          `Talent „${name}” w tym wariancie dodaje cechę (${adds}) — wybierz bonus w zakładce Talenty.`
+        );
+      }
+      if (entry.is_custom) {
+        warnings.push(`Talent „${name}” nie istnieje w tym wariancie — pozostawiony jako własny.`);
+      }
+    }
+    if (this.dm.currentCareer) {
+      let prof;
+      try {
+        prof = gameData.getProfession(this.dm.currentCareer);
+      } catch {
+        prof = undefined;
+      }
+      if (!prof) {
+        warnings.push(
+          `Profesja „${this.dm.currentCareer}” nie istnieje w tym wariancie — schemat może być niedostępny.`
+        );
+      }
+    }
+    return warnings;
   }
 
   // ----- Trwalosc (autozapis localStorage) ------------------------------
