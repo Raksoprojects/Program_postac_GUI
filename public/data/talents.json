@@ -28,7 +28,13 @@
     "max_raw": "Bonus ze Zręczności",
     "tests": null,
     "description": "Z łatwością przeładowujesz broń prochową. Dodaj PS równe liczbie wykupień tego Talentu do każdego Wydłużonego Testu związanego z przeładowaniem broni prochowej.",
-    "source": "Podręcznik podstawowy"
+    "source": "Podręcznik podstawowy",
+    "variants": {
+      "pod_bronia": {
+        "description": "Z łatwością przeładowujesz broń prochową. Dodaj PS równe liczbie wykupień tego Talentu do każdego Testu Wydłużonego związanego z przeładowaniem broni prochowej. Przeładowanie broni prochowej podczas walki jest traktowane jako Akcja Ocena Sytuacji. Otrzymujesz dodatkowy punkt Przewagi, kiedy wykonujesz ten Test Oceny Sytuacji.",
+        "source": "Pod Bronią"
+      }
+    }
   },
   "Atak Wyprzedzający": {
     "max": {
@@ -201,7 +207,14 @@
     "max_raw": "Bonus ze Zwinności",
     "tests": "Atletyka, gdy Uciekasz",
     "description": "Kiedy na szali znajduje się twoje życie, potrafisz niezwykle sprawnie przebierać nogami. Podczas Ucieczki (patrz strona 165) twoja Szybkość jest traktowana, jakby była o 1 wyższa.",
-    "source": "Podręcznik podstawowy"
+    "source": "Podręcznik podstawowy",
+    "variants": {
+      "pod_bronia": {
+        "tests": "Atletyka, gdy Uciekasz albo kiedy jesteś ściganym podczas pościgu",
+        "description": "Kiedy na szali znajduje się twoje życie, potrafisz niezwykle sprawnie przebierać nogami. Podczas Ucieczki albo kiedy jesteś ściganym podczas pościgu, twoja Szybkość jest traktowana, jakby była o 1 wyższa.",
+        "source": "Pod Bronią"
+      }
+    }
   },
   "Cień": {
     "max": {
@@ -333,6 +346,17 @@
     "tests": "Atletyki podczas podróży w terenie",
     "description": "Masz doświadczenie w wędrówce przez dzicz i potrafisz dobrze wybierać drogę. Nie działają na ciebie negatywne modyfikatory wynikające z wpływu wybranego terenu. Oto lista przykładów: Lasy, Pustynie, Moczary, Teren Kamienisty, Tundra, Wybrzeża.",
     "source": "Podręcznik podstawowy"
+  },
+  "Dowódca Załogi": {
+    "max": {
+      "type": "characteristic",
+      "attr": "I",
+      "attr_name": "Inicjatywy"
+    },
+    "max_raw": "Bonus z Inicjatywy",
+    "tests": "Broń Zasięgowa, kiedy strzelasz z broni z Wadą Załoga",
+    "description": "Umiesz zarządzać załogą maszyn oblężniczych i artylerii. Możesz wykonać Wymagający (+0) Test Dowodzenia, by pomóc załodze obsługującej broń z Wadą Załoga, znajdującej się w zasięgu twojego głosu. Jeśli ci się uda, członkowie załogi mogą przy oddawaniu strzału wykorzystać twoją odpowiednią Umiejętność Broń Zasięgowa.",
+    "source": "Pod Bronią"
   },
   "Dwie Bronie": {
     "max": {
@@ -610,7 +634,15 @@
     "max_raw": "Bonus z Inicjatywy",
     "tests": null,
     "description": "Wiesz dobrze, gdzie uderzyć, by wyrządzić jak najwięcej krzywdy. Kiedy zadasz Ranę Krytyczną, zwiększasz też obrażenia o tyle, ile razy wykupiłeś ten Talent.",
-    "source": "Podręcznik podstawowy"
+    "source": "Podręcznik podstawowy",
+    "variants": {
+      "pod_bronia": {
+        "max": { "type": "fixed", "value": 1 },
+        "max_raw": "1",
+        "description": "Wiesz dobrze, gdzie uderzyć, by wyrządzić jak najwięcej krzywdy. Kiedy rzucasz w Tabeli Ran Krytycznych, rzuć dwa razy i wybierz jeden z wyników.",
+        "source": "Pod Bronią"
+      }
+    }
   },
   "Mól Książkowy": {
     "max": {
@@ -643,7 +675,14 @@
     "max_raw": "Bonus z Walki Wręcz",
     "tests": "Broń Biała, kiedy jesteś w pobliżu sojuszniczej postaci z tym",
     "description": "Talentem Zostałeś wyszkolony w walce obok innych żołnierzy. Jeśli przeciwnik sprawi, że stracisz Przewagę, a znajdujesz się obok innej, aktywnej postaci z Talentem Musztra, możesz zachować 1 Przewagę za każde wykupienie tego Talentu.",
-    "source": "Podręcznik podstawowy"
+    "source": "Podręcznik podstawowy",
+    "variants": {
+      "pod_bronia": {
+        "tests": "Broń Biała, kiedy jesteś w pobliżu sojuszniczej postaci z tym Talentem",
+        "description": "Zostałeś wyszkolony w walce obok innych żołnierzy. Postać z Talentem Musztra jest traktowana jak dwóch walczących, kiedy ustala się utratę Przewagi (patrz strona 134).",
+        "source": "Pod Bronią"
+      }
+    }
   },
   "Na Cztery Łapy": {
     "max": {
@@ -742,7 +781,15 @@
     "max_raw": "Bonus ze Zwinności",
     "tests": null,
     "description": "Kiedy skupisz się na celu, nie sposób cię powstrzymać przed dotarciem do niego. Jeśli wykorzystujesz Przewagę podczas Odwrotu, możesz zachować jej tyle, ile razy masz wykupiony ten Talent. Co więcej, możesz wykorzystać Przewagi do Odwrotu, nawet jeśli masz ich mniej niż przeciwnik.",
-    "source": "Podręcznik podstawowy"
+    "source": "Podręcznik podstawowy",
+    "variants": {
+      "pod_bronia": {
+        "max": { "type": "fixed", "value": 1 },
+        "max_raw": "1",
+        "description": "Kiedy skupisz się na celu, nie sposób cię powstrzymać przed dotarciem do niego. Koszt wykonania Akcji Ucieczka przed zagrożeniem zostaje zmniejszony do 1 Przewagi.",
+        "source": "Pod Bronią"
+      }
+    }
   },
   "Nieustraszony (typ wroga)": {
     "max": {
@@ -862,7 +909,13 @@
     "max_raw": "Bonus z Walki Wręcz",
     "tests": "Broń Biała w obronie",
     "description": "Tak przywykłeś do rozpaczliwej walki o życie, że potrafisz obrócić na swoją korzyść nawet największe kłopoty. Jeśli wygrasz Przeciwstawny Test Walki Wręcz, to zamiast zdobywać +1 Przewagę, możesz zabrać przeciwnikowi jego wszystkie zebrane Przewagi. Jeśli się na to zdecydujesz, nie zadajesz wrogowi obrażeń, nawet jeśli to twoja Tura w Rundzie.",
-    "source": "Podręcznik podstawowy"
+    "source": "Podręcznik podstawowy",
+    "variants": {
+      "pod_bronia": {
+        "description": "Tak przywykłeś do rozpaczliwej walki o życie, że potrafisz obrócić na swoją korzyść nawet największe kłopoty. Jeśli wygrasz Przeciwstawny Test Walki Wręcz, to zamiast zdobywać +1 Przewagę, możesz zabrać 1 Przewagę z Puli Przewagi Przeciwników. Jeśli się na to zdecydujesz, nie zadajesz wrogowi Obrażeń, nawet jeśli to twoja Tura w Rundzie.",
+        "source": "Pod Bronią"
+      }
+    }
   },
   "Ogłuszenie": {
     "max": {
@@ -1101,7 +1154,14 @@
     "max_raw": "Bonus ze Zwinności",
     "tests": null,
     "description": "Jesteś wytrenowany tak, by twoje ruchy rozpraszały uwagę przeciwnika i ułatwiały jego zaskoczenie. Możesz wykorzystać swój Ruch, aby użyć Rozpraszania Uwagi. Jest to Test Przeciwstawny Atletyki przeciw Opanowaniu przeciwnika. Jeśli wygrasz, twój przeciwnik nie może zbierać Przewagi aż do końca następnej Rundy.",
-    "source": "Podręcznik podstawowy"
+    "source": "Podręcznik podstawowy",
+    "variants": {
+      "pod_bronia": {
+        "tests": "Atletyka podczas Rozproszenia Uwagi",
+        "description": "Jesteś wytrenowany tak, by twoje ruchy rozpraszały uwagę przeciwnika i ułatwiały jego zaskoczenie. Możesz wykorzystać swój Ruch, aby użyć Rozpraszania Uwagi. Jest to Test Przeciwstawny Atletyki przeciw Opanowaniu przeciwnika. Jeśli wygrasz, twój przeciwnik nie może zbierać Przewagi do swojej Puli aż do końca następnej Rundy.",
+        "source": "Pod Bronią"
+      }
+    }
   },
   "Ruchliwe dłonie": {
     "max": {
@@ -1339,7 +1399,13 @@
     "max_raw": "Bonus ze Zręczności",
     "tests": null,
     "description": "Potrafisz z łatwością przeładowywać bronie strzeleckie. Dodaj PS równe liczbie wykupień tego Talentu do Testów przeładowania broni dystansowej.",
-    "source": "Podręcznik podstawowy"
+    "source": "Podręcznik podstawowy",
+    "variants": {
+      "pod_bronia": {
+        "description": "Potrafisz z łatwością przeładowywać bronie strzeleckie. Dodaj PS równe liczbie wykupień tego Talentu do każdego Testu Wydłużonego związanego z przeładowaniem broni zasięgowej. Przeładowanie broni zasięgowej podczas walki jest traktowane jako Akcja Ocena Sytuacji. Otrzymujesz dodatkowy punkt Przewagi, kiedy wykonujesz ten Test Oceny Sytuacji.",
+        "source": "Pod Bronią"
+      }
+    }
   },
   "Szybkobiegacz": {
     "max": {
@@ -1415,7 +1481,14 @@
     "max_raw": "Bonus z Siły",
     "tests": null,
     "description": "Potrafisz tak posługiwać się tarczą, by wrogowie znaleźli się tam, gdzie chcesz, i umiesz wykorzystywać wynikającą z tego przewagę. Jeśli używasz tarczy do obrony i przegrasz Test Przeciwstawny, to mimo wszystko zyskujesz tyle punktów Przewagi, ile razy masz wykupiony ten Talent.",
-    "source": "Podręcznik podstawowy"
+    "source": "Podręcznik podstawowy",
+    "variants": {
+      "pod_bronia": {
+        "tests": "Każdy Test przy obronie tarczą",
+        "description": "Potrafisz tak posługiwać się tarczą, by wrogowie znaleźli się tam, gdzie chcesz, i umiesz wykorzystywać wynikającą z tego przewagę. Raz na Turę, kiedy używasz tarczy do obrony, możesz wydać 2 punkty Przewagi, aby zadać Obrażenia, kiedy jesteś atakowany, tak jakby to była twoja Akcja, albo aby odepchnąć przeciwnika na dwa metry od siebie i nie być już z nim Związanym Walką.",
+        "source": "Pod Bronią"
+      }
+    }
   },
   "T owarzyski": {
     "max": {
@@ -1481,7 +1554,14 @@
     "max_raw": "Bonus ze Zwinności",
     "tests": "Jeździectwo (Konie) w walce",
     "description": "W siodle czujesz się jak w domu i nie straszne ci najtrudniejsze warunki. Wiesz, jak najlepiej wykorzystać wierzchowca w walce. Jeśli posiadasz Umiejętność Jeździectwo, możesz pokierować koniem tak, by podjął Akcję, a nie tylko wykonywał Ruch. Nie musisz w tym celu wykonywać do tego Testu Jeździectwa.",
-    "source": "Podręcznik podstawowy"
+    "source": "Podręcznik podstawowy",
+    "variants": {
+      "pod_bronia": {
+        "tests": "Jeździectwo w walce",
+        "description": "W siodle czujesz się jak w domu i niestraszne ci najtrudniejsze warunki. Wiesz, jak najlepiej wykorzystać wierzchowca w walce. Jeśli posiadasz Umiejętność Jeździectwo, możesz pokierować wierzchowcem tak, by podjął Akcję, a nie tylko wykonywał Ruch. Nie musisz w tym celu wykonywać do tego Testu Jeździectwa. Co więcej, ponieważ jesteś niezwykle pewny siebie, kiedy siedzisz w siodle, traktuj swój Rozmiar, jakby był równy Rozmiarowi twojego wierzchowca, podczas opierania się efektom Strachu i Grozy wywoływanym przez Rozmiar twojego przeciwnika.",
+        "source": "Pod Bronią"
+      }
+    }
   },
   "Urodzony Wojownik": {
     "max": {
@@ -1754,7 +1834,13 @@
     "max_raw": "Bonus z Walki Wręcz",
     "tests": "Broń Biała, by zbić broń",
     "description": "Zostałeś wyszkolony w zadawaniu krótkich i gwałtownych uderzeń w oręż przeciwnika, dzięki czemu możesz sam zaatakować lub powstrzymać nadchodzący cios. W ramach swojej Akcji możesz zadeklarować Zbicie Broni przed rzutem. Wykonaj Test Broni Białej, a jeśli się powiedzie, twój przeciwnik traci -1 Przewagę oraz kolejną -1 za każdy twój PS. Ten Test nie jest Testem Przeciwstawnym. Nie możesz korzystać z tego Talentu, jeśli wrogowie nie używają broni lub są większego rozmiaru niż ty (patrz strona 340).",
-    "source": "Podręcznik podstawowy"
+    "source": "Podręcznik podstawowy",
+    "variants": {
+      "pod_bronia": {
+        "description": "Zostałeś wyszkolony w zadawaniu krótkich i gwałtownych uderzeń w oręż przeciwnika, dzięki czemu możesz sam zaatakować lub powstrzymać nadchodzący cios. W ramach swojej Akcji możesz zadeklarować Zbicie Broni przed rzutem. Wykonaj Test Broni Białej, a jeśli się powiedzie, Pula Przewagi Przeciwników traci 1 Przewagę oraz kolejną, jeżeli osiągnąłeś Zdumiewający Sukces (6 PS lub więcej). Ten Test nie jest Testem Przeciwstawnym. Nie możesz korzystać z tego Talentu, jeśli wrogowie nie używają broni lub są większego Rozmiaru niż ty (patrz strona 340).",
+        "source": "Pod Bronią"
+      }
+    }
   },
   "Zejście z Linii": {
     "max": {

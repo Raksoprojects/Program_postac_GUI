@@ -12,6 +12,7 @@ import {
   talentSourceGroup
 } from "../gameData";
 import type { ProfessionsData, TalentsData } from "../types";
+import { loadTestGameData } from "./loadData";
 
 /**
  * Testy warstwy wariantow zasad (Faza 1): rozdzielczosc pole-po-polu z
@@ -172,6 +173,32 @@ describe("Faza 1b: filtr źródła (oś B, niezależna od wariantu)", () => {
     // W trybie domowym nowa profesja ma źródło domowe.
     setRuleset("domowe");
     expect(professionSourceGroup("Łowca Nagród")).toBe("domowe");
+    setRuleset("core");
+  });
+});
+
+describe("Faza 2: warianty Pod Bronią z realnych danych", () => {
+  it("core zostawia bazę; pod_bronia rozszerza/zmienia talenty", () => {
+    loadTestGameData();
+    setRuleset("core");
+    expect(getTalent("Artylerzysta")?.description).not.toContain("Ocena Sytuacji");
+    // Nowy talent z Pod Bronią jest dostępny we wszystkich trybach.
+    expect(getTalent("Dowódca Załogi")).toBeDefined();
+
+    setRuleset("pod_bronia");
+    expect(getTalent("Artylerzysta")?.description).toContain("Ocena Sytuacji");
+    const morderczy = getTalent("Morderczy Atak");
+    expect(morderczy?.max.type).toBe("fixed");
+    expect(morderczy?.max.value).toBe(1);
+    expect(getTalent("Zbicie Broni")?.description).toContain("Zdumiewający Sukces");
+    setRuleset("core");
+  });
+
+  it("domowe dziedziczy warianty Pod Bronią (fallback)", () => {
+    loadTestGameData();
+    setRuleset("domowe");
+    expect(getTalent("Artylerzysta")?.description).toContain("Ocena Sytuacji");
+    expect(getTalent("Morderczy Atak")?.max.value).toBe(1);
     setRuleset("core");
   });
 });
