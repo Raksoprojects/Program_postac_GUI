@@ -31,6 +31,8 @@
   let raceName = $state("");
   let rolledRace = $state("");
   let raceRoll = $state<number | null>(null);
+  // Pochodzenie (lokacja startowa) - opcjonalne, modyfikuje umiej./talenty rasowe.
+  let originName = $state("");
 
   // Krok 2 - cechy
   type CharMode = "ordered" | "rearranged" | "pointbuy" | "sandbox";
@@ -74,6 +76,23 @@
   let charBonusIndex = $state(0);
 
   const race = $derived(raceName ? gameData.getRace(raceName) : undefined);
+
+  // Pochodzenia dostepne dla wybranej rasy (puste = brak; krok pochodzenia ukryty).
+  const raceOrigins = $derived(raceName ? gameData.getOrigins(raceName) : []);
+  const origin = $derived(originName ? gameData.getOrigin(raceName, originName) : undefined);
+  /**
+   * Rasa z zastosowanym pochodzeniem: pochodzenie NADPISUJE liste umiejetnosci
+   * i talentow do wyboru; cechy/Los/Hart/ruch pozostaja rasowe.
+   */
+  const effRace = $derived.by(() => {
+    if (!race) return undefined;
+    if (!origin) return race;
+    return {
+      ...race,
+      skills: origin.skills ?? race.skills,
+      talents: origin.talents ?? race.talents
+    };
+  });
 
   /** Bazowa wartosc rasowa danej cechy (czesc niezalezna od rzutu). */
   function raceBase(attr: string): number {
@@ -135,13 +154,23 @@
   );
 
   const randomTalentCount = $derived(
-    race ? race.talents.reduce((n, t) => n + (t.type === "random" ? t.count : 0), 0) : 0
+    effRace ? effRace.talents.reduce((n, t) => n + (t.type === "random" ? t.count : 0), 0) : 0
   );
 
   // --- Krok 1 ---
   function selectRace(n: string): void {
     raceName = n;
     resetDerivedFromRace();
+  }
+
+  /** Wybor pochodzenia: zmienia pule umiej./talentow, wiec zeruje ich wybory. */
+  function selectOrigin(name: string): void {
+    originName = name;
+    skillChoice = {};
+    skillSpec = {};
+    talentChoice = {};
+    randomRolls = [];
+    talentRollMsg = null;
   }
 
   function rollRace(): void {
@@ -167,6 +196,7 @@
     talentChoice = {};
     randomRolls = [];
     talentRollMsg = null;
+    originName = "";
   }
 
   // --- Krok 2 ---
@@ -337,9 +367,9 @@
   }
 
   function fixedAndChosenTalents(): string[] {
-    if (!race) return [];
+    if (!effRace) return [];
     const out: string[] = [];
-    race.talents.forEach((t, i) => {
+    effRace.talents.forEach((t, i) => {
       if (t.type === "fixed") out.push(t.name);
       else if (t.type === "choice") {
         const sel = talentChoice[i];
@@ -393,7 +423,7 @@
         return plus5Count === 3 && plus3Count === 3;
       case 5:
         return (
-          (race?.talents.filter((t) => t.type === "choice").length ?? 0) ===
+          (effRace?.talents.filter((t) => t.type === "choice").length ?? 0) ===
             Object.values(talentChoice).filter(Boolean).length &&
           randomTalents.length === randomTalentCount
         );
@@ -508,6 +538,20 @@
     </div>
     {#if acceptRandomRace}
       <p class="bonus">✓ Zaakceptowano wylosowaną rasę: +20 PD</p>
+    {/if}
+    {#if raceOrigins.length > 0}
+      <label class="fld origin-pick">
+        <span>Pochodzenie (lokacja startowa)</span>
+        <select value={originName} onchange={(e) => selectOrigin(e.currentTarget.value)}>
+          <option value="">— domyślne (rasowe) —</option>
+          {#each raceOrigins as o (o.name)}
+            <option value={o.name}>{o.name}</option>
+          {/each}
+        </select>
+      </label>
+      {#if origin?.description}
+        <p class="text-dim">{origin.description}</p>
+      {/if}
     {/if}
   {/if}
 
@@ -656,7 +700,7 @@
     <p class="text-dim" class:bonus={fateRemaining === 0}>Rozdysponowano: {fate + resilience} / {fatePool}</p>
   {/if}
 
-  {#if step === 4 && race}
+  {#if step === 4 && effRace}
     <p class="text-dim">Wybierz <strong>3</strong> umiejętności po +5 oraz kolejne
       <strong>3</strong> po +3.</p>
     <div class="pick-counters">
@@ -667,7 +711,7 @@
       </button>
     </div>
     <ul class="skill-list">
-      {#each race.skills as skill (skill)}
+      {#each effRace.skills as skill (skill)}
         {@const val = skillChoice[skill] ?? 0}
         <li class:has5={val === 5} class:has3={val === 3}>
           <span class="sk-name">{skillSpec[skill] ?? skill}</span>
@@ -689,11 +733,11 @@
     </ul>
   {/if}
 
-  {#if step === 5 && race}
+  {#if step === 5 && effRace}
     <p class="text-dim">Talenty rasowe. Dla wyborów „albo” wskaż jeden talent;
       talenty losowe wylosuj z tabeli (k100).</p>
     <ul class="talent-list">
-      {#each race.talents as t, i (i)}
+      {#each effRace.talents as t, i (i)}
         <li>
           {#if t.type === "fixed"}
             <span class="tg-fixed">✓ {t.name}</span>

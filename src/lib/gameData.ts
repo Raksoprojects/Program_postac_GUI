@@ -13,6 +13,8 @@ import type {
   Developable,
   EntryVariants,
   GameClass,
+  Origin,
+  OriginsData,
   Profession,
   ProfessionsData,
   RaceDef,
@@ -32,6 +34,7 @@ let classes: ClassesData | null = null;
 let talents: TalentsData | null = null;
 let skills: SkillsData | null = null;
 let races: RacesData | null = null;
+let origins: OriginsData = {};
 
 // Dane surowe (z wariantami) + nakladka domowa z pliku + aktywny wariant.
 let rawProfessions: ProfessionsData | null = null;
@@ -47,6 +50,7 @@ export function setGameData(data: {
   skills?: SkillsData;
   races?: RacesData;
   professionsDomowe?: ProfessionsData;
+  origins?: OriginsData;
   ruleset?: Ruleset;
 }): void {
   rawProfessions = data.professions;
@@ -55,6 +59,7 @@ export function setGameData(data: {
   classes = data.classes;
   skills = data.skills ?? [];
   races = data.races ?? null;
+  origins = data.origins ?? {};
   activeRuleset = data.ruleset ?? "core";
   applyRuleset();
 }
@@ -70,14 +75,16 @@ export async function loadGameData(
   ruleset: Ruleset = "core"
 ): Promise<void> {
   const prefix = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
-  const [p, c, t, s, r, dom] = await Promise.all([
+  const [p, c, t, s, r, dom, org] = await Promise.all([
     fetch(`${prefix}data/professions.json`).then((r) => r.json() as Promise<ProfessionsData>),
     fetch(`${prefix}data/classes.json`).then((r) => r.json() as Promise<ClassesData>),
     fetch(`${prefix}data/talents.json`).then((r) => r.json() as Promise<TalentsData>),
     fetch(`${prefix}data/skills.json`).then((r) => r.json() as Promise<SkillsData>),
     fetch(`${prefix}data/races.json`).then((r) => r.json() as Promise<RacesData>),
     // Nakladka domowa profesji (opcjonalna - moze jeszcze nie istniec).
-    fetchOptionalJson<ProfessionsData>(`${prefix}data/professions.domowe.json`)
+    fetchOptionalJson<ProfessionsData>(`${prefix}data/professions.domowe.json`),
+    // Pochodzenia (opcjonalne - moze jeszcze nie istniec / byc puste).
+    fetchOptionalJson<OriginsData>(`${prefix}data/origins.json`)
   ]);
   rawProfessions = p;
   rawTalents = t;
@@ -85,6 +92,7 @@ export async function loadGameData(
   classes = c;
   skills = s;
   races = r;
+  origins = org ?? {};
   activeRuleset = ruleset;
   applyRuleset();
 }
@@ -352,6 +360,16 @@ export function allRaceNames(): string[] {
 /** Definicja rasy wg nazwy. */
 export function getRace(name: string): RaceDef | undefined {
   return requireRaces().races[name];
+}
+
+/** Lista pochodzen (lokacji startowych) danej rasy; pusta gdy brak. */
+export function getOrigins(raceName: string): Origin[] {
+  return origins[raceName] ?? [];
+}
+
+/** Pojedyncze pochodzenie rasy wg nazwy (lub undefined). */
+export function getOrigin(raceName: string, originName: string): Origin | undefined {
+  return (origins[raceName] ?? []).find((o) => o.name === originName);
 }
 
 /** Zwraca rase odpowiadajaca rzutowi k100 (1..100) wg tabeli losowania. */

@@ -142,6 +142,33 @@ export interface RacesData {
   races: Record<string, RaceDef>;
 }
 
+/** Wiersz tabeli losowania profesji startowej (k100) dla pochodzenia. */
+export interface StartingCareerRow {
+  min: number;
+  max: number;
+  profession: string;
+}
+
+/**
+ * Pochodzenie (lokacja startowa) danej rasy — modyfikuje wybory przy tworzeniu
+ * postaci. Pola opcjonalne NADPISUJA odpowiedniki z definicji rasy; brak pola =
+ * wartosc rasowa. Nowa tresc (dodatki), dostepna we wszystkich trybach zasad.
+ */
+export interface Origin {
+  name: string;
+  description?: string;
+  source?: string;
+  /** Override listy umiejetnosci rasowych do wyboru (3x+5, 3x+3). */
+  skills?: string[];
+  /** Override talentow rasowych. */
+  talents?: RaceTalent[];
+  /** Tabela losowania profesji startowej dla tego pochodzenia (opcjonalna). */
+  startingCareers?: StartingCareerRow[];
+}
+
+/** Pochodzenia per rasa (public/data/origins.json). Klucz = nazwa rasy. */
+export type OriginsData = Record<string, Origin[]>;
+
 /** Dane wejsciowe kreatora rasowego (Krok 1 + 3 + rasowe umiej./talenty). */
 export interface RaceCreationInput {
   name: string;
