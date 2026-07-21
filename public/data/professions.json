@@ -9791,5 +9791,49 @@
         "trappings": ["giermek", "jeden duży albo kilka niewielkich oddziałów Rycerzy Pantery"]
       }
     ]
+  },
+  "Lekki Kawalerzysta": {
+    "races": ["człowiek", "elf leśny", "elf wysoki"],
+    "characteristics_pending": true,
+    "class": "Wojownicy",
+    "source": "Pod Bronią",
+    "levels": [
+      {
+        "level": 1,
+        "title": "Rozbójnik",
+        "status": "Brąz 3",
+        "characteristics": [],
+        "skills": ["Broń Biała (Podstawowa)", "Broń Zasięgowa (Miotana)", "Jeździectwo (Konie)", "Język (Bitewny)", "Leczenie", "Odporność", "Opieka nad Zwierzętami", "Sztuka Przetrwania", "Targowanie", "Unik"],
+        "talents": ["Etykieta (Najemnicy)", "Mocne Plecy", "Pierwsza Pomoc", "Z Bata"],
+        "trappings": ["tarcza albo puklerz", "skórzana kurta", "koń wierzchowy z rzędem", "oszczep"]
+      },
+      {
+        "level": 2,
+        "title": "Lekki Kawalerzysta",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": ["Broń Biała (Kawaleryjska)", "Broń Zasięgowa (Łuk)", "Charyzma", "Hazard", "Mocna Głowa", "Plotkowanie"],
+        "talents": ["Urodzony w Siodle", "Włóczykij", "Wyczucie Kierunku", "Zmysł Bitewny"],
+        "trappings": ["lekki rumak bojowy z rzędem", "kolczuga", "hełm otwarty"]
+      },
+      {
+        "level": 3,
+        "title": "Lansjer",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": ["Dowodzenie", "Intuicja", "Powożenie", "Wiedza (Sztuka Wojenna)"],
+        "talents": ["Bitewny Refleks", "Obieżyświat", "Szybkie Przeładowanie", "Woltyżerka"],
+        "trappings": ["kopia", "nogawice kolcze", "giermek", "paź"]
+      },
+      {
+        "level": 4,
+        "title": "Kapitan Kawalerzystów",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": ["Broń Zasięgowa (Prochowa)", "Wiedza (Heraldyka albo Prawo)"],
+        "talents": ["Inspirujący", "Władcza Postura", "Wódz", "Żyłka Handlowa"],
+        "trappings": ["pas z pistoletami, prochem i amunicją albo łuk", "kołczan i 10 strzał", "rumak z rzędem", "ekstrawagancki strój", "napierśnik"]
+      }
+    ]
   }
 }

@@ -39,3 +39,14 @@ Pełne teksty wpisane do `public/data/talents.json` (pola `variants.pod_bronia`)
      Rycerze (31–36), Psy Wojny (44–48), Kapłan/Kapłanka Bitewna Myrmidii (78),
      oraz z tabeli str. 9: Pikinier, Specjalista Oblężniczy, Kartografka, Lekki Kawalerzysta.
    - Tabela losowania profesji startowej (str. 9) + tworzenie postaci z Tilei (55–56) → integracja z kreatorem (Faza 4).
+
+## Rozbieżność do rozstrzygnięcia — talent „Szczur Tunelowy"
+
+Profesja **Specjalista Oblężniczy** (str. 46, poziom 2 „Specjalista Oblężniczy") wymienia talent **„Szczur Tunelowy"**, którego **nie ma** w `talents.json`. Istnieje natomiast **„Szczur Kanałowy"** (podręcznik podstawowy). Talent „Szczur Tunelowy" **nie jest** zdefiniowany w Pod Bronią (tylko wspomniany przy profesji).
+
+Prawdopodobnie to niespójność tłumaczenia tej samej zdolności. Proszę o decyzję:
+- (A) „Szczur Tunelowy" = „Szczur Kanałowy" → podmienię nazwę w profesji na istniejący talent; **albo**
+- (B) to osobny, nowy talent → podaj jego treść, dodam go do `talents.json` (`source: "Pod Bronią"`).
+
+Do czasu decyzji **wstrzymuję dodanie profesji „Specjalista Oblężniczy"** (reszta jej nazw jest poprawna). Profesja **Lekki Kawalerzysta** (str. 44) została już dodana — wszystkie jej nazwy istnieją.
+
