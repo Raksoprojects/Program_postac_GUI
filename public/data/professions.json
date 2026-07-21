@@ -9571,5 +9571,225 @@
         "trappings": ["koń wierzchowy z rzędem", "grupa Ciur Obozowych"]
       }
     ]
+  },
+  "Kartografka": {
+    "races": ["człowiek", "elf leśny", "elf wysoki", "krasnolud", "niziołek"],
+    "characteristics_pending": true,
+    "class": "Uczeni",
+    "source": "Pod Bronią",
+    "levels": [
+      {
+        "level": 1,
+        "title": "Geometrka",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": ["Broń Biała (Podstawowa)", "Nawigacja", "Percepcja", "Skradanie (Wieś)", "Rzemiosło (Kartograf)", "Sztuka (Kartografia)", "Sztuka Przetrwania", "Wiedza (Geografia)", "Wspinaczka", "Wycena"],
+        "talents": ["Czytanie/Pisanie", "Talent Artystyczny", "Włóczykij", "Wyczucie Kierunku"],
+        "trappings": ["arkusz dobrej jakości pergaminu", "zestaw do pisania"]
+      },
+      {
+        "level": 2,
+        "title": "Kartografka",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": ["Charyzma", "Jeździectwo (Konie)", "Odporność", "Plotkowanie", "Targowanie", "Wiedza (Heraldyka)"],
+        "talents": ["Chodu!", "Doświadczony Wędrowiec (Dowolny)", "Obieżyświat", "Zimna krew"],
+        "trappings": ["koń wierzchowy z rzędem", "teodolit"]
+      },
+      {
+        "level": 3,
+        "title": "Dyplomowana Kartografka",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": ["Badania Naukowe", "Intuicja", "Język (Gildii)", "Sekretne Znaki (Gildii)"],
+        "talents": ["Etykieta (Członkowie Gildii)", "Mól Książkowy", "Niewzruszony", "Zręczny"],
+        "trappings": ["dyplom", "dobrej jakości strój podróżny"]
+      },
+      {
+        "level": 4,
+        "title": "Mistrzyni Kartografii",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": ["Język (Dowolny)", "Wiedza (Dowolna)"],
+        "talents": ["Arcydzieło", "Mistrz Rzemiosła (Kartograf)", "Waleczne Serce", "Żyłka Handlowa"],
+        "trappings": ["dobrej jakości teodolit", "gabinet"]
+      }
+    ]
+  },
+  "Rycerz Najemny": {
+    "races": ["człowiek"],
+    "characteristics_pending": true,
+    "class": "Wojownicy",
+    "source": "Pod Bronią",
+    "levels": [
+      {
+        "level": 1,
+        "title": "Giermek Rycerza Najemnego",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": ["Atletyka", "Broń Biała (Kawaleryjska)", "Jeździectwo (Konie)", "Leczenie", "Mocna Głowa", "Opieka nad Zwierzętami", "Oswajanie", "Plotkowanie", "Rzemiosło (Podkuwanie Koni)", "Sztuka Przetrwania"],
+        "talents": ["Tragarz", "Urodzony Wojownik", "Urodzony w Siodle", "Zmysł Bitewny"],
+        "trappings": ["skórzana kurta", "kaftan kolczy", "koń wierzchowy z rzędem", "tarcza", "narzędzia pracy (Podkuwanie Koni)"]
+      },
+      {
+        "level": 2,
+        "title": "Rycerz Najemny",
+        "status": "Srebro 2",
+        "characteristics": [],
+        "skills": ["Broń Biała (Dowolna)", "Charyzma", "Intuicja", "Odporność", "Opanowanie", "Unik", "Zastraszanie"],
+        "talents": ["Etykieta (Dowolna)", "Obieżyświat", "Silny Cios", "Wstrzemięźliwy"],
+        "trappings": ["ciężki rumak bojowy z rzędem", "dowolna broń biała", "zbroja płytowa z hełmem", "osobisty herb"]
+      },
+      {
+        "level": 3,
+        "title": "Kapitan Rycerzy Najemnych",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": ["Dowodzenie", "Hazard", "Targowanie", "Wiedza (Sztuka Wojenna)"],
+        "talents": ["Mistrz Walki", "Niewzruszony", "Waleczne Serce", "Wódz"],
+        "trappings": ["kropierz", "niewielka świta pomocników"]
+      },
+      {
+        "level": 4,
+        "title": "Dowódca Rycerzy",
+        "status": "Złoto 3",
+        "characteristics": [],
+        "skills": ["Język (Bitewny)", "Wiedza (Dowolna)"],
+        "talents": ["Inspirujący", "Rozbrojenie", "Szczęście", "Żelazna Wola"],
+        "trappings": ["kompania rycerzy", "giermek"]
+      }
+    ]
+  },
+  "Rycerz Płonącego Słońca": {
+    "races": ["człowiek"],
+    "characteristics_pending": true,
+    "class": "Wojownicy",
+    "source": "Pod Bronią",
+    "levels": [
+      {
+        "level": 1,
+        "title": "Nowicjusz Płonącego Słońca",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": ["Atletyka", "Broń Biała (Kawaleryjska)", "Broń Biała (Podstawowa)", "Jeździectwo (Konie)", "Język (Klasyczny)", "Leczenie", "Opieka nad Zwierzętami", "Oswajanie", "Wiedza (Dowolna)", "Wiedza (Heraldyka)"],
+        "talents": ["Błękitna Krew", "Czytanie/Pisanie", "Tragarz", "Urodzony Wojownik"],
+        "trappings": ["skórzana kurta", "kaftan kolczy", "koń wierzchowy z rzędem", "tarcza", "narzędzia pracy (Podkuwanie Koni)", "symbol religijny (Myrmidii)"]
+      },
+      {
+        "level": 2,
+        "title": "Rycerz Płonącego Słońca",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": ["Broń Biała (Dowolna)", "Język (Bitewny)", "Opanowanie", "Unik", "Wiedza (Sztuka Wojenna)", "Zastraszanie"],
+        "talents": ["Etykieta (Dowolna)", "Morderczy Atak", "Obieżyświat", "Tarczownik"],
+        "trappings": ["ciężki rumak bojowy z rzędem", "dowolna broń biała", "kopia", "zbroja płytowa z hełmem"]
+      },
+      {
+        "level": 3,
+        "title": "Komtur",
+        "status": "Złoto 2",
+        "characteristics": [],
+        "skills": ["Badania Naukowe", "Broń Zasięgowa (Dowolna)", "Charyzma", "Dowodzenie"],
+        "talents": ["Nieustraszony (Dowolny)", "Niewzruszony", "Rozbrojenie", "Wódz"],
+        "trappings": ["kropierz", "niewielki oddział rycerzy Płonącego Słońca"]
+      },
+      {
+        "level": 4,
+        "title": "Rycerz Wewnętrznego Kręgu",
+        "status": "Złoto 4",
+        "characteristics": [],
+        "skills": ["Sekretne Znaki (Płonącego Słońca)", "Wiedza (Dowolna)"],
+        "talents": ["Inspirujący", "Majętny", "Silny Cios", "Waleczne Serce"],
+        "trappings": ["wielki hełm z symbolem słońca", "giermek", "duży oddział rycerzy albo kilka niewielkich oddziałów rycerzy"]
+      }
+    ]
+  },
+  "Rycerz Białego Wilka": {
+    "races": ["człowiek"],
+    "characteristics_pending": true,
+    "class": "Wojownicy",
+    "source": "Pod Bronią",
+    "levels": [
+      {
+        "level": 1,
+        "title": "Nowicjusz Białego Wilka",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": ["Atletyka", "Broń Biała (Kawaleryjska)", "Broń Biała (Podstawowa)", "Jeździectwo (Konie)", "Leczenie", "Opieka nad Zwierzętami", "Oswajanie", "Rzemiosło (Podkuwanie Koni)", "Sztuka Przetrwania", "Wiedza (Heraldyka)"],
+        "talents": ["Tragarz", "Twardziel", "Urodzony Wojownik", "Urodzony w Siodle"],
+        "trappings": ["skórzana kurta", "kaftan kolczy", "koń wierzchowy z rzędem", "młot kawaleryjski", "narzędzia pracy (Podkuwanie Koni)", "symbol religijny (Ulryka)"]
+      },
+      {
+        "level": 2,
+        "title": "Rycerz Białego Wilka",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": ["Broń Biała (Dowolna)", "Język (Bitewny)", "Odporność", "Opanowanie", "Unik", "Zastraszanie"],
+        "talents": ["Groźny", "Morderczy Atak", "Obieżyświat", "Silny Cios"],
+        "trappings": ["ciężki rumak bojowy z rzędem", "zbroja płytowa", "płaszcz z wilczej skóry"]
+      },
+      {
+        "level": 3,
+        "title": "Sierżant Rycerzy Świątynnych",
+        "status": "Złoto 2",
+        "characteristics": [],
+        "skills": ["Dowodzenie", "Mocna Głowa", "Percepcja", "Wiedza (Sztuka Wojenna)"],
+        "talents": ["Nieustraszony (Dowolny)", "Niewzruszony", "Wściekły Atak", "Wódz"],
+        "trappings": ["kropierz", "niewielki oddział rycerzy Białego Wilka"]
+      },
+      {
+        "level": 4,
+        "title": "Dowódca Kompanii Białego Wilka (Wewnętrzny Krąg)",
+        "status": "Złoto 3",
+        "characteristics": [],
+        "skills": ["Wiedza (Dowolna)", "Sekretne Znaki (Ulryka)"],
+        "talents": ["Inspirujący", "Nieubłagany", "Zimna krew", "Żelazna Wola"],
+        "trappings": ["nowicjusz", "kompania rycerzy Białego Wilka"]
+      }
+    ]
+  },
+  "Rycerz Pantery": {
+    "races": ["człowiek"],
+    "characteristics_pending": true,
+    "class": "Wojownicy",
+    "source": "Pod Bronią",
+    "levels": [
+      {
+        "level": 1,
+        "title": "Giermek Rycerza Pantery",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": ["Atletyka", "Broń Biała (Kawaleryjska)", "Broń Biała (Podstawowa)", "Jeździectwo (Konie)", "Leczenie", "Opieka nad Zwierzętami", "Oswajanie", "Rzemiosło (Podkuwanie Koni)", "Wiedza (Heraldyka)", "Wiedza (Imperium)"],
+        "talents": ["Etykieta (Dowolna)", "Tragarz", "Urodzony Wojownik", "Urodzony w Siodle"],
+        "trappings": ["skórzana kurta", "kaftan kolczy", "koń wierzchowy z rzędem", "tarcza", "narzędzia pracy (Podkuwanie Koni)"]
+      },
+      {
+        "level": 2,
+        "title": "Rycerz Pantery",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": ["Broń Biała (Dowolna)", "Język (Bitewny)", "Odporność", "Opanowanie", "Unik", "Zastraszanie"],
+        "talents": ["Groźny", "Silny Cios", "Tarczownik", "Zimna krew"],
+        "trappings": ["skóra wielkiego kota", "ciężki rumak bojowy z rzędem", "broń ręczna (miecz)", "kopia", "zbroja płytowa z wielkim hełmem ze zwierzęcym symbolem", "pierścień lub medalion z symbolem pantery"]
+      },
+      {
+        "level": 3,
+        "title": "Pierwszy Rycerz Pantery",
+        "status": "Złoto 2",
+        "characteristics": [],
+        "skills": ["Charyzma", "Dowodzenie", "Język (Dowolny)", "Wiedza (Sztuka Wojenna)"],
+        "talents": ["Nieustraszony (Chaos)", "Niewzruszony", "Waleczne Serce", "Wódz"],
+        "trappings": ["kropierz", "niewielki oddział Rycerzy Pantery"]
+      },
+      {
+        "level": 4,
+        "title": "Dowódca Kompanii Pantery (Wewnętrzny Krąg)",
+        "status": "Złoto 4",
+        "characteristics": [],
+        "skills": ["Sekretne Znaki (Rycerzy Pantery)", "Wiedza (Dowolna)"],
+        "talents": ["Inspirujący", "Morderczy Atak", "Rozbrojenie", "Żelazna Wola"],
+        "trappings": ["giermek", "jeden duży albo kilka niewielkich oddziałów Rycerzy Pantery"]
+      }
+    ]
   }
 }

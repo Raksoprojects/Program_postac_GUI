@@ -21,7 +21,8 @@
       "Piromanta",
       "Szamanka",
       "Kowal Run",
-      "Artylerzysta"
+      "Artylerzysta",
+      "Kartografka"
     ]
   },
   "Mieszczanie": {
@@ -120,7 +121,11 @@
       "Łucznicza",
       "Gwardzista Elektorski",
       "Halabardnik",
-      "Strzelec"
+      "Strzelec",
+      "Rycerz Najemny",
+      "Rycerz Płonącego Słońca",
+      "Rycerz Białego Wilka",
+      "Rycerz Pantery"
     ]
   }
 }
