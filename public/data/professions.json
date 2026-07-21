@@ -9835,5 +9835,93 @@
         "trappings": ["pas z pistoletami, prochem i amunicją albo łuk", "kołczan i 10 strzał", "rumak z rzędem", "ekstrawagancki strój", "napierśnik"]
       }
     ]
+  },
+  "Specjalista Oblężniczy": {
+    "races": ["człowiek", "elf wysoki", "krasnolud", "niziołek"],
+    "characteristics_pending": true,
+    "class": "Wojownicy",
+    "source": "Pod Bronią",
+    "levels": [
+      {
+        "level": 1,
+        "title": "Kusznik",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": ["Atletyka", "Broń Biała (Podstawowa)", "Broń Zasięgowa (Kusza)", "Hazard", "Język (Bitewny)", "Mocna Głowa", "Odporność", "Plotkowanie", "Sztuka Przetrwania", "Wspinaczka"],
+        "talents": ["Etykieta (Najemnicy)", "Mocne Plecy", "Strzelec Wyborowy", "Szybkie Przeładowanie"],
+        "trappings": ["kusza i amunicja", "pawęż", "skórzana kurta", "skórzany hełm", "kapelusz z piórem"]
+      },
+      {
+        "level": 2,
+        "title": "Specjalista Oblężniczy",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": ["Broń Biała (Dwuręczna)", "Intuicja", "Percepcja", "Rzemiosło (Górnictwo)", "Wiedza (Inżynier)", "Zastawianie Pułapek"],
+        "talents": ["Szczur Kanałowy", "Twardziel", "Walka w Ciasnocie", "Wyczucie Kierunku"],
+        "trappings": ["dwuręczny kilof", "łopata"]
+      },
+      {
+        "level": 3,
+        "title": "Saper",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": ["Broń Zasięgowa (Eksperymentalna)", "Broń Zasięgowa (Katapulta)", "Dowodzenie", "Rzemiosło (Materiały Wybuchowe)"],
+        "talents": ["Artylerzysta", "Celny Strzał", "Wytwórca (Materiały Wybuchowe)", "Niewzruszony"],
+        "trappings": ["książka z tabelami balistycznymi", "zestaw sześciu 60-sekundowych lontów", "napierśnik płytowy", "pistolet z prochem i amunicją", "narzędzia pracy (Inżyniera)"]
+      },
+      {
+        "level": 4,
+        "title": "Mistrz Oblężeń",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": ["Jeździectwo (Konie)", "Wiedza (Prawo)"],
+        "talents": ["Błyskotliwość", "Mistrz Rzemiosła (Inżynieria)", "Wódz", "Zmysł Bitewny"],
+        "trappings": ["dobrej jakości ubranie", "lekki rumak bojowy z rzędem", "duży namiot wraz ze sługą"]
+      }
+    ]
+  },
+  "Pikinier": {
+    "races": ["człowiek"],
+    "characteristics_pending": true,
+    "class": "Wojownicy",
+    "source": "Pod Bronią",
+    "levels": [
+      {
+        "level": 1,
+        "title": "Rekrut Pikinierów",
+        "status": "Brąz 5",
+        "characteristics": [],
+        "skills": ["Atletyka", "Broń Biała (Drzewcowa)", "Broń Biała (Podstawowa)", "Hazard", "Język (Bitewny)", "Język (Tileański)", "Mocna Głowa", "Odporność", "Unik", "Wspinaczka"],
+        "talents": ["Atak Wyprzedzający", "Bardzo Silny", "Musztra", "Urodzony Wojownik"],
+        "trappings": ["kolet", "skórzany hełm", "pika", "mundur w barwach jednostki"]
+      },
+      {
+        "level": 2,
+        "title": "Pikinier",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": ["Leczenie", "Opanowanie", "Plotkowanie", "Sztuka Przetrwania", "Wiedza (Sztuka Wojenna)", "Zastraszanie"],
+        "talents": ["Etykieta (Najemnicy)", "Nieustraszony (Kawaleria)", "Szuler Kościany", "Walka w Ciasnocie"],
+        "trappings": ["kości do gry", "kolczuga", "hełm otwarty"]
+      },
+      {
+        "level": 3,
+        "title": "Dowódca Szeregu",
+        "status": "Srebro 4",
+        "characteristics": [],
+        "skills": ["Dowodzenie", "Intuicja", "Percepcja", "Targowanie"],
+        "talents": ["Bitewny Refleks", "Krzepki", "Pierwsza Pomoc", "Zmysł Bitewny"],
+        "trappings": ["napierśnik płytowy", "szarfa z symbolem rangi"]
+      },
+      {
+        "level": 4,
+        "title": "Kapitan Chorągwi",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": ["Jeździectwo (Konie)", "Wiedza (Prawo)"],
+        "talents": ["Inspirujący", "Niewzruszony", "Niezwykle Odporny", "Wódz"],
+        "trappings": ["buława komendanta", "chorąży", "lekki rumak bojowy z rzędem", "dobrej jakości mundur", "naramienniki i nagolenniki płytowe", "sztandar jednostki"]
+      }
+    ]
   }
 }

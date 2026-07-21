@@ -44,9 +44,5 @@ Pełne teksty wpisane do `public/data/talents.json` (pola `variants.pod_bronia`)
 
 Profesja **Specjalista Oblężniczy** (str. 46, poziom 2 „Specjalista Oblężniczy") wymienia talent **„Szczur Tunelowy"**, którego **nie ma** w `talents.json`. Istnieje natomiast **„Szczur Kanałowy"** (podręcznik podstawowy). Talent „Szczur Tunelowy" **nie jest** zdefiniowany w Pod Bronią (tylko wspomniany przy profesji).
 
-Prawdopodobnie to niespójność tłumaczenia tej samej zdolności. Proszę o decyzję:
-- (A) „Szczur Tunelowy" = „Szczur Kanałowy" → podmienię nazwę w profesji na istniejący talent; **albo**
-- (B) to osobny, nowy talent → podaj jego treść, dodam go do `talents.json` (`source: "Pod Bronią"`).
-
-Do czasu decyzji **wstrzymuję dodanie profesji „Specjalista Oblężniczy"** (reszta jej nazw jest poprawna). Profesja **Lekki Kawalerzysta** (str. 44) została już dodana — wszystkie jej nazwy istnieją.
+**ROZSTRZYGNIĘTE (potwierdzenie użytkownika):** to błąd podręcznika — „Szczur Tunelowy" = **„Szczur Kanałowy"**. Profesja **Specjalista Oblężniczy** została dodana z talentem „Szczur Kanałowy".
 
