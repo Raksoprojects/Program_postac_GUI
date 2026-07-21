@@ -9307,5 +9307,269 @@
     "class": "Wojownicy",
     "source": "Wiatry Magii",
     "page": 36
+  },
+  "Łucznicza": {
+    "races": ["człowiek", "elf leśny", "elf wysoki", "niziołek"],
+    "characteristics_pending": true,
+    "class": "Wojownicy",
+    "source": "Pod Bronią",
+    "levels": [
+      {
+        "level": 1,
+        "title": "Młoda Łuczniczka",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": ["Atletyka", "Broń Zasięgowa (Łuk)", "Język (Bitewny)", "Mocna Głowa", "Muzyka (Obój)", "Odporność", "Percepcja", "Skradanie (Wieś)", "Unik", "Wspinaczka"],
+        "talents": ["Błyskawiczny Strzał", "Celny Strzał", "Mocne Plecy", "Urodzony Wojownik"],
+        "trappings": ["kołczan i 10 strzał", "łuk", "plecak", "mundur"]
+      },
+      {
+        "level": 2,
+        "title": "Łuczniczka",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": ["Broń Biała (Podstawowa)", "Hazard", "Plotkowanie", "Rzemiosło (Wyrób Strzał)", "Sztuka Przetrwania", "Tropienie"],
+        "talents": ["Etykieta (Żołnierze)", "Musztra", "Strzał Przebijający", "Strzelec Wyborowy"],
+        "trappings": ["nakrycie głowy", "miecz", "dobrej jakości łuk"]
+      },
+      {
+        "level": 3,
+        "title": "Sierżant Łuczniczek",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": ["Dowodzenie", "Jeździectwo (Konie)", "Nawigacja", "Opanowanie"],
+        "talents": ["Niewzruszony", "Snajper", "Strzał w Dziesiątkę", "Zmysł Bitewny"],
+        "trappings": ["symbol rangi", "dobrej jakości mundur"]
+      },
+      {
+        "level": 4,
+        "title": "Kapitan Łuczniczek",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": ["Sekretne Znaki (Zwiadowców)", "Wiedza (Sztuka Wojenna)"],
+        "talents": ["Inspirujący", "Obieżyświat", "Waleczne Serce", "Wódz"],
+        "trappings": ["patent oficerski", "lekki rumak bojowy z rzędem", "symbol rangi"]
+      }
+    ]
+  },
+  "Gwardzista Elektorski": {
+    "races": ["człowiek"],
+    "characteristics_pending": true,
+    "class": "Wojownicy",
+    "source": "Pod Bronią",
+    "levels": [
+      {
+        "level": 1,
+        "title": "Kadet Gwardii Elektorskiej",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": ["Atletyka", "Broń Biała (Dwuręczna)", "Broń Biała (Podstawowa)", "Język (Bitewny)", "Mocna Głowa", "Muzyka (Bęben)", "Odporność", "Opanowanie", "Plotkowanie", "Unik"],
+        "talents": ["Mocne Plecy", "Musztra", "Urodzony Wojownik", "Zimna krew"],
+        "trappings": ["napierśnik płytowy", "mundur", "miecz dwuręczny"]
+      },
+      {
+        "level": 2,
+        "title": "Gwardzista Elektorski",
+        "status": "Srebro 4",
+        "characteristics": [],
+        "skills": ["Broń Biała (Dowolna)", "Hazard", "Percepcja", "Sztuka Przetrwania", "Wiedza (Heraldyka)", "Zastraszanie"],
+        "talents": ["Bitewny Refleks", "Etykieta (Żołnierze)", "Nieustraszony (Dowolny)", "Silny Cios"],
+        "trappings": ["pełna zbroja płytowa", "duży kapelusz z piórami"]
+      },
+      {
+        "level": 3,
+        "title": "Sierżant Gwardii Elektorskiej",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": ["Dowodzenie", "Intuicja", "Jeździectwo (Konie)", "Nawigacja"],
+        "talents": ["Walka w Ciasnocie", "Niewzruszony", "Wódz", "Zmysł Bitewny"],
+        "trappings": ["traktat o walce mieczem dwuręcznym", "dobrej jakości miecz dwuręczny", "symbol rangi"]
+      },
+      {
+        "level": 4,
+        "title": "Kapitan Gwardii Elektorskiej",
+        "status": "Złoto 2",
+        "characteristics": [],
+        "skills": ["Charyzma", "Wiedza (Sztuka Wojenna)"],
+        "talents": ["Inspirujący", "Mówca", "Waleczne Serce", "Władcza Postura"],
+        "trappings": ["patent oficerski", "lekki rumak bojowy z rzędem", "dobrej jakości mundur", "symbol rangi"]
+      }
+    ]
+  },
+  "Halabardnik": {
+    "races": ["człowiek", "krasnolud", "niziołek"],
+    "characteristics_pending": true,
+    "class": "Wojownicy",
+    "source": "Pod Bronią",
+    "levels": [
+      {
+        "level": 1,
+        "title": "Rekrut Halabardników",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": ["Atletyka", "Broń Biała (Drzewcowa)", "Broń Biała (Podstawowa)", "Język (Bitewny)", "Kuglarstwo (Parada)", "Mocna Głowa", "Muzyka (Bęben)", "Odporność", "Opanowanie", "Unik"],
+        "talents": ["Mocne Plecy", "Musztra", "Szuler Kościany", "Urodzony Wojownik"],
+        "trappings": ["halabarda", "kolet", "mundur"]
+      },
+      {
+        "level": 2,
+        "title": "Halabardnik",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": ["Hazard", "Percepcja", "Plotkowanie", "Sztuka Przetrwania", "Wspinaczka", "Zastraszanie"],
+        "talents": ["Etykieta (Żołnierze)", "Nieustraszony (Dowolny)", "Silny Cios", "Walka w Ciasnocie"],
+        "trappings": ["napierśnik płytowy", "hełm", "dobrej jakości halabarda"]
+      },
+      {
+        "level": 3,
+        "title": "Sierżant Halabardników",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": ["Dowodzenie", "Intuicja", "Jeździectwo (Konie)", "Nawigacja"],
+        "talents": ["Niewzruszony", "Waleczne Serce", "Wódz", "Zmysł Bitewny"],
+        "trappings": ["symbol rangi", "dobrej jakości mundur"]
+      },
+      {
+        "level": 4,
+        "title": "Kapitan Halabardników",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": ["Charyzma", "Wiedza (Sztuka Wojenna)"],
+        "talents": ["Inspirujący", "Mówca", "Obieżyświat", "Władcza Postura"],
+        "trappings": ["patent oficerski", "lekki rumak bojowy z rzędem", "dobrej jakości miecz", "symbol rangi"]
+      }
+    ]
+  },
+  "Strzelec": {
+    "races": ["człowiek", "krasnolud", "niziołek"],
+    "characteristics_pending": true,
+    "class": "Wojownicy",
+    "source": "Pod Bronią",
+    "levels": [
+      {
+        "level": 1,
+        "title": "Rekrut Strzelców",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": ["Atletyka", "Broń Biała (Podstawowa)", "Broń Zasięgowa (Prochowa)", "Język (Bitewny)", "Mocna Głowa", "Muzyka (Flet)", "Odporność", "Opanowanie", "Percepcja", "Unik"],
+        "talents": ["Artylerzysta", "Celny Strzał", "Snajper", "Strzelec Wyborowy"],
+        "trappings": ["rusznica z 10 nabojami", "mundur"]
+      },
+      {
+        "level": 2,
+        "title": "Strzelec",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": ["Hazard", "Intuicja", "Plotkowanie", "Rzemiosło (Rusznikarz)", "Sztuka Przetrwania", "Wspinaczka"],
+        "talents": ["Błyskawiczny Strzał", "Etykieta (Żołnierze)", "Musztra", "Szybkie Przeładowanie"],
+        "trappings": ["duży kapelusz z piórem", "dobrej jakości rusznica z 10 nabojami"]
+      },
+      {
+        "level": 3,
+        "title": "Sierżant Strzelców",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": ["Broń Zasięgowa (Eksperymentalna)", "Dowodzenie", "Jeździectwo (Konie)", "Nawigacja"],
+        "talents": ["Niewzruszony", "Strzał Przebijający", "Strzał w Dziesiątkę", "Zmysł Bitewny"],
+        "trappings": ["symbol rangi", "dobrej jakości mundur"]
+      },
+      {
+        "level": 4,
+        "title": "Kapitan Strzelców",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": ["Charyzma", "Wiedza (Sztuka Wojenna)"],
+        "talents": ["Inspirujący", "Obieżyświat", "Waleczne Serce", "Wódz"],
+        "trappings": ["patent oficerski", "lekki rumak bojowy z rzędem", "symbol rangi"]
+      }
+    ]
+  },
+  "Artylerzysta": {
+    "races": ["człowiek", "elf wysoki", "krasnolud", "niziołek"],
+    "characteristics_pending": true,
+    "class": "Uczeni",
+    "source": "Pod Bronią",
+    "levels": [
+      {
+        "level": 1,
+        "title": "Uczeń Artylerzysty",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": ["Broń Biała (Podstawowa)", "Broń Zasięgowa (Prochowa, Katapulta, Kusza albo Eksperymentalna)", "Język (Bitewny)", "Nawigacja", "Odporność", "Opanowanie", "Opieka nad Zwierzętami", "Percepcja", "Powożenie", "Wycena"],
+        "talents": ["Mocne Plecy", "Strzelec Wyborowy", "Szybkie Przeładowanie", "Urodzony Wojownik"],
+        "trappings": ["skórzany fartuch"]
+      },
+      {
+        "level": 2,
+        "title": "Artylerzysta",
+        "status": "Srebro 3",
+        "characteristics": [],
+        "skills": ["Broń Zasięgowa (Prochowa, Katapulta, Kusza albo Eksperymentalna)", "Hazard", "Mocna Głowa", "Plotkowanie", "Rzemiosło (Rusznikarz albo Cieśla)", "Sztuka Przetrwania"],
+        "talents": ["Dowódca Załogi", "Etykieta (Żołnierze)", "Snajper", "Wyczucie Kierunku"],
+        "trappings": ["broń (dowolna)", "luneta", "narzędzia pracy", "mundur"]
+      },
+      {
+        "level": 3,
+        "title": "Kapitan Artylerii",
+        "status": "Srebro 5",
+        "characteristics": [],
+        "skills": ["Dowodzenie", "Intuicja", "Jeździectwo (Konie)", "Wiedza (Artyleria)"],
+        "talents": ["Czytanie/Pisanie", "Niewzruszony", "Złota Rączka", "Zmysł Bitewny"],
+        "trappings": ["symbol rangi", "dobrej jakości mundur"]
+      },
+      {
+        "level": 4,
+        "title": "Mistrz Artylerii",
+        "status": "Złoto 1",
+        "characteristics": [],
+        "skills": ["Charyzma", "Wiedza (Sztuka Wojenna)"],
+        "talents": ["Inspirujący", "Mówca", "Obieżyświat", "Waleczne Serce"],
+        "trappings": ["jakiś rodzaj artylerii i przodek działowy", "patent oficerski", "lekki rumak bojowy z rzędem", "mapa", "symbol rangi"]
+      }
+    ]
+  },
+  "Ciura Obozowa": {
+    "races": ["człowiek", "elf leśny", "elf wysoki", "krasnolud", "niziołek"],
+    "characteristics_pending": true,
+    "class": "Wędrowcy",
+    "source": "Pod Bronią",
+    "levels": [
+      {
+        "level": 1,
+        "title": "Wszetecznica",
+        "status": "Brąz 1",
+        "characteristics": [],
+        "skills": ["Broń Biała (Dowolna)", "Charyzma", "Kuglarstwo (Taniec)", "Mocna Głowa", "Percepcja", "Plotkowanie", "Sztuka Przetrwania", "Targowanie", "Unik", "Występy (Dowolne)"],
+        "talents": ["Atrakcyjny", "Cios Poniżej Pasa", "Gadanina", "Niegodny Uwagi"],
+        "trappings": ["zwijane posłanie", "plecak"]
+      },
+      {
+        "level": 2,
+        "title": "Ciura Obozowa",
+        "status": "Brąz 4",
+        "characteristics": [],
+        "skills": ["Atletyka", "Broń Zasięgowa (Dowolna)", "Hazard", "Odporność", "Przekupstwo", "Skradanie (Wieś)"],
+        "talents": ["Etykieta (Żołnierze)", "Szuler Kościany", "Włóczykij", "Wstrzemięźliwy"],
+        "trappings": ["namiot", "dobrej jakości kapelusz"]
+      },
+      {
+        "level": 3,
+        "title": "Doświadczona Zbieraczka",
+        "status": "Srebro 1",
+        "characteristics": [],
+        "skills": ["Intuicja", "Język (Dowolny)", "Opanowanie", "Zastraszanie"],
+        "talents": ["Niewzruszony", "Niezwykle Odporny", "Obieżyświat", "Tragarz"],
+        "trappings": ["dobrej jakości ubranie"]
+      },
+      {
+        "level": 4,
+        "title": "Przywódczyni Obozu",
+        "status": "Srebro 4",
+        "characteristics": [],
+        "skills": ["Dowodzenie", "Wycena"],
+        "talents": ["Inspirujący", "Mówca", "Odporność Psychiczna", "Waleczne Serce"],
+        "trappings": ["koń wierzchowy z rzędem", "grupa Ciur Obozowych"]
+      }
+    ]
   }
 }

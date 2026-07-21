@@ -20,7 +20,8 @@
       "Spirytysta",
       "Piromanta",
       "Szamanka",
-      "Kowal Run"
+      "Kowal Run",
+      "Artylerzysta"
     ]
   },
   "Mieszczanie": {
@@ -74,7 +75,8 @@
       "Łowczyni Nagród",
       "Posłaniec",
       "Strażniczka Dróg",
-      "Woźnica"
+      "Woźnica",
+      "Ciura Obozowa"
     ]
   },
   "Wodniacy": {
@@ -114,7 +116,11 @@
       "Rycerz",
       "Zabójca",
       "Żołnierz",
-      "Bedel"
+      "Bedel",
+      "Łucznicza",
+      "Gwardzista Elektorski",
+      "Halabardnik",
+      "Strzelec"
     ]
   }
 }
