@@ -1,0 +1,225 @@
+{
+  "note": "Przedmioty magiczne i premie do czarowania. channelSL / castSL = premia PS do Testów Splatania / Rzucania Zaklęć, cnMod = zmiana PZ zaklęć (tradycji właściciela i wspólnych tajemnych). \"matches\" = nazwy w wyposażeniu profesji, które oznaczają ten przedmiot. \"random\" = waga przy losowaniu za \"przedmiot magiczny\" (lores: tradycje, dla których przedmiot jest bardziej prawdopodobny).",
+  "talents": {
+    "Precyzyjne Inkantowanie": {
+      "castSL": 1,
+      "note": "+1 PS do udanych Testów Języka (Magicznego) za każdy poziom (zasada domowa)"
+    },
+    "Zmysł Magii": {
+      "channelSL": 1,
+      "note": "+1 PS do udanych Testów Splatania Magii za każdy poziom (zasada domowa)"
+    }
+  },
+  "items": [
+    {
+      "name": "praktyczne szaty",
+      "group": "szaty",
+      "matches": [
+        "praktyczne szaty"
+      ],
+      "channelSL": 1,
+      "source": "Wiatry Magii",
+      "page": 151,
+      "description": "Tanie, wygodne szaty w barwach Tradycji — czarodziej często pozostaje nierozpoznany. +1 PS do Testów Splatania Magii (szaty obcej Tradycji: −1 PS do Splatania i Rzucania)."
+    },
+    {
+      "name": "zwykłe szaty",
+      "group": "szaty",
+      "matches": [
+        "zwykłe szaty"
+      ],
+      "channelSL": 2,
+      "source": "Wiatry Magii",
+      "page": 151,
+      "description": "Szaty Mistrza Magii z płaszczem i charakterystycznym kapeluszem. +2 PS do Testów Splatania Magii."
+    },
+    {
+      "name": "wyszukane szaty",
+      "group": "szaty",
+      "matches": [
+        "wyszukane szaty"
+      ],
+      "channelSL": 3,
+      "source": "Wiatry Magii",
+      "page": 151,
+      "description": "Ciężkie, wielowarstwowe szaty Arcymaga, szyte nasyconymi magią nićmi — nie da się ich nie rozpoznać. +3 PS do Testów Splatania Magii."
+    },
+    {
+      "name": "umagiczniony kostur",
+      "matches": [
+        "umagiczniony kostur",
+        "kostur magiczny",
+        "magiczny kostur"
+      ],
+      "cnMod": -1,
+      "source": "Wiatry Magii",
+      "page": 152,
+      "random": {
+        "weight": 3
+      },
+      "description": "Kostur dostrojony do Wiatru właściciela: obniża PZ zaklęć jego Tradycji i Powszechnej Magii Tajemnej o 1 (min. 0). W walce jak zwykły kostur; przy zaklęciach dotykowych liczy się jako przedłużenie ciała. Kostur przyciągający Dhar to Pomniejsze Źródło Spaczenia."
+    },
+    {
+      "name": "Mikstura Magicznej Mocy",
+      "matches": [
+        "mikstura magicznej mocy"
+      ],
+      "source": "Wiatry Magii",
+      "page": 162,
+      "random": {
+        "weight": 3
+      },
+      "description": "Po wypiciu PZ zaklęć i rytuałów postaci spadają o połowę (w górę) na 2k10 Rund."
+    },
+    {
+      "name": "Mikstura Splatania",
+      "matches": [
+        "mikstura splatania"
+      ],
+      "source": "Wiatry Magii",
+      "page": 162,
+      "random": {
+        "weight": 3
+      },
+      "description": "+2 PS do wszystkich Testów Splatania Magii przez 1k10 minut."
+    },
+    {
+      "name": "Mikstura Lotu",
+      "matches": [
+        "mikstura lotu"
+      ],
+      "source": "Wiatry Magii",
+      "page": 162,
+      "random": {
+        "weight": 1,
+        "lores": [
+          "Niebios",
+          "Elementalizmu"
+        ]
+      },
+      "description": "Cecha Stworzenia Latanie (20) na 1k10 minut."
+    },
+    {
+      "name": "Mikstura Losu",
+      "matches": [
+        "mikstura losu"
+      ],
+      "source": "Wiatry Magii",
+      "page": 162,
+      "random": {
+        "weight": 1,
+        "lores": [
+          "Niebios"
+        ]
+      },
+      "description": "Łatwy (+40) Test Wróżbiarstwa (albo Inteligencji) — wgląd w przyszłość."
+    },
+    {
+      "name": "Mikstura Niewidzialności",
+      "matches": [
+        "mikstura niewidzialności"
+      ],
+      "source": "Wiatry Magii",
+      "page": 162,
+      "random": {
+        "weight": 1,
+        "lores": [
+          "Cieni"
+        ]
+      },
+      "description": "Niewidzialność na 1k10 minut (Percepcja Magiczna: −2 PS do wykrycia); atakowany cel dostaje Stan Zaskoczenie."
+    },
+    {
+      "name": "Mikstura Wzmocnienia",
+      "matches": [
+        "mikstura wzmocnienia"
+      ],
+      "source": "Wiatry Magii",
+      "page": 162,
+      "random": {
+        "weight": 1,
+        "lores": [
+          "Zwierząt",
+          "Metalu"
+        ]
+      },
+      "description": "BS i BWt +2 oraz +2 PS do Testów opartych na Sile i Wytrzymałości przez 1k10 godzin."
+    },
+    {
+      "name": "Nektar Witalności",
+      "matches": [
+        "nektar witalności"
+      ],
+      "source": "Wiatry Magii",
+      "page": 163,
+      "random": {
+        "weight": 1,
+        "lores": [
+          "Życia",
+          "Pór Roku"
+        ]
+      },
+      "description": "Cecha Stworzenia Regeneracja na 1k10 minut."
+    },
+    {
+      "name": "Panacea Universalis",
+      "matches": [
+        "panacea universalis"
+      ],
+      "source": "Wiatry Magii",
+      "page": 163,
+      "random": {
+        "weight": 1,
+        "lores": [
+          "Życia",
+          "Światła"
+        ]
+      },
+      "description": "Leczy rany i choroby (Test Odporności na każdą przypadłość); leczy wiele Ran Krytycznych, ale nie Amputacje."
+    },
+    {
+      "name": "Nektar Prawdomówności",
+      "matches": [
+        "nektar prawdomówności"
+      ],
+      "source": "Wiatry Magii",
+      "page": 163,
+      "random": {
+        "weight": 1,
+        "lores": [
+          "Światła",
+          "Niebios"
+        ]
+      },
+      "description": "Pijący musi zdać Trudny (−20) Test Opanowania, by skłamać, przez 3k10 godzin."
+    },
+    {
+      "name": "zwój z zaklęciem",
+      "matches": [
+        "zwój"
+      ],
+      "scroll": true,
+      "source": "Wiatry Magii",
+      "page": 153,
+      "random": {
+        "weight": 3
+      },
+      "description": "Zaklęcie zapisane na zwoju: rzuca je Akcją i Wymagającym (+0) Testem Języka (Magicznego) każdy, kto zna ten język (inni: Trudny (−20) Test). Zwój ulega zniszczeniu."
+    },
+    {
+      "name": "laska Lileath",
+      "matches": [
+        "laska lileath"
+      ],
+      "cnMod": -1,
+      "source": "Podręcznik Gracza: Wysokie Elfy",
+      "page": 85,
+      "description": "Laska zdobiona półksiężycami Lileath, nadawana w Białej Wieży Hoetha, gdy elf zostaje Magiem. −1 PZ zaklęć dowolnej kolorowej Tradycji i Tradycji Wysokiej Magii (min. 0). Wytwarzana przez kapłanów Vaula — trudno zdobyć następną."
+    }
+  ],
+  "magicItemTrappings": [
+    "przedmiot magiczny",
+    "magiczny przedmiot",
+    "przedmioty magiczne"
+  ]
+}

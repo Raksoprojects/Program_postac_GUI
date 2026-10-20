@@ -1,0 +1,4793 @@
+{
+ "note": "Przedmioty magiczne wg WFRP4 Unofficial Treasure & Artefacts 1.0 (nieoficjalne, Chris MacLean), przełożone i dostosowane: zaklęcia losowane z polskiej bazy zaklęć, runy krasnoludzkie z Podręcznika Gracza: Krasnoludy (najwyżej 3 zwykłe i 1 mistrzowska), Broń Chaosu z Warriors of Chaos. Kategorie: categoryTable (k100). Klucze 'rolls' w pozycjach to dodatkowe rzuty generatora.",
+ "source": "WFRP4 Unofficial Treasure & Artefacts 1.0 (nieoficjalne)",
+ "categoryTable": [
+  {
+   "min": 1,
+   "max": 2,
+   "name": "lustra"
+  },
+  {
+   "min": 3,
+   "max": 10,
+   "name": "amunicja"
+  },
+  {
+   "min": 11,
+   "max": 20,
+   "name": "amulety"
+  },
+  {
+   "min": 21,
+   "max": 30,
+   "name": "pancerze"
+  },
+  {
+   "min": 31,
+   "max": 32,
+   "name": "buty"
+  },
+  {
+   "min": 33,
+   "max": 34,
+   "name": "plaszcze"
+  },
+  {
+   "min": 35,
+   "max": 36,
+   "name": "pojemniki"
+  },
+  {
+   "min": 37,
+   "max": 38,
+   "name": "rekawice"
+  },
+  {
+   "min": 39,
+   "max": 40,
+   "name": "rogi"
+  },
+  {
+   "min": 41,
+   "max": 42,
+   "name": "klejnoty"
+  },
+  {
+   "min": 43,
+   "max": 50,
+   "name": "mikstury"
+  },
+  {
+   "min": 51,
+   "max": 60,
+   "name": "pierscienie"
+  },
+  {
+   "min": 61,
+   "max": 62,
+   "name": "szaty"
+  },
+  {
+   "min": 63,
+   "max": 67,
+   "name": "rozdzki"
+  },
+  {
+   "min": 68,
+   "max": 69,
+   "name": "zwoje"
+  },
+  {
+   "min": 70,
+   "max": 71,
+   "name": "ksiegi"
+  },
+  {
+   "min": 72,
+   "max": 75,
+   "name": "blyskotki"
+  },
+  {
+   "min": 76,
+   "max": 95,
+   "name": "bronie"
+  },
+  {
+   "min": 96,
+   "max": 99,
+   "name": "kostury"
+  },
+  {
+   "min": 100,
+   "max": 100,
+   "name": "slawne"
+  }
+ ],
+ "categories": {
+  "lustra": {
+   "name": "Wszechwidzące lustra",
+   "wp": "2k10+35",
+   "limit": "1 na miejsce",
+   "itemQualities": true,
+   "intro": "Lustra wykonuje się parami — każde pokazuje odbicie widziane w bliźniaczym, co pozwala rozmawiać na odległość. Zasięg nieograniczony na lądzie, ale ponad 800 km wody zrywa kontakt. Rozmiar od lusterka (Obc. 0) po lustro stojące (Obc. 4). Nieudane opanowanie: 25% szans na klątwę.",
+   "items": [
+    {
+     "min": 1,
+     "max": 95,
+     "name": "Pojedyncze wszechwidzące lustro",
+     "text": "Znaleziono jedno lustro bez bliźniaka — odnalezienie drugiego to gotowy zaczyn przygody."
+    },
+    {
+     "min": 96,
+     "max": 100,
+     "name": "Para wszechwidzących luster",
+     "text": "Oba lustra — można od razu porozumiewać się na odległość."
+    }
+   ]
+  },
+  "amunicja": {
+   "name": "Amunicja",
+   "limit": "1 rodzaj strzał, bełtów albo kul do procy",
+   "intro": "Magiczna amunicja ma Cechę Magiczny; po trafieniu ulega zniszczeniu. Chybioną można odzyskać Testem Percepcji (kule do procy trudniej). Prochu i bomb nie da się zaklinać.",
+   "kinds": [
+    {
+     "min": 1,
+     "max": 5,
+     "name": "Strzała elfia",
+     "count": "1k5+1",
+     "column": "elf"
+    },
+    {
+     "min": 6,
+     "max": 50,
+     "name": "Strzała",
+     "count": "1k10+2",
+     "column": "arrow"
+    },
+    {
+     "min": 51,
+     "max": 80,
+     "name": "Bełt",
+     "count": "1k10+2",
+     "column": "arrow"
+    },
+    {
+     "min": 81,
+     "max": 100,
+     "name": "Kula ołowiana do procy",
+     "count": "1k10",
+     "column": "sling"
+    }
+   ],
+   "columns": {
+    "arrow": [
+     {
+      "min": 1,
+      "max": 10,
+      "name": "Niecelności"
+     },
+     {
+      "min": 11,
+      "max": 25,
+      "name": "Celności"
+     },
+     {
+      "min": 26,
+      "max": 35,
+      "name": "Zguby"
+     },
+     {
+      "min": 36,
+      "max": 50,
+      "name": "Krwawienia"
+     },
+     {
+      "min": 51,
+      "max": 55,
+      "name": "Wybuchu"
+     },
+     {
+      "min": 56,
+      "max": 60,
+      "name": "Zagłady"
+     },
+     {
+      "min": 61,
+      "max": 65,
+      "name": "Hakowania"
+     },
+     {
+      "min": 66,
+      "max": 80,
+      "name": "Mocy"
+     },
+     {
+      "min": 81,
+      "max": 85,
+      "name": "Nagłej Śmierci"
+     },
+     {
+      "min": 86,
+      "max": 90,
+      "name": "Teleportacji"
+     },
+     {
+      "min": 91,
+      "max": 95,
+      "name": "Prawdziwego Lotu"
+     },
+     {
+      "min": 96,
+      "max": 100,
+      "name": "Jadu"
+     }
+    ],
+    "elf": [
+     {
+      "min": 1,
+      "max": 20,
+      "name": "Celności"
+     },
+     {
+      "min": 21,
+      "max": 30,
+      "name": "Zguby"
+     },
+     {
+      "min": 31,
+      "max": 45,
+      "name": "Krwawienia"
+     },
+     {
+      "min": 46,
+      "max": 50,
+      "name": "Wybuchu"
+     },
+     {
+      "min": 51,
+      "max": 55,
+      "name": "Zagłady"
+     },
+     {
+      "min": 56,
+      "max": 60,
+      "name": "Hakowania"
+     },
+     {
+      "min": 61,
+      "max": 75,
+      "name": "Mocy"
+     },
+     {
+      "min": 76,
+      "max": 80,
+      "name": "Nagłej Śmierci"
+     },
+     {
+      "min": 81,
+      "max": 90,
+      "name": "Teleportacji"
+     },
+     {
+      "min": 91,
+      "max": 95,
+      "name": "Prawdziwego Lotu"
+     },
+     {
+      "min": 96,
+      "max": 100,
+      "name": "Jadu"
+     }
+    ],
+    "sling": [
+     {
+      "min": 1,
+      "max": 15,
+      "name": "Niecelności"
+     },
+     {
+      "min": 16,
+      "max": 30,
+      "name": "Celności"
+     },
+     {
+      "min": 31,
+      "max": 40,
+      "name": "Zguby"
+     },
+     {
+      "min": 41,
+      "max": 50,
+      "name": "Krwawienia"
+     },
+     {
+      "min": 51,
+      "max": 55,
+      "name": "Zagłady"
+     },
+     {
+      "min": 56,
+      "max": 70,
+      "name": "Mocy"
+     },
+     {
+      "min": 71,
+      "max": 75,
+      "name": "Nagłej Śmierci"
+     },
+     {
+      "min": 76,
+      "max": 90,
+      "name": "Prawdziwego Lotu"
+     },
+     {
+      "min": 91,
+      "max": 100,
+      "name": "Jadu"
+     }
+    ]
+   },
+   "powers": {
+    "Niecelności": {
+     "text": "Udany atak tą amunicją musisz odwrócić, jeśli da to porażkę. MG niech nie zdradza powodu.",
+     "cursed": true
+    },
+    "Celności": {
+     "text": "Premia do Umiejętności Strzeleckich przy strzale: 1–4: +5, 5–7: +10, 8–9: +20, 10: +30.",
+     "rolls": [
+      "accuracy"
+     ]
+    },
+    "Zguby": {
+     "text": "Trafiona istota wskazanego rodzaju otrzymuje oprócz Obrażeń Trafienie Krytyczne.",
+     "rolls": [
+      "species"
+     ]
+    },
+    "Krwawienia": {
+     "text": "Trafienie zadaje Stan Krwawienie; dopóki pocisku nie usunie się Przeciętnym (+0) Testem Leczenia, ofiara co minutę dostaje kolejny Stan Krwawienie. Pocisk zbiera krew — przydatną jako składnik zaklęć."
+    },
+    "Wybuchu": {
+     "text": "Pocisk eksploduje tam, gdzie uderzy — trafiając czy nie. Zamiast Obrażeń łuku zadaje Obrażenia bomby (+12), z Zaletami bomby."
+    },
+    "Zagłady": {
+     "text": "Trafiona istota wskazanego rodzaju musi zdać Test Odporności albo ginie. Nawet po zdanym Teście otrzymuje 1k10 Obrażeń, których nie zmniejszają BWt ani PP.",
+     "rolls": [
+      "species"
+     ]
+    },
+    "Hakowania": {
+     "text": "Pocisk wbija się w każdą nieorganiczną powierzchnię i utrzyma 30 m liny oraz istotę Przeciętnego rozmiaru. Większy ciężar — 50% szans. Działa 1k10 razy."
+    },
+    "Mocy": {
+     "text": "+1 do Obrażeń."
+    },
+    "Nagłej Śmierci": {
+     "text": "Wywołuje zasadę Nagłej Śmierci wobec każdej ofiary, której BWt jest niższy niż twój BS."
+    },
+    "Teleportacji": {
+     "text": "Pocisk wbija się w twardą powierzchnię. Możesz od razu zużyć resztę Ruchu, by przenieść się z jedną dotkniętą osobą tam, gdzie utkwił."
+    },
+    "Prawdziwego Lotu": {
+     "text": "Nieudany Test Umiejętności Strzeleckich możesz odwrócić, jeśli da to sukces."
+    },
+    "Jadu": {
+     "text": "Ofiara musi zdać Trudny (−10) Test Odporności albo otrzymuje Stan Zatrucie."
+    }
+   }
+  },
+  "amulety": {
+   "name": "Amulety",
+   "wp": "2k10+20",
+   "limit": "1",
+   "itemQualities": true,
+   "intro": "Medalion, bransoleta, naszyjnik albo inny talizman. Trzeba go nosić, by go opanować i korzystać z mocy.",
+   "items": [
+    {
+     "min": 1,
+     "max": 15,
+     "name": "Przeklęty amulet",
+     "text": "Klątwę poznajesz, gdy opanujesz przedmiot. Rzuć ponownie, by ustalić jego moc; dwa razy „przeklęty” — brak dobroczynnej mocy.",
+     "cursed": true,
+     "reroll": true
+    },
+    {
+     "min": 16,
+     "max": 25,
+     "name": "Amulet z trzykroć błogosławionej miedzi",
+     "text": "Od zwykłej broni tracisz o 1 Ranę mniej; +20 do Testów Odporności przeciw truciznom i narkotykom. W pobliżu trucizny (1 m) amulet zielenieje."
+    },
+    {
+     "min": 26,
+     "max": 30,
+     "name": "Amulet Nieugiętości",
+     "text": "+10 do Wytrzymałości. Nie można go zdjąć, dopóki nie zginiesz albo nie stracisz kończyny."
+    },
+    {
+     "min": 31,
+     "max": 35,
+     "name": "Medalion Alluminasa",
+     "text": "Raz na sesję Akcją Darmową dotykasz nim czoła celu (albo własnego): cel odzyskuje 1 Ranę i może Trudnym (−20) Testem Odporności pozbyć się Punktu Zepsucia. Alluminas był podobno bogiem Prawa, martwym od stuleci."
+    },
+    {
+     "min": 36,
+     "max": 40,
+     "name": "Kolia",
+     "text": "Przepiękna biżuteria z Zaletą Wyśmienity 3 i SW 45. Opanowana daje +10 do Siły Woli. Nieopanowana — albo przy próbie zdjęcia — zaczyna dusić: co Rundę +1 Stan Pochwycenie (Siła = SW kolii) i BSW Ran (zmniejszonych o BWt, min. 1 za Stan). Przy 0 Żywotności każdy Stan to Rana Krytyczna. Wartość: ok. 8000 zk dla znawcy, jubiler wyceni ją na 160 zk.",
+     "wp": "45"
+    },
+    {
+     "min": 41,
+     "max": 45,
+     "name": "Węglowy amulet",
+     "text": "Działa tylko dla Czarodzieja Kolegium Jasności: +1 PS i +1 Stan Podpalenie przy każdym ognistym zaklęciu."
+    },
+    {
+     "min": 46,
+     "max": 50,
+     "name": "Talizman Wytrwałości",
+     "text": "+10 do Odporności."
+    },
+    {
+     "min": 51,
+     "max": 55,
+     "name": "Amulet Odporności na Ogień",
+     "text": "Miedź z ognistą emalią. Zyskujesz Talent Odporny na (Ogień) — działa także na efekty, których zwykle nie da się odeprzeć."
+    },
+    {
+     "min": 56,
+     "max": 60,
+     "name": "Żelazny amulet",
+     "text": "+1 poziom Talentu Odporność na Magię. Nie zadziała u nikogo, kto potrafi rzucać zaklęcia."
+    },
+    {
+     "min": 61,
+     "max": 65,
+     "name": "Jadeitowy amulet",
+     "text": "Zyskujesz Cechę Regeneracja (bez odrastania kończyn i przeżycia śmiertelnych Ran Krytycznych)."
+    },
+    {
+     "min": 66,
+     "max": 70,
+     "name": "Amulet Prawa",
+     "text": "Działa tylko dla bohaterów o dobrych pobudkach, bez mutacji i Obłędów i z mniejszą liczbą Punktów Zepsucia niż BSW. Niewrażliwość na Strach i Grozę od istot Chaosu, spaczonych, mutantów i Ożywieńców oraz +20 przy odpieraniu ich niefizycznych ataków."
+    },
+    {
+     "min": 71,
+     "max": 75,
+     "name": "Obsydianowy amulet",
+     "text": "Dwa poziomy Talentu Odporność na Magię."
+    },
+    {
+     "min": 76,
+     "max": 80,
+     "name": "Opalowy amulet",
+     "text": "Pierwsze trafienie Wręcz albo Dystansowe w sesji nie zadaje ci Obrażeń (poza Trafieniami Krytycznymi)."
+    },
+    {
+     "min": 81,
+     "max": 85,
+     "name": "Talizman Ocalenia",
+     "text": "Cecha Ochrona (10), a jeśli już ją masz — lepsza o 1."
+    },
+    {
+     "min": 86,
+     "max": 90,
+     "name": "Talizman Ochrony",
+     "text": "+1 PP na wszystkich Miejscach Trafienia. Gdy użyjesz go do odbicia Trafienia Krytycznego, magia gaśnie na tydzień (albo dwie sesje).",
+     "effects": {
+      "ap": 1
+     }
+    },
+    {
+     "min": 91,
+     "max": 95,
+     "name": "Amulet Prawego Srebra",
+     "text": "Pełna niewrażliwość na efekty psychologiczne wywoływane przez istoty Chaosu, demony, istoty eteryczne i Ożywieńców."
+    },
+    {
+     "min": 96,
+     "max": 98,
+     "name": "Amulet Czujności",
+     "text": "Działa, gdy śpisz: budzi cię, gdy wroga istota zbliży się na 12 metrów — śpiącego nie da się Zaskoczyć. Nie ostrzega przed zaklęciami, strzałami z daleka ani złodziejem."
+    },
+    {
+     "min": 99,
+     "max": 100,
+     "name": "Amulet runiczny",
+     "text": "Wyryto na nim co najmniej jedną runę. Nie ma Siły Woli.",
+     "runes": "talisman",
+     "noWp": true
+    }
+   ]
+  },
+  "pancerze": {
+   "name": "Pancerze i tarcze",
+   "limit": "1 magiczny element na Miejsce Trafienia, 1 tarcza",
+   "intro": "SW pancerza = bazowa SW elementu + modyfikator liczby zaklęć + modyfikator wzmocnionej ochrony. Pierwszym zaklęciem jest zawsze Wzmocniona Ochrona. Magiczny pancerz ma zwykle Wytrzymały i Wyśmienity równe premii PP.",
+   "pieces": [
+    {
+     "min": 1,
+     "max": 10,
+     "name": "Czepiec kolczy",
+     "wp": 25
+    },
+    {
+     "min": 11,
+     "max": 15,
+     "name": "Hełm otwarty",
+     "wp": 30
+    },
+    {
+     "min": 16,
+     "max": 20,
+     "name": "Hełm",
+     "wp": 35
+    },
+    {
+     "min": 21,
+     "max": 30,
+     "name": "Skórzany kaftan",
+     "wp": 20
+    },
+    {
+     "min": 31,
+     "max": 40,
+     "name": "Kaftan kolczy",
+     "wp": 25
+    },
+    {
+     "min": 41,
+     "max": 50,
+     "name": "Napierśnik",
+     "wp": 35
+    },
+    {
+     "min": 51,
+     "max": 60,
+     "name": "Kolczuga",
+     "wp": 30
+    },
+    {
+     "min": 61,
+     "max": 70,
+     "name": "Nogawice kolcze",
+     "wp": 25
+    },
+    {
+     "min": 71,
+     "max": 80,
+     "name": "Nagolenniki płytowe",
+     "wp": 35
+    },
+    {
+     "min": 81,
+     "max": 90,
+     "name": "Naramienniki",
+     "wp": 25
+    },
+    {
+     "min": 91,
+     "max": 95,
+     "name": "Tarcza",
+     "wp": 20
+    },
+    {
+     "min": 96,
+     "max": 100,
+     "name": "Pawęż",
+     "wp": 35
+    }
+   ],
+   "enchantmentCount": [
+    {
+     "min": 1,
+     "max": 5,
+     "name": "przeklęty",
+     "cursed": true,
+     "count": 0
+    },
+    {
+     "min": 6,
+     "max": 80,
+     "name": "1",
+     "count": 1,
+     "wpDice": "1k10"
+    },
+    {
+     "min": 81,
+     "max": 95,
+     "name": "2",
+     "count": 2,
+     "wpDice": "2k10"
+    },
+    {
+     "min": 96,
+     "max": 98,
+     "name": "3",
+     "count": 3,
+     "wpDice": "3k10"
+    },
+    {
+     "min": 99,
+     "max": 100,
+     "name": "runiczny",
+     "runes": "armour",
+     "count": 0
+    }
+   ],
+   "protection": [
+    {
+     "min": 1,
+     "max": 25,
+     "name": "Gromril",
+     "text": "+1 PP ponad normę oraz Zalety Wytrzymały 3, Wyśmienity 2 i Poręczny.",
+     "wpDice": "2k10",
+     "ap": 1,
+     "qualities": [
+      "Wytrzymały 3",
+      "Wyśmienity 2",
+      "Poręczny"
+     ]
+    },
+    {
+     "min": 26,
+     "max": 85,
+     "name": "+1 PP",
+     "wpDice": "1k10",
+     "ap": 1
+    },
+    {
+     "min": 86,
+     "max": 98,
+     "name": "+2 PP",
+     "wpDice": "3k10",
+     "ap": 2
+    },
+    {
+     "min": 99,
+     "max": 100,
+     "name": "+3 PP",
+     "wpDice": "4k10",
+     "ap": 3
+    }
+   ],
+   "enchantments": [
+    {
+     "min": 1,
+     "max": 15,
+     "name": "Przeklęty pancerz",
+     "text": "Nie zdejmiesz go, dopóki klątwa trwa.",
+     "cursed": true
+    },
+    {
+     "min": 16,
+     "max": 20,
+     "name": "Wrogość",
+     "text": "Zyskujesz Cechę Wrogość wobec wskazanego rodzaju istot.",
+     "rolls": [
+      "species"
+     ]
+    },
+    {
+     "min": 21,
+     "max": 30,
+     "name": "Zmiana Cechy",
+     "text": "Działa, gdy nosisz pancerz.",
+     "rolls": [
+      "charArmour"
+     ]
+    },
+    {
+     "min": 31,
+     "max": 34,
+     "name": "Zaczarowanie",
+     "text": "Pierwsze udane uderzenie w sesji zostaje pochłonięte — nawet Trafienie Krytyczne."
+    },
+    {
+     "min": 35,
+     "max": 37,
+     "name": "Przeznaczenie",
+     "text": "Cecha Ochrona (9+) przeciw wszystkim atakom wymierzonym w ciebie."
+    },
+    {
+     "min": 38,
+     "max": 40,
+     "name": "Niezgoda",
+     "text": "Raz na starcie Akcją wskazujesz związanego z tobą wroga: Trudny (−10) Test Opanowania albo PS Stanów Oszołomienie od syczących szeptów zawiści."
+    },
+    {
+     "min": 41,
+     "max": 45,
+     "name": "Uniki",
+     "text": "+10 do Uników."
+    },
+    {
+     "min": 46,
+     "max": 47,
+     "name": "Smocza",
+     "text": "Cecha Niewrażliwość (Ogień)."
+    },
+    {
+     "min": 48,
+     "max": 50,
+     "name": "Fortuna",
+     "text": "Cecha Ochrona (7+) przeciw atakom w to Miejsce Trafienia."
+    },
+    {
+     "min": 51,
+     "max": 54,
+     "name": "Hazardzista",
+     "text": "Punkt Szczęścia wydany jako Akcja Darmowa daje Ochronę (6+) przeciw atakom w to Miejsce Trafienia."
+    },
+    {
+     "min": 55,
+     "max": 57,
+     "name": "Lśniące łuski",
+     "text": "Udane ataki w to Miejsce Trafienia mają −1 PS."
+    },
+    {
+     "min": 58,
+     "max": 60,
+     "name": "Nienawiść",
+     "text": "Zyskujesz Cechę Nienawiść wobec wskazanego rodzaju istot.",
+     "rolls": [
+      "species"
+     ]
+    },
+    {
+     "min": 61,
+     "max": 64,
+     "name": "Niewidzialność",
+     "text": "Możesz stać się niewidzialny na życzenie; wykryje cię tylko inny zmysł albo istota z Percepcją Magiczną po Teście Percepcji."
+    },
+    {
+     "min": 65,
+     "max": 69,
+     "name": "Moc miejsca",
+     "text": "Ramiona — strącasz rękami zwykłe pociski; korpus — Cecha Regeneracja; głowa — Punktem Bohatera odbijasz Trafienie Krytyczne w głowę; nogi — nie działają na ciebie zaklęcia i efekty ograniczające ruch; tarcza — Zaleta Łamacz mieczy."
+    },
+    {
+     "min": 70,
+     "max": 72,
+     "name": "Ochrona przed pociskami magicznymi",
+     "text": "Niewrażliwość na zaklęcia Magiczny Pocisk trafiające w to Miejsce."
+    },
+    {
+     "min": 73,
+     "max": 75,
+     "name": "Osłona",
+     "text": "Połowa Obrażeń od jednego rodzaju ataku i niewrażliwość na jego efekty bez obrażeń.",
+     "rolls": [
+      "attack"
+     ]
+    },
+    {
+     "min": 76,
+     "max": 85,
+     "name": "Ptolos",
+     "text": "Możesz Unikać albo bronić się tarczą przed atakami dystansowymi z każdego zasięgu, jeśli widzisz strzelca, z premią +10."
+    },
+    {
+     "min": 86,
+     "max": 87,
+     "name": "Ranalda",
+     "text": "Każde udane trafienie w to Miejsce trzeba przerzucić — liczy się drugi wynik."
+    },
+    {
+     "min": 88,
+     "max": 91,
+     "name": "Posrebrzana stal",
+     "text": "Testy Walki Wręcz i Strzeleckie istot z Cechą Magiczny przeciw temu Miejscu mają −2 PS."
+    },
+    {
+     "min": 92,
+     "max": 95,
+     "name": "Tarcza przed zaklęciami",
+     "text": "Talent Odporność na Magię na poziomie twojego BWt."
+    },
+    {
+     "min": 96,
+     "max": 99,
+     "name": "Czarnoksięska",
+     "text": "Noszenie pancerza nie przeszkadza w rzucaniu zaklęć.",
+     "rolls": [
+      "wizardry"
+     ]
+    },
+    {
+     "min": 100,
+     "max": 100,
+     "name": "Zbroja Chaosu",
+     "text": "Zrasta się z ciałem — zdjąć ją może tylko zabójcza operacja; +1k10 Punktów Zepsucia. 5 PP w tym Miejscu, Obciążenie 0, +1 poziom Talentu Twardziel, bez kar do Skradania i Percepcji, czary bez kar, dopasowuje się do mutacji. Każdy łowca czarownic zechce cię zabić."
+    }
+   ],
+   "wizardry": [
+    {
+     "min": 1,
+     "max": 75,
+     "name": "bez dodatkowej mocy"
+    },
+    {
+     "min": 76,
+     "max": 80,
+     "name": "Niewrażliwość",
+     "text": "Jesteś niewrażliwy na jedną losową Tradycję."
+    },
+    {
+     "min": 81,
+     "max": 85,
+     "name": "Energia",
+     "text": "Co sesję rzuć 1k10 — tyle PS możesz wydać przed rzutem na rzucenie zaklęć."
+    },
+    {
+     "min": 86,
+     "max": 90,
+     "name": "Wzmacniacz",
+     "text": "Po udanym rzuceniu zaklęcia możesz dodać +2 PS."
+    },
+    {
+     "min": 91,
+     "max": 95,
+     "name": "Pochłanianie zaklęć",
+     "text": "Gdy udanie rozproszysz zaklęcie, pancerz pochłania PS równe jego PZ."
+    },
+    {
+     "min": 96,
+     "max": 100,
+     "name": "Magazyn zaklęć",
+     "text": "Działa jak Klejnot Zaklęcia.",
+     "rolls": [
+      "spell"
+     ]
+    }
+   ]
+  },
+  "buty": {
+   "name": "Buty",
+   "wp": "2k10+40",
+   "limit": "1 para",
+   "itemQualities": true,
+   "intro": "Opanowane buty dopasowują się do stóp właściciela.",
+   "items": [
+    {
+     "min": 1,
+     "max": 10,
+     "name": "Buty Bovvy",
+     "text": "Ciężkie buty wojenne: 1 Przewagą wykonujesz Tupnięcie jako Darmowy Atak (Broń Biała (Bijatyka), Ogłuszająca, Obrażenia = 2 × BS). Są bardzo głośne: −10 do Skradania."
+    },
+    {
+     "min": 11,
+     "max": 20,
+     "name": "Buty Rozkazu",
+     "text": "Nie działają na ciebie — ożywają na nogach kogoś innego, słuchają twoich rozkazów i nie da się ich zdjąć bez twojej zgody (wykonują ostatni rozkaz, np. „jeśli ktoś was ukradnie, zanieście go do jeziora”). 50% szans, że właściciel jest w pobliżu."
+    },
+    {
+     "min": 21,
+     "max": 35,
+     "name": "Buty Nieruchomego Głazu",
+     "text": "Ciężkie (Obc. 2): nie da się cię przewrócić, pochwycić ani odepchnąć, ignorujesz Powalenie — nawet przy 0 Żywotności. Szybkość −1, Zwinność −20."
+    },
+    {
+     "min": 36,
+     "max": 50,
+     "name": "Buty Skoków",
+     "text": "Skaczesz na odległość liczoną w metrach zamiast w stopach. Nie chronią przed upadkiem."
+    },
+    {
+     "min": 51,
+     "max": 55,
+     "name": "Buty Doskonałości",
+     "text": "Zaleta Wyśmienity 3, nie wymagają opanowania. Najwygodniejsze buty świata — po kilku tygodniach rodzi się niezdrowa więź (obsesja albo paranoja). Gdy je stracisz albo zniszczysz, otrzymujesz 1k10 Punktów Zepsucia.",
+     "noWp": true
+    },
+    {
+     "min": 56,
+     "max": 65,
+     "name": "Buty Ciszy",
+     "text": "Idąc zwykłym krokiem nie zaalarmujesz nikogo, kto nie uważa. Wartownik musi zdać Bardzo Trudny (−30) Test Percepcji (Trudny (−10), gdy biegniesz albo szarżujesz)."
+    },
+    {
+     "min": 66,
+     "max": 80,
+     "name": "Buty Szybkości",
+     "text": "+1 do Szybkości.",
+     "effects": {
+      "movement": 1
+     }
+    },
+    {
+     "min": 81,
+     "max": 90,
+     "name": "Buty Schowka",
+     "text": "Sekretne kieszenie otwierane tylko przez ciebie: do 4 Obc. w każdym bucie (np. miecz dwuręczny), bez obciążania."
+    },
+    {
+     "min": 91,
+     "max": 95,
+     "name": "Buty Bez Śladu",
+     "text": "Nie zostawiają śladów nawet w kurzu i piasku; nie można cię wytropić wzrokiem."
+    },
+    {
+     "min": 96,
+     "max": 100,
+     "name": "Buty Wilka",
+     "text": "Podbite futrem: śnieg i lód nie są trudnym terenem, dwa razy dłużej znosisz zimno, Przeciętnym (+20) Testem Odporności odpierasz Stany od ataków zimnem. W upale męczysz się dwa razy szybciej. Ulubione przez sługi Ulryka."
+    }
+   ]
+  },
+  "plaszcze": {
+   "name": "Płaszcze",
+   "wp": "2k10+35",
+   "limit": "1",
+   "itemQualities": true,
+   "intro": "Płaszcz działa, gdy go nosisz.",
+   "items": [
+    {
+     "min": 1,
+     "max": 10,
+     "name": "Płaszcz Odważnych",
+     "text": "Czujesz się nieustraszony: Cecha Niewrażliwość na Psychologię."
+    },
+    {
+     "min": 11,
+     "max": 15,
+     "name": "Uroczy płaszcz",
+     "text": "Peleryna podkreślająca pozycję: Wyśmienity 3, po poziomie Talentów Atrakcyjny, Władcza Postura i Etykieta (Szlachta)."
+    },
+    {
+     "min": 16,
+     "max": 35,
+     "name": "Płaszcz Wygody",
+     "text": "+1 PS do Testów Opanowania; znosi skrajne temperatury."
+    },
+    {
+     "min": 36,
+     "max": 55,
+     "name": "Płaszcz Sztyletów",
+     "text": "+20 do ataków bronią bardzo krótką i rzucaną; te ataki zyskują Zaletę Niszczycielska nawet bez odpowiedniej Umiejętności."
+    },
+    {
+     "min": 56,
+     "max": 60,
+     "name": "Elfi płaszcz",
+     "text": "Elf nie musi go opanowywać. Liczysz się, jakbyś był w średniej osłonie, i masz +20 do Skradania."
+    },
+    {
+     "min": 61,
+     "max": 85,
+     "name": "Płaszcz Ochrony",
+     "text": "Ataki Wręcz i Dystansowe przeciw tobie mają −1 PS."
+    },
+    {
+     "min": 86,
+     "max": 95,
+     "name": "Płaszcz Cienia",
+     "text": "Nieudany Test Skradania możesz odwrócić, jeśli da to sukces."
+    },
+    {
+     "min": 96,
+     "max": 100,
+     "name": "Płaszcz Duszenia",
+     "text": "Założony od razu przeklina — bez opanowania. Przeciwstawny Test Intuicji/Siły Woli (bez Szóstego Zmysłu jesteś Zaskoczony): wygrana — zrywasz go, tracąc PS Ran; porażka — PS Stanów Pochwycenie (Siła = SW płaszcza) i płaszcz próbuje cię udusić. Wytrzymały 5.",
+     "cursed": true
+    }
+   ]
+  },
+  "pojemniki": {
+   "name": "Pojemniki",
+   "wp": "2k10+25",
+   "limit": "1",
+   "itemQualities": true,
+   "intro": "Sprytni czarodzieje zaklinali najzwyklejsze torby i bukłaki.",
+   "items": [
+    {
+     "min": 1,
+     "max": 10,
+     "name": "Torba Znikania",
+     "text": "Wygląda i działa jak zwykła torba — ale gdy właściciel śpi, wszystko w środku znika z tego świata na zawsze."
+    },
+    {
+     "min": 11,
+     "max": 20,
+     "name": "Torba Składania",
+     "text": "Mieści nieskończenie wiele, ale każdy przedmiot o Obc. 1+ albo dłuższy niż 30 cm zostaje wielokrotnie złożony — i zwykle zniszczony. Monety, ubrania i papier wychodzą nietknięte."
+    },
+    {
+     "min": 21,
+     "max": 30,
+     "name": "Torba Lekkości",
+     "text": "Przedmioty w plecaku prawie nic nie ważą: limit 1k10+10 Obc., pełna torba waży 2 Obc. Nie zmieści żywej istoty większej niż Niewielka."
+    },
+    {
+     "min": 31,
+     "max": 35,
+     "name": "Torba z Middenheim",
+     "text": "Jak Torba Lekkości, a do tego odporna na zwykły ogień i wodę (nie na zgniatanie) — idealna na pergaminy."
+    },
+    {
+     "min": 36,
+     "max": 40,
+     "name": "Sakwa Zasobów",
+     "text": "Raz dziennie czarodziej wyjmuje z niej składniki do jednego zaklęcia; trzeba ich użyć w ciągu minuty, potem obracają się w pył. Obc. 0."
+    },
+    {
+     "min": 41,
+     "max": 50,
+     "name": "Piersiówka Pijaka",
+     "text": "Wynalazek krasnoludzkiego piwowara: mieści 5 litrów alkoholu albo pół litra innego płynu; +20 do Testów Mocnej Głowy przy piciu z niej."
+    },
+    {
+     "min": 51,
+     "max": 60,
+     "name": "Dziurawa sakiewka",
+     "text": "Pobłogosławiona przez samego Ranalda: raz dziennie włóż do niej coś, by zyskać +1 Punkt Szczęścia — rzecz wypadnie po 1k10 minutach, choć sakiewka nie ma dziury."
+    },
+    {
+     "min": 61,
+     "max": 70,
+     "name": "Sakiewka z Zębami",
+     "text": "Gdy otworzy ją ktoś obcy, gryzą go magiczne zęby: 1 Rana mimo pancerza i Stan Pochwycenie (S 60), potem +1 Rana i +1 Pochwycenie co Rundę, a sakiewka wrzeszczy „Złodziej! Złodziej!”. Skradzioną można próbować opanować raz dziennie: SW 75, −10 za każdy dzień z dala od właściciela."
+    },
+    {
+     "min": 71,
+     "max": 75,
+     "name": "Szczurzy wór",
+     "text": "Z niewidzialnego portalu wychodzą nieskończenie szczury. Rzucony szczur zadaje 1 Ranę po udanym Teście US. Trzeba je karmić, inaczej głośno pożerają się nawzajem. Zbyt sprytne użycie ściąga łowców czarownic."
+    },
+    {
+     "min": 76,
+     "max": 90,
+     "name": "Bukłak Orzeźwienia",
+     "text": "Każdy, kto z niego pije, gdy trzymasz bukłak, traci Stan Zmęczenie (raz dziennie na osobę)."
+    },
+    {
+     "min": 91,
+     "max": 95,
+     "name": "Bukłak Wywerny",
+     "text": "Każdy, kto z niego pije, otrzymuje 2 Stany Zatrucie — bez względu na zawartość.",
+     "cursed": true
+    },
+    {
+     "min": 96,
+     "max": 100,
+     "name": "Bukłak ze skóry",
+     "text": "Uszyty jakby z ludzkiej (albo elfiej, krasnoludzkiej…) skóry. Każdy płyn zamienia się w nim po kilku minutach w świeżą, chłodną wodę. Kto mu się przyjrzy, może nabrać wstrętu do właściciela."
+    }
+   ]
+  },
+  "rekawice": {
+   "name": "Rękawice",
+   "wp": "2k10+25",
+   "limit": "1 para",
+   "itemQualities": true,
+   "intro": "Rękawice trzeba opanować i nosić.",
+   "items": [
+    {
+     "min": 1,
+     "max": 15,
+     "name": "Rękawice Łucznika",
+     "text": "Nieudany Test strzału z łuku możesz odwrócić, jeśli da to sukces."
+    },
+    {
+     "min": 16,
+     "max": 25,
+     "name": "Rękawice Kobry",
+     "text": "Przy wygranym ataku Bijatyką z palców wyrastają jadowe kły: cel otrzymuje tyle Stanów Zatrucie, ile wynosi twój BZr. Nie możesz trzymać broni; nie działa na istoty, których BWt przewyższa twój BS."
+    },
+    {
+     "min": 26,
+     "max": 45,
+     "name": "Rękawice Zręczności",
+     "text": "+10 do Zręczności; Otwieranie Zamków, Zastawianie Pułapek i Zwinne Palce dochodzą do każdej Profesji; maksymalne poziomy Talentów Oburęczność i Szybkie Przeładowanie.",
+     "effects": {
+      "chars": {
+       "Zr": 10
+      }
+     }
+    },
+    {
+     "min": 46,
+     "max": 65,
+     "name": "Rękawice Ogra",
+     "text": "Liczą się jak kolcze rękawice (Częściowy). Siła rośnie do 50, ale Inteligencja spada do 20 — zapominasz 1k5 Umiejętności i Talentów (także zaklęć). Zdjąć je można dopiero po ponownym opanowaniu, raz dziennie; każda porażka to 1k10+5 Obrażeń od miażdżących pięści.",
+     "cursed": true
+    },
+    {
+     "min": 66,
+     "max": 75,
+     "name": "Rękawica z Kamieniem Mocy",
+     "text": "Opanuje ją tylko czarodziej tej samej Tradycji co osadzony Kamień Mocy.",
+     "rolls": [
+      "powerStone"
+     ]
+    },
+    {
+     "min": 76,
+     "max": 85,
+     "name": "Rękawice Pająka",
+     "text": "Cecha Wspinacz."
+    },
+    {
+     "min": 86,
+     "max": 95,
+     "name": "Rękawice Duszenia",
+     "text": "+20 rozwinięć Bijatyki. Po każdym Teście Bijatyki — wygranym czy nie — Przeciwstawny Test Siły Woli albo musisz udusić przeciwnika (Pochwycenie, a potem Przeciwstawne Testy Siły: BS+PS Obrażeń).",
+     "cursed": true
+    },
+    {
+     "min": 96,
+     "max": 100,
+     "name": "Rękawice Uwiądu",
+     "text": "Jedwab i koronka (Wyśmienity 2). Żywa materia, której dotkną, musi zdać Przeciętny (+20) Test Odporności albo zaczyna gnić: istota otrzymuje Trafienie Krytyczne w to Miejsce (+10 do rzutu za każdy PS porażki). Dotknięcie siebie wierzchem rękawicy działa i na ciebie."
+    }
+   ]
+  },
+  "rogi": {
+   "name": "Rogi",
+   "limit": "1",
+   "itemQualities": true,
+   "intro": "Rzadsze od innych przedmiotów. Zwykle wyglądają jak wypolerowane rogi myśliwskie; moc działa raz dziennie, stałe premie — zawsze.",
+   "items": [
+    {
+     "min": 1,
+     "max": 15,
+     "name": "Róg Wygnania",
+     "text": "Gdy zadmiesz, na końcu Rundy dodajesz BSW do Przewagi — tylko na potrzeby Cechy Niestabilny. Wyrzeźbiony z ludzkiej kości udowej, okuty srebrem.",
+     "wp": "50"
+    },
+    {
+     "min": 16,
+     "max": 35,
+     "name": "Róg Tchórza",
+     "text": "Gdy zadmiesz, zyskujesz Cechę Lęk wobec pierwszej rzeczy, którą zobaczysz.",
+     "wp": "25",
+     "cursed": true
+    },
+    {
+     "min": 36,
+     "max": 55,
+     "name": "Róg Pijaństwa",
+     "text": "+20 do Mocnej Głowy przy samym noszeniu. Zadęty napełnia się piwem jak Bugman's XXXXXX przez 1k10 minut; nalane wyparowuje po godzinie.",
+     "wp": "35"
+    },
+    {
+     "min": 56,
+     "max": 70,
+     "name": "Róg Ogarów",
+     "text": "Przywołuje 3 psy bojowe (Przeciętne), które pojawiają się na końcu Rundy i służą minutę albo do końca starcia. Mają Cechę Wyszkolony (Ujarzmiony, Aportujący, Stróżujący, Magiczny, Bojowy).",
+     "wp": "45"
+    },
+    {
+     "min": 71,
+     "max": 80,
+     "name": "Róg Polenty",
+     "text": "Tileański wynalazek: wypluwa jedzenie dla 1k10 istot Przeciętnego rozmiaru — żółtą papkę albo miękkie bochenki, pożywne na cały dzień. Raz na sesję.",
+     "wp": "40"
+    },
+    {
+     "min": 81,
+     "max": 95,
+     "name": "Róg Męstwa",
+     "text": "Sprzymierzeńcy w promieniu Ogd metrów zyskują na 1k10 Rund premię do Testów Walki Wręcz i Strzeleckich równą twoim rozwinięciom Dowodzenia.",
+     "wp": "25"
+    },
+    {
+     "min": 96,
+     "max": 96,
+     "name": "Róg jednorożca",
+     "text": "Nie może go trzymać nikt spaczony, demoniczny, nieumarły ani związany z Mrocznymi Potęgami (rzuca go i dostaje Stan Podpalenie). Inni: +10 do SW, Talenty Czysta Dusza i Szósty Zmysł, odporność na kłamstwa i zdradę. Raz dziennie: leczy sojuszników w promieniu BSW metrów o 1k10 Ran albo rani istoty Chaosu za 1k10, albo usuwa Zatrucia lub chorobę jednej istoty.",
+     "wp": "85"
+    },
+    {
+     "min": 97,
+     "max": 100,
+     "name": "Runiczny Róg Trwogi",
+     "text": "Wyryto w nim Mistrzowską Runę Trwogi i ewentualnie inne runy. Nie ma Siły Woli. Zadęty: wrogowie w promieniu SW metrów zdają Test Opanowania albo otrzymują Stan Oszołomienie; runa gaśnie do świtu.",
+     "runes": "talisman",
+     "noWp": true
+    }
+   ]
+  },
+  "klejnoty": {
+   "name": "Klejnoty Mocy",
+   "wp": "3k10+40",
+   "limit": "1",
+   "itemQualities": true,
+   "intro": "Samoodnawiające się magazyny energii magicznej.",
+   "items": [
+    {
+     "min": 1,
+     "max": 15,
+     "name": "Klejnot Psychicznego Wglądu",
+     "text": "Raz na sesję: rzuć 1k10 — nieparzyste: Test Opanowania przeciw Zepsuciu (drobne); parzyste: Stan Oszołomienie i 1k10 Obrażeń psychicznych (minus BWt). Potem dostajesz przydatną wskazówkę dotyczącą przygody."
+    },
+    {
+     "min": 16,
+     "max": 55,
+     "name": "Klejnot Zaklęcia",
+     "text": "Zawiera jedno zaklęcie — użyje go tylko czarujący znający jego Tradycję. Raz dziennie rzucasz je z automatycznym sukcesem i PS równymi BSW; nie budzi Wiatrów Magii.",
+     "rolls": [
+      "spell"
+     ]
+    },
+    {
+     "min": 56,
+     "max": 60,
+     "name": "Klejnot-grimuar",
+     "text": "Jak Klejnot Zaklęcia, ale z kilkoma zaklęciami (1k10: 1–4 dwa, 5–8 trzy, 9–10 cztery).",
+     "rolls": [
+      "spells"
+     ]
+    },
+    {
+     "min": 61,
+     "max": 70,
+     "name": "Klejnot Tajemny",
+     "text": "Zawiera 1k10 PS do wykorzystania w jednym zaklęciu na sesję."
+    },
+    {
+     "min": 71,
+     "max": 100,
+     "name": "Kamień Mocy",
+     "text": "Związany z jednym Wiatrem: raz na sesję obniża PZ zaklęcia tej Tradycji o 1 — albo, wypalając się, rzuca zaklęcie automatycznie, bez Manifestacji, z PS równymi BSW. Elfie kamienie z Ulthuanu są doskonałe, ale ludzki czarodziej nie użyje ich bez szkody.",
+     "rolls": [
+      "powerStone"
+     ]
+    }
+   ]
+  },
+  "mikstury": {
+   "name": "Mikstury",
+   "limit": "brak",
+   "intro": "Wypicie mikstury to Akcja Darmowa; trzeba wypić całość. Rzadko są podpisane — rozpoznać magiczną miksturę pozwala Percepcja Magiczna, a ustalić jej działanie Percepcja Magiczna i Test Rzemiosła (Aptekarstwo), wykonywany przez MG w sekrecie. SW 50 liczy się tylko przy klątwach.",
+   "items": [
+    {
+     "min": 1,
+     "max": 2,
+     "name": "Mikstura Odpowiedzi",
+     "text": "Na każde pytanie odpowiadasz zgodnie z prawdą.",
+     "duration": "1 godzina",
+     "ingredients": "język smoka, jad żmii, świeża deszczówka, pawie pióro"
+    },
+    {
+     "min": 3,
+     "max": 4,
+     "name": "Mikstura Uwagi",
+     "text": "+20 do Testów Intuicji, Percepcji, Skradania i Tropienia.",
+     "duration": "2k10 minut",
+     "ingredients": "oko i ucho zająca, sproszkowane lustro, gałązka mięty, bukiet fiołków"
+    },
+    {
+     "min": 5,
+     "max": 6,
+     "name": "Mikstura Urody",
+     "text": "Wydajesz się o pełny poziom Statusu wyżej (np. Złoto zamiast Srebra) — to też iluzoryczne przebranie; +20 do Ogłady wobec własnej rasy, +10 wobec innych.",
+     "duration": "1 godzina",
+     "ingredients": "krew pegaza, po równo przypraw, miodu i płatków róż"
+    },
+    {
+     "min": 7,
+     "max": 8,
+     "name": "Mikstura Odwagi",
+     "text": "+20 do Opanowania.",
+     "duration": "1 godzina",
+     "ingredients": "serce i oczy wilka, krew lwa, starty ogórek, szklany pręcik"
+    },
+    {
+     "min": 9,
+     "max": 10,
+     "name": "Mikstura Chaosu",
+     "text": "Pokrywasz się złudnymi mutacjami Chaosu, które wzbudzają Strach (BSW) u istot twojego rozmiaru i mniejszych. Są tak przekonujące, że musisz zdać Test Opanowania przeciw Zepsuciu (drobne). Łowcy czarownic uznają ją za dowód kultu Chaosu.",
+     "duration": "1k10 × 5 minut",
+     "ingredients": "oczy żabrołaka, krew chimery, sierść zwierzoczłeka, palec nieumarłego czarownika Chaosu"
+    },
+    {
+     "min": 11,
+     "max": 12,
+     "name": "Mikstura Uroku",
+     "text": "Wzbudzasz sympatię i zaufanie: +20 do Testów Charyzmy.",
+     "duration": "2 godziny",
+     "ingredients": "jajo smoczego żółwia, ogony dwóch szczeniąt, krew kociaka"
+    },
+    {
+     "min": 13,
+     "max": 14,
+     "name": "Mikstura Bystrości",
+     "text": "+10 do Inteligencji.",
+     "duration": "1 godzina",
+     "ingredients": "język smoka, czerwone wino z Tilei, mielone orzechy laskowe",
+     "effects": {
+      "chars": {
+       "Int": 10
+      }
+     }
+    },
+    {
+     "min": 15,
+     "max": 16,
+     "name": "Mikstura Ukrycia",
+     "text": "+20 do wszystkich Testów Skradania (jakbyś miał każdą specjalizację).",
+     "duration": "1 godzina",
+     "ingredients": "2 kameleopijawki, ogon królika"
+    },
+    {
+     "min": 17,
+     "max": 18,
+     "name": "Mikstura Tchórzostwa",
+     "text": "Cecha Lęk (wszystko) i −20 do Opanowania.",
+     "duration": "2k10 minut",
+     "ingredients": "skrzydło żabrołaka, ośle ucho, krew myszy",
+     "cursed": true
+    },
+    {
+     "min": 19,
+     "max": 20,
+     "name": "Mikstura Tańca",
+     "text": "Musisz tańczyć jak z woli Slaanesha i nie możesz robić nic innego; co 10 minut +1 Stan Zmęczenie.",
+     "duration": "1 godzina",
+     "ingredients": "krew pegaza, czerwona róża, 4 motyle, różowy jedwabny pantofelek",
+     "cursed": true
+    },
+    {
+     "min": 21,
+     "max": 22,
+     "name": "Mikstura Przebrania",
+     "text": "Przybierasz wygląd kogoś lub czegoś podobnego rozmiaru. Zwracający uwagę: Bardzo Trudny (−30) Test Percepcji (z Percepcją Magiczną — Przeciętny (+0)).",
+     "duration": "1 godzina",
+     "ingredients": "7 kameleopijawek, krzywe lustro, mózg sobowtóra"
+    },
+    {
+     "min": 23,
+     "max": 24,
+     "name": "Mikstura Niezgody",
+     "text": "Zyskujesz Cechę Wrogość wobec pierwszej istoty, którą zobaczysz (albo wobec rodzaju istot).",
+     "duration": "1 godzina",
+     "ingredients": "krew psa, cynowy pręt, oczy dwóch wrogich sobie gatunków",
+     "cursed": true
+    },
+    {
+     "min": 25,
+     "max": 26,
+     "name": "Mikstura Otępienia",
+     "text": "Inteligencja spada do 11, zyskujesz Cechę Głupi.",
+     "duration": "1 godzina",
+     "ingredients": "język dzika, woda z rowu",
+     "cursed": true
+    },
+    {
+     "min": 27,
+     "max": 28,
+     "name": "Mikstura Orlego Wzroku",
+     "text": "Widzisz szczegóły z odległości do 5 km, jeśli widoczność na to pozwala.",
+     "duration": "1 godzina",
+     "ingredients": "oczy i krew orła, kościany pręt"
+    },
+    {
+     "min": 29,
+     "max": 30,
+     "name": "Mikstura Empatii",
+     "text": "Rozpoznajesz uczucia każdego przedstawiciela własnej rasy, z którym utrzymasz kontakt wzrokowy; ukrywającego emocje przejrzysz Łatwym (+40) Testem Intuicji.",
+     "duration": "1 godzina",
+     "ingredients": "krew gołębia, serce pegaza"
+    },
+    {
+     "min": 31,
+     "max": 32,
+     "name": "Mikstura Ziania Ogniem",
+     "text": "Raz ziejesz ogniem — w ciągu BSW minut, inaczej obrażenia zadajesz sobie. Działa jak Cecha Zionięcie +BSW (Ogień), bez wydawania Przewagi.",
+     "duration": "natychmiast",
+     "ingredients": "gardziel ognistego smoka, olej, siarka"
+    },
+    {
+     "min": 33,
+     "max": 34,
+     "name": "Mikstura Chodzenia po Ogniu",
+     "text": "Zwykły ogień nie robi ci nic: ignorujesz Podpalenie, przechodzisz przez płomienie. Ubranie i rzeczy mogą spłonąć.",
+     "duration": "1 godzina",
+     "ingredients": "serce smoka, worek siarki, 2 robaki słoneczne"
+    },
+    {
+     "min": 35,
+     "max": 36,
+     "name": "Ognista Woda",
+     "text": "Oczyszcza ogniem: 1k10 Obrażeń bez BWt i PP; Trudny (−20) Test Odporności — sukces zmniejsza Obrażenia o BWt i PS (min. 1), porażka zwiększa je o PS i daje Utratę Przytomności. Kto przeżyje, budzi się oczyszczony: traci BSW Punktów Zepsucia.",
+     "duration": "natychmiast",
+     "ingredients": "serce jednorożca, gardziel hydry, siarka"
+    },
+    {
+     "min": 37,
+     "max": 38,
+     "name": "Mikstura Lotu",
+     "text": "Cecha Latanie z wartością równą Zwinności. Pierwszy raz w powietrzu: Przeciętny (+20) Test Zwinności, inaczej rzuca tobą 3k10 metrów; trzy porażki z rzędu albo Pech — upadek. Pułap = SW metrów.",
+     "duration": "SW minut",
+     "ingredients": "kość skrzydła padlinożercy, krew gryfa, pióro wielkiego orła"
+    },
+    {
+     "min": 39,
+     "max": 40,
+     "name": "Mikstura Hartu",
+     "text": "+10 do Testów opartych na Sile Woli (np. Opanowania).",
+     "duration": "3k10 minut",
+     "ingredients": "mózg jaszczuroczłeka, oleista maść ziołowa"
+    },
+    {
+     "min": 41,
+     "max": 42,
+     "name": "Mikstura Słuchu",
+     "text": "Talent Wyczulony Zmysł (Słuch) albo jego kolejny poziom.",
+     "duration": "1 godzina",
+     "ingredients": "2 zające, kościany pręt"
+    },
+    {
+     "min": 43,
+     "max": 44,
+     "name": "Mikstura Odporności",
+     "text": "Pełna niewrażliwość na choroby i trucizny.",
+     "duration": "2 godziny",
+     "ingredients": "krowie mleko, ogon węża, płatki białej róży"
+    },
+    {
+     "min": 45,
+     "max": 46,
+     "name": "Mikstura Niewidzialności",
+     "text": "Stajesz się niewidzialny dla zwykłych zmysłów; z Percepcją Magiczną — Przeciętny (+0) Test Percepcji, by wyczuć czyjąś obecność. Nie możesz w tym czasie rzucać zaklęć.",
+     "duration": "2k10 minut",
+     "ingredients": "5 kameleopijawek, obsydianowy pręt z chryzoprazem"
+    },
+    {
+     "min": 47,
+     "max": 48,
+     "name": "Mikstura Niezniszczalności",
+     "text": "+20 do Wytrzymałości.",
+     "duration": "2k10 minut",
+     "ingredients": "krew i łuska smoka, krew trolla",
+     "effects": {
+      "chars": {
+       "Wt": 20
+      }
+     }
+    },
+    {
+     "min": 49,
+     "max": 50,
+     "name": "Mikstura Przywództwa",
+     "text": "+20 do Dowodzenia, wyglądasz jak dawny bohater w rodzaju Sigmara; Talent Inspirujący do poziomu BSW.",
+     "duration": "2k10 minut",
+     "ingredients": "krew żołnierza, serce lwa, kiść winogron, woda z fontanny świątyni Sigmara"
+    },
+    {
+     "min": 51,
+     "max": 52,
+     "name": "Mikstura Żywych",
+     "text": "Niewrażliwość na specjalne i magiczne Obrażenia od Ożywieńców i demonów (zwykła broń działa).",
+     "duration": "1k10 × 5 minut",
+     "ingredients": "pył z mumii, palec zombi, deszczówka"
+    },
+    {
+     "min": 53,
+     "max": 54,
+     "name": "Mikstura Odrazy",
+     "text": "Jesteś odpychający: wszystkie Testy oparte na Ogładzie są Bardzo Trudne (−30). Działa też jak przebranie.",
+     "duration": "1 godzina",
+     "ingredients": "ogon żmii, 6 ślimaków, krew harpii, pazur mantykory",
+     "cursed": true
+    },
+    {
+     "min": 55,
+     "max": 56,
+     "name": "Mikstura Szczęścia",
+     "text": "Nieudany Test możesz odwrócić, jeśli da to sukces.",
+     "duration": "1 godzina",
+     "ingredients": "krew smoka, ogon czarnego kota, królicza łapka"
+    },
+    {
+     "min": 57,
+     "max": 58,
+     "name": "Mikstura Lojalności",
+     "text": "Stajesz się lojalny wobec osoby, z którą rozmawiasz w chwili picia. Tylko gdy grozi ci niebezpieczeństwo: Przeciwstawny Test Charyzmy/Opanowania (twoje Opanowanie −30, jej Charyzma +20).",
+     "duration": "1k10 dni",
+     "ingredients": "garść jagód, kropla krwi, krew konia",
+     "cursed": true
+    },
+    {
+     "min": 59,
+     "max": 60,
+     "name": "Mikstura Sowich Oczu",
+     "text": "Poziom Talentu Widzenie w Ciemności.",
+     "duration": "2 godziny",
+     "ingredients": "oczy sowy, oko orła, krew kota"
+    },
+    {
+     "min": 61,
+     "max": 62,
+     "name": "Mikstura Czystości",
+     "text": "Tracisz przytomność na 1k10 godzin i pozbywasz się Punktu Zepsucia (bez wpływu na mutacje i Obłędy).",
+     "duration": "natychmiast",
+     "ingredients": "serce dziewicy, krew jednorożca"
+    },
+    {
+     "min": 63,
+     "max": 64,
+     "name": "Mikstura Odnowy",
+     "text": "Natychmiast odzyskujesz 2k10 Ran; znosi działanie innych mikstur, trucizn i magicznych urazów (np. klątw) i usuwa wszystkie Stany.",
+     "duration": "natychmiast",
+     "ingredients": "sproszkowany róg jednorożca, krew trolla"
+    },
+    {
+     "min": 65,
+     "max": 66,
+     "name": "Mikstura Biegłości",
+     "text": "+40 do Testów Rzemiosła, +20 do innych Testów opartych na Zręczności.",
+     "duration": "1 sesja",
+     "ingredients": "kosmyk włosów krasnoluda, but rzemieślnika, krew bobra, pióro białej sowy"
+    },
+    {
+     "min": 67,
+     "max": 68,
+     "name": "Mikstura Złośliwości",
+     "text": "Cecha Nienawiść wobec pierwszej istoty, którą zobaczysz (albo rodzaju istot z dodatkowego składnika).",
+     "duration": "1 godzina",
+     "ingredients": "serce goblina, kosmyk włosów krasnoluda, krew 2 kur",
+     "cursed": true
+    },
+    {
+     "min": 69,
+     "max": 70,
+     "name": "Mikstura Siły",
+     "text": "+20 do Siły.",
+     "duration": "1 godzina",
+     "ingredients": "kości ramion olbrzyma, krew bagiennej ośmiornicy, pręt z kości nogi trolla",
+     "effects": {
+      "chars": {
+       "S": 20
+      }
+     }
+    },
+    {
+     "min": 71,
+     "max": 72,
+     "name": "Mikstura Języków",
+     "text": "Rozumiesz każdy język i każdą formę mowy i potrafisz się nimi posługiwać.",
+     "duration": "1 godzina",
+     "ingredients": "płyn mózgowy fimira dirach, marynowane orzechy, języki 7 mówiących istot"
+    },
+    {
+     "min": 73,
+     "max": 74,
+     "name": "Mikstura Oddychania Wodą",
+     "text": "Oddychasz swobodnie pod wodą i pływasz z normalną Szybkością.",
+     "duration": "1 godzina",
+     "ingredients": "jajo smoczego żółwia, łosoś, litr wody morskiej, fiszbin"
+    },
+    {
+     "min": 75,
+     "max": 76,
+     "name": "Mikstura Chodzenia po Wodzie",
+     "text": "Chodzisz po wodzie jak po ziemi.",
+     "duration": "3k10 minut",
+     "ingredients": "mięso bagiennej ośmiornicy, woda"
+    },
+    {
+     "min": 77,
+     "max": 90,
+     "name": "Zwietrzała mikstura",
+     "text": "Magia uleciała albo się zepsuła. 25% szans, że płyn wywoła Galopującą Sraczkę.",
+     "noEffect": true
+    },
+    {
+     "min": 91,
+     "max": 100,
+     "name": "Przeklęta mikstura",
+     "text": "Wygląda jak inne mikstury. Przy wyniku 99–100 rzuć jeszcze raz w tej tabeli — mikstura ma też dobroczynny efekt.",
+     "cursed": true,
+     "rerollOn": [
+      99,
+      100
+     ]
+    }
+   ]
+  },
+  "pierscienie": {
+   "name": "Pierścienie",
+   "wp": "2k10+30",
+   "limit": "1 na dłoń (korzyść tylko z jednego)",
+   "itemQualities": true,
+   "intro": "Zwykle ze złota albo srebra, często z kamieniami i wzorami, po których twórca może je odnaleźć.",
+   "items": [
+    {
+     "min": 1,
+     "max": 15,
+     "name": "Przeklęty pierścień",
+     "text": "Klątwę poznajesz, gdy go opanujesz. Rzuć ponownie, by ustalić jego moc; dwa razy „przeklęty” — brak mocy.",
+     "cursed": true,
+     "reroll": true
+    },
+    {
+     "min": 16,
+     "max": 20,
+     "name": "Pierścień Tajemny",
+     "text": "Działa jak Klejnot Tajemny: 1k10 PS do jednego zaklęcia na sesję."
+    },
+    {
+     "min": 21,
+     "max": 25,
+     "name": "Pierścień Zrozumienia",
+     "text": "Talent Czytanie/Pisanie i biegła znajomość tylu języków, ile wynosi BInt (bez Języka (Magicznego))."
+    },
+    {
+     "min": 26,
+     "max": 30,
+     "name": "Pierścień Zgubnego Ognia",
+     "text": "Żelazna obrączka z rubinami Kolegium Jasności. Bez opanowania nosi go każdy z Talentem Magia Tajemna albo Magia Chaosu. Raz dziennie: Zionięcie +9 (Ogień) bez wydawania Przewagi."
+    },
+    {
+     "min": 31,
+     "max": 35,
+     "name": "Pierścień Elfów",
+     "text": "Dar elfiego czarodzieja dla wiernego sługi: Talent Widzenie w Ciemności, +5 do Inicjatywy, +10 do Testów Ogłady wobec elfów. Elf, który uzna, że trafił w złe ręce, zrobi wiele, by go odzyskać.",
+     "effects": {
+      "chars": {
+       "I": 5
+      }
+     }
+    },
+    {
+     "min": 36,
+     "max": 40,
+     "name": "Pierścień Eteryczności",
+     "text": "Opanowany daje Cechę Eteryczny — widać cię i słychać, ale nie masz ciała. To klątwa: nie zdejmiesz go, dopóki nie zostanie zdjęta.",
+     "cursed": true
+    },
+    {
+     "min": 41,
+     "max": 45,
+     "name": "Pierścień Piórka",
+     "text": "Spadając, zwalniasz: 1 Obrażenie na metr (minus BWt) zamiast zwykłych; Przeciętny (+20) Test Zwinności zmniejsza je o PS."
+    },
+    {
+     "min": 46,
+     "max": 50,
+     "name": "Pierścień Alarmu Pożarowego",
+     "text": "Wyje jak syrena, gdy coś płonie w promieniu BSW metrów. Uznawany za przeklęty — nie da się go zdjąć.",
+     "cursed": true
+    },
+    {
+     "min": 51,
+     "max": 55,
+     "name": "Pierścień Hartu",
+     "text": "+10 do Siły Woli i dodatkowy Punkt Bohatera na sesję.",
+     "effects": {
+      "chars": {
+       "SW": 10
+      }
+     }
+    },
+    {
+     "min": 56,
+     "max": 60,
+     "name": "Pierścień Wahania",
+     "text": "Przeklęty: −1 Punkt Bohatera, −10 do Inicjatywy w walce, tylko jeden atak w Turze; za to +1 Punkt Szczęścia, +10 do Zręczności i +20 do Percepcji; −10 do Zwinności i Opanowania.",
+     "cursed": true
+    },
+    {
+     "min": 61,
+     "max": 65,
+     "name": "Pierścień Niewidzialności",
+     "text": "Akcją Darmową stajesz się niewidzialny dla zwykłych zmysłów (z Percepcją Magiczną — Przeciętny (+0) Test Percepcji). Hałas albo atak przerywa efekt. Przy włączeniu i co godzinę: Łatwy (+40) Test Opanowania albo Punkt Zepsucia."
+    },
+    {
+     "min": 66,
+     "max": 70,
+     "name": "Pierścień Odporności na Magię",
+     "text": "Talent Odporność na Magię — ale nie użyjesz żadnych innych przedmiotów magicznych ani zaklęć, Błogosławieństw i Modlitwy, dopóki go nosisz."
+    },
+    {
+     "min": 71,
+     "max": 72,
+     "name": "Pierścień Osłony",
+     "text": "Połowa Obrażeń od jednego rodzaju ataku i +20 do związanych Testów.",
+     "rolls": [
+      "attack"
+     ]
+    },
+    {
+     "min": 73,
+     "max": 75,
+     "name": "Pierścień Ochrony przed Potworami",
+     "text": "Połowa Obrażeń od ataków istot jednego rodzaju i +20 do opierania się ich zaklęciom i zdolnościom.",
+     "rolls": [
+      "species"
+     ]
+    },
+    {
+     "min": 76,
+     "max": 80,
+     "name": "Pierścień Orzeźwienia",
+     "text": "Raz na sesję: leczysz 1k10 osób o 1 Ranę albo siebie o 1k10 Ran; usuwa też tyle Stanów Zmęczenie, ile uleczono Ran."
+    },
+    {
+     "min": 81,
+     "max": 85,
+     "name": "Rubinowy Pierścień Rhuina",
+     "text": "Opanuje go każdy. Zawiera zaklęcie Tradycji Ognia, rzucane raz na sesję z automatycznym sukcesem i PS = BSW, bez Manifestacji.",
+     "rolls": [
+      "spell:Ognia"
+     ]
+    },
+    {
+     "min": 86,
+     "max": 90,
+     "name": "Pierścień Uderzeń",
+     "text": "Talenty Silny Cios, Cios Mierzony i Ogłuszenie (albo kolejne ich poziomy)."
+    },
+    {
+     "min": 91,
+     "max": 95,
+     "name": "Pierścień Widoczności",
+     "text": "Cecha Widzenie w Mroku i +1 poziom Wyczulonego Zmysłu (Wzrok) — ale w ciemności świecisz słabą poświatą: +20 do Testów Walki, Strzeleckich i Percepcji przeciw tobie. Nie zdejmiesz go bez zdjęcia klątwy.",
+     "cursed": true
+    },
+    {
+     "min": 96,
+     "max": 98,
+     "name": "Pierścień Odpierania",
+     "text": "Niewidzialna aura szczęścia: Cecha Ochrona (1k10).",
+     "rolls": [
+      "ward"
+     ]
+    },
+    {
+     "min": 99,
+     "max": 100,
+     "name": "Pierścień Run",
+     "text": "Wyryto na nim co najmniej jedną runę. Nie ma Siły Woli.",
+     "runes": "talisman",
+     "noWp": true
+    }
+   ]
+  },
+  "szaty": {
+   "name": "Szaty",
+   "wp": "2k10+35",
+   "limit": "1",
+   "itemQualities": true,
+   "intro": "Od podartych relikwii po aksamit podbity szkarłatnym jedwabiem. Dopasowują się do właściciela, nie płoną (ale tylko Szata Odporności na Ogień chroni przed ogniem). Działają, gdy je nosisz.",
+   "items": [
+    {
+     "min": 1,
+     "max": 15,
+     "name": "Przeklęta szata",
+     "text": "Klątwę poznajesz, gdy ją opanujesz. Rzuć ponownie, by ustalić jej moc; dwa razy „przeklęta” — brak mocy.",
+     "cursed": true,
+     "reroll": true
+    },
+    {
+     "min": 16,
+     "max": 20,
+     "name": "Szata Wygody",
+     "text": "Dostosowuje temperaturę: żadnych kar ani Obrażeń od zimna i upału."
+    },
+    {
+     "min": 21,
+     "max": 30,
+     "name": "Szata Odbijania",
+     "text": "+2 PS do udanych Testów obrony przed atakami Wręcz i Dystansowymi."
+    },
+    {
+     "min": 31,
+     "max": 40,
+     "name": "Szata Przebrania",
+     "text": "+20 do Występów (Aktorstwo), dwa poziomy Talentu Naśladowca; nieudany Test naśladowania albo przebrania możesz odwrócić."
+    },
+    {
+     "min": 41,
+     "max": 45,
+     "name": "Szata Eteryczności",
+     "text": "Raz dziennie wychodzisz z materialnego świata: Cecha Eteryczny na BSW godzin, widoczny lub nie według woli. Nie możesz wtedy niczego dotykać ani rzucać zaklęć."
+    },
+    {
+     "min": 46,
+     "max": 55,
+     "name": "Szata Odporności na Ogień",
+     "text": "Cecha Niewrażliwość (Ogień). Przy każdym kontakcie z magicznym ogniem 5% szans, że spłonie (i dostaniesz Stan Podpalenie)."
+    },
+    {
+     "min": 56,
+     "max": 65,
+     "name": "Szata Znoszenia Magii",
+     "text": "Maksymalny poziom Talentu Odporność na Magię — i brak możliwości rzucania zaklęć oraz Testów Modlitwy."
+    },
+    {
+     "min": 66,
+     "max": 75,
+     "name": "Szata Wielu Oczu",
+     "text": "Setki oczu: nie można cię Zaskoczyć, +20 do Percepcji (wzrok), Talent Widzenie w Ciemności, widzisz niewidzialnych. Oczy niepokoją wszystkich: Cecha Strach (0). Łowcy czarownic będą bardzo podejrzliwi."
+    },
+    {
+     "min": 76,
+     "max": 80,
+     "name": "Szata Mgły i Dymu",
+     "text": "Prosta szara szata: znikasz w cieniu na życzenie — zobaczy cię tylko ktoś z Percepcją Magiczną (inne zmysły działają)."
+    },
+    {
+     "min": 81,
+     "max": 90,
+     "name": "Szata Odporności na Trucizny",
+     "text": "Maksymalny poziom Talentu Odporny na (Trucizny)."
+    },
+    {
+     "min": 91,
+     "max": 95,
+     "name": "Szata Całunu",
+     "text": "Raz dziennie na SW minut przybierasz wygląd dowolnego Ożywieńca, z tymi samymi efektami psychologicznymi. Percepcja Magiczna wyczuje fałsz; zachowanie niepasujące do postaci pozwala na Przeciętny (+0) Test Intuicji."
+    },
+    {
+     "min": 96,
+     "max": 100,
+     "name": "Szata Wytrzymałości",
+     "text": "+10 do Wytrzymałości — nie działa razem z pancerzem ani tarczą.",
+     "effects": {
+      "chars": {
+       "Wt": 10
+      }
+     }
+    }
+   ]
+  },
+  "rozdzki": {
+   "name": "Różdżki i berła",
+   "wp": "2k10+40",
+   "limit": "1",
+   "itemQualities": true,
+   "intro": "Mocy użyje tylko ktoś, kto rzuca zaklęcia. W potrzebie liczą się jako broń improwizowana.",
+   "items": [
+    {
+     "min": 1,
+     "max": 10,
+     "name": "Przeklęte berło",
+     "text": "Klątwę poznajesz, gdy je opanujesz. Rzuć ponownie, by ustalić jego moc; dwa razy „przeklęte” — brak mocy.",
+     "cursed": true,
+     "reroll": true
+    },
+    {
+     "min": 11,
+     "max": 15,
+     "name": "Berło Uziemienia",
+     "text": "Raz na sesję przerzucasz wynik w Tabeli Manifestacji; liczy się drugi."
+    },
+    {
+     "min": 16,
+     "max": 20,
+     "name": "Zakazane Berło",
+     "text": "Akcją Darmową zyskujesz 1k10 PS jak ze Splatania — ale tracisz tyle samo Ran (minus BWt). Musisz rzucić zaklęcie w następnej Akcji albo czeka cię Pomniejsza Manifestacja."
+    },
+    {
+     "min": 21,
+     "max": 25,
+     "name": "Berło Rozkazu",
+     "text": "Raz na sesję Akcją Darmową: cel wykonuje Przeciwstawny Test Siły Woli (przeciw wyższej SW twojej lub berła, +10 za pomoc). Porażka — paraliż: Bezbronny cel na PS minut."
+    },
+    {
+     "min": 26,
+     "max": 30,
+     "name": "Berło Miażdżenia",
+     "text": "Liczy się jak broń ręczna z Zaletami Druzgocząca i Ogłuszająca."
+    },
+    {
+     "min": 31,
+     "max": 35,
+     "name": "Berło Plątania",
+     "text": "Raz na sesję Akcją: widziany cel w promieniu SW metrów otrzymuje BSW Stanów Pochwycenie."
+    },
+    {
+     "min": 36,
+     "max": 40,
+     "name": "Rubinowe Berło",
+     "text": "Raz dziennie Akcją Darmową: podmuch ognia jak Zionięcie +1k10 (Ogień), bez Przewagi."
+    },
+    {
+     "min": 41,
+     "max": 45,
+     "name": "Berło Mocy",
+     "text": "Złoto i gagat. Przechowuje do trzech zaklęć wprowadzonych rytuałem Splatania; uwolnione Akcją Darmową rzucają się z Nieodpartą Mocą, bez Manifestacji. SW 60 albo SW obecnego pana, wyższa z nich."
+    },
+    {
+     "min": 46,
+     "max": 50,
+     "name": "Berło Słabości",
+     "text": "Okute żelazem, z mrocznymi runami — działa tylko dla czarujących sług Chaosu. Raz na sesję: każda istota w obszarze o promieniu BSW metrów otrzymuje BSW Stanów Zmęczenie."
+    },
+    {
+     "min": 51,
+     "max": 60,
+     "name": "Berło runiczne",
+     "text": "Wyryto na nim co najmniej jedną runę. Nie ma Siły Woli.",
+     "runes": "talisman",
+     "noWp": true
+    },
+    {
+     "min": 61,
+     "max": 65,
+     "name": "Berło Stabilności",
+     "text": "Raz na sesję do końca starcia dodajesz BSW PS do każdej próby rozproszenia."
+    },
+    {
+     "min": 66,
+     "max": 70,
+     "name": "Różdżka Vereny",
+     "text": "Machnięta Akcją odsłania prawdę: iluzję, kamuflaż, ukryty sekret albo kłamstwo — Prosty Łatwy (+40) Test właściwej Umiejętności. Nie zdradza szczegółów ani motywów. Świadkowie mogą być podejrzliwi."
+    },
+    {
+     "min": 71,
+     "max": 75,
+     "name": "Różdżka Pochłaniania",
+     "text": "+10 do rozpraszania; rozproszone zaklęcie zamienia się w PS równe jego PZ, które możesz wydać na własne czary. Co świt rzuć 1k10+10 — tyle PZ zmieści dziś różdżka; przekroczenie: wybucha jak zaklęcie Wybuch z Obrażeniami równymi uwolnionym PZ."
+    },
+    {
+     "min": 76,
+     "max": 80,
+     "name": "Różdżka Korozji",
+     "text": "Raz na sesję: niemagiczny metalowy pancerz i broń celu w promieniu 8 metrów rdzewieją w proch (przedmioty Wytrzymałe tracą poziom)."
+    },
+    {
+     "min": 81,
+     "max": 85,
+     "name": "Różdżka Strzałek",
+     "text": "Raz na sesję Akcją rzuca zaklęcie Strzałka z BSW 5 — bez rzutu i Manifestacji; cyfra jedności rzutu na lokację to PS."
+    },
+    {
+     "min": 86,
+     "max": 90,
+     "name": "Jadeitowa Różdżka",
+     "text": "Podwaja Zasięg i liczbę Celów rzucanych zaklęć (poza zaklęciami na siebie i dotykowymi)."
+    },
+    {
+     "min": 91,
+     "max": 95,
+     "name": "Gagatowa Różdżka",
+     "text": "Przy rzucaniu: Test Siły Woli — sukces obniża PZ o 1k10 (Krytyczny — o 10), porażka nic, Pech — natychmiastowa Poważna Manifestacja."
+    },
+    {
+     "min": 96,
+     "max": 100,
+     "name": "Onyksowa Różdżka",
+     "text": "Magazyn 1k10 PS (rzut na początku sesji) do wydania na jedno lub więcej zaklęć."
+    }
+   ]
+  },
+  "zwoje": {
+   "name": "Zwoje",
+   "limit": "brak",
+   "intro": "Każdy piśmienny bohater znający Język (Magiczny) może odczytać zwój bez ryzyka Manifestacji (PS: rzuć 1k10). Po użyciu zwój rozsypuje się w proch. Ze zwoju nie da się nauczyć zaklęcia.",
+   "items": [
+    {
+     "min": 1,
+     "max": 10,
+     "name": "Przeklęty zwój",
+     "text": "Wygląda jak inny zwój (losowy) — po odczytaniu spada na ciebie klątwa.",
+     "cursed": true
+    },
+    {
+     "min": 11,
+     "max": 15,
+     "name": "Zwój Rozproszenia",
+     "text": "Odczytany zamiast próby rozproszenia automatycznie rozprasza zaklęcie przeciwnika (nie pomoże przeciw Nieodpartej Mocy)."
+    },
+    {
+     "min": 16,
+     "max": 20,
+     "name": "Zwój Odbicia",
+     "text": "Odczytany zamiast próby rozproszenia odbija moc zaklęcia w rzucającego — ten nie może jej uniknąć."
+    },
+    {
+     "min": 21,
+     "max": 25,
+     "name": "Zwój Wysysania",
+     "text": "Zaklęcie wroga działa normalnie, ale potem zyskujesz energię jak ze Splatania równą jego PS — musisz ją uwolnić zaklęciem w następnej Akcji albo czeka cię Poważna Manifestacja."
+    },
+    {
+     "min": 26,
+     "max": 30,
+     "name": "Zwój Mocy",
+     "text": "Przy rzucaniu zaklęcia: udany Test liczy się jako Krytyczny, a nieudany jako Pech."
+    },
+    {
+     "min": 31,
+     "max": 35,
+     "name": "Zwój Zdjęcia Klątwy",
+     "text": "Automatycznie zdejmuje klątwę z jednej istoty."
+    },
+    {
+     "min": 36,
+     "max": 40,
+     "name": "Zwój Osłony",
+     "text": "Zaklęcie wroga działa normalnie, ale wszystkie jego cele zyskują do końca Rundy dwa poziomy Talentu Odporność na Magię."
+    },
+    {
+     "min": 41,
+     "max": 100,
+     "name": "Zwój z zaklęciem",
+     "text": "Zwykle jedno zaklęcie; ok. 10% zwojów ma 1–5 zaklęć tej samej Tradycji, znikających po kolei.",
+     "rolls": [
+      "scrollSpells"
+     ]
+    }
+   ]
+  },
+  "ksiegi": {
+   "name": "Księgi",
+   "limit": "brak",
+   "intro": "Większość magicznych ksiąg spoczywa w archiwach Kolegiów; najczęściej trafia się grimuar jakiegoś czarodzieja.",
+   "items": [
+    {
+     "min": 1,
+     "max": 5,
+     "name": "Przeklęta księga",
+     "text": "Język i temat dopasowują się do czytelnika. Kilka minut lektury — i spada na ciebie klątwa.",
+     "cursed": true
+    },
+    {
+     "min": 6,
+     "max": 10,
+     "name": "Księga Ashura",
+     "text": "Trzymana w dłoni daje +1 PS do udanych Testów rzucania i rozpraszania."
+    },
+    {
+     "min": 11,
+     "max": 65,
+     "name": "Grimuar",
+     "text": "Zaklęcia jednej Tradycji i Magii Prostej w Języku (Magicznym), BSW właściciela + 1k5. Przepisanie zaklęcia do własnego grimuaru: Test Języka (Magicznego) — Łatwy (+40) dla Magii Prostej, Przeciętny (+20) dla tajemnych, Przeciętny (+0) dla zaklęć Tradycji. 15% szans, że właściciel rzucił na niego klątwę, Alarm albo zastawił pułapkę.",
+     "rolls": [
+      "grimoire"
+     ]
+    },
+    {
+     "min": 66,
+     "max": 70,
+     "name": "Liber Fanatica",
+     "text": "Przesadnie drobiazgowe dzieło o jednym temacie. Po Przedsięwzięciu (albo 2–4 godzinach dziennie przez tydzień) Wiedza (wybrana) dochodzi do każdej Profesji i zyskujesz w niej +5."
+    },
+    {
+     "min": 71,
+     "max": 75,
+     "name": "Królestwa Chaosu",
+     "text": "Spisana w lingua praestantia. Po dwóch tygodniach studiów (albo 2 Przedsięwzięciach) czarujący może za darmo zdobyć Talent Magia Tajemna (Demonologia) albo Magia Chaosu (wybrana Tradycja)."
+    },
+    {
+     "min": 76,
+     "max": 80,
+     "name": "Królestwa Czarnoksięstwa",
+     "text": "Spisana w lingua praestantia. Po miesiącu studiów (albo 2 Przedsięwzięciach) i zdanym Teście Języka (Magicznego) zyskujesz za darmo dodatkowy Talent Magia Tajemna (Tradycja)."
+    },
+    {
+     "min": 81,
+     "max": 85,
+     "name": "Księga Zepsucia",
+     "text": "Rzut oka na tekst: Przeciętny (+0) Test Opanowania przeciw Zepsuciu (drobne). Godzina lektury: Zepsucie (poważne), ale Wiedza (Chaos) dochodzi do każdej Profesji (+5). Ponowna lektura: Punkt Zepsucia bez korzyści.",
+     "cursed": true
+    },
+    {
+     "min": 86,
+     "max": 90,
+     "name": "Księga Wglądu",
+     "text": "Po miesiącu studiów (albo 2 Przedsięwzięciach) +1k10 do Siły Woli. Ponowna lektura nic nie daje."
+    },
+    {
+     "min": 91,
+     "max": 95,
+     "name": "Księga Wiedzy",
+     "text": "Po miesiącu studiów (albo 2 Przedsięwzięciach) +1k10 do Inteligencji. Ponowna lektura nic nie daje."
+    },
+    {
+     "min": 96,
+     "max": 100,
+     "name": "Księga Zbawienia",
+     "text": "Godzina lektury: odzyskujesz 1 Ranę, tracisz 1 Stan i do końca przygody (albo przez dwie sesje) działa na ciebie jedno Błogosławieństwo.",
+     "rolls": [
+      "blessing"
+     ]
+    }
+   ]
+  },
+  "blyskotki": {
+   "name": "Błyskotki i amulety ludowe",
+   "wp": "2k10+30",
+   "limit": "1",
+   "itemQualities": true,
+   "intro": "Żeton w sakiewce, wisior, pas, kapelusz, kamyk, nasiono prastarego drzewa, maska — każdą noszoną rzecz można natchnąć mocą.",
+   "items": [
+    {
+     "min": 1,
+     "max": 5,
+     "name": "Przeklęty urok",
+     "text": "Klątwę poznajesz, gdy go opanujesz. Rzuć ponownie, by ustalić jego moc; dwa razy „przeklęty” — brak mocy.",
+     "cursed": true,
+     "reroll": true
+    },
+    {
+     "min": 6,
+     "max": 10,
+     "name": "Korona Rozkazu",
+     "text": "+20 do Testów Opanowania i Dowodzenia."
+    },
+    {
+     "min": 11,
+     "max": 15,
+     "name": "Klejnot Smoczej Zguby",
+     "text": "Cecha Niewrażliwość (Ogień)."
+    },
+    {
+     "min": 16,
+     "max": 20,
+     "name": "Elfi urok",
+     "text": "Wygląda jak żołądź, ale w naturalnym świetle pokrywa go elfie pismo. Użyty do zaklęcia Tradycji Życia działa jak składnik, a efekty Tradycji się podwajają."
+    },
+    {
+     "min": 21,
+     "max": 25,
+     "name": "Naszyjnik Piórowroga",
+     "text": "+20 do obrony przed latającymi istotami w walce wręcz; możesz przeciwstawiać się atakom dystansowym, które widzisz."
+    },
+    {
+     "min": 26,
+     "max": 30,
+     "name": "Okulary Przeszłości",
+     "text": "Doskonale pamiętasz miniony tydzień, a MG podpowiada, co należało zrobić, by teraz było łatwiej."
+    },
+    {
+     "min": 31,
+     "max": 35,
+     "name": "Lśniący wisior",
+     "text": "Bije z niego nadzieja: sojusznicy w promieniu BSW metrów mają +20 do Dowodzenia i Testów psychologii."
+    },
+    {
+     "min": 36,
+     "max": 40,
+     "name": "Ikona Żelaznej Klątwy",
+     "text": "Cecha Ochrona (8+) przeciw machinom wojennym i broni prochowej, inżynieryjnej oraz wybuchowej."
+    },
+    {
+     "min": 41,
+     "max": 45,
+     "name": "Soczewka Wykrywania",
+     "text": "Wielka lupa na kościanej rączce — nic nie powiększa, ale pozwala przejrzeć wszystkie iluzje."
+    },
+    {
+     "min": 46,
+     "max": 50,
+     "name": "Kamień Szczęścia",
+     "text": "Raz na sesję odwracasz nieudany Test Walki Wręcz."
+    },
+    {
+     "min": 51,
+     "max": 55,
+     "name": "Szczęśliwy pens",
+     "text": "+1 Punkt Szczęścia na sesję… i coś jeszcze? Wrogowie działający przeciw tobie zyskują Punkt Przeznaczenia, którym MG komplikuje sprawy. Nie wymaga opanowania.",
+     "noWp": true
+    },
+    {
+     "min": 56,
+     "max": 60,
+     "name": "Urok Dziewicy",
+     "text": "Noszona na szyi nie pozwala kobiecie zajść w ciążę. Robi je podobno Kolegium Jadeitowe; w całym Starym Świecie źle widziane — niejeden guślarz trafił za nie na stos."
+    },
+    {
+     "min": 61,
+     "max": 65,
+     "name": "Obsydianowy magnes",
+     "text": "Poziom Talentu Odporność na Magię."
+    },
+    {
+     "min": 66,
+     "max": 70,
+     "name": "Onyksowa figurka pantery",
+     "text": "Z napisem „Jenneviere” (zapewne z Bretonii). Pogłaskana mruczy; dotykana dłużej znika w obłoku fioletowego dymu, zostawiając żywą panterę: wszyscy są Zaskoczeni, a pantera drapie cię i ucieka siać postrach w okolicy."
+    },
+    {
+     "min": 71,
+     "max": 75,
+     "name": "Wisior Gołębiarza",
+     "text": "+20 do obrony przed latającymi istotami w walce wręcz; możesz przeciwstawiać się atakom dystansowym, które widzisz."
+    },
+    {
+     "min": 76,
+     "max": 80,
+     "name": "Odłamek Ranalda",
+     "text": "Każdy w promieniu 3 metrów musi odwracać udane Testy obrony. Na początku sesji 1k10: parzyste +1 Punkt Szczęścia, nieparzyste — tracisz wszystkie."
+    },
+    {
+     "min": 81,
+     "max": 85,
+     "name": "Nasiono Odrodzenia",
+     "text": "Punktem Bohatera włączasz Cechę Regeneracja."
+    },
+    {
+     "min": 86,
+     "max": 90,
+     "name": "Urok z czaszki",
+     "text": "Popularny amulet żołnierzy Imperium, czasem zaklinany przez kapłanów Morra. 1k10: 1–5 tylko placebo (+1 PS do udanych Testów Strachu), 6–7 +1 PS do Testów Strachu i Grozy, 8–9 +5 do Testów Walki i Strzeleckich, 10 +10 do Testów Walki, Strzeleckich oraz Strachu i Grozy.",
+     "rolls": [
+      "skullCharm"
+     ]
+    },
+    {
+     "min": 91,
+     "max": 95,
+     "name": "Przerażająca Maska EEE!",
+     "text": "Opanowana przeklina — nie zdejmiesz jej. Zyskujesz Cechę Groza (2).",
+     "cursed": true
+    },
+    {
+     "min": 96,
+     "max": 100,
+     "name": "Kapelusz Czarodzieja",
+     "text": "Nie opanuje go nikt, kto nie czaruje; opanowany nie da się zdjąć i daje Cechę Głupi. Na początku sesji losujesz Tradycję — możesz rzucać dowolne jej zaklęcia, gdy każą ci sojusznicy albo zdasz Test Inteligencji z Cechy Głupi.",
+     "cursed": true
+    }
+   ]
+  },
+  "bronie": {
+   "name": "Bronie",
+   "limit": "2 magiczne bronie przy sobie",
+   "intro": "Każda magiczna broń ma Cechę Magiczny (rani istoty odporne na zwykłe ataki), emanuje aurą widoczną dla Percepcji Magicznej i rozprasza zaklęcia typu Aura, Kopuła albo Strefa, w których obszarze się znajdzie. Ma własną wolę — trzeba ją opanować; noszenie nieopanowanej daje co dzień +10% szans na klątwę.",
+   "types": [
+    {
+     "min": 1,
+     "max": 50,
+     "name": "podstawowa",
+     "d10": [
+      [
+       1,
+       2,
+       "Topór"
+      ],
+      [
+       3,
+       4,
+       "Sztylet"
+      ],
+      [
+       5,
+       5,
+       "Buzdygan"
+      ],
+      [
+       6,
+       6,
+       "Miecz"
+      ],
+      [
+       7,
+       10,
+       "Miecz"
+      ]
+     ]
+    },
+    {
+     "min": 51,
+     "max": 55,
+     "name": "kawaleryjska",
+     "d10": [
+      [
+       1,
+       4,
+       "Młot kawaleryjski"
+      ],
+      [
+       5,
+       10,
+       "Lanca"
+      ]
+     ]
+    },
+    {
+     "min": 56,
+     "max": 60,
+     "name": "szermiercza",
+     "d10": [
+      [
+       1,
+       5,
+       "Floret"
+      ],
+      [
+       6,
+       10,
+       "Rapier"
+      ]
+     ]
+    },
+    {
+     "min": 61,
+     "max": 65,
+     "name": "korbacze",
+     "d10": [
+      [
+       1,
+       5,
+       "Kiścień"
+      ],
+      [
+       6,
+       10,
+       "Cep bojowy"
+      ]
+     ]
+    },
+    {
+     "min": 66,
+     "max": 70,
+     "name": "parująca",
+     "d10": [
+      [
+       1,
+       6,
+       "Lewak"
+      ],
+      [
+       7,
+       10,
+       "Łamacz mieczy"
+      ]
+     ]
+    },
+    {
+     "min": 71,
+     "max": 75,
+     "name": "drzewcowa",
+     "d10": [
+      [
+       1,
+       2,
+       "Halabarda"
+      ],
+      [
+       3,
+       4,
+       "Pika"
+      ],
+      [
+       5,
+       6,
+       "Sierpak"
+      ],
+      [
+       7,
+       9,
+       "Włócznia"
+      ],
+      [
+       10,
+       10,
+       "Kostur"
+      ]
+     ]
+    },
+    {
+     "min": 76,
+     "max": 80,
+     "name": "dwuręczna",
+     "d10": [
+      [
+       1,
+       2,
+       "Półtorak"
+      ],
+      [
+       3,
+       5,
+       "Wielki topór"
+      ],
+      [
+       6,
+       8,
+       "Młot bojowy"
+      ],
+      [
+       9,
+       10,
+       "Miecz dwuręczny"
+      ]
+     ]
+    },
+    {
+     "min": 81,
+     "max": 85,
+     "name": "łuk",
+     "ranged": true,
+     "d10": [
+      [
+       1,
+       1,
+       "Łuk elfi"
+      ],
+      [
+       2,
+       3,
+       "Łuk długi"
+      ],
+      [
+       4,
+       7,
+       "Łuk"
+      ],
+      [
+       8,
+       10,
+       "Krótki łuk"
+      ]
+     ]
+    },
+    {
+     "min": 86,
+     "max": 90,
+     "name": "kusza",
+     "ranged": true,
+     "d10": [
+      [
+       1,
+       6,
+       "Kusza"
+      ],
+      [
+       7,
+       8,
+       "Kusza pistoletowa"
+      ],
+      [
+       9,
+       10,
+       "Ciężka kusza"
+      ]
+     ]
+    },
+    {
+     "min": 91,
+     "max": 95,
+     "name": "proca",
+     "ranged": true,
+     "d10": [
+      [
+       1,
+       6,
+       "Proca"
+      ],
+      [
+       7,
+       10,
+       "Proca drzewcowa"
+      ]
+     ]
+    },
+    {
+     "min": 96,
+     "max": 100,
+     "name": "rzucana",
+     "ranged": true,
+     "d10": [
+      [
+       1,
+       2,
+       "Strzałka"
+      ],
+      [
+       3,
+       3,
+       "Oszczep"
+      ],
+      [
+       4,
+       4,
+       "Włócznia"
+      ],
+      [
+       5,
+       7,
+       "Topór do rzucania"
+      ],
+      [
+       8,
+       10,
+       "Nóż do rzucania"
+      ]
+     ]
+    }
+   ],
+   "abilityCount": [
+    {
+     "min": 1,
+     "max": 25,
+     "name": "0",
+     "count": 0,
+     "wp": "1k10+20"
+    },
+    {
+     "min": 26,
+     "max": 65,
+     "name": "1",
+     "count": 1,
+     "wp": "2k10+35"
+    },
+    {
+     "min": 66,
+     "max": 75,
+     "name": "2",
+     "count": 2,
+     "wp": "3k10+45"
+    },
+    {
+     "min": 76,
+     "max": 79,
+     "name": "3",
+     "count": 3,
+     "wp": "3k10+60"
+    },
+    {
+     "min": 80,
+     "max": 80,
+     "name": "4",
+     "count": 4,
+     "wp": "4k10+65"
+    },
+    {
+     "min": 81,
+     "max": 90,
+     "name": "posrebrzana broń",
+     "special": "silver"
+    },
+    {
+     "min": 91,
+     "max": 98,
+     "name": "broń runiczna",
+     "special": "runes"
+    },
+    {
+     "min": 99,
+     "max": 99,
+     "name": "Broń Chaosu",
+     "special": "chaos"
+    },
+    {
+     "min": 100,
+     "max": 100,
+     "name": "Broń demoniczna",
+     "special": "daemon"
+    }
+   ],
+   "abilities": [
+    {
+     "name": "Przeklęta broń",
+     "text": "Raz opanowanej nie pozbędziesz się — zawsze jakoś wraca.",
+     "melee": [
+      1,
+      10
+     ],
+     "ranged": [
+      1,
+      10
+     ],
+     "cursed": true
+    },
+    {
+     "name": "Antybohaterska",
+     "text": "Za każdego wroga związanego z tobą walką w twojej Turze: +1 BS i +1 poziom Talentu Wściekły Atak.",
+     "melee": [
+      11,
+      11
+     ]
+    },
+    {
+     "name": "Zguba",
+     "text": "Zawsze masz co najmniej 3 Przewagi przeciw wskazanemu rodzajowi wrogów.",
+     "melee": [
+      12,
+      15
+     ],
+     "ranged": [
+      11,
+      15
+     ],
+     "rolls": [
+      "species"
+     ]
+    },
+    {
+     "name": "Bitewna",
+     "text": "Raz na sesję, gdy pierwszy atak trafi, możesz wykonać dodatkowy atak w walce wręcz.",
+     "melee": [
+      16,
+      16
+     ]
+    },
+    {
+     "name": "Berserkerska",
+     "text": "Talent Szał Bojowy.",
+     "melee": [
+      17,
+      17
+     ]
+    },
+    {
+     "name": "Kąsająca",
+     "text": "Broń zyskuje Zaletę Precyzyjna, nawet bez odpowiedniej Umiejętności.",
+     "melee": [
+      18,
+      18
+     ],
+     "ranged": [
+      16,
+      30
+     ]
+    },
+    {
+     "name": "Krwawiąca",
+     "text": "Każde trafienie zadaje +1 Stan Krwawienie.",
+     "melee": [
+      19,
+      20
+     ],
+     "ranged": [
+      31,
+      35
+     ]
+    },
+    {
+     "name": "Rzeźnicza",
+     "text": "Raz na sesję na jedną Turę włączasz zasadę Morderczego Ciosu.",
+     "melee": [
+      21,
+      21
+     ]
+    },
+    {
+     "name": "Oddech Manaanna",
+     "text": "Jej pan oddycha bez powietrza — nie udusi się pod wodą ani w próżni.",
+     "melee": [
+      22,
+      23
+     ]
+    },
+    {
+     "name": "Budząca Strach",
+     "text": "Wywołujesz Strach u przeciwników, którym grozisz albo na których szarżujesz; wartość = twoja Przewaga.",
+     "melee": [
+      24,
+      25
+     ]
+    },
+    {
+     "name": "Budząca Grozę",
+     "text": "Wywołujesz Grozę u przeciwników, którym grozisz albo na których szarżujesz; wartość = twoja Przewaga.",
+     "melee": [
+      26,
+      26
+     ]
+    },
+    {
+     "name": "Zmiana Cechy",
+     "text": "Działa, gdy dzierżysz broń. Wynik 1–2 w Tabeli Losowej Cechy oznacza WW albo US — zależnie od broni.",
+     "melee": [
+      27,
+      36
+     ],
+     "ranged": [
+      36,
+      45
+     ],
+     "rolls": [
+      "charWeapon"
+     ]
+    },
+    {
+     "name": "Degeneracja",
+     "text": "Żywa istota zraniona tą bronią na końcu każdej Rundy zdaje Test Odporności albo traci 1 Ranę — dopóki ktoś nie uleczy jej choć o 1 Ranę.",
+     "melee": [
+      37,
+      37
+     ]
+    },
+    {
+     "name": "Daleka",
+     "text": "Wszystkie zasięgi broni dystansowej są podwojone.",
+     "ranged": [
+      46,
+      55
+     ]
+    },
+    {
+     "name": "Wysysająca",
+     "text": "Każda zadana Rana wysysa 1k10 punktów z losowej Cechy ofiary i daje je tobie do końca starcia (ofierze wracają po długim odpoczynku). Cecha zbita do 0 — Utrata Przytomności na tydzień.",
+     "melee": [
+      38,
+      42
+     ],
+     "rolls": [
+      "characteristic"
+     ]
+    },
+    {
+     "name": "Wyczerpująca",
+     "text": "Trafienie zadaje +1 Stan Zmęczenie, a Trafienie Krytyczne PS+1 Stanów.",
+     "melee": [
+      43,
+      44
+     ],
+     "ranged": [
+      56,
+      60
+     ]
+    },
+    {
+     "name": "Ogniotrwała",
+     "text": "Cecha Niewrażliwość (Ogień).",
+     "melee": [
+      45,
+      45
+     ]
+    },
+    {
+     "name": "Płonąca",
+     "text": "Na rozkaz staje w ogniu: każde trafienie zadaje +1 Stan Podpalenie.",
+     "melee": [
+      46,
+      46
+     ]
+    },
+    {
+     "name": "Mroźna",
+     "text": "Trafienie zadaje +1 Stan Oszołomienie za każde BWt Ran.",
+     "melee": [
+      47,
+      47
+     ]
+    },
+    {
+     "name": "Siła Olbrzyma",
+     "text": "+3 do BS przy liczeniu Obrażeń.",
+     "melee": [
+      48,
+      48
+     ],
+     "effects": {
+      "damage": 3
+     }
+    },
+    {
+     "name": "Tłumiąca magię",
+     "text": "Dominuje inne zaklęcia: nosiciel nie użyje innych przedmiotów magicznych ani zaklęć i inwokacji.",
+     "melee": [
+      49,
+      49
+     ],
+     "cursed": true
+    },
+    {
+     "name": "Niszczycielka magii",
+     "text": "Trafiając inny magiczny przedmiot (także w Teście Przeciwstawnym), parzystym wynikiem go rozbija. Dwie takie bronie wybuchają przy spotkaniu jak bomba.",
+     "melee": [
+      50,
+      50
+     ]
+    },
+    {
+     "name": "Potęga",
+     "text": "Modyfikator Obrażeń broni.",
+     "melee": [
+      51,
+      70
+     ],
+     "ranged": [
+      61,
+      75
+     ],
+     "rolls": [
+      "might"
+     ]
+    },
+    {
+     "name": "Potężne uderzenie",
+     "text": "Raz na sesję, po trafieniu, zadajesz Obrażenia jak z BS 10.",
+     "melee": [
+      71,
+      71
+     ],
+     "ranged": [
+      76,
+      80
+     ]
+    },
+    {
+     "name": "Obsydianowa",
+     "text": "Trafienia ignorują Punkty Pancerza, nawet naturalnego (np. smocze łuski).",
+     "melee": [
+      72,
+      72
+     ]
+    },
+    {
+     "name": "Siła Ogra",
+     "text": "+1 do BS przy liczeniu Obrażeń.",
+     "melee": [
+      73,
+      73
+     ],
+     "effects": {
+      "damage": 1
+     }
+    },
+    {
+     "name": "Zatruta",
+     "text": "Trafienie zadaje +1 Stan Zatrucie.",
+     "melee": [
+      74,
+      74
+     ]
+    },
+    {
+     "name": "Osłaniająca",
+     "text": "Na wpół ożywiona broń sama paruje: +2 PS do Przeciwstawnych Testów obrony Wręcz.",
+     "melee": [
+      75,
+      75
+     ]
+    },
+    {
+     "name": "Relikwia",
+     "text": "Udany atak zawsze trafia, bez względu na wynik obrońcy; Obrażenia liczy się z różnicy PS (np. +1 PS przeciw +4 PS = −3 PS).",
+     "melee": [
+      76,
+      76
+     ]
+    },
+    {
+     "name": "Odpędzająca demony",
+     "text": "Istoty z Cechą Demoniczny w zasięgu wzroku otrzymują tyle Stanów Panika, ile masz Przewagi.",
+     "melee": [
+      77,
+      77
+     ]
+    },
+    {
+     "name": "Odpędzająca nieumarłych",
+     "text": "Istoty z Cechą Ożywieniec w zasięgu wzroku otrzymują tyle Stanów Panika, ile masz Przewagi.",
+     "melee": [
+      78,
+      78
+     ]
+    },
+    {
+     "name": "Celująca",
+     "text": "+10 do Umiejętności Strzeleckich.",
+     "ranged": [
+      81,
+      95
+     ]
+    },
+    {
+     "name": "Cienista",
+     "text": "Częściowo z wijącego się cienia: trafienie ignoruje PP.",
+     "melee": [
+      79,
+      79
+     ]
+    },
+    {
+     "name": "Wyjąca",
+     "text": "Wzbudzasz Strach (0) u wszystkich wrogów twojego rozmiaru i mniejszych, chyba że są niewrażliwi na psychologię.",
+     "melee": [
+      80,
+      80
+     ]
+    },
+    {
+     "name": "Złota Pieczęć Sigmara",
+     "text": "Maksymalny poziom Talentu Bitewny Refleks.",
+     "melee": [
+      81,
+      85
+     ],
+     "ranged": [
+      96,
+      100
+     ]
+    },
+    {
+     "name": "Pochłaniająca zaklęcia",
+     "text": "Pochłania zaklęcie rzucone na nosiciela (wrogie czy przyjazne) i zamienia je w premię do Obrażeń w następnej Akcji równą PS rzutu. Jedno zaklęcie na Rundę.",
+     "melee": [
+      86,
+      86
+     ]
+    },
+    {
+     "name": "Złodziejka czarów",
+     "text": "Trafiony czarujący nie może rzucać zaklęć do końca starcia.",
+     "melee": [
+      87,
+      87
+     ]
+    },
+    {
+     "name": "Waśni",
+     "text": "Raz na starcie, gdy pierwszy atak trafi, możesz wykonać dodatkowy atak.",
+     "melee": [
+      88,
+      88
+     ]
+    },
+    {
+     "name": "Uderzająca",
+     "text": "+10 do Walki Wręcz.",
+     "melee": [
+      89,
+      97
+     ],
+     "effects": {
+      "skill": 10
+     }
+    },
+    {
+     "name": "Szybkiego Zabijania",
+     "text": "Broń zyskuje Zaletę Szybka, nawet bez odpowiedniej Umiejętności.",
+     "melee": [
+      98,
+      98
+     ]
+    },
+    {
+     "name": "Udręki",
+     "text": "Trafiony zyskuje Cechę Głupi do końca starcia.",
+     "melee": [
+      99,
+      99
+     ]
+    },
+    {
+     "name": "Zguba Wojowników",
+     "text": "Trafiona istota jest oszołomiona i w następnej Turze wykona tylko jeden atak (bez Morderczego Ciosu i dodatkowych ataków).",
+     "melee": [
+      100,
+      100
+     ]
+    }
+   ],
+   "might": [
+    {
+     "min": 1,
+     "max": 1,
+     "name": "−3 Obrażeń, traci wszystkie Zalety",
+     "damage": -3
+    },
+    {
+     "min": 2,
+     "max": 5,
+     "name": "−2 Obrażeń",
+     "damage": -2
+    },
+    {
+     "min": 6,
+     "max": 10,
+     "name": "−1 Obrażeń",
+     "damage": -1
+    },
+    {
+     "min": 11,
+     "max": 80,
+     "name": "+1 Obrażeń",
+     "damage": 1
+    },
+    {
+     "min": 81,
+     "max": 90,
+     "name": "+2 Obrażeń",
+     "damage": 2
+    },
+    {
+     "min": 91,
+     "max": 95,
+     "name": "+3 Obrażeń",
+     "damage": 3
+    },
+    {
+     "min": 96,
+     "max": 98,
+     "name": "+4 Obrażeń",
+     "damage": 4
+    },
+    {
+     "min": 99,
+     "max": 100,
+     "name": "+4 Obrażeń i Zaleta Przebijająca",
+     "damage": 4
+    }
+   ],
+   "silver": "Posrebrzana broń nie jest ściśle magiczna, ale zyskuje Cechę Magiczny i zadaje +BSW Obrażeń istotom z Cechami Demoniczny, Eteryczny, Zmiennokształtny albo Ożywieniec. Posrebrzenie wytrzymuje jedną przygodę (2–3 sesje); broń z litego srebra działa zawsze, ale ma Wady Tandetny i Zawodny.",
+   "chaos": "Broń Chaosu: sługa Chaosu nie musi jej opanowywać. Jej efektów nie zmniejsza Cecha Ochrona. Wytrzymała 5.",
+   "daemon": "Broń demoniczna: mieszka w niej uwięziony demon. Sługa Chaosu nie musi jej opanowywać. Zawsze daje co najmniej tyle Przewagi, ile wynosi BWW demona; możesz używać SW demona (Test Odporności albo Punkt Zepsucia). Cios zadający co najmniej tyle Ran, ile cel ma Żywotności, wymusza Przeciwstawny Test SW z demonem — porażka to natychmiastowa śmierć. Zabici tracą Siłę: po trzecii dla boga, demona i nosiciela. Gdy wchłonie połowę swojej SW w Sile — szał zabijania; po całej — nasycenie."
+  },
+  "kostury": {
+   "name": "Kostury czarodziejskie",
+   "limit": "1",
+   "intro": "Symbol statusu czarodziejów Kolegiów. Kostur jest dostrojony do losowej Tradycji, nie ma własnej woli — użyje go każdy czarujący.",
+   "items": [
+    {
+     "min": 1,
+     "max": 25,
+     "name": "Niezłomny kostur",
+     "text": "Bez mocy, ale ma Zaletę Niełamliwa."
+    },
+    {
+     "min": 26,
+     "max": 30,
+     "name": "Kostur Wysuszenia Eteru",
+     "text": "Trafiony cel: Przeciwstawny Test Siły Woli — wygrana odbiera mu na zawsze Język (Magiczny) i Splatanie Magii (chyba że zawrze układ z groźną potęgą)."
+    },
+    {
+     "min": 31,
+     "max": 40,
+     "name": "Kostur Splatania",
+     "text": "+1 PS do udanych Testów Splatania Magii."
+    },
+    {
+     "min": 41,
+     "max": 55,
+     "name": "Kostur Energii",
+     "text": "Raz na sesję +1 PS do Testu Języka (Magicznego)."
+    },
+    {
+     "min": 56,
+     "max": 60,
+     "name": "Kostur Pochłaniania",
+     "text": "Pochłania zaklęcie rzucone na ciebie i zamienia je w premię do Obrażeń w następnej Akcji równą PZ zaklęcia. Jedno zaklęcie naraz."
+    },
+    {
+     "min": 61,
+     "max": 75,
+     "name": "Kostur Złodzieja Czarów",
+     "text": "Trafiony czarujący nie może rzucać zaklęć do końca starcia."
+    },
+    {
+     "min": 76,
+     "max": 100,
+     "name": "Kostur Uderzeń",
+     "text": "+1 PS do udanych Testów Walki Wręcz kosturem."
+    }
+   ]
+  },
+  "slawne": {
+   "name": "Przedmioty sławne",
+   "limit": "—",
+   "intro": "Przedmioty o udokumentowanej historii, często jedyne w swoim rodzaju. Wartości w złotych koronach są przybliżone; egzotycznych i unikatowych nie da się kupić inaczej niż od przestępców za horrendalną cenę.",
+   "renowned": [
+    {
+     "name": "Arabski dywan",
+     "wp": 33,
+     "value": "10 000 zk",
+     "enc": 2,
+     "availability": "egzotyczna",
+     "text": "Leci tylko wolą swego pana. Opanowany unosi ciebie i pięciu pasażerów jak Cecha Latanie (70); każdy pasażer obniża wartość o 10, uczepieni boków muszą co minutę zdawać Test Siły. Leci SW minut, potem do końca dnia jest bezwładny, a wszyscy spadają. Ogień może go zniszczyć (Wt 10, 20 Żywotności)."
+    },
+    {
+     "name": "Czarny Amulet",
+     "wp": 55,
+     "value": "3333 zk",
+     "enc": 0,
+     "availability": "egzotyczna",
+     "text": "Kamień barwy północy z płonącym symbolem: Cecha Ochrona (6) przeciw wszystkiemu, co zadaje Rany; Rany odbite w walce wręcz trafiają w atakującego (bez ochrony pancerza). Przy każdym odbiciu 5% szans na Punkt Zepsucia."
+    },
+    {
+     "name": "Pijący Krew",
+     "wp": 65,
+     "value": "7000 zk",
+     "enc": 1,
+     "availability": "egzotyczna",
+     "text": "Miecz wykuty przez nekromantów z krwi wampirów. Działa jak broń ręczna, a każde trafienie wysysa ofierze 10 Siły i daje Stan Zmęczenie. Siła 0 — Utrata Przytomności; stracona Siła wraca po 5 dziennie w łóżku. W świetle ostrze połyskuje czerwienią."
+    },
+    {
+     "name": "Urok Hoteka",
+     "wp": 35,
+     "value": "500 zk",
+     "enc": 0,
+     "availability": "rzadka",
+     "text": "Okruchy narzędzi, którymi Hotek wykuł czarną zbroję Malekitha: Cecha Niewrażliwość (Ogień) i +1 PP na wszystkich lokacjach, ale −20 do Testów Zepsucia. MG niech nie zdradza, że to urok jest winny."
+    },
+    {
+     "name": "Sztylet z Krainy Zgromadzenia",
+     "wp": null,
+     "value": "400 zk",
+     "enc": 0,
+     "availability": "rzadka",
+     "text": "Działa tylko w rękach niziołka: liczy się jak zwykły miecz z premią +10 do Broni Białej (Podstawowej)."
+    },
+    {
+     "name": "Kamień Świtu",
+     "wp": 75,
+     "value": "50 000 zk",
+     "enc": 1,
+     "availability": "egzotyczna",
+     "text": "Zaklęty krzemienny albo obsydianowy sztylet czy topór z kurhanu. Ma moce magicznej broni (rzuć na zdolności), stałą Strefę Schronienia wokół ciebie i +10 do SW w dłoni (prawdziwy druid: +20). Nie może być przeklęty."
+    },
+    {
+     "name": "Krzemień Dazha",
+     "wp": null,
+     "value": "—",
+     "enc": 0,
+     "availability": "unikat",
+     "text": "Klin wulkanicznej skały z Mrocznych Krain: dotknięta nim hubka, tkanina, włosy czy papier zawsze się zapalają. Kolegium Jasności sowicie zapłaci za jego odzyskanie."
+    },
+    {
+     "name": "Zaklęta lina",
+     "wp": 43,
+     "value": "4200 zk",
+     "enc": 1,
+     "availability": "egzotyczna",
+     "text": "Arabska lina długości 1k10+2 stóp, walcząca jak żywa istota (WW 41, S 33, Wt 33, I 100, Zw 88, Zr 66, SW 43, Żyw 13; Pancerz 3, Dusiciel, Niewrażliwość na Psychologię). Wiąże się w węzły na rozkaz i chwyta wskazane rzeczy czy istoty. 50% szans, że nie ma żywego właściciela."
+    },
+    {
+     "name": "Pierścień z Fauschlagu",
+     "wp": 25,
+     "value": "500 zk",
+     "enc": 0,
+     "availability": "egzotyczna",
+     "text": "Żelazny pierścień z odłamkiem skały Middenheim, skarb kapłanów Ulryka: +5 do WW (wyznawcy Ulryka +10)."
+    },
+    {
+     "name": "Ostrza szermierza",
+     "wp": 25,
+     "value": "5000 zk",
+     "enc": 2,
+     "availability": "egzotyczna",
+     "text": "Bliźniacze rapiery: +10 do WW przy walce oboma. Zna się kilkadziesiąt kompletów, głównie u szlachty."
+    },
+    {
+     "name": "Klejnot Nurgle'a",
+     "wp": null,
+     "value": "—",
+     "enc": 0,
+     "availability": "unikat",
+     "text": "Zielony kamień, podobno z pierścienia samego Pana Rozkładu. Każdego, kto go dotknie, ma toczyć gnijąca choroba. Ostatnio przemycony podobno do Nuln."
+    },
+    {
+     "name": "Złocona Zbroja",
+     "wp": 55,
+     "value": "—",
+     "enc": 6,
+     "availability": "unikat",
+     "text": "Złota zbroja płytowa — dar elfów dla Magnusa Pobożnego: +1 PP na wszystkich lokacjach, a każdy wróg w walce wręcz musi zdać Test Siły, by w ogóle spróbować uderzyć. Przechowywana w skarbcu Imperium."
+    },
+    {
+     "name": "Złote Oko Tzeentcha",
+     "wp": 88,
+     "value": "1000 zk",
+     "enc": 0,
+     "availability": "rzadka",
+     "text": "Złote berło-amulet z wijącymi się wzorami. Na początku Rundy wrogowie w walce wręcz zdają Przeciętny (+20) Test SW albo otrzymują tyle Stanów Oszołomienie, ile PS porażki (min. 1). Działa tylko dla kultystów Tzeentcha — inni co tydzień testują Zepsucie (poważne)."
+    },
+    {
+     "name": "Szpon Gryfa",
+     "wp": 40,
+     "value": "2000 zk",
+     "enc": 1,
+     "availability": "rzadka",
+     "text": "Smukłe gromrilowe ostrze z rękojeścią w kształcie szponu: +10 do Broni Białej (Podstawowej) w ataku i obronie. Przyznawane najlepszym szermierzom Imperium."
+    },
+    {
+     "name": "Uprząż Nieustraszoności",
+     "wp": 30,
+     "value": "600 zk",
+     "enc": 4,
+     "availability": "rzadka",
+     "text": "Brązowa skóra i niebieskawy gromril: koń zyskuje Cechę Niewrażliwość na Psychologię."
+    },
+    {
+     "name": "Serce Niedoli",
+     "wp": 45,
+     "value": "2000 zk",
+     "enc": 0,
+     "availability": "rzadka",
+     "text": "Wielki rubin w kształcie serca. Gdy noszący zginie, rozpryskuje się, zadając każdemu w promieniu (w metrach) równym maks. Żywotności noszącego trafienie za tyle + 1k10 Obrażeń (10 — także Trafienie Krytyczne). Noszą go możni, by odstraszyć skrytobójców."
+    },
+    {
+     "name": "Hełm Otuchy",
+     "wp": 35,
+     "value": "1500 zk",
+     "enc": 2,
+     "availability": "rzadka",
+     "text": "Zwykły hełm szepczący słowa zachęty: BSW poziomów Talentu Nieustraszony (wszystko) — i skłonność do pakowania się w kłopoty."
+    },
+    {
+     "name": "Hełm Telepatii",
+     "wp": 40,
+     "value": "32 000 zk",
+     "enc": 2,
+     "availability": "egzotyczna",
+     "text": "Srebrny czepiec (hełm płytowy, Wytrzymały 4): przesyłasz myśli każdemu w promieniu SW metrów i zaglądasz w cudze (Przeciwstawny Test SW). Po BSW tygodniach noszenia każde użycie daje Stan Oszołomienie na 1k10 minut, a hełm zdejmiesz tylko wygranym Przeciwstawnym Testem SW (raz dziennie)."
+    },
+    {
+     "name": "Laska Helstruma",
+     "wp": 45,
+     "value": "—",
+     "enc": 2,
+     "availability": "unikat",
+     "text": "Przez tysiąc lat symbol urzędu Wielkiego Teogonisty, zaginiona po Czarnej Zarazie. Daje maksymalne poziomy Talentów Porywająca Gorliwość, Mówca i Przemawianie."
+    },
+    {
+     "name": "Latarnia Dni",
+     "wp": null,
+     "value": "1000 zk",
+     "enc": 1,
+     "availability": "rzadka",
+     "text": "Ozdobna latarnia z ciemnego drewna: świeci jak latarnia sztormowa, a jedna porcja oleju starcza na 1k10 dni."
+    },
+    {
+     "name": "Szabla Światła",
+     "wp": 50,
+     "value": "5000 zk",
+     "enc": 0,
+     "availability": "rzadka",
+     "text": "Rapier lekki jak piórko (Obc. 0): na początku Tury zawsze dostajesz +1 Przewagę."
+    },
+    {
+     "name": "Lira Melodii",
+     "wp": 35,
+     "value": "2000 zk",
+     "enc": 1,
+     "availability": "rzadka",
+     "text": "Gra piękne, nawiedzone melodie: Występy (Lira) z +20 rozwinięć; nieudany Test możesz odwrócić, jeśli da to sukces."
+    },
+    {
+     "name": "Kula Ghrondu",
+     "wp": null,
+     "value": "10 000 zk",
+     "enc": 1,
+     "availability": "egzotyczna",
+     "text": "Obsydianowa kula z widokiem na Królestwo Chaosu. Każdy poza mrocznym elfem testuje Zepsucie (poważne) Bardzo Trudnym (−30) Testem, ale ujrzy wyraźnie ważne wydarzenie z przyszłości."
+    },
+    {
+     "name": "Pióro Nieskończonego Atramentu",
+     "wp": 10,
+     "value": "2000 zk",
+     "enc": 0,
+     "availability": "egzotyczna",
+     "text": "Ma w sobie cały atrament, jakiego kiedykolwiek będzie potrzebować."
+    },
+    {
+     "name": "Miecz Psychiczny",
+     "wp": 55,
+     "value": "3000 zk",
+     "enc": 1,
+     "availability": "egzotyczna",
+     "text": "Ciosy nie mają materii — przenikają przedmioty i uderzają w duszę: cel jest Zaskoczony i nie może parować (może unikać). Obrażenia liczysz z BSW zamiast BS. Nie działa na istoty niewrażliwe na psychologię ani bez SW."
+    },
+    {
+     "name": "Kieł Runiczny",
+     "wp": 75,
+     "value": "—",
+     "enc": 1,
+     "availability": "unikat",
+     "text": "Jeden z dwunastu mieczy wykutych przez Alarica Szalonego po Przełęczy Czarnego Ognia, z Mistrzowską Runą Alarica: ciosy ignorują wszystkie Punkty Pancerza. Dzierżą je hrabiowie elektorzy; dwa zapasowe spoczywają w skarbcu w Altdorfie."
+    },
+    {
+     "name": "Piasek Rzucania",
+     "wp": 45,
+     "value": "1100 zk",
+     "enc": 0,
+     "availability": "egzotyczna",
+     "text": "Kataiski pył w fiolce na 1k10 użyć: rzucona garść (do 12 m) tworzy chmurę o promieniu 4 m — każdy w niej otrzymuje BZr Stanów Oślepienie."
+    },
+    {
+     "name": "Świeca Skryby",
+     "wp": null,
+     "value": "10 zk",
+     "enc": 2,
+     "availability": "rzadka",
+     "text": "Wielka świeca z wosku olbrzymich pszczół z Indu o piżmowej woni: czytający w jej świetle ma +20 do Inteligencji. Oświetla pokój przez dobę."
+    },
+    {
+     "name": "Zwój Piątej Tradycji",
+     "wp": 45,
+     "value": "—",
+     "enc": 0,
+     "availability": "unikat",
+     "text": "Wygląda tak, jak spodziewa się czytelnik — strażnik zobaczy w nim przepustkę. Dzieło pierwszych patriarchów Kolegium Szarego; ostatnio widziany w Marienburgu."
+    },
+    {
+     "name": "Lśniąca Zbroja",
+     "wp": 40,
+     "value": "42 000 zk",
+     "enc": 4,
+     "availability": "egzotyczna",
+     "text": "Złocony napierśnik z kometą Sigmara (4 PP, bez Wady Wrażliwe punkty): +2 poziomy Talentu Atrakcyjny i +20 do Ogłady wobec podziwiających — odwrotnie wobec zdegustowanych. Przyciąga ataki dystansowe (+20 do trafienia). Miał wielu krótko żyjących właścicieli."
+    },
+    {
+     "name": "Srebrna Pieczęć",
+     "wp": 35,
+     "value": "—",
+     "enc": 0,
+     "availability": "unikat",
+     "text": "Diament w srebrnym dysku — ochrona wykuta dla Magnusa Pobożnego: ataki przeciw noszącemu mają −10, a on zyskuje poziom Talentu Odporność na Magię. Krąży wiele podróbek, z których jedna czy dwie podobno działają."
+    },
+    {
+     "name": "Włócznia Tropiciela",
+     "wp": 55,
+     "value": "2250 zk",
+     "enc": 2,
+     "availability": "rzadka",
+     "text": "Czarne drzewce i srebrny grot: odnajduje wroga wskazanego z imienia do 150 m, omijając wszystkich innych (US 100, 5% szans na chybienie). Błędne imię — wraca i trafia w ciebie."
+    },
+    {
+     "name": "Kostur Potępienia",
+     "wp": 66,
+     "value": "1150 zk",
+     "enc": 2,
+     "availability": "egzotyczna",
+     "text": "Kostur z czarnej kości słoniowej rzeźbionej w czaszki, tylko dla nekromantów: Ożywieńcy w promieniu SW metrów mają podwójną Szybkość i +1 Przewagę na Rundę; na końcu Rundy 1k10 mniejsze niż liczba Rund działania — moc gaśnie na dobę. Nie-nekromanta noszący go 8 dni dostaje 1k10 Punktów Zepsucia (Umysł), potem 1 na tydzień."
+    },
+    {
+     "name": "Kostur Białozarodnika",
+     "wp": null,
+     "value": "300 zk",
+     "enc": 2,
+     "availability": "rzadka",
+     "text": "Dzieło czarownika Nurgle'a Helmuta Whitespore'a. Działa tylko dla czarujących: poziom Talentu Percepcja Magiczna i +1 PS do udanych Testów Splatania i Języka (Magicznego) przy zaklęciach Nurgle'a i Demonologii. Kuszące sny o Chaosie — po pierwszym nieudanym Bardzo Łatwym (+60) Teście Opanowania zyskujesz za darmo Talent Magia Chaosu (Nurgle)."
+    },
+    {
+     "name": "Hełm Burzy",
+     "wp": 35,
+     "value": "1400 zk",
+     "enc": 2,
+     "availability": "egzotyczna",
+     "text": "Lśniący biały hełm z wielką przyłbicą, a twój głos brzmi złowieszczo: +4 PP na głowie, ale −20 do Testów US, Ogłady, Języków i Percepcji. Opanowanego nie zdejmiesz bez zdjęcia klątwy."
+    },
+    {
+     "name": "Miecz Bitewny",
+     "wp": null,
+     "value": "4000 zk",
+     "enc": 1,
+     "availability": "egzotyczna",
+     "text": "Dar krasnoludów dla człowieka, który oddał im wielką przysługę: każdy jest inny, ze stopu gromrilu, z Runą Furii na rękojeści."
+    },
+    {
+     "name": "Miecz Sprawiedliwości",
+     "wp": null,
+     "value": "—",
+     "enc": 1,
+     "availability": "unikat",
+     "text": "Z Runą Uraz i Runą Furii, przekazywany od czempiona do czempiona cesarza — obecnie dzierży go Ludwig Schwarzhelm."
+    },
+    {
+     "name": "Talizman Ulryka",
+     "wp": 45,
+     "value": "—",
+     "enc": 0,
+     "availability": "unikat",
+     "text": "Srebrna głowa wilka: na początku Tury odzyskujesz 1 Ranę (jeśli żyjesz). Wyznawca Ulryka nie musi go opanowywać. Klejnot rodu Todbringerów z Middenlandu."
+    },
+    {
+     "name": "Grobowe Ostrze Arkhana",
+     "wp": 88,
+     "value": "—",
+     "enc": 1,
+     "availability": "unikat",
+     "text": "Czarny miecz z runami Arkhana Czarnego więzi dusze zabitych: zabity nim zdaje Przeciwstawny Test SW albo jego szkielet wstaje jako sługa nosiciela (bez Punktu Przeznaczenia). Bezpiecznie dzierży go tylko nekromanta, wampir albo licz — inni mają 50% szans dziennie na Gnicie Grobowe i ekspozycję na Zepsucie (drobne)."
+    },
+    {
+     "name": "Smokobójca",
+     "wp": 50,
+     "value": "4500 zk",
+     "enc": 4,
+     "availability": "egzotyczna",
+     "text": "Zaklęta pika na łuskowate potwory: przeciw bazyliszkom, smokom, hydrom, żabrołakom i wywernom trafienie ignoruje PP i BWt. Przeciw innym — tylko Cecha Magiczny."
+    }
+   ]
+  }
+ },
+ "tables": {
+  "characteristic": [
+   "WW",
+   "US",
+   "S",
+   "Wt",
+   "I",
+   "Zw",
+   "Zr",
+   "Int",
+   "SW",
+   "Ogd"
+  ],
+  "species": [
+   {
+    "min": 1,
+    "max": 5,
+    "name": "wszystkie zwierzęta i stworzenia"
+   },
+   {
+    "min": 6,
+    "max": 10,
+    "name": "wszystkie demony i istoty związane z Chaosem"
+   },
+   {
+    "min": 11,
+    "max": 15,
+    "name": "wszystkie gady"
+   },
+   {
+    "min": 16,
+    "max": 20,
+    "name": "wszyscy nieumarli"
+   },
+   {
+    "min": 21,
+    "max": 25,
+    "name": "istoty spaczone, mutanci i kultyści"
+   },
+   {
+    "min": 26,
+    "max": 30,
+    "name": "demony (i bronie demoniczne)"
+   },
+   {
+    "min": 31,
+    "max": 35,
+    "name": "smoki i potwory"
+   },
+   {
+    "min": 36,
+    "max": 40,
+    "name": "krasnoludy, gnomy i niziołki"
+   },
+   {
+    "min": 41,
+    "max": 45,
+    "name": "elfy"
+   },
+   {
+    "min": 46,
+    "max": 50,
+    "name": "fimirowie"
+   },
+   {
+    "min": 51,
+    "max": 60,
+    "name": "olbrzymie zwierzęta"
+   },
+   {
+    "min": 61,
+    "max": 70,
+    "name": "zielonoskórzy"
+   },
+   {
+    "min": 71,
+    "max": 75,
+    "name": "ludzie"
+   },
+   {
+    "min": 76,
+    "max": 80,
+    "name": "skaveny"
+   },
+   {
+    "min": 81,
+    "max": 85,
+    "name": "trolle, drzewce, olbrzymy i ogry"
+   },
+   {
+    "min": 86,
+    "max": 90,
+    "name": "nieumarli (cieleśni)"
+   },
+   {
+    "min": 91,
+    "max": 95,
+    "name": "nieumarli (eteryczni)"
+   },
+   {
+    "min": 96,
+    "max": 100,
+    "name": "wampiry i zmiennokształtni"
+   }
+  ],
+  "attackProtection": [
+   {
+    "min": 1,
+    "max": 5,
+    "name": "Oślepienie",
+    "text": "Stany Oślepienie zostają usunięte."
+   },
+   {
+    "min": 6,
+    "max": 10,
+    "name": "zimno i mróz",
+    "text": "Obrażenia od zimna i mrozu zmniejszone o połowę."
+   },
+   {
+    "min": 11,
+    "max": 15,
+    "name": "przymus",
+    "text": "Wszystkie zaklęcia, efekty, psychologia i Stany, które zmuszają cię do działania."
+   },
+   {
+    "min": 16,
+    "max": 20,
+    "name": "korozja",
+    "text": "Efekty korozji są ignorowane."
+   },
+   {
+    "min": 21,
+    "max": 25,
+    "name": "Zepsucie",
+    "text": "Możesz odwrócić nieudany Test przeciw Zepsuciu, jeśli da to sukces."
+   },
+   {
+    "min": 26,
+    "max": 30,
+    "name": "Ogłuszenie",
+    "text": "Stany Ogłuszenie zostają usunięte."
+   },
+   {
+    "min": 31,
+    "max": 33,
+    "name": "choroby i zakażenia",
+    "text": "Jesteś niewrażliwy."
+   },
+   {
+    "min": 34,
+    "max": 37,
+    "name": "Pochwycenie",
+    "text": "Stany Pochwycenie zostają usunięte."
+   },
+   {
+    "min": 38,
+    "max": 40,
+    "name": "elektryczność i błyskawice",
+    "text": "Obrażenia zmniejszone o połowę."
+   },
+   {
+    "min": 41,
+    "max": 45,
+    "name": "ogień i magia ognia",
+    "text": "Obrażenia o połowę; możesz odwrócić nieudany Test usunięcia Stanu, jeśli da to sukces."
+   },
+   {
+    "min": 46,
+    "max": 50,
+    "name": "spojrzenie i petryfikacja",
+    "text": "Jesteś niewrażliwy."
+   },
+   {
+    "min": 51,
+    "max": 55,
+    "name": "iluzje",
+    "text": "Od razu przejrzysz wszystkie iluzje."
+   },
+   {
+    "min": 56,
+    "max": 60,
+    "name": "obłęd",
+    "text": "Leczy dotychczasowe Obłędy; nie zyskujesz Punktów Zepsucia (Umysł) z żadnego powodu."
+   },
+   {
+    "min": 61,
+    "max": 65,
+    "name": "zdolności magiczne",
+    "text": "Połowa Obrażeń i niewrażliwość na efekty bez obrażeń od mocy magicznych, które nie są zaklęciami ani broniami."
+   },
+   {
+    "min": 66,
+    "max": 70,
+    "name": "bronie magiczne",
+    "text": "Obrażenia zmniejszone o połowę."
+   },
+   {
+    "min": 71,
+    "max": 75,
+    "name": "pociski",
+    "text": "Połowa Obrażeń od wszystkich zwykłych ataków dystansowych."
+   },
+   {
+    "min": 76,
+    "max": 80,
+    "name": "broń naturalna",
+    "text": "Połowa Obrażeń od pazurów, ugryzień, rogów, tupnięć, pięści, ogonów itp."
+   },
+   {
+    "min": 81,
+    "max": 83,
+    "name": "Zatrucie",
+    "text": "Stany Zatrucie zostają usunięte."
+   },
+   {
+    "min": 84,
+    "max": 85,
+    "name": "psychologia",
+    "text": "Efekty psychologiczne są ignorowane."
+   },
+   {
+    "min": 86,
+    "max": 90,
+    "name": "zaklęcia",
+    "text": "Połowa Obrażeń od zaklęć zadających Rany."
+   },
+   {
+    "min": 91,
+    "max": 95,
+    "name": "broń obuchowa",
+    "text": "Połowa Obrażeń od pałek, buzdyganów, młotów, tarcz i broni Ogłuszającej."
+   },
+   {
+    "min": 96,
+    "max": 100,
+    "name": "broń sieczna i kłująca",
+    "text": "Połowa Obrażeń od mieczy, rapierów, włóczni, toporów i wszystkiego, co kolczaste."
+   }
+  ],
+  "spellLore": [
+   {
+    "min": 1,
+    "max": 5,
+    "name": "inna",
+    "lores": [
+     "Pór Roku",
+     "Wielkiego Waaagh!",
+     "Elementalizmu",
+     "Guślarstwa"
+    ]
+   },
+   {
+    "min": 6,
+    "max": 25,
+    "name": "Magia Prosta",
+    "lores": [
+     "Prosta"
+    ]
+   },
+   {
+    "min": 26,
+    "max": 40,
+    "name": "Magia Tajemna",
+    "lores": [
+     "Tajemna"
+    ]
+   },
+   {
+    "min": 41,
+    "max": 45,
+    "name": "Tradycja Zwierząt",
+    "lores": [
+     "Zwierząt"
+    ]
+   },
+   {
+    "min": 46,
+    "max": 50,
+    "name": "Tradycja Śmierci",
+    "lores": [
+     "Śmierci"
+    ]
+   },
+   {
+    "min": 51,
+    "max": 55,
+    "name": "Tradycja Ognia",
+    "lores": [
+     "Ognia"
+    ]
+   },
+   {
+    "min": 56,
+    "max": 60,
+    "name": "Tradycja Niebios",
+    "lores": [
+     "Niebios"
+    ]
+   },
+   {
+    "min": 61,
+    "max": 65,
+    "name": "Tradycja Życia",
+    "lores": [
+     "Życia"
+    ]
+   },
+   {
+    "min": 66,
+    "max": 70,
+    "name": "Tradycja Światła",
+    "lores": [
+     "Światła"
+    ]
+   },
+   {
+    "min": 71,
+    "max": 75,
+    "name": "Tradycja Metalu",
+    "lores": [
+     "Metalu"
+    ]
+   },
+   {
+    "min": 76,
+    "max": 80,
+    "name": "Tradycja Cieni",
+    "lores": [
+     "Cieni"
+    ]
+   },
+   {
+    "min": 81,
+    "max": 85,
+    "name": "Tradycja Guślarstwa",
+    "lores": [
+     "Guślarstwa"
+    ]
+   },
+   {
+    "min": 86,
+    "max": 90,
+    "name": "Tradycja Czarownictwa",
+    "lores": [
+     "Czarownictwa"
+    ]
+   },
+   {
+    "min": 91,
+    "max": 94,
+    "name": "Demonologia",
+    "lores": [
+     "Demonologii"
+    ]
+   },
+   {
+    "min": 95,
+    "max": 98,
+    "name": "Nekromancja",
+    "lores": [
+     "Nekromancji"
+    ]
+   },
+   {
+    "min": 99,
+    "max": 100,
+    "name": "Magia Chaosu",
+    "lores": [
+     "Nurgla",
+     "Slaanesha",
+     "Tzeentcha"
+    ]
+   }
+  ],
+  "powerStones": [
+   {
+    "min": 1,
+    "max": 13,
+    "name": "Bursztyn Widmowy",
+    "text": "Kolegium Bursztynowe — Tradycja Zwierząt (Ghur).",
+    "lore": "Zwierząt"
+   },
+   {
+    "min": 14,
+    "max": 25,
+    "name": "Kamień Kresu",
+    "text": "Kolegium Ametystowe — Tradycja Śmierci (Shyish).",
+    "lore": "Śmierci"
+   },
+   {
+    "min": 26,
+    "max": 38,
+    "name": "Ognisty Rubin",
+    "text": "Kolegium Jasności — Tradycja Ognia (Aqshy).",
+    "lore": "Ognia"
+   },
+   {
+    "min": 39,
+    "max": 50,
+    "name": "Prawdziwy Szafir",
+    "text": "Kolegium Niebios — Tradycja Niebios (Azyr).",
+    "lore": "Niebios"
+   },
+   {
+    "min": 51,
+    "max": 63,
+    "name": "Złoty Kamień",
+    "text": "Kolegium Złote — Tradycja Metalu (Chamon).",
+    "lore": "Metalu"
+   },
+   {
+    "min": 64,
+    "max": 75,
+    "name": "Kryształowa Mgła",
+    "text": "Kolegium Szare — Tradycja Cieni (Ulgu).",
+    "lore": "Cieni"
+   },
+   {
+    "min": 76,
+    "max": 88,
+    "name": "Vitaellum",
+    "text": "Kolegium Jadeitowe — Tradycja Życia (Ghyran).",
+    "lore": "Życia"
+   },
+   {
+    "min": 89,
+    "max": 100,
+    "name": "Kamień Lumen",
+    "text": "Kolegium Światła — Tradycja Światła (Hysh).",
+    "lore": "Światła"
+   }
+  ],
+  "blessings": [
+   {
+    "min": 1,
+    "max": 5,
+    "name": "Błogosławieństwo Bitwy"
+   },
+   {
+    "min": 6,
+    "max": 10,
+    "name": "Błogosławieństwo Oddechu"
+   },
+   {
+    "min": 11,
+    "max": 15,
+    "name": "Błogosławieństwo Charyzmy"
+   },
+   {
+    "min": 16,
+    "max": 20,
+    "name": "Błogosławieństwo Sumienia"
+   },
+   {
+    "min": 21,
+    "max": 25,
+    "name": "Błogosławieństwo Odwagi"
+   },
+   {
+    "min": 26,
+    "max": 30,
+    "name": "Błogosławieństwo Finezji"
+   },
+   {
+    "min": 31,
+    "max": 35,
+    "name": "Błogosławieństwo Fortuny"
+   },
+   {
+    "min": 36,
+    "max": 40,
+    "name": "Błogosławieństwo Gracji"
+   },
+   {
+    "min": 41,
+    "max": 45,
+    "name": "Błogosławieństwo Krzepy"
+   },
+   {
+    "min": 46,
+    "max": 50,
+    "name": "Błogosławieństwo Uzdrowienia"
+   },
+   {
+    "min": 51,
+    "max": 55,
+    "name": "Błogosławieństwo Łowów"
+   },
+   {
+    "min": 56,
+    "max": 60,
+    "name": "Błogosławieństwo Potęgi"
+   },
+   {
+    "min": 61,
+    "max": 65,
+    "name": "Błogosławieństwo Ochrony"
+   },
+   {
+    "min": 66,
+    "max": 70,
+    "name": "Błogosławieństwo Rekonwalescencji"
+   },
+   {
+    "min": 71,
+    "max": 75,
+    "name": "Błogosławieństwo Prawości"
+   },
+   {
+    "min": 76,
+    "max": 80,
+    "name": "Błogosławieństwo Dzikości"
+   },
+   {
+    "min": 81,
+    "max": 85,
+    "name": "Błogosławieństwo Wytrwałości"
+   },
+   {
+    "min": 86,
+    "max": 90,
+    "name": "Błogosławieństwo Mądrości"
+   },
+   {
+    "min": 91,
+    "max": 95,
+    "name": "Błogosławieństwo Bystrości"
+   },
+   {
+    "min": 96,
+    "max": 100,
+    "name": "rzuć dwa razy",
+    "twice": true
+   }
+  ],
+  "qualities": {
+   "qualities": [
+    {
+     "min": 1,
+     "max": 5,
+     "name": "rzuć dwa razy",
+     "twice": true
+    },
+    {
+     "min": 6,
+     "max": 15,
+     "name": "rzuć na Wadę",
+     "flaw": true
+    },
+    {
+     "min": 16,
+     "max": 30,
+     "name": "brak"
+    },
+    {
+     "min": 31,
+     "max": 40,
+     "name": "Poręczny"
+    },
+    {
+     "min": 41,
+     "max": 55,
+     "name": "Wytrzymały 1"
+    },
+    {
+     "min": 56,
+     "max": 60,
+     "name": "Wytrzymały 2"
+    },
+    {
+     "min": 61,
+     "max": 75,
+     "name": "Wyśmienity 1"
+    },
+    {
+     "min": 76,
+     "max": 80,
+     "name": "Wyśmienity 2"
+    },
+    {
+     "min": 81,
+     "max": 90,
+     "name": "Praktyczny"
+    },
+    {
+     "min": 91,
+     "max": 99,
+     "name": "rzuć dwa razy",
+     "twice": true
+    },
+    {
+     "min": 100,
+     "max": 100,
+     "name": "rzuć trzy razy",
+     "thrice": true
+    }
+   ],
+   "flaws": [
+    {
+     "min": 1,
+     "max": 5,
+     "name": "rzuć dwa razy",
+     "twice": true
+    },
+    {
+     "min": 6,
+     "max": 30,
+     "name": "brak"
+    },
+    {
+     "min": 31,
+     "max": 40,
+     "name": "Nieporęczny"
+    },
+    {
+     "min": 41,
+     "max": 60,
+     "name": "Zawodny"
+    },
+    {
+     "min": 61,
+     "max": 80,
+     "name": "Brzydki"
+    },
+    {
+     "min": 81,
+     "max": 90,
+     "name": "Tandetny"
+    },
+    {
+     "min": 91,
+     "max": 99,
+     "name": "rzuć dwa razy",
+     "twice": true
+    },
+    {
+     "min": 100,
+     "max": 100,
+     "name": "rzuć trzy razy",
+     "thrice": true
+    }
+   ]
+  },
+  "weaponQualities": {
+   "qualities": [
+    {
+     "min": 1,
+     "max": 20,
+     "name": "rzuć na Wadę",
+     "flaw": true
+    },
+    {
+     "min": 21,
+     "max": 30,
+     "name": "Wytrzymały 1"
+    },
+    {
+     "min": 31,
+     "max": 35,
+     "name": "Wytrzymały 2"
+    },
+    {
+     "min": 36,
+     "max": 38,
+     "name": "Wytrzymały 3"
+    },
+    {
+     "min": 39,
+     "max": 40,
+     "name": "Wytrzymały 4"
+    },
+    {
+     "min": 41,
+     "max": 60,
+     "name": "Wyśmienity 1"
+    },
+    {
+     "min": 61,
+     "max": 70,
+     "name": "Wyśmienity 2"
+    },
+    {
+     "min": 71,
+     "max": 75,
+     "name": "Wyśmienity 3"
+    },
+    {
+     "min": 76,
+     "max": 85,
+     "name": "Poręczny"
+    },
+    {
+     "min": 86,
+     "max": 95,
+     "name": "Praktyczny"
+    },
+    {
+     "min": 96,
+     "max": 99,
+     "name": "rzuć dwa razy",
+     "twice": true
+    },
+    {
+     "min": 100,
+     "max": 100,
+     "name": "rzuć trzy razy",
+     "thrice": true
+    }
+   ],
+   "flaws": [
+    {
+     "min": 1,
+     "max": 30,
+     "name": "brak"
+    },
+    {
+     "min": 31,
+     "max": 40,
+     "name": "Zawodny"
+    },
+    {
+     "min": 41,
+     "max": 75,
+     "name": "Brzydki"
+    },
+    {
+     "min": 76,
+     "max": 85,
+     "name": "Nieporęczny"
+    },
+    {
+     "min": 86,
+     "max": 95,
+     "name": "Tandetny"
+    },
+    {
+     "min": 96,
+     "max": 99,
+     "name": "rzuć dwa razy",
+     "twice": true
+    },
+    {
+     "min": 100,
+     "max": 100,
+     "name": "rzuć trzy razy",
+     "thrice": true
+    }
+   ]
+  },
+  "charArmour": [
+   {
+    "min": 1,
+    "max": 15,
+    "name": "−3k10",
+    "dice": "-3k10"
+   },
+   {
+    "min": 16,
+    "max": 65,
+    "name": "+1k10",
+    "dice": "1k10"
+   },
+   {
+    "min": 66,
+    "max": 90,
+    "name": "+2k10",
+    "dice": "2k10"
+   },
+   {
+    "min": 91,
+    "max": 95,
+    "name": "+4k10",
+    "dice": "4k10"
+   },
+   {
+    "min": 96,
+    "max": 100,
+    "name": "dwie zmiany Cech",
+    "twice": true
+   }
+  ],
+  "charWeapon": [
+   {
+    "min": 1,
+    "max": 15,
+    "name": "−10",
+    "value": -10
+   },
+   {
+    "min": 16,
+    "max": 70,
+    "name": "+5",
+    "value": 5
+   },
+   {
+    "min": 71,
+    "max": 85,
+    "name": "+10",
+    "value": 10
+   },
+   {
+    "min": 86,
+    "max": 95,
+    "name": "+15",
+    "value": 15
+   },
+   {
+    "min": 96,
+    "max": 100,
+    "name": "dwie zmiany Cech",
+    "twice": true
+   }
+  ],
+  "minorCurses": [
+   {
+    "min": 1,
+    "max": 30,
+    "name": "Drobna skaza",
+    "text": "Brodawki, czyraki, hemoroidy, wzdęcia, paskudna wysypka albo łysienie. MG może nałożyć −5 do Ogłady albo Zręczności.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 31,
+    "max": 32,
+    "name": "Wrogość zwierząt",
+    "text": "Wszystkie zwierzęta w promieniu 12 metrów zyskują Cechę Wrogość (ty).",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 33,
+    "max": 34,
+    "name": "Pech",
+    "text": "Tracisz wszystkie Punkty Szczęścia.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 35,
+    "max": 36,
+    "name": "Bankructwo",
+    "text": "Wszystkie twoje pieniądze okazują się fałszywe — także te zdeponowane i ukryte. Jesteś spłukany!",
+    "duration": "natychmiast"
+   },
+   {
+    "min": 37,
+    "max": 38,
+    "name": "Paraliżujący ból",
+    "text": "Działa na ciebie zaklęcie Klątwa porażającego bólu; Miejsce Trafienia losowe.",
+    "duration": "jak zaklęcie"
+   },
+   {
+    "min": 39,
+    "max": 40,
+    "name": "Tańczące światełka",
+    "text": "Wokół twojej głowy tańczą dziesiątki iskierek. Ludzie wezmą cię za spaczonego przez Chaos i zaatakują albo przegonią z miasta.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 41,
+    "max": 42,
+    "name": "Najgłębszy sen",
+    "text": "Zapadasz w śpiączkę, której nie leczy żaden medyk. O każdym wschodzie słońca możesz spróbować się obudzić Bardzo Trudnym (−30) Testem Odporności.",
+    "duration": "do przebudzenia"
+   },
+   {
+    "min": 43,
+    "max": 44,
+    "name": "Delikatność",
+    "text": "Nie możesz używać Punktów Determinacji.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 45,
+    "max": 46,
+    "name": "Choroba",
+    "text": "Zarażasz się losową chorobą.",
+    "duration": "natychmiast"
+   },
+   {
+    "min": 47,
+    "max": 48,
+    "name": "Osłabienie",
+    "text": "Musisz odwrócić wynik, jeśli da to porażkę, w każdym Teście opartym na S albo Wt.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 49,
+    "max": 50,
+    "name": "Gaśnięcie płomieni",
+    "text": "Każdy zwykły płomień w promieniu BSW metrów od ciebie gaśnie.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 51,
+    "max": 52,
+    "name": "Wiecznie nie tak",
+    "text": "Bez względu na temperaturę jest ci niewygodnie; masz stały Stan Zmęczenie.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 53,
+    "max": 54,
+    "name": "Głód",
+    "text": "Jesteś bez przerwy głodny, chyba że zjesz co najmniej sześć posiłków dziennie. Każdy pominięty posiłek daje Stan Zmęczenie.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 55,
+    "max": 56,
+    "name": "Zapominalstwo",
+    "text": "Pamiętasz ludzi i zdarzenia sprzed lat, ale świeże wydarzenia wymagają Testu Inteligencji.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 57,
+    "max": 58,
+    "name": "Chwiejność",
+    "text": "Tracisz wszystkie Punkty Bohatera do końca klątwy.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 59,
+    "max": 60,
+    "name": "Zazdrość",
+    "text": "Przeklęty przedmiot nie chce, byś używał czegoś innego. Używając rywala (np. innej broni) musisz odwrócić wynik, jeśli da to porażkę. Przeklętego pancerza nie zdejmiesz nawet do czyszczenia czy naprawy.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 61,
+    "max": 62,
+    "name": "L'amour",
+    "text": "Co tydzień zakochujesz się beznadziejnie w innej przypadkowej osobie lub istocie i musisz zabiegać o jej względy.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 63,
+    "max": 64,
+    "name": "Prawie bankructwo",
+    "text": "Wszystkie twoje monety zamieniają się w mosiężne pensy — także te zdeponowane i ukryte.",
+    "duration": "natychmiast"
+   },
+   {
+    "min": 65,
+    "max": 66,
+    "name": "Utrata węchu",
+    "text": "Nie czujesz żadnych zapachów.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 67,
+    "max": 68,
+    "name": "Zbiorowa bezsenność",
+    "text": "Żadna istota w promieniu SW metrów od ciebie nie może odpocząć ani porządnie się wyspać.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 69,
+    "max": 70,
+    "name": "Drobna utrata Cechy",
+    "text": "Natychmiast tracisz 10 punktów z losowej Cechy.",
+    "duration": "1k10 sesji",
+    "rolls": [
+     "characteristic"
+    ]
+   },
+   {
+    "min": 71,
+    "max": 72,
+    "name": "Nagi i przerażony",
+    "text": "Całe ubranie i pancerz kurczą się i pękają. Wszystko, co masz na sobie, ulega zniszczeniu.",
+    "duration": "natychmiast"
+   },
+   {
+    "min": 73,
+    "max": 74,
+    "name": "Zobojętnienie płynów",
+    "text": "Wszystkie mikstury, trucizny i eliksiry w promieniu BSW metrów zamieniają się w czystą wodę.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 75,
+    "max": 76,
+    "name": "Zabójczy dotyk dla roślin",
+    "text": "Twój dotyk zadaje 1k10 Obrażeń każdej roślinie.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 77,
+    "max": 78,
+    "name": "Podatność na trucizny",
+    "text": "Odwracasz wynik Testu Odporności przeciw truciźnie, jeśli da to porażkę.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 79,
+    "max": 80,
+    "name": "Rozbiegane oczy",
+    "text": "Kupcy dostają +20 do Targowania z tobą i zawsze zawyżają cenę o 20%.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 81,
+    "max": 82,
+    "name": "Zepsucie zapasów",
+    "text": "Psuje się całe twoje jedzenie, zioła, napoje i składniki zaklęć (25% szans na Galopującą Sraczkę po spożyciu).",
+    "duration": "natychmiast"
+   },
+   {
+    "min": 83,
+    "max": 84,
+    "name": "Smród",
+    "text": "Cuchniesz na 6 metrów. −10 do Testów Ogłady, gdy liczy się zapach.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 85,
+    "max": 86,
+    "name": "Słabość",
+    "text": "Udane Testy Odporności i Opanowania musisz odwrócić, jeśli da to porażkę.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 87,
+    "max": 88,
+    "name": "Tycie",
+    "text": "Przez noc przybywa ci 1k5 × 5 kg — przechodzisz na wyższy stopień budowy ciała.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 89,
+    "max": 90,
+    "name": "Chudnięcie",
+    "text": "Przez noc tracisz 1k5 × 5 kg — przechodzisz na niższy stopień budowy ciała.",
+    "duration": "1k10 sesji"
+   },
+   {
+    "min": 91,
+    "max": 100,
+    "name": "Poważna klątwa",
+    "major": true
+   }
+  ],
+  "majorCurses": [
+   {
+    "min": 1,
+    "max": 50,
+    "name": "Trwała drobna klątwa",
+    "text": "Rzuć w Tabeli Drobnych Klątw — efekt trwa, dopóki klątwa nie zostanie zdjęta (przerzuć wyniki „natychmiast”).",
+    "permanentMinor": true
+   },
+   {
+    "min": 51,
+    "max": 52,
+    "name": "Magnes na strzały",
+    "text": "Pociski lecące w promieniu BSW metrów od ciebie szukają właśnie ciebie: +40 do trafienia."
+   },
+   {
+    "min": 53,
+    "max": 54,
+    "name": "Ślepota",
+    "text": "Otrzymujesz 1k10 Stanów Oślepienie."
+   },
+   {
+    "min": 55,
+    "max": 56,
+    "name": "Ofiara krwi",
+    "text": "Zanim użyjesz mocy przedmiotu, musisz wykonać Akcję Darmową i upuścić sobie krwi, tracąc 1 Ranę."
+   },
+   {
+    "min": 57,
+    "max": 58,
+    "name": "Zepsucie",
+    "text": "Na początku każdej sesji wykonaj Test Odporności albo zyskaj Punkt Zepsucia."
+   },
+   {
+    "min": 59,
+    "max": 60,
+    "name": "Głuchota",
+    "text": "Otrzymujesz 1k10 Stanów Ogłuszenie."
+   },
+   {
+    "min": 61,
+    "max": 62,
+    "name": "Więzienie demona",
+    "text": "W przedmiocie uwięziony jest demon. W każdej sesji jest 5% szans, że coś go uwolni — wtedy musisz wygrać Przeciwstawny Test Siły Woli, inaczej demon zaatakuje cię z furią."
+   },
+   {
+    "min": 63,
+    "max": 64,
+    "name": "Bez przeznaczenia",
+    "text": "Nie możesz używać Punktów Przeznaczenia, dopóki klątwa trwa."
+   },
+   {
+    "min": 65,
+    "max": 66,
+    "name": "Kamienna dłoń",
+    "text": "Jedna dłoń zamienia się w kamień — traktuj ją jak amputowaną. Po zdjęciu klątwy za każdy tydzień trwania masz stałe −1 do Zręczności tej dłoni."
+   },
+   {
+    "min": 67,
+    "max": 68,
+    "name": "Nikt",
+    "text": "Jakbyś ledwie istniał. Udane Testy Ogłady i Dowodzenia odwracasz, jeśli da to porażkę. Zyskujesz wszystkie poziomy Talentu Niegodny Uwagi."
+   },
+   {
+    "min": 69,
+    "max": 70,
+    "name": "Muszę… zabić",
+    "text": "Raz na sesję zdaj Test Opanowania albo poczujesz przemożną potrzebę zabicia kogoś… czegokolwiek… natychmiast. Mija, gdy zabijesz i poczujesz krew na dłoniach albo zaśniesz."
+   },
+   {
+    "min": 71,
+    "max": 72,
+    "name": "Poważna utrata Cechy",
+    "text": "Jedna z twoich Cech spada do 10, co obniża też wszystkie powiązane Umiejętności.",
+    "rolls": [
+     "characteristic"
+    ]
+   },
+   {
+    "min": 73,
+    "max": 74,
+    "name": "Atak psychiczny",
+    "text": "W każdej sesji przedmiot zadaje ci cios psychiczny: 1k10 Obrażeń zmniejszonych tylko o BWt (min. 1 Rana). Do tego Test Opanowania albo Trafienie Krytyczne w Głowę, przed którym nie chroni pancerz."
+   },
+   {
+    "min": 75,
+    "max": 76,
+    "name": "Zmienna słabość",
+    "text": "Na początku każdej sesji rzuć w Tabeli Losowej Cechy: ta Cecha ma −20 przez całą sesję."
+   },
+   {
+    "min": 77,
+    "max": 78,
+    "name": "Odwrócenie losu",
+    "text": "Atakujący ciebie mogą odwrócić nieudany Test, jeśli da to sukces."
+   },
+   {
+    "min": 79,
+    "max": 80,
+    "name": "Zamknij się!",
+    "text": "Twoje usta zrastają się — nie możesz mówić, modlić się ani rzucać zaklęć. Ludzie uciekają na twój widok."
+   },
+   {
+    "min": 81,
+    "max": 82,
+    "name": "Płochliwość",
+    "text": "Gdy przestraszy cię magia albo głośny huk, zdaj Test Opanowania albo otrzymaj 1+PS Stanów Panika."
+   },
+   {
+    "min": 83,
+    "max": 84,
+    "name": "Wrogość gatunku",
+    "text": "Istoty pewnego rodzaju zawsze mają wobec ciebie Cechę Wrogość.",
+    "rolls": [
+     "species"
+    ]
+   },
+   {
+    "min": 85,
+    "max": 86,
+    "name": "Groza",
+    "text": "Coś napawa cię paraliżującą grozą — obiekt wybiera MG albo jest nim pierwsza rzecz, którą zobaczysz."
+   },
+   {
+    "min": 87,
+    "max": 88,
+    "name": "Bogowie patrzą",
+    "text": "Zyskujesz podwójne Punkty Grzechu i Zepsucia. Templariusze, łowcy czarownic, kultyści i kapłani mają wobec ciebie Cechę Wrogość."
+   },
+   {
+    "min": 89,
+    "max": 90,
+    "name": "Głód krwi",
+    "text": "Po tygodniu zyskujesz Cechę Wampiryczny."
+   },
+   {
+    "min": 91,
+    "max": 92,
+    "name": "Uwiąd",
+    "text": "Wszystkie rośliny w promieniu BSW metrów więdną i umierają, gdy się zbliżasz."
+   },
+   {
+    "min": 93,
+    "max": 94,
+    "name": "Przemiana",
+    "text": "Zamieniasz się w nieszkodliwe stworzonko — żabę, ropuchę, ślimaka, węża, szczura, czarnego kota — zachowując Inteligencję. Zabity w tej postaci giniesz naprawdę."
+   },
+   {
+    "min": 95,
+    "max": 96,
+    "name": "Świszczący oddech",
+    "text": "Oddychając świszczesz i piszczysz: −10 do Ogłady i −20 do Skradania."
+   },
+   {
+    "min": 97,
+    "max": 98,
+    "name": "Gdzie się podziałeś?",
+    "text": "Nie masz odbicia. Kto to zauważy, może uznać cię za wampira!"
+   },
+   {
+    "min": 99,
+    "max": 100,
+    "name": "Pustka na kartach",
+    "text": "Z każdej księgi, zwoju i grimuaru w promieniu BSW metrów znika pismo."
+   }
+  ]
+ },
+ "klauser": {
+  "intro": "Runy Klausera to ludzkie, niestabilne podróbki run krasnoludzkich, wykradzione tysiąc lat temu przez czarodzieja Dortmunda Klausera. Krasnoludy tropią każdego, kto ich używa. Przy każdym uruchomieniu runy +10% szans na porażkę za każdą runę na przedmiocie; porażka z dubletem — Pomniejsza Manifestacja (przy Runie Śmierci — Poważna). Ta sama runa może się powtarzać.",
+  "armour": [
+   {
+    "min": 1,
+    "max": 25,
+    "name": "Runa Pancerza Klausera",
+    "text": "+1 PP w tym Miejscu Trafienia; kumuluje się, nie gaśnie.",
+    "effects": {
+     "ap": 1
+    }
+   },
+   {
+    "min": 26,
+    "max": 50,
+    "name": "Runa Ochrony Klausera",
+    "text": "Poziom Talentu Odporność na Magię (nie kumuluje się), nie gaśnie."
+   },
+   {
+    "min": 51,
+    "max": 75,
+    "name": "Runa Odnowy Klausera",
+    "text": "Przywraca moc zgaszonej runie na tym samym przedmiocie; potem gaśnie do końca dnia."
+   },
+   {
+    "min": 76,
+    "max": 100,
+    "name": "Runa Chyżości Klausera",
+    "text": "+5 do Inicjatywy i Zwinności; kumuluje się, nie gaśnie.",
+    "effects": {
+     "chars": {
+      "I": 5,
+      "Zw": 5
+     }
+    }
+   }
+  ],
+  "weapon": [
+   {
+    "min": 1,
+    "max": 20,
+    "name": "Runa Cięcia i Miażdżenia Klausera",
+    "text": "+2 PS do udanego Testu Walki Wręcz. Jeśli dzięki niej zadasz Ranę, której inaczej by nie było — gaśnie do końca dnia.",
+    "melee": true
+   },
+   {
+    "min": 21,
+    "max": 30,
+    "name": "Runa Lotu Klausera",
+    "text": "Tylko broń rzucana: zawsze trafia (rzut k100 na lokację, jedności = PS). Gaśnie do świtu.",
+    "thrown": true
+   },
+   {
+    "min": 31,
+    "max": 45,
+    "name": "Runa Ochrony Klausera",
+    "text": "Poziom Talentu Odporność na Magię (nie kumuluje się), nie gaśnie."
+   },
+   {
+    "min": 46,
+    "max": 60,
+    "name": "Runa Odnowy Klausera",
+    "text": "Przywraca moc zgaszonej runie na tym samym przedmiocie; potem gaśnie do końca dnia."
+   },
+   {
+    "min": 61,
+    "max": 70,
+    "name": "Runa Powrotu Klausera",
+    "text": "Tylko broń rzucana: wraca do ręki na koniec Rundy. Gaśnie do świtu.",
+    "thrown": true
+   },
+   {
+    "min": 71,
+    "max": 80,
+    "name": "Runa Zaklęcia Klausera",
+    "text": "Pozwala każdemu rzucić zapisane w niej zaklęcie — automatycznie, bez Manifestacji (PS: 1k10). Gaśnie do świtu.",
+    "rolls": [
+     "spell"
+    ]
+   },
+   {
+    "min": 81,
+    "max": 98,
+    "name": "Runa Chyżości Klausera",
+    "text": "+5 do Inicjatywy i Zwinności; kumuluje się, nie gaśnie.",
+    "effects": {
+     "chars": {
+      "I": 5,
+      "Zw": 5
+     }
+    }
+   },
+   {
+    "min": 99,
+    "max": 100,
+    "name": "Runa Śmierci Klausera",
+    "death": true
+   }
+  ],
+  "death": [
+   {
+    "min": 1,
+    "max": 80,
+    "name": "Pomniejsza Runa Śmierci",
+    "text": "Trafiony ginie, jeśli nie zda Przeciętnego (+20) Testu Odporności. Gaśnie po użyciu."
+   },
+   {
+    "min": 81,
+    "max": 99,
+    "name": "Mniejsza Runa Śmierci",
+    "text": "Trafiona istota wskazanego rodzaju ginie, jeśli nie zda Przeciętnego (+0) Testu Odporności. Nie gaśnie.",
+    "rolls": [
+     "species"
+    ]
+   },
+   {
+    "min": 100,
+    "max": 100,
+    "name": "Wielka Runa Śmierci",
+    "text": "Podobno może ją wyryć tylko bóg. Każda trafiona istota ginie. Nie gaśnie."
+   }
+  ]
+ },
+ "runeCount": [
+  {
+   "min": 1,
+   "max": 45,
+   "name": "1 runa Klausera",
+   "klauser": 1
+  },
+  {
+   "min": 46,
+   "max": 55,
+   "name": "2 runy Klausera",
+   "klauser": 2
+  },
+  {
+   "min": 56,
+   "max": 58,
+   "name": "3 runy Klausera",
+   "klauser": 3
+  },
+  {
+   "min": 59,
+   "max": 59,
+   "name": "4 runy Klausera",
+   "klauser": 4
+  },
+  {
+   "min": 60,
+   "max": 60,
+   "name": "5 run Klausera",
+   "klauser": 5
+  },
+  {
+   "min": 61,
+   "max": 80,
+   "name": "1 runa krasnoludzka",
+   "regular": 1
+  },
+  {
+   "min": 81,
+   "max": 88,
+   "name": "2 runy krasnoludzkie",
+   "regular": 2
+  },
+  {
+   "min": 89,
+   "max": 90,
+   "name": "3 runy krasnoludzkie",
+   "regular": 3
+  },
+  {
+   "min": 91,
+   "max": 95,
+   "name": "runa mistrzowska",
+   "master": 1
+  },
+  {
+   "min": 96,
+   "max": 96,
+   "name": "runa mistrzowska i runa",
+   "master": 1,
+   "regular": 1
+  },
+  {
+   "min": 97,
+   "max": 98,
+   "name": "runa mistrzowska i 2 runy",
+   "master": 1,
+   "regular": 2
+  },
+  {
+   "min": 99,
+   "max": 100,
+   "name": "runa mistrzowska i 3 runy",
+   "master": 1,
+   "regular": 3
+  }
+ ]
+}

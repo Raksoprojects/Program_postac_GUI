@@ -1,0 +1,1941 @@
+{
+ "note": "Przedmioty magiczne BN i jakość wykonania. 'chances' = szanse na kolejne przedmioty na danym poziomie (tylko istoty rozumne). Szablony z 'for…' trafiają tylko do pasujących BN (rasa, grupa stworzeń, talent, tradycja); 'replaces' = broń/pancerz tego typu zastąpiony przedmiotem; 'runes' / 'chaos' = losowane runy (Krasnoludy s. 127–130) albo właściwości Broni Chaosu (Warriors of Chaos s. 35–43). 'effects' liczą się w statystykach.",
+ "chances": {
+  "slaby": [],
+  "sredni": [],
+  "zaawansowany": [
+   0.01
+  ],
+  "doswiadczony": [
+   0.1,
+   0.03
+  ],
+  "heroiczny": [
+   0.5,
+   0.2,
+   0.05
+  ],
+  "legendarny": [
+   1,
+   1,
+   0.5,
+   0.2
+  ],
+  "heros": [
+   1,
+   1,
+   1,
+   0.5,
+   0.2
+  ]
+ },
+ "runic": {
+  "note": "Przedmioty runiczne losowane osobno od pozostalych przedmiotow magicznych. Trwale: najwyzej 3 zwykle runy (Prawo Trzech) i 1 mistrzowska (Prawo Zazdrosci), Krasnoludy s. 125-126. Tymczasowe: 1-3 zwykle runy (nigdy mistrzowskie), kazda gasnie po pierwszym zadzialaniu (ksiega wspomina runy tymczasowe bez zasad - interpretacja domowa).",
+  "temporary": {
+   "sredni": 0.03,
+   "zaawansowany": 0.12,
+   "doswiadczony": 0.18,
+   "heroiczny": 0.22,
+   "legendarny": 0.25,
+   "heros": 0.28
+  },
+  "permanent": {
+   "zaawansowany": 0.02,
+   "doswiadczony": 0.05,
+   "heroiczny": 0.12,
+   "legendarny": 0.25,
+   "heros": 0.38
+  },
+  "raceMult": {
+   "Krasnolud": 2.3,
+   "Wysoki elf": 0.2,
+   "Leśny elf": 0.2
+  },
+  "regularCount": {
+   "zaawansowany": [
+    1,
+    1
+   ],
+   "doswiadczony": [
+    1,
+    2
+   ],
+   "heroiczny": [
+    1,
+    3
+   ],
+   "legendarny": [
+    2,
+    3
+   ],
+   "heros": [
+    3,
+    3
+   ]
+  },
+  "masterChance": {
+   "zaawansowany": 0.05,
+   "doswiadczony": 0.1,
+   "heroiczny": 0.35,
+   "legendarny": 0.6,
+   "heros": 0.85
+  },
+  "temporaryNote": "Runy tymczasowe — każda gaśnie, gdy raz zadziała (broń i pancerz: po jednej walce, talizman: po jednym użyciu). Run mistrzowskich nie wykuwa się jako tymczasowych.",
+  "temporaryCount": {
+   "sredni": [
+    1,
+    1
+   ],
+   "zaawansowany": [
+    1,
+    2
+   ],
+   "doswiadczony": [
+    1,
+    2
+   ],
+   "heroiczny": [
+    1,
+    3
+   ],
+   "legendarny": [
+    1,
+    3
+   ],
+   "heros": [
+    2,
+    3
+   ]
+  }
+ },
+ "fitWeight": 3,
+ "craft": {
+  "note": "Jakość wykonania broni i pancerzy BN (PG s. 291–293). Niski poziom BN = częściej Wady, wysoki = częściej Zalety. Szanse z 'tiers' mnożą 'flawMult' / 'qualityMult' z pasujących modyfikatorów (rasa, grupa stworzeń, archetyp). 'always' = Zalety, które przedmiot ma zawsze (elfie wyroby). Materiały (gromril, ithilmar) losowane wg 'chance' dla poziomu.",
+  "qualities": {
+   "Poręczny": "Łatwy do noszenia: Obciążenie −1. [PG 292]",
+   "Praktyczny": "Nieudany Test z użyciem przedmiotu dostaje +1 PS. Pancerz: kary za noszenie o stopień mniejsze (np. −30 → −20). [PG 292]",
+   "Wyśmienity": "Piękne wykonanie — oznaka pozycji społecznej. Można mieć kilka poziomów. [PG 292]",
+   "Wytrzymały": "Przyjmuje X dodatkowych Uszkodzeń bez skutków; rzut k10 9+ chroni przed natychmiastowym złamaniem (każdy kolejny poziom ułatwia o 1: 8+, 7+…). [PG 292]"
+  },
+  "flaws": {
+   "Brzydki": "Postrzegany negatywnie — powiązane Testy Ogłady nawet −10. [PG 292]",
+   "Nieporęczny": "Obciążenie +1; noszone ubranie/pancerz ma Obc. co najmniej 1; w zbroi kary ze Zmęczenia podwojone. [PG 293]",
+   "Tandetny": "Łamie się przy nieudanym Teście z dubletem. Pancerz pęka przy Trafieniu Krytycznym w chronioną lokację. [PG 293]",
+   "Zawodny": "Nieudany Test z użyciem przedmiotu: −1 PS. Kary za noszenie Zawodnego pancerza podwojone. [PG 293]"
+  },
+  "tiers": {
+   "slaby": {
+    "flaw": 0.35,
+    "quality": 0.02,
+    "maxQualities": 1
+   },
+   "sredni": {
+    "flaw": 0.2,
+    "quality": 0.06,
+    "maxQualities": 1
+   },
+   "zaawansowany": {
+    "flaw": 0.1,
+    "quality": 0.15,
+    "maxQualities": 1
+   },
+   "doswiadczony": {
+    "flaw": 0.04,
+    "quality": 0.3,
+    "maxQualities": 2
+   },
+   "heroiczny": {
+    "flaw": 0,
+    "quality": 0.55,
+    "maxQualities": 2
+   },
+   "legendarny": {
+    "flaw": 0,
+    "quality": 0.8,
+    "maxQualities": 3
+   },
+   "heros": {
+    "flaw": 0,
+    "quality": 1,
+    "maxQualities": 3
+   }
+  },
+  "defaultFlaws": {
+   "Tandetny": 3,
+   "Brzydki": 2,
+   "Zawodny": 2,
+   "Nieporęczny": 2
+  },
+  "defaultQualities": {
+   "Wytrzymały": 3,
+   "Wyśmienity": 2,
+   "Praktyczny": 2,
+   "Poręczny": 2
+  },
+  "modifiers": [
+   {
+    "groups": [
+     "Zielonoskórzy"
+    ],
+    "label": "robota zielonoskórych",
+    "flawMult": 2.5,
+    "qualityMult": 0.2,
+    "flaws": {
+     "Tandetny": 3,
+     "Brzydki": 3,
+     "Nieporęczny": 2,
+     "Zawodny": 2
+    }
+   },
+   {
+    "groups": [
+     "Skaveny"
+    ],
+    "label": "skaveńska robota",
+    "flawMult": 2,
+    "qualityMult": 0.4,
+    "flaws": {
+     "Tandetny": 3,
+     "Zawodny": 3,
+     "Brzydki": 2
+    }
+   },
+   {
+    "groups": [
+     "Chaos › Zwierzoludzie"
+    ],
+    "label": "robota zwierzoludzi",
+    "flawMult": 2,
+    "qualityMult": 0.3,
+    "flaws": {
+     "Brzydki": 3,
+     "Tandetny": 2,
+     "Nieporęczny": 2
+    }
+   },
+   {
+    "groups": [
+     "Chaos › Kultyści i mutanci"
+    ],
+    "flawMult": 1.5,
+    "qualityMult": 0.7
+   },
+   {
+    "groups": [
+     "Chaos › Wojownicy Chaosu"
+    ],
+    "flawMult": 0.5,
+    "qualityMult": 1.2,
+    "qualities": {
+     "Wytrzymały": 3
+    }
+   },
+   {
+    "groups": [
+     "Chaos › Krasnoludy Chaosu"
+    ],
+    "label": "robota Krasnoludów Chaosu",
+    "flawMult": 0.3,
+    "qualityMult": 1.5,
+    "qualities": {
+     "Wytrzymały": 4,
+     "Wyśmienity": 1
+    }
+   },
+   {
+    "groups": [
+     "Nieumarli",
+     "Wampiry"
+    ],
+    "label": "dawna robota",
+    "flawMult": 1.5,
+    "qualityMult": 1,
+    "flaws": {
+     "Brzydki": 3,
+     "Tandetny": 2
+    },
+    "qualities": {
+     "Wyśmienity": 3,
+     "Wytrzymały": 1
+    }
+   },
+   {
+    "races": [
+     "Krasnolud"
+    ],
+    "label": "krasnoludzka robota",
+    "flawMult": 0.2,
+    "qualityMult": 1.8,
+    "qualities": {
+     "Wytrzymały": 4,
+     "Praktyczny": 2,
+     "Wyśmienity": 1
+    }
+   },
+   {
+    "races": [
+     "Wysoki elf"
+    ],
+    "label": "elfia robota",
+    "always": [
+     "Wytrzymały 1",
+     "Wyśmienity 1"
+    ],
+    "flawMult": 0,
+    "qualityMult": 1.5,
+    "qualities": {
+     "Wyśmienity": 3,
+     "Poręczny": 2,
+     "Wytrzymały": 1
+    }
+   },
+   {
+    "races": [
+     "Leśny elf"
+    ],
+    "label": "elfia robota",
+    "flawMult": 0.3,
+    "qualityMult": 1.3,
+    "qualities": {
+     "Poręczny": 3,
+     "Wyśmienity": 2
+    }
+   },
+   {
+    "races": [
+     "Niziołek"
+    ],
+    "flawMult": 0.8,
+    "qualityMult": 1,
+    "qualities": {
+     "Praktyczny": 3,
+     "Poręczny": 2
+    }
+   },
+   {
+    "archetypes": [
+     "Szlachcic"
+    ],
+    "flawMult": 0.3,
+    "qualityMult": 1.6,
+    "qualities": {
+     "Wyśmienity": 4
+    }
+   },
+   {
+    "archetypes": [
+     "Chłop",
+     "Żebrak",
+     "Oprych"
+    ],
+    "flawMult": 1.4,
+    "qualityMult": 0.6
+   }
+  ],
+  "materials": {
+   "gromril": {
+    "label": "gromrilowy",
+    "races": [
+     "Krasnolud"
+    ],
+    "chance": {
+     "zaawansowany": 0.02,
+     "doswiadczony": 0.1,
+     "heroiczny": 0.35,
+     "legendarny": 0.7,
+     "heros": 0.9
+    },
+    "weapon": {
+     "qualities": [
+      "Wytrzymały 4"
+     ],
+     "byName": {
+      "topór": [
+       "Przebijająca"
+      ],
+      "młot": [
+       "Druzgocząca"
+      ]
+     }
+    },
+    "armour": {
+     "types": [
+      "Płytowy",
+      "Kolczuga"
+     ],
+     "qualities": [
+      "Wytrzymały 4",
+      "Wyśmienity 1"
+     ],
+     "apBonus": {
+      "Płytowy": 1
+     }
+    },
+    "description": "Gromril — „Krew Grungniego”, najtwardszy znany metal. Broń: Wytrzymały 4 (topory Przebijające, młoty Druzgocące). Zbroja: Wytrzymały 4, Wyśmienity 1, płyty 3 PP; ataki w chronione miejsca nie zadają Ran Krytycznych z rzutu na Trafienie Krytyczne.",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 91
+   },
+   "ithilmar": {
+    "label": "ithilmarowy",
+    "races": [
+     "Wysoki elf"
+    ],
+    "chance": {
+     "doswiadczony": 0.1,
+     "heroiczny": 0.4,
+     "legendarny": 0.8,
+     "heros": 0.9
+    },
+    "armour": {
+     "types": [
+      "Płytowy",
+      "Kolczuga"
+     ],
+     "qualities": [
+      "Wytrzymały 2",
+      "Wyśmienity 2"
+     ]
+    },
+    "description": "Ithilmar — „srebro nieba” z Kowadła Vaula: lekki, lśniący i niezniszczalny. Zbroja: Wytrzymały 2, Wyśmienity 2; zachowuje się jak płyta (−10 do Skradania).",
+    "source": "Podręcznik Gracza: Wysokie Elfy",
+    "page": 32
+   }
+  }
+ },
+ "runes": {
+  "weapon": [
+   {
+    "name": "Runa Rozłupywania",
+    "sl": 10,
+    "effect": "+1 do Obrażeń za każdą runę.",
+    "page": 127,
+    "effects": {
+     "damage": 1
+    }
+   },
+   {
+    "name": "Runa Odpłaty",
+    "sl": 12,
+    "effect": "Rana Krytyczna zadana tą bronią może dodać +20 do rzutu na tabeli Ran Krytycznych za każdą runę.",
+    "page": 127
+   },
+   {
+    "name": "Runa Cięcia",
+    "sl": 10,
+    "effect": "Przy udanym trafieniu ignorujesz 2 PP zbroi za każdą runę.",
+    "page": 127
+   },
+   {
+    "name": "Runa Trwogi",
+    "sl": 14,
+    "effect": "Gdy broń jest dobyta, masz Strach równy liczbie run (albo +1 do posiadanego Strachu za każdą).",
+    "page": 127
+   },
+   {
+    "name": "Runa Ognia",
+    "sl": 16,
+    "effect": "Głownia płonie (światło na 20 m) i nakłada 1 Stan Podpalenie na ranionych wrogów. Dwie–trzy runy: atak zasięgowy na BSW metrów (Odłamkowa 4), który nie rani, ale podpala.",
+    "page": 127
+   },
+   {
+    "name": "Runa Furii",
+    "sl": 15,
+    "effect": "+1 poziom Talentu Oburęczność za każdą runę (ponad maksimum); broń liczy się jak dwie bronie przy Oburęczności.",
+    "page": 127
+   },
+   {
+    "name": "Runa Urazy",
+    "sl": 10,
+    "effect": "Wobec wskazanego wroga z Krwawej Urazy: +10 do trafienia i +1 do Obrażeń za każdą runę.",
+    "page": 127
+   },
+   {
+    "name": "Runa Potęgi",
+    "sl": 10,
+    "effect": "Przeciw celowi większego Rozmiaru: +3 do Obrażeń za każdą runę.",
+    "page": 127
+   },
+   {
+    "name": "Runa Szybkości",
+    "sl": 10,
+    "effect": "Niosąc tę broń w walce, masz +10 do Inicjatywy za każdą runę.",
+    "page": 127,
+    "effects": {
+     "chars": {
+      "I": 10
+     }
+    }
+   },
+   {
+    "name": "Runa Uderzenia",
+    "sl": 14,
+    "effect": "+10 do Broni Białej przy ciosach tą bronią za każdą runę.",
+    "page": 127,
+    "effects": {
+     "skill": 10
+    }
+   },
+   {
+    "name": "Runa Mistrzowska Alarica Szalonego",
+    "sl": 30,
+    "effect": "Ataki tą bronią ignorują PP celu, Zalety jego zbroi i wszelkie inne korzyści z niej.",
+    "page": 127,
+    "master": true
+   },
+   {
+    "name": "Runa Mistrzowska Łamania",
+    "sl": 20,
+    "effect": "Udany cios albo udana obrona tą bronią przeciw magicznej broni przeciwnika może tę broń zniszczyć.",
+    "page": 127,
+    "master": true
+   },
+   {
+    "name": "Runa Mistrzowska Lotu",
+    "sl": 20,
+    "effect": "Broń można rzucać na BS×3 metrów; rzucona ma Zaletę Celna i wraca do ręki po zadaniu Obrażeń.",
+    "page": 128,
+    "master": true
+   },
+   {
+    "name": "Runa Mistrzowska Skalfa Czarnomłota",
+    "sl": 28,
+    "effect": "Każdy udany atak tą bronią liczy się jako Trafienie Krytyczne.",
+    "page": 128,
+    "master": true
+   },
+   {
+    "name": "Runa Mistrzowska Zabójcy",
+    "sl": 20,
+    "effect": "Wobec wybranego rodzaju wrogów (Demony, Nieumarli, Smoki, Gobliny…) możesz Odwracać Testy ataku i ich rzuty na tabeli Ran Krytycznych.",
+    "page": 128,
+    "master": true
+   },
+   {
+    "name": "Runa Mistrzowska Snorriego Szyszaka",
+    "sl": 22,
+    "effect": "Nieudany Test Broni Białej tą bronią zawsze liczy się jako sukces z 0 PS.",
+    "page": 128,
+    "master": true
+   },
+   {
+    "name": "Runa Mistrzowska Pośpiechu",
+    "sl": 20,
+    "effect": "Broń jest Szybka, a obrona przed nią Bronią Białą ma −30 (zamiast −10).",
+    "page": 128,
+    "effects": {
+     "qualities": [
+      "Szybka"
+     ]
+    },
+    "master": true
+   }
+  ],
+  "armour": [
+   {
+    "name": "Runa Impetu",
+    "sl": 14,
+    "effect": "Przy udanym ataku Bronią Białą w Szarży zadajesz dodatkowe Obrażenia równe PP najlepiej chronionej lokacji — za każdą runę.",
+    "page": 128
+   },
+   {
+    "name": "Runa Hartu",
+    "sl": 14,
+    "effect": "+10 do Wytrzymałości za każdą runę.",
+    "page": 128,
+    "effects": {
+     "chars": {
+      "Wt": 10
+     }
+    }
+   },
+   {
+    "name": "Runa Żelaza",
+    "sl": 12,
+    "effect": "+2 Żywotności za każdą runę (tracone po zdjęciu zbroi).",
+    "page": 128,
+    "effects": {
+     "wounds": 2
+    }
+   },
+   {
+    "name": "Runa Oporu",
+    "sl": 12,
+    "effect": "+10 do Testów Przeciwstawiania się atakom Bronią Białą za każdą runę.",
+    "page": 128
+   },
+   {
+    "name": "Runa Osłony",
+    "sl": 12,
+    "effect": "Obrażenia od ataków zasięgowych i zaklęć −2 za każdą runę (do 0 — bez utraty Żywotności).",
+    "page": 128
+   },
+   {
+    "name": "Runa Kamienia",
+    "sl": 10,
+    "effect": "+1 PP za każdą runę.",
+    "page": 128,
+    "effects": {
+     "ap": 1
+    }
+   },
+   {
+    "name": "Runa Mistrzowska Nieugiętości",
+    "sl": 22,
+    "effect": "Gdy otrzymasz Ranę Krytyczną, możesz Odwrócić rzut na tabeli Ran Krytycznych.",
+    "page": 128,
+    "master": true
+   },
+   {
+    "name": "Runa Mistrzowska Gromrilu",
+    "sl": 20,
+    "effect": "Zbroja traci Wadę Wrażliwe punkty, nie może zostać Uszkodzona i nie traci PP od Talentów ani Zalet (np. Przekłuwająca).",
+    "page": 128,
+    "master": true
+   },
+   {
+    "name": "Runa Mistrzowska Stali",
+    "sl": 20,
+    "effect": "Przy pojedynczym zadaniu Obrażeń tracisz najwyżej 10 Żywotności.",
+    "page": 129,
+    "master": true
+   }
+  ],
+  "talisman": [
+   {
+    "name": "Runa Jasnego Wzroku",
+    "sl": 8,
+    "effect": "Przyłożony do oka znosi kary za mgłę, opary i dym; dwie runy — także magiczne, trzy — widzenie w całkowitej ciemności.",
+    "page": 129
+   },
+   {
+    "name": "Runa Prawdy",
+    "sl": 8,
+    "effect": "Rozjarza się przy podróbkach i fałszerstwach; dwie runy — także przy iluzjach, trzy — ujawniają sposób oszustwa.",
+    "page": 129
+   },
+   {
+    "name": "Runa Dalekiego Wzroku",
+    "sl": 10,
+    "effect": "Przyłożony do oka pozwala wyraźnie widzieć na milę (dwie runy — dwie mile, trzy — cztery).",
+    "page": 129
+   },
+   {
+    "name": "Runa Pieca",
+    "sl": 10,
+    "effect": "Odporność na żar i Podpalenie; Obrażenia od ognia −4 za każdą runę.",
+    "page": 129
+   },
+   {
+    "name": "Runa Szczęścia",
+    "sl": 10,
+    "effect": "+1 Punkt Szczęścia za każdą runę (ponad maksimum; tracone po zdjęciu).",
+    "page": 129
+   },
+   {
+    "name": "Runa Odnowy",
+    "sl": 10,
+    "effect": "Po dobrze przespanej nocy odzyskujesz BWt Żywotności za każdą runę.",
+    "page": 129
+   },
+   {
+    "name": "Runa Łamania Zaklęć",
+    "sl": 10,
+    "effect": "Raz na przygodę (za każdą runę) Test Siły Woli przy Odporności na Magię liczy się jako 01.",
+    "page": 129
+   },
+   {
+    "name": "Runa Pożerania Zaklęć",
+    "sl": 10,
+    "effect": "Rozproszone przez ciebie zaklęcie nie może być ponowione przez BSW Rund (dwie runy — godzin, trzy — tygodni).",
+    "page": 129
+   },
+   {
+    "name": "Runa Ochrony",
+    "sl": 15,
+    "effect": "Możesz nałożyć −10 za każdą runę na Testy ataku i rzucania zaklęć wymierzone w ciebie.",
+    "page": 129
+   },
+   {
+    "name": "Runa Mistrzowska Równowagi",
+    "sl": 20,
+    "effect": "Gdy wróg w polu widzenia rzuca zaklęcie, możesz Odwrócić jego Test Rzucania albo swój Test Siły Woli przy Odporności na Magię.",
+    "page": 129,
+    "master": true
+   },
+   {
+    "name": "Runa Mistrzowska Pracowitości",
+    "sl": 20,
+    "effect": "Jedno dodatkowe Przedsięwzięcie między przygodami.",
+    "page": 129,
+    "master": true
+   },
+   {
+    "name": "Runa Mistrzowska Królewskości",
+    "sl": 24,
+    "effect": "Możesz Odwracać Testy Ogłady, Zastraszania i Dowodzenia wymierzone w Krasnoludy.",
+    "page": 129,
+    "master": true
+   },
+   {
+    "name": "Runa Mistrzowska Przenikania",
+    "sl": 20,
+    "effect": "Idąc krokiem, przenikasz przez lite, nieruchome obiekty (nie przez zwierzęta ani Nieumarłych).",
+    "page": 130,
+    "master": true
+   },
+   {
+    "name": "Runa Mistrzowska Złośliwości",
+    "sl": 24,
+    "effect": "Gdy otrzymasz Obrażenia od ataku Bronią Białą, atakujący otrzymuje 2k10 Obrażeń w losową lokację.",
+    "page": 130,
+    "master": true
+   }
+  ]
+ },
+ "chaosProperties": [
+  {
+   "name": "Pijąca Krew",
+   "god": "Khorne",
+   "effect": "Trafienie wysysa krew: dodatkowo BS Ran, ignorując BWt i PP (nie działa na istoty bez krwi).",
+   "page": 36
+  },
+  {
+   "name": "Żądza Śmierci",
+   "god": "Khorne",
+   "effect": "+10 do Walki Wręcz.",
+   "page": 37,
+   "effects": {
+    "chars": {
+     "WW": 10
+    }
+   }
+  },
+  {
+   "name": "Zaciekłość",
+   "god": "Khorne",
+   "effect": "Jeden Darmowy Atak na Rundę.",
+   "page": 38
+  },
+  {
+   "name": "Rąbanie",
+   "god": "Khorne",
+   "effect": "Broń (topór) zyskuje Zaletę Rąbiąca; w Rundzie po trafieniu ataki na tego samego wroga są Przebijające.",
+   "page": 38,
+   "effects": {
+    "qualities": [
+     "Rąbiąca"
+    ]
+   }
+  },
+  {
+   "name": "Nienawiść",
+   "god": "Khorne",
+   "effect": "Nienawiść wobec wybranego rodzaju istot; walcząc z nimi: +10 WW i S oraz Darmowy Atak na Rundę.",
+   "page": 38
+  },
+  {
+   "name": "Potęga",
+   "god": "Khorne",
+   "effect": "W Szale Bojowym +3 zamiast +1 do Bonusu z Siły przy atakach wręcz.",
+   "page": 40
+  },
+  {
+   "name": "Dzikość",
+   "god": "Khorne",
+   "effect": "W Szale Bojowym +1 do Obrażeń wręcz za każdego zabitego wroga (do końca Szału).",
+   "page": 41
+  },
+  {
+   "name": "Wrzask",
+   "god": "Khorne",
+   "effect": "Władający ma Cechę Rozpraszający; przy 8 na k10 na koniec Tury rozproszeni dostają 1 Krwawienie.",
+   "page": 41
+  },
+  {
+   "name": "Zabójstwo",
+   "god": "Khorne",
+   "effect": "Talent Pogromca; po zabiciu wręcz istoty Dużej lub większej +10 WW i S na k10 Rund (kumuluje się).",
+   "page": 42
+  },
+  {
+   "name": "Siła",
+   "god": "Khorne",
+   "effect": "+10 do Siły.",
+   "page": 42,
+   "effects": {
+    "chars": {
+     "S": 10
+    }
+   }
+  },
+  {
+   "name": "Wola",
+   "god": "Khorne",
+   "effect": "+10 do Siły Woli.",
+   "page": 43,
+   "effects": {
+    "chars": {
+     "SW": 10
+    }
+   }
+  },
+  {
+   "name": "Wampir",
+   "god": "Khorne",
+   "effect": "Cecha Wampiryczny przy atakach wręcz tą bronią — leczysz tyle Ran, ile traci przeciwnik.",
+   "page": 43
+  },
+  {
+   "name": "Okrucieństwo",
+   "god": "Khorne",
+   "effect": "Rana Krytyczna zadaje dodatkowo 2k10 Ran; Trafienia Krytyczne ignorują Odbicie Krytyczne.",
+   "page": 43
+  },
+  {
+   "name": "Wycie",
+   "god": "Nurgle",
+   "effect": "Dobyta daje Cechy Strach 1 i Rozpraszający.",
+   "page": 38
+  },
+  {
+   "name": "Zaraza",
+   "god": "Nurgle",
+   "effect": "Trafienie Krytyczne zaraża ofiarę Krwawą Zgnilizną (PG 186).",
+   "page": 40
+  },
+  {
+   "name": "Jadowita",
+   "god": "Nurgle",
+   "effect": "Zaleta Nadziewająca; ataki mają Cechę Jad (Wymagający).",
+   "page": 41,
+   "effects": {
+    "qualities": [
+     "Nadziewająca"
+    ]
+   }
+  },
+  {
+   "name": "Wytrwałość",
+   "god": "Nurgle",
+   "effect": "Zaleta Niełamliwa; +10 do Wytrzymałości.",
+   "page": 41,
+   "effects": {
+    "qualities": [
+     "Niełamliwa"
+    ],
+    "chars": {
+     "Wt": 10
+    }
+   }
+  },
+  {
+   "name": "Ranienie",
+   "god": "Nurgle",
+   "effect": "+2 do Obrażeń; Trafienie Krytyczne od razu daje Ropiejącą Ranę.",
+   "page": 43,
+   "effects": {
+    "damage": 2
+   }
+  },
+  {
+   "name": "Osłabienie",
+   "god": "Nurgle",
+   "effect": "Zamiast zadawać Obrażenia, trafienie może obniżyć Siłę ofiary o 10.",
+   "page": 43
+  },
+  {
+   "name": "Odbijanie",
+   "god": "Slaanesh",
+   "effect": "Zalety Poręczna i Parująca; możesz parować strzały, bełty i broń miotaną.",
+   "page": 37,
+   "effects": {
+    "qualities": [
+     "Parująca"
+    ]
+   }
+  },
+  {
+   "name": "Parowanie",
+   "god": "Slaanesh",
+   "effect": "Zalety Parująca, Poręczna i Praktyczna 3; ostrze zyskuje Łamacz mieczy.",
+   "page": 40,
+   "effects": {
+    "qualities": [
+     "Parująca"
+    ]
+   }
+  },
+  {
+   "name": "Przeszywanie",
+   "god": "Slaanesh",
+   "effect": "Ostrze Szybkie, Nadziewające i Precyzyjne; Trafienia Krytyczne ignorują Odbicie Krytyczne.",
+   "page": 40,
+   "effects": {
+    "qualities": [
+     "Szybka",
+     "Nadziewająca",
+     "Precyzyjna"
+    ]
+   }
+  },
+  {
+   "name": "Riposta",
+   "god": "Slaanesh",
+   "effect": "Dobyte ostrze daje Cechę Czempion.",
+   "page": 41
+  },
+  {
+   "name": "Chyżość",
+   "god": "Slaanesh",
+   "effect": "+10 do Inicjatywy.",
+   "page": 43,
+   "effects": {
+    "chars": {
+     "I": 10
+    }
+   }
+  },
+  {
+   "name": "Olśnienie",
+   "god": "Slaanesh",
+   "effect": "Co Rundę wrogowie w promieniu BSW metrów zdają Test Opanowania albo dostają 1 Oślepienie.",
+   "page": 38
+  },
+  {
+   "name": "Płomień",
+   "god": "Tzeentch",
+   "effect": "Broń płonie niegasnącym ogniem (światło jak pochodnia); trafiony dostaje 1 Stan Podpalenie.",
+   "page": 38
+  },
+  {
+   "name": "Ochrona",
+   "god": "Tzeentch",
+   "effect": "Dobyta daje +1 PP na wszystkich lokacjach.",
+   "page": 41,
+   "effects": {
+    "ap": 1
+   }
+  },
+  {
+   "name": "Ognisty Wybuch",
+   "god": "Tzeentch",
+   "effect": "Raz na starcie (Akcja): magiczny pocisk +9 ignorujący pancerz w obszarze BSW metrów wokół celu w zasięgu SW metrów.",
+   "page": 38
+  },
+  {
+   "name": "Mroźny Wybuch",
+   "god": "Tzeentch",
+   "effect": "Raz na starcie (Akcja): magiczny pocisk +9 z zimna w obszarze BSW metrów wokół celu w zasięgu SW metrów.",
+   "page": 36
+  },
+  {
+   "name": "Zaczarowana",
+   "god": "Niepodzielny",
+   "effect": "Zalety Wyśmienita i Szybka (albo zdejmuje Wady Powolna i Ciężka).",
+   "page": 37,
+   "effects": {
+    "qualities": [
+     "Szybka"
+    ]
+   }
+  },
+  {
+   "name": "Opętana",
+   "god": "Niepodzielny",
+   "effect": "Broń nienawidzi właściciela: co Rundę Przeciwstawny Test SW (broń SW 50); zawsze dodaje BSW broni do Obrażeń.",
+   "page": 36,
+   "effects": {
+    "damage": 5
+   }
+  },
+  {
+   "name": "Ożywiona",
+   "god": "Tzeentch",
+   "effect": "Akcja: broń wylatuje z ręki i walczy sama, dopóki jesteś w promieniu BSW metrów (Konstrukt: WW i umiejętność jak twoje, S 45, Wt 50, Zw 60, Żyw 18, twoje talenty walki; odporna na rozbrojenie i Rany Krytyczne). Przy 0 Żyw zamiera na k10 minut.",
+   "page": 35
+  },
+  {
+   "name": "Wygnanie",
+   "god": "Khorne",
+   "effect": "Przeciw istotom z Cechą Niestabilny ignoruje BWt i PP; zniszczony demon nie wraca, Nieumarły nie może zostać wskrzeszony nekromancją.",
+   "page": 35
+  },
+  {
+   "name": "Oddech",
+   "god": "Tzeentch",
+   "effect": "Trzymając broń, oddychasz pod wodą, jesteś odporny na trujące gazy i ignorujesz odory (także Cechę Rozpraszający).",
+   "page": 36
+  },
+  {
+   "name": "Piłomiecz",
+   "god": "Khorne",
+   "effect": "Dźwignia w rękojeści ożywia zęby ostrza: zamiast Obrażeń udany atak niszczy niemagiczną broń albo trafiony element pancerza o 1 + PS przewagi. Zalety Rąbiąca i Łamacz mieczy.",
+   "page": 36,
+   "effects": {
+    "qualities": [
+     "Rąbiąca",
+     "Łamacz mieczy"
+    ]
+   }
+  },
+  {
+   "name": "Rozkazywanie",
+   "god": "Slaanesh",
+   "effect": "Zaleta Wyśmienita 3; +10 do Ogłady.",
+   "page": 36,
+   "effects": {
+    "chars": {
+     "Ogd": 10
+    }
+   }
+  },
+  {
+   "name": "Opanowanie",
+   "god": "Slaanesh",
+   "effect": "Runy dodają pewności siebie: +20 do wszystkich Testów Opanowania.",
+   "page": 36
+  },
+  {
+   "name": "Bestia: Bazyliszek",
+   "god": "Nurgle",
+   "effect": "Trafiony wykonuje Wymagający (+0) Test Odporności; porażka — 1 Oszołomienie + 1 za każdy PS poniżej 0. Gdy Oszołomień jest więcej niż jego BWt, zamienia się w kamień na zawsze.",
+   "page": 36
+  },
+  {
+   "name": "Bestia: Smok",
+   "god": "Niepodzielny",
+   "effect": "Unosisz się na wysokość Ruchu w metrach i bezpiecznie opadasz. Raz na starcie (Akcja): zionięcie jak Cecha Zionięcie za 2 Przewagi — Obrażenia BWt+3 ignorujące pancerz i 1 Podpalenie.",
+   "page": 36
+  },
+  {
+   "name": "Bestia: Minotaur",
+   "god": "Khorne",
+   "effect": "Zaleta Przekłuwająca; po zranieniu wroga Test Opanowania (+0) albo wpadasz w Szał Bojowy, którego nie kończy Oszołomienie.",
+   "page": 36,
+   "effects": {
+    "qualities": [
+     "Przekłuwająca"
+    ]
+   }
+  },
+  {
+   "name": "Bestia: Szkielet",
+   "god": "Niepodzielny",
+   "effect": "Broń ze zrośniętych kręgów obsadzona zębami: władający ma Cechę Strach 3.",
+   "page": 36
+  },
+  {
+   "name": "Bestia: Pająk",
+   "god": "Nurgle",
+   "effect": "Ataki mają Cechę Jad (Trudny).",
+   "page": 36
+  },
+  {
+   "name": "Bestia: Troll",
+   "god": "Nurgle",
+   "effect": "Raz na starcie (Akcja): Cecha Wymioty (zasięg i Obrażenia wg twojej Wytrzymałości).",
+   "page": 36
+  },
+  {
+   "name": "Bestia: Widmo",
+   "god": "Tzeentch",
+   "effect": "Trafiony traci na stałe 10 Siły (klątwę zdejmuje Rozszerzony Test Języka (Magicznego) na BSW władającego PS). Nieumarli są odporni; kolejne trafienia nie sumują się.",
+   "page": 36
+  },
+  {
+   "name": "Śmierciodajca",
+   "god": "Khorne",
+   "effect": "Dostrojona do jednego rodzaju istot (zwierzęta, zwierzoludzie, demony, krasnoludy, elfy, ludzie, orki, skaveny, wampiry…): trafiony taki cel zdaje Wymagający (+0) Test Odporności albo ginie, obracając się w czarny pył.",
+   "page": 37
+  },
+  {
+   "name": "Degeneracja",
+   "god": "Nurgle",
+   "effect": "Trafiony traci k10 Ran (minus BWt, min. 1) na koniec każdej Rundy przez tyle Rund, ile wynosi BWt władającego; kolejne trafienia +1. Potem odporność na 24 godziny.",
+   "page": 37
+  },
+  {
+   "name": "Odczarowanie",
+   "god": "Khorne",
+   "effect": "Przeciw istotom Demonicznym, Magicznym albo czarującym Trafienie Krytyczne zadaje dwie Rany Krytyczne, których nie da się odbić.",
+   "page": 37
+  },
+  {
+   "name": "Wycieńczenie",
+   "god": "Nurgle",
+   "effect": "Trafienie ryje runę Nurgla: ofiara traci na stałe 10 Wytrzymałości (klątwę zdejmuje Rozszerzony Test Języka (Magicznego) na BSW władającego PS). Kolejne trafienia nie sumują się.",
+   "page": 37
+  },
+  {
+   "name": "Hipnoza",
+   "god": "Slaanesh",
+   "effect": "Blask oszałamia: kto atakuje władającego wręcz albo strzela z BSW metrów, zdaje Wymagający (+0) Test Opanowania albo ma −10 do trafienia i traci 1 Przewagę na koniec Rundy.",
+   "page": 37
+  },
+  {
+   "name": "Zanikanie",
+   "god": "Tzeentch",
+   "effect": "Zaleta Szybka; odporna na Łamacz mieczy i Rozbrojenie. Trafiony zdaje Test SW (+0) albo traci 5 z każdej Cechy na koniec Rundy przez k10 Rund; przy 0 znika w Domenie Chaosu. Kary mijają po 24 godzinach.",
+   "page": 37,
+   "effects": {
+    "qualities": [
+     "Szybka"
+    ]
+   }
+  },
+  {
+   "name": "Lot",
+   "god": "Tzeentch",
+   "effect": "Rękojeść z kości skrzydeł orła: Cecha Lot (Zwinność); z dobytą bronią Wartość Lotu rośnie o twój Bieg w metrach.",
+   "page": 38
+  },
+  {
+   "name": "Zamarzanie",
+   "god": "Tzeentch",
+   "effect": "Trafiony dostaje 1 Oszołomienie za każde pełne 5 Ran (min. 1); zabity zamienia się w lodowy posąg, którego nie da się rozmrozić bez magii.",
+   "page": 38
+  },
+  {
+   "name": "Miotanie",
+   "god": "Slaanesh",
+   "effect": "Można nią rzucać na SB×3 metrów bez utraty Zalet; Darmową Akcją wraca do ręki, wyrywając się z rany (k10 Obrażeń).",
+   "page": 39
+  },
+  {
+   "name": "Iluzja",
+   "god": "Slaanesh",
+   "effect": "Ukrywa mutacje i dziwactwa właściciela — wygląda zwyczajnie (bez Strachu/Grozy z mutacji). Dostrzega to tylko ktoś z Percepcją Magiczną po Bardzo Trudnym (−30) Teście Percepcji.",
+   "page": 39
+  },
+  {
+   "name": "Nietykalność",
+   "god": "Slaanesh",
+   "effect": "Pełna odporność na niemagiczne zimno, choroby, ogień, piorun i truciznę (także zionięcia potworów); ignorujesz wynikające z nich Podpalenie, Zatrucie i Oszołomienie.",
+   "page": 39
+  },
+  {
+   "name": "Bezkarność",
+   "god": "Niepodzielny",
+   "effect": "Rękojeść z żeber i wciąż bijącego serca: dobyta daje Cechę Twardziel 2 (dodatkowe Rany nie przepadają jako pierwsze).",
+   "page": 39
+  },
+  {
+   "name": "Inteligencja",
+   "god": "Tzeentch",
+   "effect": "Wykuta z czaszek uczonych: +10 do Inteligencji.",
+   "page": 39,
+   "effects": {
+    "chars": {
+     "Int": 10
+    }
+   }
+  },
+  {
+   "name": "Smagnięcie",
+   "god": "Slaanesh",
+   "effect": "Jednoręczne ostrze Darmową Akcją zmienia się w bicz o Obrażeniach pierwotnej broni i z jedną jej Zaletą; nie traci Zalet w ataku zasięgowym.",
+   "page": 39
+  },
+  {
+   "name": "Przywództwo",
+   "god": "Niepodzielny",
+   "effect": "Duch potężnego wojownika: w bitwie z dobytą bronią masz Cechę Przywódca.",
+   "page": 39
+  },
+  {
+   "name": "Lewitacja",
+   "god": "Tzeentch",
+   "effect": "Unosisz się na wysokość Ruchu w metrach i bezpiecznie opadasz; dotykiem możesz przekazać to innej istocie (Rozmiar nie większy) na SW minut.",
+   "page": 39
+  },
+  {
+   "name": "Obłęd",
+   "god": "Nurgle",
+   "effect": "Trafiony zdaje Trudny (−10) Test Opanowania albo dostaje 1 Stan Złamany.",
+   "page": 39
+  },
+  {
+   "name": "Pochłanianie Magii",
+   "god": "Khorne",
+   "effect": "Pochłania jedno zaklęcie o PZ do 8 wymierzone w ciebie i trzyma je BSW Rund; Akcją możesz je odesłać rzucającemu (z jego PS i efektami), inaczej samo wybucha.",
+   "page": 39
+  },
+  {
+   "name": "Niszczycielka Magii",
+   "god": "Khorne",
+   "effect": "Trafiony ma −10 do Języka (Magicznego) i Modlitwy na k10 godzin (kumuluje się do −50).",
+   "page": 40
+  },
+  {
+   "name": "Siła Magii",
+   "god": "Tzeentch",
+   "effect": "Akcja: Wymagający (+0) Test Języka (Magicznego) — każdy PS to +1 do Obrażeń broni na BInt Rund.",
+   "page": 40
+  },
+  {
+   "name": "Odbicie Magii",
+   "god": "Tzeentch",
+   "effect": "Przeciwstawny Test Broni Białej przeciw PS magicznego pocisku w polu widzenia: sukces odsyła pocisk z pełnymi Obrażeniami do rzucającego.",
+   "page": 40
+  },
+  {
+   "name": "Potężny Cios",
+   "god": "Khorne",
+   "effect": "Raz na starcie (Darmowa Akcja): podwaja twoją Siłę na jedną Rundę (maks. 100).",
+   "page": 40
+  },
+  {
+   "name": "Pożeracz Umysłów",
+   "god": "Nurgle",
+   "effect": "Zamiast Obrażeń trafienie obniża ofierze Int, SW i Ogd o 5 (Krytyk — o 10); przy 0 dusza zostaje pożarta. Kary mijają po dniu.",
+   "page": 40
+  },
+  {
+   "name": "Posępność",
+   "god": "Slaanesh",
+   "effect": "Trafiony pogrąża się w smutku: −1 PS do wszystkich Testów przez BOgd Rund (kumuluje się).",
+   "page": 40
+  },
+  {
+   "name": "Mutowanie",
+   "god": "Tzeentch",
+   "effect": "Trafiony zdaje Trudny (−10) Test Odporności albo zyskuje mutację Tzeentcha.",
+   "page": 40
+  },
+  {
+   "name": "Relikwia",
+   "god": "Niepodzielny",
+   "effect": "Broń, która oczyszcza: przeciw sługom Chaosu masz Cechę Elitarny; co tydzień Test SW (+0) albo tracisz losową mutację i k10 Punktów Zepsucia. Właściciel nie może zyskać Zepsucia ani mutacji; broń nie opuszcza go, póki go nie oczyści.",
+   "page": 41
+  },
+  {
+   "name": "Uświęcenie",
+   "god": "Nurgle",
+   "effect": "Przeciw istotom z Cechą Ożywieniec ataki mają Zaletę Druzgocząca.",
+   "page": 41
+  },
+  {
+   "name": "Skowyt",
+   "god": "Slaanesh",
+   "effect": "Raz na starcie (Darmowa Akcja): straszliwy krzyk — każdy w promieniu BOgd metrów (przyjaciel i wróg) rzuca raz na tabeli Ran Krytycznych Głowy (bez złamań).",
+   "page": 41
+  },
+  {
+   "name": "Śpiew",
+   "god": "Slaanesh",
+   "effect": "Dobyta śpiewa: żywe istoty w BOgd metrów zdają co Rundę Test Opanowania (+0) albo idą ku broni; potem Test SW (+0) albo dostają Stan Zaskoczenie.",
+   "page": 41
+  },
+  {
+   "name": "Ospałość",
+   "god": "Nurgle",
+   "effect": "Zamiast Obrażeń trafienie obniża Zwinność ofiary o 10; przy 0 — paraliż na k10 godzin (Bezbronny cel).",
+   "page": 42
+  },
+  {
+   "name": "Sen",
+   "god": "Nurgle",
+   "effect": "Akcja: jedna żywa istota w BSW metrów zasypia na k10 godzin (Nieprzytomność), chyba że przeciwstawi się Testem SW (+0); śpiąc, dostaje 1 Punkt Zepsucia z koszmarów.",
+   "page": 42
+  },
+  {
+   "name": "Śluz",
+   "god": "Nurgle",
+   "effect": "Trafiona żywa istota zdaje Trudny (−10) Test Odporności albo wymiotuje: 1 Oszołomienie i Powalenie. Wymiociny istoty Demonicznej stają się Śluzem Chaosu.",
+   "page": 42
+  },
+  {
+   "name": "Zaklęcie",
+   "god": "Tzeentch",
+   "effect": "W broni uwięziony jest czarodziej: Akcją każesz mu rzucać zaklęcia Tradycji Tzeentcha (działa jak osobna postać z połową twoich PD).",
+   "page": 42
+  },
+  {
+   "name": "Kradzież",
+   "god": "Slaanesh",
+   "effect": "Zamiast Obrażeń trafienie odbiera wrogowi jeden Talent (z poziomami) i daje go tobie do końca walki (jeden Talent od każdego wroga).",
+   "page": 42
+  },
+  {
+   "name": "Przywołanie",
+   "god": "Tzeentch",
+   "effect": "Istota (Rozmiar Mały lub większy) zabita tą bronią wydaje z siebie Niebieskiego Horrora, który atakuje najbliższych (nie władającego) przez k10 Rund albo do pierwszego zabójstwa.",
+   "page": 42
+  },
+  {
+   "name": "Kieł Tzeentcha",
+   "god": "Tzeentch",
+   "effect": "Zaleta Przekłuwająca; płomień Chaosu pozwala każdemu, kto go widzi, raz przerzucić Test (potem Test Odporności albo +1 Zepsucia). Po starciu Przeciętny (+20) Test Odporności albo mutacja władającego.",
+   "page": 43,
+   "effects": {
+    "qualities": [
+     "Przekłuwająca"
+    ]
+   }
+  },
+  {
+   "name": "Spaczenie",
+   "god": "Niepodzielny",
+   "effect": "Zamiast Obrażeń udany atak od razu daje celowi (k10+2)/4 mutacji. Zwiastun nowej inwazji Chaosu.",
+   "page": 43
+  }
+ ],
+ "daemons": {
+  "Khorne": {
+   "lesser": {
+    "name": "Krwiopuszcz Khorna",
+    "benefit": "W Szale Bojowym masz Cechę Czempion."
+   },
+   "greater": {
+    "name": "Krwiopijca",
+    "benefit": "W Szale Bojowym masz Cechy Czempion i Elitarny."
+   }
+  },
+  "Slaanesh": {
+   "lesser": {
+    "name": "Demonetka Slaanesha",
+    "benefit": "Dwa Darmowe Ataki na Rundę."
+   },
+   "greater": {
+    "name": "Strażnik Tajemnic",
+    "benefit": "Dwa Darmowe Ataki na Rundę i Cecha Szybki."
+   }
+  },
+  "Tzeentch": {
+   "lesser": {
+    "name": "Różowy Horror Tzeentcha",
+    "benefit": "Możesz Splatać i rzucać zaklęcia Tradycji Tzeentcha."
+   },
+   "greater": {
+    "name": "Władca Przemian",
+    "benefit": "Możesz Splatać i rzucać zaklęcia Tradycji Tzeentcha, z premią +20 do tych Testów."
+   }
+  },
+  "Nurgle": {
+   "lesser": {
+    "name": "Zarazonośca Nurgle’a",
+    "benefit": "Cechy Żrąca Krew i Wymioty."
+   },
+   "greater": {
+    "name": "Wielki Nieczysty",
+    "benefit": "Cechy Żrąca Krew i Wymioty; niemagiczna broń trafiającego cię wręcz traci 1 punkt, a on 1 PP w losowej lokacji."
+   }
+  }
+ },
+ "greaterDaemonChance": {
+  "legendarny": 0.6,
+  "heros": 0.85
+ },
+ "items": [
+  {
+   "name": "Zaklęta broń",
+   "kind": "weapon",
+   "weight": 6,
+   "effects": {
+    "damage": 1
+   },
+   "description": "Broń przesycona magią: liczy się jako magiczna (rani istoty Eteryczne i odporne na zwykłą broń), +1 do Obrażeń.",
+   "source": "Generator (własne, na wzór podręczników)"
+  },
+  {
+   "name": "Zaklęty pancerz",
+   "kind": "armour",
+   "weight": 3,
+   "effects": {
+    "ap": 1
+   },
+   "description": "Pancerz wzmocniony zaklęciem: +1 PP na wszystkich chronionych lokacjach, liczy się jako magiczny.",
+   "source": "Generator (własne, na wzór podręczników)"
+  },
+  {
+   "name": "Amulet ochronny",
+   "kind": "item",
+   "weight": 4,
+   "description": "Raz na walkę możesz nałożyć −10 na Test ataku albo rzucania zaklęcia wymierzony w ciebie.",
+   "source": "Generator (własne, na wzór podręczników)"
+  },
+  {
+   "name": "Pierścień szczęścia",
+   "kind": "item",
+   "weight": 2,
+   "description": "+1 Punkt Szczęścia ponad maksimum; tracony po zdjęciu pierścienia.",
+   "source": "Generator (własne, na wzór podręczników)"
+  },
+  {
+   "name": "Mikstura",
+   "kind": "potion",
+   "weight": 6,
+   "description": "Losowa magiczna mikstura z Wiatrów Magii (s. 161–163).",
+   "source": "Wiatry Magii",
+   "page": 161
+  },
+  {
+   "name": "Topór Nieokiełznanej Furii",
+   "kind": "weapon",
+   "replaces": "Topór",
+   "weight": 1.5,
+   "cursed": true,
+   "source": "Wiatry Magii",
+   "page": 170,
+   "description": "Dar: Talent Szał Bojowy. Skaza: Szał trwa, dopóki właściciel nie zostanie rozbrojony, oszołomiony albo nie straci przytomności — po wrogach atakuje najbliższą żywą istotę. Wyzwalacz: Nieudany Test SW (−10 za każdą wcześniejszą próbę) po zadaniu Rany. Przedmiot przeklęty — liczy się jako magiczny.",
+   "needsSkill": "Broń Biała (Podstawowa)"
+  },
+  {
+   "name": "Sztylet Skradzionego Szczęścia",
+   "kind": "weapon",
+   "replaces": "Sztylet",
+   "weight": 1.5,
+   "cursed": true,
+   "source": "Wiatry Magii",
+   "page": 171,
+   "description": "Dar: +20 do Broni Białej (Podstawowej). Skaza: −1 Punkt Szczęścia. Wyzwalacz: Udany atak z 2 PS lub mniej. Przedmiot przeklęty — liczy się jako magiczny.",
+   "effects": {
+    "skill": 20
+   }
+  },
+  {
+   "name": "Niszczyciel Przyjaźni",
+   "kind": "weapon",
+   "replaces": "Młot jednoręczny",
+   "weight": 1.5,
+   "cursed": true,
+   "source": "Wiatry Magii",
+   "page": 171,
+   "description": "Dar: +30 do Broni Białej (Podstawowej). Skaza: Ogłuszający brzdęk: 1 Rana wszystkim w promieniu 6 m (także tobie), za pierwszym razem Test Odporności (−10) albo Ogłuszenie. Wyzwalacz: Udany atak z 3 PS lub mniej. Przedmiot przeklęty — liczy się jako magiczny.",
+   "effects": {
+    "skill": 30
+   },
+   "needsSkill": "Broń Biała (Podstawowa)"
+  },
+  {
+   "name": "Korbacz Niepodzielnej Uwagi",
+   "kind": "weapon",
+   "replaces": "Korbacz",
+   "weight": 1.5,
+   "cursed": true,
+   "source": "Wiatry Magii",
+   "page": 171,
+   "description": "Dar: +10 do Broni Białej (Korbacz). Skaza: Zawsze atakuje cię co najmniej dwóch wrogów; tracisz poziomy Talentu Mistrz Walki. Wyzwalacz: Każdy atak tym korbaczem. Przedmiot przeklęty — liczy się jako magiczny.",
+   "effects": {
+    "skill": 10
+   },
+   "needsSkill": "Broń Biała (Korbacz)"
+  },
+  {
+   "name": "Łuk Krwawej Empatii",
+   "kind": "weapon",
+   "replaces": "Łuk",
+   "weight": 1.5,
+   "cursed": true,
+   "source": "Wiatry Magii",
+   "page": 171,
+   "description": "Dar: +20 do Broni Zasięgowej (Łuk). Skaza: 1 poziom Krwawienia. Wyzwalacz: Udany atak z 2 PS lub mniej. Przedmiot przeklęty — liczy się jako magiczny.",
+   "effects": {
+    "skill": 20
+   },
+   "needsSkill": "Broń Zasięgowa (Łuk)"
+  },
+  {
+   "name": "Pistolet Niechcianej Samotności",
+   "kind": "weapon",
+   "replaces": "Pistolet",
+   "weight": 1.5,
+   "cursed": true,
+   "source": "Wiatry Magii",
+   "page": 172,
+   "description": "Dar: +20 do Broni Zasięgowej (Prochowej). Skaza: Cuchnąca chmura prochu na 24 godziny: −30 do Testów opartych na Ogładzie. Wyzwalacz: Udany atak z 2 PS lub mniej. Przedmiot przeklęty — liczy się jako magiczny.",
+   "effects": {
+    "skill": 20
+   },
+   "needsSkill": "Broń Zasięgowa (Prochowa)"
+  },
+  {
+   "name": "Miecz Wstrzymania",
+   "kind": "weapon",
+   "replaces": "Miecz",
+   "weight": 1.5,
+   "cursed": true,
+   "source": "Wiatry Magii",
+   "page": 172,
+   "description": "Dar: +20 do Broni Białej (Podstawowej), Zaleta Rąbiąca. Skaza: Miecz klinuje się w zbroi (albo ciele) — uwolnienie: Akcja i Trudny (−20) Test Siły. Wyzwalacz: Udany atak z 2 PS lub mniej. Przedmiot przeklęty — liczy się jako magiczny.",
+   "effects": {
+    "skill": 20,
+    "qualities": [
+     "Rąbiąca"
+    ]
+   },
+   "needsSkill": "Broń Biała (Podstawowa)"
+  },
+  {
+   "name": "Kastety Hańby",
+   "kind": "weapon",
+   "replaces": "Kastet",
+   "weight": 1.5,
+   "cursed": true,
+   "source": "Wiatry Magii",
+   "page": 172,
+   "description": "Dar: Zaleta Nadziewająca. Skaza: Właściciel zaraża się losową chorobą (Ropiejąca Rana, Świerzbospa, Smrodliwe Wiatry, Sierściawka, Czerwonka). Wyzwalacz: Trafienie Krytyczne zadane kastetami. Przedmiot przeklęty — liczy się jako magiczny.",
+   "effects": {
+    "qualities": [
+     "Nadziewająca"
+    ]
+   },
+   "needsSkill": "Broń Biała (Bijatyka)"
+  },
+  {
+   "name": "Buty Nagłego Żalu",
+   "kind": "item",
+   "replaces": null,
+   "weight": 1.5,
+   "cursed": true,
+   "source": "Wiatry Magii",
+   "page": 170,
+   "description": "Dar: Ciche stąpanie bez śladów przy zwykłym tempie. Skaza: Każdy Test Skradania to Zdumiewająca Porażka (głośne skrzypnięcie). Wyzwalacz: Test Skradania. Przedmiot przeklęty — liczy się jako magiczny."
+  },
+  {
+   "name": "Kolczuga Skradzionej Chwały",
+   "kind": "armour",
+   "replaces": "Kolczuga",
+   "weight": 1.5,
+   "cursed": true,
+   "source": "Wiatry Magii",
+   "page": 172,
+   "description": "Dar: 3 PP na korpusie i ramionach. Skaza: Przymus ucieczki (w ucieczce 0 PP). Wyzwalacz: Nieudany Test Opanowania (rosnąca Trudność z każdym trafieniem). Przedmiot przeklęty — liczy się jako magiczny."
+  },
+  {
+   "name": "Kamień Mocy (Prawdziwy Szafir)",
+   "kind": "item",
+   "weight": 5,
+   "forLores": [
+    "Niebios"
+   ],
+   "source": "Wiatry Magii",
+   "page": 167,
+   "description": "Kamień Mocy Tradycji Niebios: jednorazowo +3 PS do Testu Rzucania Zaklęcia tej Tradycji (trzymany w dłoni, znika po użyciu). Gaśnie po roku–dwóch."
+  },
+  {
+   "name": "Kamień Mocy (Kamień Końca)",
+   "kind": "item",
+   "weight": 5,
+   "forLores": [
+    "Śmierci"
+   ],
+   "source": "Wiatry Magii",
+   "page": 167,
+   "description": "Kamień Mocy Tradycji Śmierci: jednorazowo +3 PS do Testu Rzucania Zaklęcia tej Tradycji (trzymany w dłoni, znika po użyciu). Gaśnie po roku–dwóch."
+  },
+  {
+   "name": "Kamień Mocy (Widmowy Bursztyn)",
+   "kind": "item",
+   "weight": 5,
+   "forLores": [
+    "Zwierząt"
+   ],
+   "source": "Wiatry Magii",
+   "page": 167,
+   "description": "Kamień Mocy Tradycji Zwierząt: jednorazowo +3 PS do Testu Rzucania Zaklęcia tej Tradycji (trzymany w dłoni, znika po użyciu). Gaśnie po roku–dwóch."
+  },
+  {
+   "name": "Kamień Mocy (Kamień Świtu)",
+   "kind": "item",
+   "weight": 5,
+   "forLores": [
+    "Światła"
+   ],
+   "source": "Wiatry Magii",
+   "page": 167,
+   "description": "Kamień Mocy Tradycji Światła: jednorazowo +3 PS do Testu Rzucania Zaklęcia tej Tradycji (trzymany w dłoni, znika po użyciu). Gaśnie po roku–dwóch."
+  },
+  {
+   "name": "Kamień Mocy (Ognisty Rubin)",
+   "kind": "item",
+   "weight": 5,
+   "forLores": [
+    "Ognia"
+   ],
+   "source": "Wiatry Magii",
+   "page": 167,
+   "description": "Kamień Mocy Tradycji Ognia: jednorazowo +3 PS do Testu Rzucania Zaklęcia tej Tradycji (trzymany w dłoni, znika po użyciu). Gaśnie po roku–dwóch."
+  },
+  {
+   "name": "Kamień Mocy (Złoty Kamień)",
+   "kind": "item",
+   "weight": 5,
+   "forLores": [
+    "Metalu"
+   ],
+   "source": "Wiatry Magii",
+   "page": 167,
+   "description": "Kamień Mocy Tradycji Metalu: jednorazowo +3 PS do Testu Rzucania Zaklęcia tej Tradycji (trzymany w dłoni, znika po użyciu). Gaśnie po roku–dwóch."
+  },
+  {
+   "name": "Kamień Mocy (Mgielny Kryształ)",
+   "kind": "item",
+   "weight": 5,
+   "forLores": [
+    "Cieni"
+   ],
+   "source": "Wiatry Magii",
+   "page": 167,
+   "description": "Kamień Mocy Tradycji Cieni: jednorazowo +3 PS do Testu Rzucania Zaklęcia tej Tradycji (trzymany w dłoni, znika po użyciu). Gaśnie po roku–dwóch."
+  },
+  {
+   "name": "Kamień Mocy (Vitaellum)",
+   "kind": "item",
+   "weight": 5,
+   "forLores": [
+    "Życia"
+   ],
+   "source": "Wiatry Magii",
+   "page": 167,
+   "description": "Kamień Mocy Tradycji Życia: jednorazowo +3 PS do Testu Rzucania Zaklęcia tej Tradycji (trzymany w dłoni, znika po użyciu). Gaśnie po roku–dwóch."
+  },
+  {
+   "name": "Runiczna broń",
+   "kind": "weapon",
+   "runes": "weapon",
+   "weight": 8,
+   "source": "Podręcznik Gracza: Krasnoludy",
+   "page": 127,
+   "description": "Broń wykuta przez Runotwórcę — liczy się jako magiczna. Najwyżej trzy zwykłe runy i jedna mistrzowska (Prawo Trzech, Prawo Zazdrości)."
+  },
+  {
+   "name": "Runiczny talizman",
+   "kind": "item",
+   "runes": "talisman",
+   "weight": 5,
+   "source": "Podręcznik Gracza: Krasnoludy",
+   "page": 129,
+   "description": "Pierścień, amulet albo pas z Runami Talizmanów — najwyżej trzy zwykłe runy i jedna mistrzowska."
+  },
+  {
+   "name": "Runiczna zbroja gromrilowa",
+   "kind": "armour",
+   "runes": "armour",
+   "material": "gromril",
+   "weight": 3,
+   "minTier": "doswiadczony",
+   "forRaces": [
+    "Krasnolud"
+   ],
+   "source": "Podręcznik Gracza: Krasnoludy",
+   "page": 128,
+   "description": "Zbroja z gromrilu z Runami Zbroi (obejmują też hełm z gromrilu). Najwyżej trzy zwykłe runy i jedna mistrzowska."
+  },
+  {
+   "name": "Runiczny pancerz",
+   "kind": "armour",
+   "runes": "armour",
+   "weight": 4,
+   "source": "Podręcznik Gracza: Krasnoludy",
+   "page": 128,
+   "description": "Metalowy pancerz z Runami Zbroi — runy wykuwa się tylko na metalu, kamieniu albo klejnotach (Prawo Formy). Najwyżej trzy zwykłe runy i jedna mistrzowska."
+  },
+  {
+   "name": "Pancerz smoczy",
+   "kind": "armour",
+   "material": "ithilmar",
+   "weight": 1.5,
+   "minTier": "heroiczny",
+   "forRaces": [
+    "Wysoki elf"
+   ],
+   "source": "Podręcznik Gracza: Wysokie Elfy",
+   "page": 33,
+   "description": "Magiczna płyta z kuźni Kowadła Vaula: chronione lokacje są odporne na Podpalenie; przeciw ogniowi PP podwojone i nie da się ich zignorować."
+  },
+  {
+   "name": "Pióro Płomiennego Feniksa",
+   "kind": "item",
+   "weight": 2,
+   "forRaces": [
+    "Wysoki elf",
+    "Leśny elf"
+   ],
+   "source": "Podręcznik Gracza: Wysokie Elfy",
+   "page": 37,
+   "description": "Płonie przez mniej więcej rok: światło jak lampa, podpala jak pochodnia."
+  },
+  {
+   "name": "Pióro Mrozicielnego Feniksa",
+   "kind": "item",
+   "weight": 1.5,
+   "forRaces": [
+    "Wysoki elf",
+    "Leśny elf"
+   ],
+   "source": "Podręcznik Gracza: Wysokie Elfy",
+   "page": 37,
+   "description": "Lodowato zimne przez mniej więcej rok: słabe światło jak świeca, chłodzi jak bryła lodu."
+  },
+  {
+   "name": "Laska z Nocnego Wiązu",
+   "kind": "item",
+   "weight": 2.5,
+   "forRaces": [
+    "Wysoki elf",
+    "Leśny elf"
+   ],
+   "source": "Podręcznik Gracza: Wysokie Elfy",
+   "page": 37,
+   "description": "Gdy posiadacz jest celem zaklęcia Czarnoksięstwa, Demonologii, Nekromancji, Mrocznej Magii albo Chaosu, ma Cechę Odporność na Magię 3. Bywa drzewcem broni drzewcowej."
+  },
+  {
+   "name": "Odłamek Drogowskazu",
+   "kind": "item",
+   "weight": 2,
+   "forRaces": [
+    "Wysoki elf",
+    "Leśny elf"
+   ],
+   "source": "Podręcznik Gracza: Wysokie Elfy",
+   "page": 37,
+   "description": "Kieszonkowy kamień drogowy: Wymagający (+0) Test Modlitwy wskazuje kierunek najbliższego kamienia drogowego; wspiera medytację Yenlui."
+  },
+  {
+   "name": "Eteroskop",
+   "kind": "item",
+   "weight": 3,
+   "forRaces": [
+    "Wysoki elf",
+    "Leśny elf"
+   ],
+   "forCasters": true,
+   "source": "Podręcznik Gracza: Wysokie Elfy",
+   "page": 37,
+   "description": "Mosiężne tarcze i kryształowe soczewki z Białej Wieży: Wymagający (+0) Test Wiedzy (Magia) ocenia natężenie Wiatrów, Trudny (−20) wskazuje najbliższe skupisko danego Wiatru."
+  },
+  {
+   "name": "Wielki miecz Hoetha",
+   "kind": "weapon",
+   "replaces": "Wielki miecz Hoetha",
+   "extra": true,
+   "weight": 2,
+   "minTier": "heroiczny",
+   "forRaces": [
+    "Wysoki elf"
+   ],
+   "needsSkill": "Broń Biała (Dwuręczna)",
+   "source": "Podręcznik Gracza: Wysokie Elfy",
+   "page": 33,
+   "description": "Dwuręczny miecz z Białej Wieży Hoetha — niemal wzrostu elfa, każdy egzemplarz to dzieło sztuki. Ostrze nie jest zaklęte, ale jest niezbędne do tańca mieczy."
+  },
+  {
+   "name": "Mroźna Klinga",
+   "kind": "weapon",
+   "replaces": "Miecz",
+   "weight": 2,
+   "forGroups": [
+    "Wampiry",
+    "Nieumarli"
+   ],
+   "effects": {
+    "damage": 1
+   },
+   "source": "Wampiry (nieoficjalny)",
+   "page": 52,
+   "description": "Magiczny miecz (+BS+5): władający może korzystać z Cechy Stworzenia Lodowaty Uścisk."
+  },
+  {
+   "name": "Pijawica Krwi",
+   "kind": "weapon",
+   "replaces": "Miecz",
+   "weight": 2,
+   "forGroups": [
+    "Wampiry",
+    "Nieumarli"
+   ],
+   "effects": {
+    "damage": 1
+   },
+   "source": "Wampiry (nieoficjalny)",
+   "page": 52,
+   "description": "Magiczny miecz (+BS+5): przy udanym ataku władający korzysta z Cechy Wampiryczny."
+  },
+  {
+   "name": "Klinga Grobowca",
+   "kind": "weapon",
+   "replaces": "Miecz",
+   "weight": 1.5,
+   "forGroups": [
+    "Wampiry",
+    "Nieumarli"
+   ],
+   "effects": {
+    "damage": 1
+   },
+   "source": "Wampiry (nieoficjalny)",
+   "page": 52,
+   "description": "Magiczny miecz (+BS+5): zabici nim wracają jako zombi pod władzą władającego."
+  },
+  {
+   "name": "Miecz Bitewny",
+   "kind": "weapon",
+   "replaces": "Miecz",
+   "weight": 2,
+   "forGroups": [
+    "Wampiry"
+   ],
+   "effects": {
+    "skill": 10
+   },
+   "source": "Wampiry (nieoficjalny)",
+   "page": 52,
+   "description": "Miecz wykradziony krasnoludom: +10 do Walki Wręcz przy atakach tym mieczem."
+  },
+  {
+   "name": "Sztylet z Gagatu",
+   "kind": "weapon",
+   "replaces": "Sztylet",
+   "extra": true,
+   "weight": 1.5,
+   "forGroups": [
+    "Wampiry"
+   ],
+   "source": "Wampiry (nieoficjalny)",
+   "page": 52,
+   "description": "Za każdy punkt Żywotności zadany tym sztyletem wampir leczy 1 punkt, jakby karmił się Ugryzieniem; ofiara dostaje +1 Stan Zmęczenie."
+  },
+  {
+   "name": "Krwawy Kielich",
+   "kind": "item",
+   "weight": 2,
+   "forGroups": [
+    "Wampiry"
+   ],
+   "source": "Wampiry (nieoficjalny)",
+   "page": 51,
+   "description": "Akcja: wypicie krwi leczy k10 Żywotności; krew rozlana na broń zapala ją — każdy cios dodaje 1 Stan Podpalenie."
+  },
+  {
+   "name": "Pierścień Nocy",
+   "kind": "item",
+   "weight": 2,
+   "forGroups": [
+    "Wampiry"
+   ],
+   "source": "Wampiry (nieoficjalny)",
+   "page": 52,
+   "description": "Akcja: zasłona chmur blokuje słońce w promieniu BSW metrów na godzinę (porusza się z tobą) i daje Ochronę (8+) przed atakami magicznymi."
+  },
+  {
+   "name": "Pierścień Carsteinów",
+   "kind": "item",
+   "weight": 0.5,
+   "minTier": "legendarny",
+   "forGroups": [
+    "Wampiry"
+   ],
+   "forBloodlines": [
+    "Von Carstein"
+   ],
+   "effects": {
+    "ap": 3
+   },
+   "source": "Wampiry (nieoficjalny)",
+   "page": 51,
+   "description": "Artefakt Nagasha: noszący von Carstein ma Regenerację i +3 PP na wszystkich lokacjach, a po śmierci powstaje o zmierzchu w pełni uleczony. Może ulegać zamysłom Nagasha."
+  },
+  {
+   "name": "Broń Chaosu",
+   "kind": "weapon",
+   "chaos": [
+    1,
+    2
+   ],
+   "weight": 8,
+   "forGroups": [
+    "Chaos › Wojownicy Chaosu",
+    "Chaos › Kultyści i mutanci",
+    "Chaos › Krasnoludy Chaosu",
+    "Chaos › Zwierzoludzie"
+   ],
+   "forTalents": [
+    "Znak Chaosu",
+    "Magia Chaosu"
+   ],
+   "source": "Warriors of Chaos (Ratter)",
+   "page": 35,
+   "description": "Dar Mrocznych Bogów — liczy się jako magiczna, może ją uszkodzić tylko magia. −20 do Testów opierania się mutacjom."
+  },
+  {
+   "name": "Broń demoniczna",
+   "kind": "weapon",
+   "daemon": true,
+   "weight": 2,
+   "minTier": "heroiczny",
+   "forGroups": [
+    "Chaos › Wojownicy Chaosu",
+    "Chaos › Kultyści i mutanci",
+    "Chaos › Krasnoludy Chaosu",
+    "Chaos › Zwierzoludzie"
+   ],
+   "forTalents": [
+    "Znak Chaosu"
+   ],
+   "source": "Warriors of Chaos (Ratter)",
+   "page": 44,
+   "description": "Broń Demoniczna rani każdą istotę bez względu na odporności; dobyta daje Cechę Demoniczny (jak u uwięzionego demona) i pozwala używać SW demona zamiast własnej. Skradziona Siła: zabicie celu dzieli jego Siłę na trzy — za każde pełne 10 z ostatniej trzeciej części władający ma +10 S na dobę (najwyżej tyle razy, ile wynosi jego BS). −40 do Testów opierania się mutacjom. Gdy władający spadnie do 0 Żyw, jego dusza trafia do Domeny Chaosu, a demon wyrywa się na wolność."
+  },
+  {
+   "name": "Fetysz szamana",
+   "kind": "item",
+   "weight": 4,
+   "forGroups": [
+    "Zielonoskórzy"
+   ],
+   "source": "Generator (własne, na wzór podręczników)",
+   "description": "Kości, zęby i grzyby nawleczone na rzemień: raz na walkę przerzuć nieudany Test Opanowania albo Test przeciwko magii."
+  },
+  {
+   "name": "Zaklęty rębacz",
+   "kind": "weapon",
+   "weight": 4,
+   "forGroups": [
+    "Zielonoskórzy"
+   ],
+   "effects": {
+    "damage": 1,
+    "qualities": [
+     "Rąbiąca"
+    ]
+   },
+   "source": "Generator (własne, na wzór podręczników)",
+   "description": "Toporna, ale zaklęta przez szamana broń: magiczna, +1 do Obrażeń i Zaleta Rąbiąca."
+  },
+  {
+   "name": "Spaczeniowe ostrze",
+   "kind": "weapon",
+   "weight": 5,
+   "forGroups": [
+    "Skaveny"
+   ],
+   "effects": {
+    "damage": 2
+   },
+   "source": "Generator (własne, na wzór podręczników)",
+   "description": "Ostrze stopione ze spaczenia: magiczne, +2 do Obrażeń. Każdy Pech w ataku daje władającemu 1 Punkt Zepsucia."
+  },
+  {
+   "name": "Amulet ze spaczenia",
+   "kind": "item",
+   "weight": 3,
+   "forGroups": [
+    "Skaveny"
+   ],
+   "source": "Generator (własne, na wzór podręczników)",
+   "description": "Odłamek spaczenia w oprawie: +1 PS do Testów Splatania Magii, ale każdy dzień noszenia to Test Odporności przeciw Zepsuciu."
+  },
+  {
+   "name": "Relikwia",
+   "kind": "item",
+   "weight": 5,
+   "forTalents": [
+    "Błogosławieństwo",
+    "Inwokacja"
+   ],
+   "source": "Generator (własne, na wzór podręczników)",
+   "description": "Święta relikwia (kość świętego, fragment szaty, amulet z symbolem bóstwa): +10 do Testów Modlitwy; raz na sesję przerzuć nieudany Test Modlitwy."
+  }
+ ]
+}
