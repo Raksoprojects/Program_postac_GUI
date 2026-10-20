@@ -550,7 +550,7 @@
     "max_raw": "Bonus z Inteligencji + Siły Woli",
     "tests": "Kowalstwo Run",
     "description": "Dostałeś dostęp do sekretu Magicznych Run Krasnoludzkich. Wybierz Runę (127 - 131 str). Nie możesz wybrać Mistrzowskiej Runy. Jeżeli Talent prezuje konkretną formę (np. Runy Ochrony) muszisz wybrać runę z danej listy. Możesz użyć Zajęcia Wykucie Run, by wyryć wybraną Runę w przedmiocie.",
-    "source": "Podręcznik gracza Krasnoluda"
+    "source": "Podręcznik Gracza: Krasnoludy"
   },
   "Magia Tajemna (Tradycja)": {
     "max": {
@@ -751,7 +751,7 @@
     "max_raw": "Bonus z Wytrzymałości",
     "tests": null,
     "description": "Wytrzymujesz trudy z godnym podziwu uporem. Kiedy liczysz kary wynikające ze Stanu Zmęczenie możesz zignorować jeden Poziom Zmęczenia za każde wykupienie Talentu.",
-    "source": "Podręcznik gracza Krasnoluda"
+    "source": "Podręcznik Gracza: Krasnoludy"
   },
   "Nieubłagany": {
     "max": {
@@ -998,7 +998,7 @@
     "max_raw": "Bonus z Wytrzymałości",
     "tests": "Testy Mocnej Głowy",
     "description": "Wiele Krasnoludów przysięga, że dobry trunek zwiększa odwagę i potencjał wojownika. Natychmiast otrzymujesz +10 Siły i Wytrzymałości po spożyciu alkoholu. Efekt utrzymuje się do godziny po twoim ostatnim trunku.",
-    "source": "Podręcznik gracza Krasnoluda"
+    "source": "Podręcznik Gracza: Krasnoludy"
   },
   "Pogarda Magii": {
     "max": {
@@ -1009,7 +1009,7 @@
     "max_raw": "Bonus z Siły Woli",
     "tests": "Testy Siły Woli przeciw Magii",
     "description": "Uziemiasz magię przeciwnika własnym ciałem, odmawiając bycia dotkniętym ich podłym sztuczkom. Możesz odwrócić każdy rzut, który musisz podjąć w wyniku zaklęcia, jak i rozpraszania go.",
-    "source": "Podręcznik gracza Krasnoluda"
+    "source": "Podręcznik Gracza: Krasnoludy"
   },
   "Poliglota": {
     "max": {
@@ -1127,7 +1127,7 @@
     "max_raw": "Bonus z Wytrzymałości",
     "tests": null,
     "description": "Są takie pozycje w Wielkiej Księdze Uraz, które są na tyle poważne, że mogą być pomszczone jedynie przez eksterminacje wszystkich osobników danej grupy. Wybierz grupę lub frakcję twojej Rodowej Urazy (Orkowie, Gobliny, Skaveny, Deamony Khorna itp.). Za każdym razem gdy wygrasz istotną potyczkę (odebrać skradzioną rzecz, zniszczyć ich wytwory, zabicie wielu osobników itp.) przeciwko danej grupie dostajesz 50 PD. Im konkretniejszą grupę wybierzesz tym więcej PD zapewni Ci wygrana przeciw niej.",
-    "source": "Podręcznik gracza Krasnoluda"
+    "source": "Podręcznik Gracza: Krasnoludy"
   },
   "Rozbrojenie": {
     "max": {
@@ -1910,7 +1910,7 @@
     "max_raw": "1",
     "tests": null,
     "description": "Jesteś żywą baterią mocy runicznej, promieniując aurą furii bitewnej nasycając pobliskie bronie gorącem ich wykuwania. Jeśli jesteś Związany Walką każda Broń Ręczna używana przez Ciebie lub Twojego Sojusznika w promieniu Siły Woli w metrach dostają Zaletę Przekłuwająca. Jeżeli już ją mają to ignorują dodatkowy punkt niemetalowej zbroji.",
-    "source": "Podręcznik podstawowy"
+    "source": "Podręcznik Gracza: Krasnoludy"
   },
   "Żelazna Szczęka": {
     "max": {
@@ -1947,22 +1947,26 @@
   },
   "Twardziel": {
     "max": {
-      "type": "none"
+      "type": "characteristic",
+      "attr": "Wt",
+      "attr_name": "Wytrzymałości"
     },
-    "max_raw": null,
+    "max_raw": "Bonus z Wytrzymałości",
     "tests": null,
-    "description": "",
-    "source": "Do uzupełnienia",
+    "description": "Na stałe zwiększasz swoją Żywotność o Bonus z Wytrzymałości. Jeśli ten się zwiększy, wraz z nim wzrośnie również twoja Żywotność wynikająca z tego Talentu.",
+    "source": "Podręcznik podstawowy",
     "wounds_toughness_bonus": true
   },
   "Towarzyski": {
     "max": {
-      "type": "none"
+      "type": "characteristic",
+      "attr": "Ogd",
+      "attr_name": "Ogłady"
     },
-    "max_raw": null,
-    "tests": null,
-    "description": "",
-    "source": "Do uzupełnienia"
+    "max_raw": "Bonus z Ogłady",
+    "tests": "Plotkowanie z wędrowcami",
+    "description": "Po prostu lubisz sobie pogadać z ludźmi, a oni z tobą. Możesz odwrócić kolejność kostek nieudanego Testu Plotkowania, jeśli nowy wynik będzie oznaczał udany Test.",
+    "source": "Podręcznik podstawowy"
   },
   "Pamiętliwy": {
     "max": {
@@ -1978,21 +1982,25 @@
   },
   "Zręczne Palce": {
     "max": {
-      "type": "none"
+      "type": "fixed",
+      "value": 1
     },
-    "max_raw": null,
+    "max_raw": "1",
     "tests": null,
-    "description": "",
-    "source": "Do uzupełnienia"
+    "description": "W opisach profesji jako „Zręczne Palce” – to Talent Zręczny. Zyskujesz premię +5 do początkowej wartości Zręczności. Nie liczy się ona do sumy Rozwinięć.",
+    "source": "Podręcznik podstawowy",
+    "adds_characteristic": "Zr"
   },
   "Przemawianie": {
     "max": {
-      "type": "none"
+      "type": "characteristic",
+      "attr": "Ogd",
+      "attr_name": "Ogłady"
     },
-    "max_raw": null,
+    "max_raw": "Bonus z Ogłady",
     "tests": null,
-    "description": "",
-    "source": "Do uzupełnienia"
+    "description": "W opisach profesji jako „Przemawianie” – to Talent Mówca. Jesteś umiejętnym oratorem i wiesz, jak urabiać tłumy. Poniższa tabela wskazuje, ile osób ulegnie twojemu wpływowi, gdy wykonasz Test Charyzmy (patrz strona 119) podczas przemawiania. Liczba wykupień Talentu Liczba przekonanych 1 zwykła x5 2 zwykła x10 3 zwykła x20 4 zwykła x50 5 zwykła x100 6 zwykła x200 7 zwykła x500 8 zwykła x1000 9 wszyscy, którzy słyszą twój słowiczy głos",
+    "source": "Podręcznik podstawowy"
   },
   "Mistrzowska Magia Runiczna": {
     "max": {
@@ -2013,7 +2021,7 @@
     },
     "max_raw": "1",
     "tests": null,
-    "source": "Grimuar (nieoficjalny), s. 20",
+    "source": "Grimuar (nieoficjalny)",
     "description": "Duch zwierzęcia z twojej wizji staje się twoim chowańcem — podąża za tobą i przynosi korzyści w zamian za przestrzeganie Nakazów Starej Wiary. Zwierzęta z gatunku chowańca reagują na ciebie obojętnie albo przyjaźnie. Druid musi mieć ten Talent, by rzucać zaklęcia."
   },
   "Błogosławiony przez Ishę": {
@@ -2258,7 +2266,7 @@
     "max_raw": "Bonus z Walki Wręcz",
     "tests": "Walka wręcz w pojedynku",
     "description": "Wszyscy czterej Mroczni Bogowie uznali cię za Czempiona Chaosu. W walce możesz jako Akcję wyzwać jednego przeciwnika na pojedynek (+1 do Obrażeń wręcz w pojedynku); wyzwania elitarnych wrogów musisz przyjąć. Przegrany albo odrzucony pojedynek: 1k10+8 Ran ignorujących BWt i PP. Zwycięstwo nad godnym rywalem: rzut k10 na tabelę Daru Chaosu.",
-    "source": "Warriors of Chaos (Ratter)"
+    "source": "Warriors of Chaos (nieoficjalny)"
   },
   "Znak Chaosu (Bóg)": {
     "max": {
@@ -2268,7 +2276,7 @@
     "max_raw": "3 (ogólny Znak Chaosu: 1)",
     "tests": null,
     "description": "Czempion ślubuje jednemu Mrocznemu Bogu i otrzymuje jego znak (wybór ostateczny). Khorne: Nienawiść (Slaanesh) i Wrogość (Tzeentch), nie może używać magii, Szał Bojowy bez Testu; 2. poziom — brak Zmęczenia po Szale; 3. poziom — dwa Darmowe Ataki wręcz na Rundę. Nurgle: Nienawiść (Tzeentch) i Wrogość (Slaanesh), Cecha Nie Czuje Bólu; 2. — Dekoncentrujący; 3. — Regeneracja. Slaanesh: Nienawiść (Khorne) i Wrogość (Nurgle), +poziom do PS Testów Psychologii; 2. — Wojowniczy; 3. — ignoruje kary od Cech Stworzeń wpływających na walkę. Tzeentch: Nienawiść (Nurgle) i Wrogość (Khorne), Ochrona (9+) i o 1 lepsza za poziom (do 7+); 2. — Odporność na Magię równa BSW; 3. — Talent Przeszywające Spojrzenie. Czarujący wybierają tylko Nurgle’a, Slaanesha albo Tzeentcha i używają jego Tradycji Chaosu.",
-    "source": "Warriors of Chaos (Ratter)"
+    "source": "Warriors of Chaos (nieoficjalny)"
   },
   "Przesycenie Magią": {
     "max": {
@@ -2289,7 +2297,7 @@
     "max_raw": "Bonus z Inicjatywy",
     "tests": "Percepcja (Wzrok)",
     "description": "Dar Tzeentcha. Jako Akcję badasz przeciwników w walce; w następnej Turze twoje ataki wręcz ignorują ich Bonus z Wytrzymałości i Punkty Pancerza. Liczba badanych przeciwników = poziom Talentu.",
-    "source": "Warriors of Chaos (Ratter)"
+    "source": "Warriors of Chaos (nieoficjalny)"
   },
   "Podwójne Życie": {
     "max": {
@@ -2350,52 +2358,5 @@
     "tests": "Testy, w których Splatanie Magii (Ulgu) zastępuje Skradanie",
     "description": "Możesz używać Splatania Magii (Ulgu) zamiast Skradania we wszystkich stosownych testach. Każde udane rzucenie zaklęcia z Tradycji Cienia w promieniu 8 metrów od ciebie zyskuje +1 PS (premia tylko raz).",
     "source": "Bestiariusz 2.0"
-  },
-  "Uraz Przodków": {
-    "max": {
-      "type": "characteristic",
-      "attr": "SW",
-      "attr_name": "Siły Woli"
-    },
-    "max_raw": "Bonus z Siły Woli",
-    "tests": "",
-    "description": "W Wielkiej Księdze Urazów są wpisy — zwłaszcza te przeciw Orkom, Goblinom i Skavenom — tak ciężkie, że pomścić je może wyłącznie wytępienie całego ich rodzaju. Odziedziczyłeś jeden z tych legendarnych urazów i choć nie masz szans doczekać jego zaspokojenia, z radością robisz swoje. Wybierz kulturę albo stronnictwo będące celem twojego Urazu Przodków (np. Orki, Gobliny, Skaveny, Trolle, demony Khorne’a itd.). Wpisz je do swojej Księgi Uraz jako cel zemsty, zgodnie z zasadami ze strony 33. Nosisz wobec tej grupy Krwawy Uraz, którego nigdy nie da się zaspokoić. Za każdym razem jednak, gdy odniesiesz nad nią znaczące zwycięstwo — niszcząc jej dzieła, odbierając coś skradzionego albo zabijając wielu jej przedstawicieli — otrzymujesz 50 PD.",
-    "source": "Podręcznik Gracza: Krasnoludy",
-    "page": 80
-  },
-  "Ogień Kuźni": {
-    "max": {
-      "type": "fixed",
-      "value": 1
-    },
-    "max_raw": "1",
-    "tests": "",
-    "description": "Jesteś żywym ogniwem runicznej mocy i roztaczasz aurę bitewnej furii, która nasyca pobliski oręż żarem kuźni. Gdy jesteś Związany Walką, każda broń biała w rękach twoich albo sojusznika w promieniu Bonusu z Siły Woli w metrach zyskuje Cechę Przebijająca. Jeśli broń już jest Przebijająca, jej ataki ignorują dodatkowo 1 punkt niemetalowej zbroi.",
-    "source": "Podręcznik Gracza: Krasnoludy",
-    "page": 80
-  },
-  "Płynna Forteca": {
-    "max": {
-      "type": "characteristic",
-      "attr": "Wt",
-      "attr_name": "Wytrzymałości"
-    },
-    "max_raw": "Bonus z Wytrzymałości",
-    "tests": "",
-    "description": "Testy: Mocna Głowa Wiele Krasnoludów twierdzi, że dobre piwo uspokaja nerwy i poprawia sprawność bojową krzepkiego wojownika. Mimo to rozważny wojak uważa, by nie uzależnić się od trunku — inaczej dopadnie go „gorączka piwna”. Po wypiciu alkoholu zyskujesz +10 do Siły i Wytrzymałości. Daje to natychmiastową premię do Testu Mocnej Głowy na wypicie trunku, a korzyść działa niezależnie od tego, czy Test się powiedzie. Zachowujesz ją, dopóki od ostatniego kielicha nie minie godzina — kolejne picie może przedłużyć efekt, ale nie zwiększa premii do Cech ponad +10.",
-    "source": "Podręcznik Gracza: Krasnoludy",
-    "page": 80
-  },
-  "Wzgarda dla Magii": {
-    "max": {
-      "type": "characteristic",
-      "attr": "SW",
-      "attr_name": "Siły Woli"
-    },
-    "max_raw": "Bonus z Siły Woli",
-    "tests": "",
-    "description": "Testy: Testy Siły Woli przy używaniu Odporności na Magię ( Podręcznika Głównego WFRP ) Uziemiasz wrogie czary własnym ciałem, odmawiając poddania się ich kapryśnym zaklęciom. Możesz Odwrócić każdy Test, który musisz wykonać w ramach działania czaru, a także Testy rozpraszania magii przy pomocy Odporności na Magię ( Podręcznik Główny WFRP ).",
-    "source": "Podręcznik Gracza: Krasnoludy",
-    "page": 81
   }
 }
