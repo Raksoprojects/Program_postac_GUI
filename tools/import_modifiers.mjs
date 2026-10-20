@@ -57,9 +57,9 @@ const categories = [
   {
     id: "wampiryzm",
     label: "Wampiryzm — przemiana (Krwawy Pocałunek)",
-    source: "Wampiry",
+    source: "Domowe",
     description:
-      "Premie do Cech wg Linii Krwi dla postaci przemienionej Krwawym Pocałunkiem. Wariant oficjalny (Wampiry, s. 14) albo domowy (wyższe wartości ustalone przez MG)."
+      "Premie do Cech wg Linii Krwi dla postaci przemienionej Krwawym Pocałunkiem (zasady domowe)."
   },
   {
     id: "dary_krwi",
@@ -142,30 +142,20 @@ for (const name of turningOrder) {
   if (b?.turning?.talents?.length) extras.push(`Talenty linii: ${b.turning.talents.join(", ")}.`);
   const common =
     "Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.";
+  // Tylko przemiana wg zasad domowych (premie z Generatora BN); tabela oficjalna
+  // sluzy wylacznie jako zapas, gdy generator nie ma premii dla linii krwi.
+  const home = b?.turning?.modifiers;
   entries.push({
     name: `Przemiana: ${name}`,
     category: "wampiryzm",
-    effect: `Oficjalne premie przemiany (Wampiry, s. 14).${flavour} ${extras.join(" ")} ${common}`.trim(),
-    source: "Wampiry",
-    characteristics: OFFICIAL_TURNING[name],
-    movement,
+    effect: `Premie przemiany wg zasad domowych.${flavour} ${extras.join(" ")} ${common}`.trim(),
+    source: "Domowe",
+    characteristics: home ?? OFFICIAL_TURNING[name],
+    movement: (home && b.turning.movement) ?? movement,
     fate: -1,
     resilience: 1,
     race: `Wampir (${name})`
   });
-  if (b?.turning?.modifiers) {
-    entries.push({
-      name: `Przemiana: ${name} (zasada domowa)`,
-      category: "wampiryzm",
-      effect: `Domowe premie przemiany (wyższe niż w dodatku; Generator BN).${flavour} ${extras.join(" ")} ${common}`.trim(),
-      source: "Domowe",
-      characteristics: b.turning.modifiers,
-      movement: b.turning.movement ?? movement,
-      fate: -1,
-      resilience: 1,
-      race: `Wampir (${name})`
-    });
-  }
 }
 
 for (const g of vampires.gifts ?? []) {

@@ -31,8 +31,8 @@
     {
       "id": "wampiryzm",
       "label": "Wampiryzm — przemiana (Krwawy Pocałunek)",
-      "source": "Wampiry",
-      "description": "Premie do Cech wg Linii Krwi dla postaci przemienionej Krwawym Pocałunkiem. Wariant oficjalny (Wampiry, s. 14) albo domowy (wyższe wartości ustalone przez MG)."
+      "source": "Domowe",
+      "description": "Premie do Cech wg Linii Krwi dla postaci przemienionej Krwawym Pocałunkiem (zasady domowe)."
     },
     {
       "id": "dary_krwi",
@@ -2432,27 +2432,7 @@
     {
       "name": "Przemiana: Von Carstein",
       "category": "wampiryzm",
-      "effect": "Oficjalne premie przemiany (Wampiry, s. 14). Zdegenerowana arystokracja Sylwanii — dumni, okrutni władcy pobierający krwawe daniny. Preferowane tradycje: Zwierząt, Śmierci albo Cieni, Nekromancja. Umiejętności linii (3×+5, 3×+3): Charyzma, Unik, Plotkowanie, Targowanie, Zastraszanie, Dowodzenie, Język (Dowolny), Wiedza (Heraldyka), Wiedza (Polityka), Broń Biała (Podstawowa), Percepcja, Skradanie (Wieś). Talenty linii: Wyczulony Zmysł (Dowolny), Żyłka Handlowa lub Intrygant, Błękitna Krew, Czytanie/Pisanie, Błyskotliwość lub Urodzony Wojownik. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
-      "source": "Wampiry",
-      "characteristics": {
-        "WW": 10,
-        "S": 20,
-        "Wt": 10,
-        "I": 10,
-        "Zw": 10,
-        "Zr": 10,
-        "SW": 20,
-        "Ogd": 10
-      },
-      "movement": 2,
-      "fate": -1,
-      "resilience": 1,
-      "race": "Wampir (Von Carstein)"
-    },
-    {
-      "name": "Przemiana: Von Carstein (zasada domowa)",
-      "category": "wampiryzm",
-      "effect": "Domowe premie przemiany (wyższe niż w dodatku; Generator BN). Zdegenerowana arystokracja Sylwanii — dumni, okrutni władcy pobierający krwawe daniny. Preferowane tradycje: Zwierząt, Śmierci albo Cieni, Nekromancja. Umiejętności linii (3×+5, 3×+3): Charyzma, Unik, Plotkowanie, Targowanie, Zastraszanie, Dowodzenie, Język (Dowolny), Wiedza (Heraldyka), Wiedza (Polityka), Broń Biała (Podstawowa), Percepcja, Skradanie (Wieś). Talenty linii: Wyczulony Zmysł (Dowolny), Żyłka Handlowa lub Intrygant, Błękitna Krew, Czytanie/Pisanie, Błyskotliwość lub Urodzony Wojownik. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "effect": "Premie przemiany wg zasad domowych. Zdegenerowana arystokracja Sylwanii — dumni, okrutni władcy pobierający krwawe daniny. Preferowane tradycje: Zwierząt, Śmierci albo Cieni, Nekromancja. Umiejętności linii (3×+5, 3×+3): Charyzma, Unik, Plotkowanie, Targowanie, Zastraszanie, Dowodzenie, Język (Dowolny), Wiedza (Heraldyka), Wiedza (Polityka), Broń Biała (Podstawowa), Percepcja, Skradanie (Wieś). Talenty linii: Wyczulony Zmysł (Dowolny), Żyłka Handlowa lub Intrygant, Błękitna Krew, Czytanie/Pisanie, Błyskotliwość lub Urodzony Wojownik. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
       "source": "Domowe",
       "characteristics": {
         "WW": 25,
@@ -2472,27 +2452,7 @@
     {
       "name": "Przemiana: Lahmianin",
       "category": "wampiryzm",
-      "effect": "Oficjalne premie przemiany (Wampiry, s. 14). Najstarsza linia, od Neferaty — uwodziciele i intryganci, skrycie rządzący ludzkimi dworami. Preferowane tradycje: Cieni, Nekromancja albo Czarownictwo. Umiejętności linii (3×+5, 3×+3): Charyzma, Unik, Plotkowanie, Targowanie, Zastraszanie, Intuicja, Język (Dowolny), Dowodzenie, Wiedza (Historia), Broń Biała (Podstawowa), Percepcja, Skradanie (Miasto). Talenty linii: Wyczulony Zmysł (Dowolny), Ulicznik lub Cień, Atrakcyjny lub Słuch Absolutny, Mistrz Charakteryzacji, Charyzmatyczny. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
-      "source": "Wampiry",
-      "characteristics": {
-        "WW": 10,
-        "S": 10,
-        "Wt": 10,
-        "I": 10,
-        "Zw": 10,
-        "Zr": 10,
-        "SW": 20,
-        "Ogd": 20
-      },
-      "movement": 2,
-      "fate": -1,
-      "resilience": 1,
-      "race": "Wampir (Lahmianin)"
-    },
-    {
-      "name": "Przemiana: Lahmianin (zasada domowa)",
-      "category": "wampiryzm",
-      "effect": "Domowe premie przemiany (wyższe niż w dodatku; Generator BN). Najstarsza linia, od Neferaty — uwodziciele i intryganci, skrycie rządzący ludzkimi dworami. Preferowane tradycje: Cieni, Nekromancja albo Czarownictwo. Umiejętności linii (3×+5, 3×+3): Charyzma, Unik, Plotkowanie, Targowanie, Zastraszanie, Intuicja, Język (Dowolny), Dowodzenie, Wiedza (Historia), Broń Biała (Podstawowa), Percepcja, Skradanie (Miasto). Talenty linii: Wyczulony Zmysł (Dowolny), Ulicznik lub Cień, Atrakcyjny lub Słuch Absolutny, Mistrz Charakteryzacji, Charyzmatyczny. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "effect": "Premie przemiany wg zasad domowych. Najstarsza linia, od Neferaty — uwodziciele i intryganci, skrycie rządzący ludzkimi dworami. Preferowane tradycje: Cieni, Nekromancja albo Czarownictwo. Umiejętności linii (3×+5, 3×+3): Charyzma, Unik, Plotkowanie, Targowanie, Zastraszanie, Intuicja, Język (Dowolny), Dowodzenie, Wiedza (Historia), Broń Biała (Podstawowa), Percepcja, Skradanie (Miasto). Talenty linii: Wyczulony Zmysł (Dowolny), Ulicznik lub Cień, Atrakcyjny lub Słuch Absolutny, Mistrz Charakteryzacji, Charyzmatyczny. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
       "source": "Domowe",
       "characteristics": {
         "WW": 20,
@@ -2511,27 +2471,7 @@
     {
       "name": "Przemiana: Krwawy Smok",
       "category": "wampiryzm",
-      "effect": "Oficjalne premie przemiany (Wampiry, s. 14). Upadli rycerze Abhorasha — straszliwi wojownicy o rycerskim kodeksie, dążący do uwolnienia się od Głodu. Preferowane tradycje: Zwierząt albo Cieni, Nekromancja. Umiejętności linii (3×+5, 3×+3): Charyzma, Opanowanie, Unik, Występy (Aktorstwo), Zastraszanie, Język (Dowolny), Język (Bretoński), Wiedza (Heraldyka), Broń Biała (Podstawowa), Percepcja, Jeździectwo (Konie), Skradanie (Wieś). Talenty linii: Wyczulony Zmysł (Dowolny), Wyczucie Kierunku, Obieżyświat, Doświadczony Wędrowiec (Wybrany Teren), Bardzo Silny lub Urodzony Wojownik. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
-      "source": "Wampiry",
-      "characteristics": {
-        "WW": 20,
-        "S": 20,
-        "Wt": 10,
-        "I": 10,
-        "Zw": 10,
-        "Zr": 10,
-        "SW": 10,
-        "Ogd": 10
-      },
-      "movement": 2,
-      "fate": -1,
-      "resilience": 1,
-      "race": "Wampir (Krwawy Smok)"
-    },
-    {
-      "name": "Przemiana: Krwawy Smok (zasada domowa)",
-      "category": "wampiryzm",
-      "effect": "Domowe premie przemiany (wyższe niż w dodatku; Generator BN). Upadli rycerze Abhorasha — straszliwi wojownicy o rycerskim kodeksie, dążący do uwolnienia się od Głodu. Preferowane tradycje: Zwierząt albo Cieni, Nekromancja. Umiejętności linii (3×+5, 3×+3): Charyzma, Opanowanie, Unik, Występy (Aktorstwo), Zastraszanie, Język (Dowolny), Język (Bretoński), Wiedza (Heraldyka), Broń Biała (Podstawowa), Percepcja, Jeździectwo (Konie), Skradanie (Wieś). Talenty linii: Wyczulony Zmysł (Dowolny), Wyczucie Kierunku, Obieżyświat, Doświadczony Wędrowiec (Wybrany Teren), Bardzo Silny lub Urodzony Wojownik. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "effect": "Premie przemiany wg zasad domowych. Upadli rycerze Abhorasha — straszliwi wojownicy o rycerskim kodeksie, dążący do uwolnienia się od Głodu. Preferowane tradycje: Zwierząt albo Cieni, Nekromancja. Umiejętności linii (3×+5, 3×+3): Charyzma, Opanowanie, Unik, Występy (Aktorstwo), Zastraszanie, Język (Dowolny), Język (Bretoński), Wiedza (Heraldyka), Broń Biała (Podstawowa), Percepcja, Jeździectwo (Konie), Skradanie (Wieś). Talenty linii: Wyczulony Zmysł (Dowolny), Wyczucie Kierunku, Obieżyświat, Doświadczony Wędrowiec (Wybrany Teren), Bardzo Silny lub Urodzony Wojownik. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
       "source": "Domowe",
       "characteristics": {
         "WW": 30,
@@ -2550,27 +2490,7 @@
     {
       "name": "Przemiana: Nekrarcha",
       "category": "wampiryzm",
-      "effect": "Oficjalne premie przemiany (Wampiry, s. 14). Potomkowie W’sorana — trupio wyglądający nekromanci-uczeni, strażnicy sekretów Nagasha. Preferowane tradycje: Śmierci, Ognia, Metalu albo Cieni, Nekromancja. Umiejętności linii (3×+5, 3×+3): Splatanie Magii (Dhar), Odporność, Zastraszanie, Język (Dowolny), Język (Magiczny), Wiedza (Alchemia), Wiedza (Nekromancja), Wiedza (Nauka), Broń Biała (Podstawowa), Percepcja, Zwinne Palce, Skradanie (Wieś). Talenty linii: Wyczulony Zmysł (Dowolny), Straszny lub Szósty Zmysł, Poliglota lub Znawca (Magia), Percepcja Magiczna, Czytanie/Pisanie. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
-      "source": "Wampiry",
-      "characteristics": {
-        "WW": 10,
-        "S": 10,
-        "Wt": 10,
-        "I": 10,
-        "Zr": 10,
-        "Int": 20,
-        "SW": 20,
-        "Ogd": -20
-      },
-      "movement": 2,
-      "fate": -1,
-      "resilience": 1,
-      "race": "Wampir (Nekrarcha)"
-    },
-    {
-      "name": "Przemiana: Nekrarcha (zasada domowa)",
-      "category": "wampiryzm",
-      "effect": "Domowe premie przemiany (wyższe niż w dodatku; Generator BN). Potomkowie W’sorana — trupio wyglądający nekromanci-uczeni, strażnicy sekretów Nagasha. Preferowane tradycje: Śmierci, Ognia, Metalu albo Cieni, Nekromancja. Umiejętności linii (3×+5, 3×+3): Splatanie Magii (Dhar), Odporność, Zastraszanie, Język (Dowolny), Język (Magiczny), Wiedza (Alchemia), Wiedza (Nekromancja), Wiedza (Nauka), Broń Biała (Podstawowa), Percepcja, Zwinne Palce, Skradanie (Wieś). Talenty linii: Wyczulony Zmysł (Dowolny), Straszny lub Szósty Zmysł, Poliglota lub Znawca (Magia), Percepcja Magiczna, Czytanie/Pisanie. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "effect": "Premie przemiany wg zasad domowych. Potomkowie W’sorana — trupio wyglądający nekromanci-uczeni, strażnicy sekretów Nagasha. Preferowane tradycje: Śmierci, Ognia, Metalu albo Cieni, Nekromancja. Umiejętności linii (3×+5, 3×+3): Splatanie Magii (Dhar), Odporność, Zastraszanie, Język (Dowolny), Język (Magiczny), Wiedza (Alchemia), Wiedza (Nekromancja), Wiedza (Nauka), Broń Biała (Podstawowa), Percepcja, Zwinne Palce, Skradanie (Wieś). Talenty linii: Wyczulony Zmysł (Dowolny), Straszny lub Szósty Zmysł, Poliglota lub Znawca (Magia), Percepcja Magiczna, Czytanie/Pisanie. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
       "source": "Domowe",
       "characteristics": {
         "WW": 10,
@@ -2590,28 +2510,7 @@
     {
       "name": "Przemiana: Strigoi",
       "category": "wampiryzm",
-      "effect": "Oficjalne premie przemiany (Wampiry, s. 14). Bestialscy potomkowie Ushorana — tułacze cmentarzy i głuszy, władcy ghuli. Preferowane tradycje: Zwierząt, Nekromancja. Umiejętności linii (3×+5, 3×+3): Atletyka, Oswajanie, Wspinaczka, Unik, Odporność, Zastraszanie, Broń Biała (Podstawowa), Broń Biała (Bijatyka), Sztuka Przetrwania, Percepcja, Skradanie (Wieś), Tropienie. Talenty linii: Wyczulony Zmysł (Dowolny), Oburęczność lub Doświadczony Wędrowiec (Wybrany Teren), Twardziel, Tragarz lub Silne Nogi, Bardzo Silny. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
-      "source": "Wampiry",
-      "characteristics": {
-        "WW": 10,
-        "S": 20,
-        "Wt": 10,
-        "I": 10,
-        "Zw": 20,
-        "Zr": 10,
-        "Int": 10,
-        "SW": 10,
-        "Ogd": -20
-      },
-      "movement": 2,
-      "fate": -1,
-      "resilience": 1,
-      "race": "Wampir (Strigoi)"
-    },
-    {
-      "name": "Przemiana: Strigoi (zasada domowa)",
-      "category": "wampiryzm",
-      "effect": "Domowe premie przemiany (wyższe niż w dodatku; Generator BN). Bestialscy potomkowie Ushorana — tułacze cmentarzy i głuszy, władcy ghuli. Preferowane tradycje: Zwierząt, Nekromancja. Umiejętności linii (3×+5, 3×+3): Atletyka, Oswajanie, Wspinaczka, Unik, Odporność, Zastraszanie, Broń Biała (Podstawowa), Broń Biała (Bijatyka), Sztuka Przetrwania, Percepcja, Skradanie (Wieś), Tropienie. Talenty linii: Wyczulony Zmysł (Dowolny), Oburęczność lub Doświadczony Wędrowiec (Wybrany Teren), Twardziel, Tragarz lub Silne Nogi, Bardzo Silny. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "effect": "Premie przemiany wg zasad domowych. Bestialscy potomkowie Ushorana — tułacze cmentarzy i głuszy, władcy ghuli. Preferowane tradycje: Zwierząt, Nekromancja. Umiejętności linii (3×+5, 3×+3): Atletyka, Oswajanie, Wspinaczka, Unik, Odporność, Zastraszanie, Broń Biała (Podstawowa), Broń Biała (Bijatyka), Sztuka Przetrwania, Percepcja, Skradanie (Wieś), Tropienie. Talenty linii: Wyczulony Zmysł (Dowolny), Oburęczność lub Doświadczony Wędrowiec (Wybrany Teren), Twardziel, Tragarz lub Silne Nogi, Bardzo Silny. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
       "source": "Domowe",
       "characteristics": {
         "WW": 20,
@@ -2631,27 +2530,7 @@
     {
       "name": "Przemiana: Niezależny",
       "category": "wampiryzm",
-      "effect": "Oficjalne premie przemiany (Wampiry, s. 14). Wyrzutki bez linii albo z pomniejszych rodów — zaradni i nieufni wobec wszelkich rozkazów. Preferowane tradycje: Śmierci albo Cieni, Nekromancja albo Czarownictwo. Umiejętności linii (3×+5, 3×+3): Charyzma, Unik, Odporność, Plotkowanie, Targowanie, Zastraszanie, Język (Dowolny), Broń Biała (Podstawowa), Nawigacja, Sztuka Przetrwania, Percepcja, Skradanie (Dowolne). Talenty linii: Wyczulony Zmysł (Dowolny), Ulicznik lub Obieżyświat, Błyskotliwość lub Charyzmatyczny, losowy, losowy. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
-      "source": "Wampiry",
-      "characteristics": {
-        "WW": 10,
-        "S": 10,
-        "Wt": 10,
-        "I": 10,
-        "Zw": 10,
-        "Zr": 10,
-        "SW": 20,
-        "Ogd": 10
-      },
-      "movement": 1,
-      "fate": -1,
-      "resilience": 1,
-      "race": "Wampir (Niezależny)"
-    },
-    {
-      "name": "Przemiana: Niezależny (zasada domowa)",
-      "category": "wampiryzm",
-      "effect": "Domowe premie przemiany (wyższe niż w dodatku; Generator BN). Wyrzutki bez linii albo z pomniejszych rodów — zaradni i nieufni wobec wszelkich rozkazów. Preferowane tradycje: Śmierci albo Cieni, Nekromancja albo Czarownictwo. Umiejętności linii (3×+5, 3×+3): Charyzma, Unik, Odporność, Plotkowanie, Targowanie, Zastraszanie, Język (Dowolny), Broń Biała (Podstawowa), Nawigacja, Sztuka Przetrwania, Percepcja, Skradanie (Dowolne). Talenty linii: Wyczulony Zmysł (Dowolny), Ulicznik lub Obieżyświat, Błyskotliwość lub Charyzmatyczny, losowy, losowy. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "effect": "Premie przemiany wg zasad domowych. Wyrzutki bez linii albo z pomniejszych rodów — zaradni i nieufni wobec wszelkich rozkazów. Preferowane tradycje: Śmierci albo Cieni, Nekromancja albo Czarownictwo. Umiejętności linii (3×+5, 3×+3): Charyzma, Unik, Odporność, Plotkowanie, Targowanie, Zastraszanie, Język (Dowolny), Broń Biała (Podstawowa), Nawigacja, Sztuka Przetrwania, Percepcja, Skradanie (Dowolne). Talenty linii: Wyczulony Zmysł (Dowolny), Ulicznik lub Obieżyświat, Błyskotliwość lub Charyzmatyczny, losowy, losowy. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
       "source": "Domowe",
       "characteristics": {
         "WW": 10,

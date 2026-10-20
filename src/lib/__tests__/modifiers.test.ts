@@ -65,9 +65,12 @@ describe("modifiers.json: spojnosc katalogu", () => {
     }
   });
 
-  it("zawiera przemiane w wampira (oficjalna tabela Wampiry s.14) i mutacje", () => {
+  it("zawiera przemiane w wampira (tylko zasady domowe) i mutacje", () => {
+    const vamp = catalog.entries.filter((e) => e.category === "wampiryzm");
+    expect(vamp).toHaveLength(6);
+    expect(vamp.every((e) => e.source === "Domowe")).toBe(true);
     const vc = catalog.entries.find((e) => e.name === "Przemiana: Von Carstein");
-    expect(vc?.characteristics).toMatchObject({ WW: 10, S: 20, SW: 20, Ogd: 10 });
+    expect(vc?.characteristics).toMatchObject({ WW: 25, S: 20, SW: 20, Ogd: 10 });
     expect(vc).toMatchObject({ fate: -1, resilience: 1, movement: 2 });
     const ind = catalog.entries.find((e) => e.name === "Przemiana: Niezależny");
     expect(ind?.movement).toBe(1);
