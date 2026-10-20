@@ -1,0 +1,3474 @@
+{
+  "note": "Katalog modyfikatorów postaci (mutacje, wampiryzm, dary, profile). Wartości: liczba albo kości (\"k10\", \"-2k10\") rozstrzygane przy dodaniu do postaci. Pola: characteristics (kod cechy -> wartość), skills (umiejętność -> wartość), maxCharacteristics (górny limit cechy), movement, wounds, fate, resilience, armour/headArmour i traits (opisowo), rollLocation (losuj lokalizację). Wygenerowano z Generator_NPC/public/data przez tools/import_modifiers.mjs.",
+  "categories": [
+    {
+      "id": "spaczenie_fizyczne",
+      "label": "Mutacje fizyczne (Tabela Spaczenia Fizycznego)",
+      "source": "Podręcznik podstawowy"
+    },
+    {
+      "id": "zepsucie_psychiczne",
+      "label": "Mutacje psychiczne (Tabela Zepsucia Psychicznego)",
+      "source": "Podręcznik podstawowy"
+    },
+    {
+      "id": "mh_fizyczne",
+      "label": "Mutacje fizyczne (Mutant's Handbook)",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "description": "Tabele wg powagi: trywialne, pomniejsze, poważne."
+    },
+    {
+      "id": "mh_psychiczne",
+      "label": "Mutacje psychiczne (Mutant's Handbook)",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "description": "Tabele wg powagi: trywialne, pomniejsze, poważne."
+    },
+    {
+      "id": "dary_chaosu",
+      "label": "Dary Chaosu (Oko Bogów)",
+      "source": "Warriors of Chaos (nieoficjalny)"
+    },
+    {
+      "id": "wampiryzm",
+      "label": "Wampiryzm — przemiana (Krwawy Pocałunek)",
+      "source": "Wampiry",
+      "description": "Premie do Cech wg Linii Krwi dla postaci przemienionej Krwawym Pocałunkiem. Wariant oficjalny (Wampiry, s. 14) albo domowy (wyższe wartości ustalone przez MG)."
+    },
+    {
+      "id": "dary_krwi",
+      "label": "Dary Krwi (wampiry)",
+      "source": "Wampiry"
+    },
+    {
+      "id": "slabosci_wampira",
+      "label": "Słabości wampira",
+      "source": "Wampiry"
+    },
+    {
+      "id": "profile_bohatera",
+      "label": "Profile bohatera (Bestiariusz 2.0)",
+      "source": "Bestiariusz 2.0",
+      "description": "Wyjątkowe jednostki — dodatki do Cech dla BN/stworzeń."
+    }
+  ],
+  "locations": [
+    {
+      "min": 1,
+      "max": 9,
+      "name": "głowa"
+    },
+    {
+      "min": 10,
+      "max": 24,
+      "name": "lewa ręka"
+    },
+    {
+      "min": 25,
+      "max": 44,
+      "name": "prawa ręka"
+    },
+    {
+      "min": 45,
+      "max": 79,
+      "name": "korpus"
+    },
+    {
+      "min": 80,
+      "max": 89,
+      "name": "lewa noga"
+    },
+    {
+      "min": 90,
+      "max": 100,
+      "name": "prawa noga"
+    }
+  ],
+  "entries": [
+    {
+      "name": "Zwierzęce nogi",
+      "category": "spaczenie_fizyczne",
+      "effect": "Szybkość +1",
+      "source": "Podręcznik podstawowy",
+      "movement": 1
+    },
+    {
+      "name": "Otyłość",
+      "category": "spaczenie_fizyczne",
+      "effect": "Szybkość −1, Siła +5, Wytrzymałość +5",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "S": 5,
+        "Wt": 5
+      },
+      "movement": -1
+    },
+    {
+      "name": "Wydłużone palce",
+      "category": "spaczenie_fizyczne",
+      "effect": "Zręczność +10",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "Zr": 10
+      }
+    },
+    {
+      "name": "Wychudzone ciało",
+      "category": "spaczenie_fizyczne",
+      "effect": "Siła −10, Zwinność +5",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "S": -10,
+        "Zw": 5
+      }
+    },
+    {
+      "name": "Ogromne oko",
+      "category": "spaczenie_fizyczne",
+      "effect": "+10 do wszystkich związanych ze wzrokiem Testów Percepcji",
+      "source": "Podręcznik podstawowy"
+    },
+    {
+      "name": "Dodatkowe stawy w nogach",
+      "category": "spaczenie_fizyczne",
+      "effect": "Zwinność +5",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "Zw": 5
+      }
+    },
+    {
+      "name": "Dodatkowe usta",
+      "category": "spaczenie_fizyczne",
+      "effect": "Rzuć kośćmi, by ustalić Miejsce Trafienia, w którym się pojawią",
+      "source": "Podręcznik podstawowy",
+      "rollLocation": true
+    },
+    {
+      "name": "Mięsista macka",
+      "category": "spaczenie_fizyczne",
+      "effect": "Postać zyskuje Cechę Stworzenia Macki",
+      "source": "Podręcznik podstawowy",
+      "traits": [
+        "Macki (1) +BS"
+      ]
+    },
+    {
+      "name": "Świecąca skóra",
+      "category": "spaczenie_fizyczne",
+      "effect": "Blask porównywalny z płomieniem świecy",
+      "source": "Podręcznik podstawowy"
+    },
+    {
+      "name": "Nieludzka uroda",
+      "category": "spaczenie_fizyczne",
+      "effect": "Ogłada +10, rany zawsze goją się bez blizn",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "Ogd": 10
+      }
+    },
+    {
+      "name": "Odwrócona twarz",
+      "category": "spaczenie_fizyczne",
+      "effect": "−20 do testów Ogłady",
+      "source": "Podręcznik podstawowy"
+    },
+    {
+      "name": "Stalowa skóra",
+      "category": "spaczenie_fizyczne",
+      "effect": "+2 Punkty Pancerza na wszystkich Miejscach Trafienia, Zwinność −10",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "Zw": -10
+      },
+      "armour": 2
+    },
+    {
+      "name": "Zwisający jęzor",
+      "category": "spaczenie_fizyczne",
+      "effect": "−10 do wszystkich Testów Języka wymagających mówienia",
+      "source": "Podręcznik podstawowy"
+    },
+    {
+      "name": "Niejednolite opierzenie",
+      "category": "spaczenie_fizyczne",
+      "effect": "Rzuć dwukrotnie, by ustalić Miejsce Trafienia porosłe pierzem",
+      "source": "Podręcznik podstawowy",
+      "rollLocation": true
+    },
+    {
+      "name": "Krótkie nogi",
+      "category": "spaczenie_fizyczne",
+      "effect": "Szybkość −1",
+      "source": "Podręcznik podstawowy",
+      "movement": -1
+    },
+    {
+      "name": "Kolczaste łuski",
+      "category": "spaczenie_fizyczne",
+      "effect": "+1 Punkt Pancerza na wszystkich Miejscach Trafienia",
+      "source": "Podręcznik podstawowy",
+      "armour": 1
+    },
+    {
+      "name": "Nierówne rogi",
+      "category": "spaczenie_fizyczne",
+      "effect": "+1 Punkt Pancerza na głowie; postać liczy się, jakby posiadała Cechę Stworzenia Broń o współczynniku obrażeń +BS",
+      "source": "Podręcznik podstawowy",
+      "headArmour": 1
+    },
+    {
+      "name": "Sącząca się ropa",
+      "category": "spaczenie_fizyczne",
+      "effect": "Rzuć k100, by ustalić Miejsce Trafienia, z którego się sączy",
+      "source": "Podręcznik podstawowy",
+      "rollLocation": true
+    },
+    {
+      "name": "Wibrysy",
+      "category": "spaczenie_fizyczne",
+      "effect": "+10 do Tropienia",
+      "source": "Podręcznik podstawowy"
+    },
+    {
+      "name": "Decyzja MG",
+      "category": "spaczenie_fizyczne",
+      "effect": "MG wybiera mutację albo Cechę Stworzenia potwora",
+      "source": "Podręcznik podstawowy"
+    },
+    {
+      "name": "Odrażające zachcianki",
+      "category": "zepsucie_psychiczne",
+      "effect": "Ogłada −5, Siła Woli −5",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "Ogd": -5,
+        "SW": -5
+      }
+    },
+    {
+      "name": "Wewnętrzna bestia",
+      "category": "zepsucie_psychiczne",
+      "effect": "Siła Woli +10, Ogłada −5, Inteligencja −5",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "SW": 10,
+        "Ogd": -5,
+        "Int": -5
+      }
+    },
+    {
+      "name": "Chaotyczne sny",
+      "category": "zepsucie_psychiczne",
+      "effect": "Przez pierwsze 2 godziny po śnie postać uznawana jest za Zmęczoną",
+      "source": "Podręcznik podstawowy"
+    },
+    {
+      "name": "Nieustanne dreszcze",
+      "category": "zepsucie_psychiczne",
+      "effect": "Inicjatywa −5, Zręczność −5",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "I": -5,
+        "Zr": -5
+      }
+    },
+    {
+      "name": "Mitomania",
+      "category": "zepsucie_psychiczne",
+      "effect": "Inicjatywa −5, Siła Woli −5",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "I": -5,
+        "SW": -5
+      }
+    },
+    {
+      "name": "Straszny niepokój",
+      "category": "zepsucie_psychiczne",
+      "effect": "Siła Woli −10",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "SW": -10
+      }
+    },
+    {
+      "name": "Nienawistne popędy",
+      "category": "zepsucie_psychiczne",
+      "effect": "Wrogość wobec wszystkich istot poza rasą postaci",
+      "source": "Podręcznik podstawowy"
+    },
+    {
+      "name": "Bezduszność",
+      "category": "zepsucie_psychiczne",
+      "effect": "Siła Woli +10, Ogłada −10",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "SW": 10,
+        "Ogd": -10
+      }
+    },
+    {
+      "name": "Zazdrosne myśli",
+      "category": "zepsucie_psychiczne",
+      "effect": "Ogłada −10",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "Ogd": -10
+      }
+    },
+    {
+      "name": "Strach przed samotnością",
+      "category": "zepsucie_psychiczne",
+      "effect": "−10 do wszelkich Testów wykonywanych w samotności",
+      "source": "Podręcznik podstawowy"
+    },
+    {
+      "name": "Blokada psychiczna",
+      "category": "zepsucie_psychiczne",
+      "effect": "Inteligencja −10",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "Int": -10
+      }
+    },
+    {
+      "name": "Bluźniercze popędy",
+      "category": "zepsucie_psychiczne",
+      "effect": "Siła Woli −10, Zwinność +10",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "SW": -10,
+        "Zw": 10
+      }
+    },
+    {
+      "name": "Chwiejne morale",
+      "category": "zepsucie_psychiczne",
+      "effect": "Za każdym razem, gdy postaci nie powiedzie się Test Siły Woli, otrzymuje 1 poziom Paniki",
+      "source": "Podręcznik podstawowy"
+    },
+    {
+      "name": "Paranoja",
+      "category": "zepsucie_psychiczne",
+      "effect": "Inicjatywa −5, Inteligencja −5",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "I": -5,
+        "Int": -5
+      }
+    },
+    {
+      "name": "Uzależnienie od adrenaliny",
+      "category": "zepsucie_psychiczne",
+      "effect": "Siła Woli +10, Inicjatywa −10",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "SW": 10,
+        "I": -10
+      }
+    },
+    {
+      "name": "Dręczące wizje",
+      "category": "zepsucie_psychiczne",
+      "effect": "Inicjatywa −10",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "I": -10
+      }
+    },
+    {
+      "name": "Kompletny świr",
+      "category": "zepsucie_psychiczne",
+      "effect": "Ogłada −20, Siła Woli +10",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "Ogd": -20,
+        "SW": 10
+      }
+    },
+    {
+      "name": "Złe zamiary",
+      "category": "zepsucie_psychiczne",
+      "effect": "−10 do Testów, które nie mają na celu krzywdzenia innych; +10, jeśli zamiarem jest wyrządzenie krzywdy",
+      "source": "Podręcznik podstawowy"
+    },
+    {
+      "name": "Bezbożny szał",
+      "category": "zepsucie_psychiczne",
+      "effect": "Szał Bojowy, Walka Wręcz +10",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "WW": 10
+      },
+      "traits": [
+        "Szał Bojowy"
+      ]
+    },
+    {
+      "name": "Drżączka",
+      "category": "zepsucie_psychiczne",
+      "effect": "Zwinność +5, Ogłada −5",
+      "source": "Podręcznik podstawowy",
+      "characteristics": {
+        "Zw": 5,
+        "Ogd": -5
+      }
+    },
+    {
+      "name": "Dodatkowe wyrostki",
+      "category": "mh_fizyczne",
+      "effect": "Wyrasta 1k6 dodatkowych palców dłoni, stóp lub macek (miejsce wg rzutu). W pełni sprawne, bez modyfikatorów.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Dodatkowe narządy zmysłów",
+      "category": "mh_fizyczne",
+      "effect": "Wyrasta 1k6 dodatkowych oczu, uszu, ust lub nosów. Efekt kosmetyczny — szczegóły ustala MG.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Albinos",
+      "category": "mh_fizyczne",
+      "effect": "Skóra traci pigment, oczy stają się czerwone. Ogłada −10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -10
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Beczkowata pierś",
+      "category": "mh_fizyczne",
+      "effect": "Tułów podwaja się, narządy wewnętrzne się dublują. Wytrzymałość +10, Mocna Głowa +10, Zwinność −10, Ogłada −5.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Wt": 10,
+        "Zw": -10,
+        "Ogd": -5
+      },
+      "skills": {
+        "Mocna Głowa": 10
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Zwierzęcy szczegół",
+      "category": "mh_fizyczne",
+      "effect": "Drobna zwierzęca cecha w losowym miejscu ciała (oko, ucho, łatka piór, błona między palcami). Efekt kosmetyczny.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "rollLocation": true,
+      "severity": "trywialna"
+    },
+    {
+      "name": "Krwawiący",
+      "category": "mh_fizyczne",
+      "effect": "Rzadka krew — przy każdym Stanie Krwawienie otrzymuje dodatkowy poziom.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Gnijący mózg",
+      "category": "mh_fizyczne",
+      "effect": "Zepsucie niszczy mózg; czasem z nosa lub uszu cieknie brązowa ciecz. Inteligencja −1k10, Ogłada −5.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Int": "-k10",
+        "Ogd": -5
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Wyłupiaste oczy",
+      "category": "mh_fizyczne",
+      "effect": "Oczy wychodzą z orbit jak u żaby. Ogłada −10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -10
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Trupia chudość",
+      "category": "mh_fizyczne",
+      "effect": "Ciało nie magazynuje tłuszczu, staje się tyczkowate. Zwinność +5, Wytrzymałość −5, Ogłada −5.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Zw": 5,
+        "Wt": -5,
+        "Ogd": -5
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Końska stopa",
+      "category": "mh_fizyczne",
+      "effect": "Jedna stopa zdeformowana; potrzebne szyte na miarę obuwie. Szybkość −1, Zwinność −5, Ogłada −5.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Zw": -5,
+        "Ogd": -5
+      },
+      "movement": -1,
+      "severity": "trywialna"
+    },
+    {
+      "name": "Zimnokrwisty",
+      "category": "mh_fizyczne",
+      "effect": "Temperatura ciała spada jak u gada, dotyk nieprzyjemnie chłodny. Cecha Stworzenia Zimnokrwisty, wrażliwość na zimno. Ogłada −10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -10
+      },
+      "traits": [
+        "Zimnokrwisty"
+      ],
+      "severity": "trywialna"
+    },
+    {
+      "name": "Wydłużone palce",
+      "category": "mh_fizyczne",
+      "effect": "Długie, pajęcze palce ułatwiają precyzyjną pracę. Zręczność +1k10, Ogłada −5.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Zr": "k10",
+        "Ogd": -5
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Powiększony narząd zmysłu",
+      "category": "mh_fizyczne",
+      "effect": "Oczy, uszy, nos lub usta rosną o połowę. Talent Wyczulony Zmysł (odpowiedni zmysł). Ogłada −5.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -5
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Dodatkowe stawy",
+      "category": "mh_fizyczne",
+      "effect": "Ręce lub nogi zyskują dodatkowe stawy. Zwinność +1k10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Zw": "k10"
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Doskonała symetria twarzy",
+      "category": "mh_fizyczne",
+      "effect": "Twarz nabiera idealnej, pociągającej symetrii. Ogłada +1k10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": "k10"
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Niezapamiętywalna twarz",
+      "category": "mh_fizyczne",
+      "effect": "Twarz jest tak nijaka, że by ją przypomnieć, trzeba zdać Wymagający (+0) Test Inteligencji.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Plugawy dotyk",
+      "category": "mh_fizyczne",
+      "effect": "Ciało zawsze tłuste od potu i brudu. Cecha Stworzenia Zakażony; dotyk jedzenia lub ust przenosi Galopującą Sraczkę.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Zakażony"
+      ],
+      "severity": "trywialna"
+    },
+    {
+      "name": "Świecące serce",
+      "category": "mh_fizyczne",
+      "effect": "Serce bije barwnym blaskiem przez skórę klatki piersiowej — w ciemności jak słaba latarnia (6 m). Grube ubranie je zakrywa.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Chorobliwa otyłość",
+      "category": "mh_fizyczne",
+      "effect": "Ciało obrasta fałdami tłuszczu. Żywotność +1, Siła +5, Wytrzymałość +5, Szybkość −1, Ogłada −5.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "S": 5,
+        "Wt": 5,
+        "Ogd": -5
+      },
+      "movement": -1,
+      "wounds": 1,
+      "severity": "trywialna"
+    },
+    {
+      "name": "Bezwłosy",
+      "category": "mh_fizyczne",
+      "effect": "Wypadają wszystkie włosy na całym ciele. Ogłada −5.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -5
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Roślinożerca",
+      "category": "mh_fizyczne",
+      "effect": "Trawi trawę i liście jak koza. Póki jest zieleń, nigdy nie głoduje.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Puste kości",
+      "category": "mh_fizyczne",
+      "effect": "Kości puste jak u ptaka, ciało o 10% lżejsze. Zwinność +1k10, Atletyka +1k10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Zw": "k10"
+      },
+      "skills": {
+        "Atletyka": "k10"
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Garb",
+      "category": "mh_fizyczne",
+      "effect": "Kręgosłup wygina się, zmuszając do pochylenia. Szybkość −1, Ogłada −5, Zwinność −1k10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -5,
+        "Zw": "-k10"
+      },
+      "movement": -1,
+      "severity": "trywialna"
+    },
+    {
+      "name": "Swędząca wysypka",
+      "category": "mh_fizyczne",
+      "effect": "Czerwona, łuszcząca się wysypka w losowym miejscu. Jeśli na głowie: Ogłada −10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "rollLocation": true,
+      "severity": "trywialna"
+    },
+    {
+      "name": "Zwisający jęzor",
+      "category": "mh_fizyczne",
+      "effect": "Za duży język wystaje z ust. −10 do Testów Języka przy mówieniu, Ogłada −1k10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": "-k10"
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Grzywa",
+      "category": "mh_fizyczne",
+      "effect": "Wyrasta ogromna grzywa jak u konia lub lwa (odrasta 5 cm tygodniowo). Nie może nosić hełmu, chyba że to Pancerz Chaosu.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Znak Chaosu",
+      "category": "mh_fizyczne",
+      "effect": "Znamię, blizna lub tatuaż z symbolem Mrocznego Boga (Gwiazda Chaosu, Khorne, Nurgle, Slaanesh albo Tzeentch). Pokazany wyznawcy Chaosu daje Ogłada +5 (+10 dla wyznawcy tego samego boga).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "rollLocation": true,
+      "severity": "trywialna"
+    },
+    {
+      "name": "Metalowy szkielet",
+      "category": "mh_fizyczne",
+      "effect": "Kości zmieniają się w twardy metal — niewidoczne z zewnątrz, ale ciało znacznie cięższe. Wytrzymałość +10; brak Ran Krytycznych typu złamanie kości (chyba że MG uzna inaczej).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Wt": 10
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Różnobarwne oczy",
+      "category": "mh_fizyczne",
+      "effect": "Jedno oko zmienia kolor. Efekt kosmetyczny.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Bolesne czyraki",
+      "category": "mh_fizyczne",
+      "effect": "Pod pachami i w innych delikatnych miejscach wyrastają bolesne czyraki. Zwinność −1k10, Wytrzymałość −1k10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Zw": "-k10",
+        "Wt": "-k10"
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Kompasowa narośl",
+      "category": "mh_fizyczne",
+      "effect": "Narośl na głowie wyczuwa bieguny magnetyczne — zawsze wie, gdzie jest północ (Talent Wyczucie Kierunku). Ogłada −5.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -5
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Sączące się wrzody",
+      "category": "mh_fizyczne",
+      "effect": "Ropiejące wrzody w losowym miejscu ciała. Jeśli na głowie: Ogłada −10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "rollLocation": true,
+      "severity": "trywialna"
+    },
+    {
+      "name": "Skórna kieszeń",
+      "category": "mh_fizyczne",
+      "effect": "Na tułowiu wyrasta fałd skóry, w którym mieszczą się drobne przedmioty. Skradanie +20, gdy ktoś go przeszukuje.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Śluzowaty",
+      "category": "mh_fizyczne",
+      "effect": "Skóra wydziela śliski śluz jak u ślimaka. Talent Człowiek Guma, +20 do wyrwania się z Chwytu, Ogłada −10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -10
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Nienaturalny szczegół",
+      "category": "mh_fizyczne",
+      "effect": "Drobna cecha z nienaturalnego źródła (skóra demona, narośl) w losowym miejscu ciała. Efekt kosmetyczny.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "rollLocation": true,
+      "severity": "trywialna"
+    },
+    {
+      "name": "Niegojąca się rana",
+      "category": "mh_fizyczne",
+      "effect": "Duża otwarta rana, która nie chce się zagoić, w losowym miejscu. Żywotność −1; jeśli na głowie: Ogłada −10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "wounds": -1,
+      "rollLocation": true,
+      "severity": "trywialna"
+    },
+    {
+      "name": "Niesamowite podobieństwo",
+      "category": "mh_fizyczne",
+      "effect": "Twarz zmienia się w kopię twarzy ważnej osoby wskazanej przez MG.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Nienaturalna zwinność",
+      "category": "mh_fizyczne",
+      "effect": "Porusza się z kocią, drapieżną gracją. Zwinność +10, Ogłada −5.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Zw": 10,
+        "Ogd": -5
+      },
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Żrąca ślina",
+      "category": "mh_fizyczne",
+      "effect": "Ślina to kwas topiący wszystko poza szkłem i złotem; zęby się rozpuściły. Plucie: Test US na BS+BWt metrów, +5 Obrażeń; tyle razy dziennie, ile BWt.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Ponętna sylwetka",
+      "category": "mh_fizyczne",
+      "effect": "Ciało nabiera idealnych proporcji. Ogłada +1k10, Talent Atrakcyjny.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": "k10"
+      },
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Androgyniczny",
+      "category": "mh_fizyczne",
+      "effect": "Łączy cechy kobiece i męskie; pociąga każdego. Talent Atrakcyjny.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Zwierzęce ramiona",
+      "category": "mh_fizyczne",
+      "effect": "Ramiona zmieniają się w kończyny zwierzęcia (rodzaj wg tabeli zwierząt / MG); dłonie pozostają sprawne, możliwe modyfikatory.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Zwierzęce nogi",
+      "category": "mh_fizyczne",
+      "effect": "Nogi zmieniają się w kończyny zwierzęcia (rodzaj wg tabeli zwierząt / MG), możliwe modyfikatory.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Przystosowanie wodne",
+      "category": "mh_fizyczne",
+      "effect": "Skrzela, błony między palcami i przezroczyste powieki. Cecha Stworzenia Ziemnowodny.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Ziemnowodny"
+      ],
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Żabie przyssawki",
+      "category": "mh_fizyczne",
+      "effect": "Przyssawki na dłoniach i stopach pozwalają chodzić po ścianach i sufitach. Cecha Stworzenia Wspinacz.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Wspinacz"
+      ],
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Krwiopijca",
+      "category": "mh_fizyczne",
+      "effect": "Picie krwi leczy: gryząc, odzyskuje tyle Żywotności, ile traci ofiara. Zyskuje kły albo przebijający język.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Kameleonowa skóra",
+      "category": "mh_fizyczne",
+      "effect": "Skóra zmienia kolor pod otoczenie. Skradanie +20 przy użyciu zdolności; by się nie zdradzić, Przeciętny (+20) Test Opanowania.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Żrące wymiociny",
+      "category": "mh_fizyczne",
+      "effect": "Żołądek pełen żrących płynów, głośno bulgocze. Cecha Stworzenia Wymiot, Skradanie −10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Wymiot"
+      ],
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Spaczona krew",
+      "category": "mh_fizyczne",
+      "effect": "W żyłach płynie coś nienaturalnego (zielony śluz, rtęć, roztopiony metal…) — często Cecha Stworzenia Kwasowa Krew.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Widzenie w ciemności",
+      "category": "mh_fizyczne",
+      "effect": "Oczy lekko świecą w mroku. Cecha Stworzenia Widzenie w Ciemności.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Widzenie w Ciemności"
+      ],
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Ekstatyczne mleko",
+      "category": "mh_fizyczne",
+      "effect": "Rosną piersi dające słodkie, odurzające i silnie uzależniające mleko — pijący zyskuje na 4 godziny Szybkość +1, Zwinność i Inicjatywę +10, potem Zmęczenie.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Wydłużone kończyny",
+      "category": "mh_fizyczne",
+      "effect": "Ręce, nogi albo szyja rosną o połowę. Długie ręce: broń o stopień dłuższa; długie nogi: Szybkość +1.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Oplatający język",
+      "category": "mh_fizyczne",
+      "effect": "Długi, linowaty język. Cecha Stworzenia Atak Językiem (BS, zasięg BWt×2 m).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Atak Językiem"
+      ],
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Oczy na szypułkach",
+      "category": "mh_fizyczne",
+      "effect": "Oczy wyrastają na szypułkach jak u kraba lub ślimaka. Talent Czujny.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Kły",
+      "category": "mh_fizyczne",
+      "effect": "Zęby zmieniają się w ostre kły. Cecha Stworzenia Ugryzienie (BS+3); czasem Jad albo Krwiopijca.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Ugryzienie"
+      ],
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Świecąca skóra",
+      "category": "mh_fizyczne",
+      "effect": "Skóra łagodnie świeci (2 m wokół). −20 do Skradania opartego na wzroku, chyba że zakryje całe ciało.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Gryzoń",
+      "category": "mh_fizyczne",
+      "effect": "Siekacze jak u szczura lub bobra. Ugryzienie (BS+1), podwójne obrażenia materiałom organicznym przy gryzieniu; musi ciągle coś skubać.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Ugryzienie"
+      ],
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Robak w trzewiach",
+      "category": "mh_fizyczne",
+      "effect": "W brzuchu żyje wiecznie głodny robak. Cecha Stworzenia Żarłoczny; za 1 Przewagę robak atakuje z otworu w brzuchu (Test US, BS+1 Obrażeń).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Żarłoczny"
+      ],
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Skoczek",
+      "category": "mh_fizyczne",
+      "effect": "Potężne, nieludzko wygięte nogi. Cecha Stworzenia Skoczny, Szybkość −2.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "movement": -2,
+      "traits": [
+        "Skoczny"
+      ],
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Rogi",
+      "category": "mh_fizyczne",
+      "effect": "Z czaszki wyrastają zwierzęce lub demoniczne rogi (odrastają). Cecha Stworzenia Rogi (BS+3).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Rogi"
+      ],
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Ohydny czułek",
+      "category": "mh_fizyczne",
+      "effect": "Chwytna macka albo trąba jak u słonia, działa jak dodatkowa ręka. Cecha Stworzenia Macki (BS+3), Talent Wyczulony Zmysł (Dotyk).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Macki"
+      ],
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Tłusty garb",
+      "category": "mh_fizyczne",
+      "effect": "Garb magazynuje energię — może przeżyć do dwóch tygodni bez jedzenia i wody. Odporność +10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "skills": {
+        "Odporność": 10
+      },
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Odporność i wrażliwość",
+      "category": "mh_fizyczne",
+      "effect": "Niewrażliwość na jedno zagrożenie (choroby, zimno, ogień, błyskawice…) kosztem wrażliwości na inne.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Nieludzkie piękno",
+      "category": "mh_fizyczne",
+      "effect": "Nadnaturalnie piękna skóra, włosy i oczy — wyraźnie mutant. Ogłada +10, Talent Atrakcyjny, skóra bez blizn.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": 10
+      },
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Oczy owada",
+      "category": "mh_fizyczne",
+      "effect": "Wielkie fasetkowe oczy albo wiele małych oczu pająka — widzenie dookolne. Talent Czujny, Ogłada −20.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -20
+      },
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Długowieczny",
+      "category": "mh_fizyczne",
+      "effect": "Starzeje się wolniej, żyje dwa razy dłużej niż inni jego gatunku.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Długie kolce",
+      "category": "mh_fizyczne",
+      "effect": "Z ciała wystają długie kościane kolce. Cecha Stworzenia Rogi (BS+1, kolce); czasem chowane albo jadowite.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Rogi"
+      ],
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Organiczny kryształ",
+      "category": "mh_fizyczne",
+      "effect": "W ciele rośnie kamień szlachetny reagujący na Wiatry Magii. Talenty Percepcja Magiczna i Rozpoznanie Artefaktu (trzeba widzieć kryształ).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Chwytne stopy",
+      "category": "mh_fizyczne",
+      "effect": "Małpie stopy chwytają jak dłonie. Bonus ze Zwinności do Testów Wspinaczki, Szybkość −1, obuwie na miarę.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "movement": -1,
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Przebijający język",
+      "category": "mh_fizyczne",
+      "effect": "Długi język zakończony ostrzem, atak na 4 m (Test US, BS Obrażeń, Zaleta Precyzyjna); czasem jadowity.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Wędrujące oko",
+      "category": "mh_fizyczne",
+      "effect": "Jedno oko opuszcza oczodół i lata (Szybkość 3) na odległość SW metrów; widzi to, co ono.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Ostre jak brzytwa szpony",
+      "category": "mh_fizyczne",
+      "effect": "Twarde, ostre szpony — ataki bez broni zyskują Zaletę Przebijająca; czasem chowane.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Dzika gracja",
+      "category": "mh_fizyczne",
+      "effect": "Porusza się jak drapieżnik i tancerz. WW +5, Zwinność +10, Talenty Mistrz Walki i Nieubłagany; −10 do Skradania w tłumie.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "WW": 5,
+        "Zw": 10
+      },
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Utrata zmysłu",
+      "category": "mh_fizyczne",
+      "effect": "Jeden zmysł (słuch, wzrok, węch, smak, dotyk) mocno się degeneruje — traci związany z nim talent i ponosi trwałe kary.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Krótkowieczny",
+      "category": "mh_fizyczne",
+      "effect": "Starzeje się szybciej, żyje o połowę krócej niż inni jego gatunku.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Tropiciel węchem",
+      "category": "mh_fizyczne",
+      "effect": "Psi węch. Talent Wyczulony Zmysł (Węch), Tropienie +10, Cecha Stworzenia Tropiciel.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "skills": {
+        "Tropienie": 10
+      },
+      "traits": [
+        "Tropiciel"
+      ],
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Gruczoł pożerający zaklęcia",
+      "category": "mh_fizyczne",
+      "effect": "Purpurowy gruczoł wielkości kapusty. PS zaklęć rzucanych w postać są o połowę mniejsze; pochłonięte PS obniżają PZ jej własnych zaklęć.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "rollLocation": true,
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Leśna skóra",
+      "category": "mh_fizyczne",
+      "effect": "Skóra, włosy lub ciało porastają roślinnością; żywi się światłem słonecznym i wodą jak roślina.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Ogon",
+      "category": "mh_fizyczne",
+      "effect": "Wyrasta długi ogon: dla równowagi, zakończony buławą (atak BS+3) albo chwytny (trzyma przedmioty).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Trzecie oko",
+      "category": "mh_fizyczne",
+      "effect": "Trzecie oko na czole idealnie ocenia odległość i ruch. US +10, Talent Strzelec Wyborowy.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "US": 10
+      },
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Ciernie",
+      "category": "mh_fizyczne",
+      "effect": "Skóra porasta ostrymi cierniami. Cecha Stworzenia Rogi (BS+1, ciernie); kolejna mutacja zwiększa obrażenia.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Rogi"
+      ],
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Nienaturalne nogi",
+      "category": "mh_fizyczne",
+      "effect": "Nogi zmieniają się w kończyny istoty nienaturalnej (kryształ, demon, ogień, cień… wg MG), możliwe modyfikatory.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Dodatkowe kończyny",
+      "category": "mh_fizyczne",
+      "effect": "Wyrastają dodatkowe kończyny (1k10: 1–4 ręce, 5–7 nogi, 8–10 macki; 1–4 sztuk). Każda ręka: +1 poziom Talentu Szał Bojowy; każda noga: +1 poziom Talentu Tragarz; każda para nóg: Szybkość +1; macki: Cecha Stworzenia Macki (BS+3).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Dodatkowa głowa",
+      "category": "mh_fizyczne",
+      "effect": "Wyrasta druga głowa z własnym mózgiem, osobowością i ambicjami. Gdy może spełnić swoje ambicje, przejmuje kontrolę, jeśli postać nie zda Przeciętnego (+20) Testu Siły Woli.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "rollLocation": true,
+      "severity": "poważna"
+    },
+    {
+      "name": "Uwiąd",
+      "category": "mh_fizyczne",
+      "effect": "Losowa część ciała (ręka, ucho, oko, palce, stopa, dłoń, noga, nos, zęby, palce stóp albo język) usycha i staje się bezużyteczna — jak amputacja.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Zwierzęce ciało",
+      "category": "mh_fizyczne",
+      "effect": "Całe ciało, z głową i kończynami, przybiera postać zwierzęcia (rodzaj wg MG). Tylko raz.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Zwierzęca głowa",
+      "category": "mh_fizyczne",
+      "effect": "Głowa zmienia się w łeb zwierzęcia (rodzaj wg MG). Ogłada −20. Tylko raz.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -20
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Ręka-broń",
+      "category": "mh_fizyczne",
+      "effect": "Ręka zrasta się w broń z kości lub metalu (1k10: 1–5 miecz, Niszczący; 6–7 topór, Rąbiący; 8–9 buława, Ogłuszający; 10 korbacz, Dekoncentrujący i Pochwycenie). Nic nią nie utrzyma, ale nie da się jej rozbroić.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Dziwaczna barwa",
+      "category": "mh_fizyczne",
+      "effect": "Skóra (i futro) przybiera nienaturalne barwy i wzory wg Mrocznego Boga; barwy Khorne'a i Tzeentcha dają Skradanie −10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Galareta",
+      "category": "mh_fizyczne",
+      "effect": "Kręgosłup się rozpuszcza, ciało od ramion w dół to bezkształtna masa zostawiająca śluzowaty ślad. Szybkość o połowę, trafienia w nogi idą w korpus. Zwinność −20, Wytrzymałość +10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Zw": -20,
+        "Wt": 10
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Pajęczy porywacz",
+      "category": "mh_fizyczne",
+      "effect": "W jamie ciała rośnie pajęczy dron (Drobny, Szybkość 2, Zw 30, Skradanie 40, Wspinacz), sterowany telepatycznie na odległość SW metrów; potrafi zawładnąć ofiarą przez wbicie macki w głowę.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Płonące ciało",
+      "category": "mh_fizyczne",
+      "effect": "Skórę spowijają niegasnące płomienie (światło 20 m), nosi tylko niepalne rzeczy. Odporność na ogień; kto walczy z nią wręcz, co rundę zdaje Wymagający (+0) Test Odporności albo dostaje Stan Podpalenie.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Centauroid",
+      "category": "mh_fizyczne",
+      "effect": "Dolna część ciała staje się czworonogiem jak u centaura. Szybkość +2, Wytrzymałość +10, Zwinność −10, Cecha Stworzenia Długi Krok.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Wt": 10,
+        "Zw": -10
+      },
+      "movement": 2,
+      "traits": [
+        "Długi Krok"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Klątwa chimery",
+      "category": "mh_fizyczne",
+      "effect": "Ciało co scenę przybiera inny potworny kształt (zachowując Rozmiar i humanoidalną sylwetkę); zyskuje fizyczne cechy i Cechy Stworzeń obecnej formy.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Chtoniczny pełzacz",
+      "category": "mh_fizyczne",
+      "effect": "Porusza się na czworakach, skóra ciemnieje. W ruchu nie trzyma przedmiotów, −20 do walki bronią. Widzenie w Ciemności, Talenty Szczur Tunelowy i Wspinaczka po Pionowych Ścianach.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Widzenie w Ciemności"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Pełzająca skóra",
+      "category": "mh_fizyczne",
+      "effect": "Ciało pokrywa rój owadów, pająków lub much. Cecha Stworzenia Dekoncentrujący, Ogłada −30; rój skacze na przeciwników w walce wręcz (Strach 2).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -30
+      },
+      "traits": [
+        "Dekoncentrujący"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Mieszaniec",
+      "category": "mh_fizyczne",
+      "effect": "Ciało staje się w 25–75% innym gatunkiem; cechy przesuwają się ku cechom tego gatunku, zyskuje 1 Cechę Stworzenia na każde 25% przemiany.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Cyklopia groza",
+      "category": "mh_fizyczne",
+      "effect": "Oczy zlewają się w jedno wielkie (US o połowę — brak głębi widzenia) albo na ciele wyrasta oko wielkości głowy, które łatwo trafić.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Fałszywe ciało",
+      "category": "mh_fizyczne",
+      "effect": "Potrafi przybrać wygląd zwykłego, niezmutowanego śmiertelnika (minuta na każdą mutację). Użycie mutacji lub walka odsłania prawdziwy wygląd (Strach 1).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Twarz bez rysów",
+      "category": "mh_fizyczne",
+      "effect": "Oczy, nos i uszy zarastają — zostają tylko usta. Zmysły działają, ale nie wyraża emocji. Ogłada −30.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -30
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Upiorna szybkość",
+      "category": "mh_fizyczne",
+      "effect": "Nienaturalnie szybkie reakcje. Inicjatywa +10, Talent Nieubłagany; może Unikać pocisków, które widzi.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "I": 10
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Odmrożenie",
+      "category": "mh_fizyczne",
+      "effect": "Ciało skute szronem, palce czernieją. Lodowaty dotyk daje Stan Oszołomienie (Wymagający (+0) Test Odporności, raz na scenę). Odporność na zimno.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Groteskowa skóra",
+      "category": "mh_fizyczne",
+      "effect": "Skórę pokrywają tysiące narośli — oczu, uszu, palców, ust, nosów, sutków, zębów, języków albo brodawek. Ogłada −20.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -20
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Bezgłowy",
+      "category": "mh_fizyczne",
+      "effect": "Głowa zapada się w ciało, twarz patrzy z piersi lub brzucha. Trafienia w głowę idą w korpus (10 na k10 — w głowę); bez hełmu, pancerz na miarę.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Ohydny wygląd",
+      "category": "mh_fizyczne",
+      "effect": "Koszmarna powierzchowność podważa zdrowie psychiczne patrzących. Cecha Stworzenia Groza 1; Ogłada nie może przekroczyć 0.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "maxCharacteristics": {
+        "Ogd": 0
+      },
+      "traits": [
+        "Groza 1"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Straszliwy smród",
+      "category": "mh_fizyczne",
+      "effect": "Wydziela ohydny odór. Cecha Stworzenia Dekoncentrujący (działa na wszystkie żywe istoty poza przyzwyczajonymi), Ogłada −10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -10
+      },
+      "traits": [
+        "Dekoncentrujący"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Osiłek",
+      "category": "mh_fizyczne",
+      "effect": "Ciało przybiera prymitywną formę jak u orka lub goryla. Siła +10, Wytrzymałość +10, Zwinność −10, Inteligencja −10, Talent Twardziel.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "S": 10,
+        "Wt": 10,
+        "Zw": -10,
+        "Int": -10
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Wygłodniała paszcza",
+      "category": "mh_fizyczne",
+      "effect": "Na brzuchu rozwiera się wielka paszcza. Cecha Stworzenia Ugryzienie (BS+5) — może też chwytać przeciwnika (Przeciwstawny Test Walki (Bijatyka)), za 1 Przewagę jako Akcja Darmowa; Cecha Żarłoczny.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Ugryzienie"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Piekielny piec",
+      "category": "mh_fizyczne",
+      "effect": "W piersi płonie ogień. Cecha Stworzenia Zionięcie (BWt×2, ogień), odporność na ogień i zimno. Przy śmierci wybucha: BWt×3 Obrażeń w promieniu BWt×3 m i Stan Podpalenie.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Zionięcie"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Potężny intelekt",
+      "category": "mh_fizyczne",
+      "effect": "Mózg rośnie do potwornych rozmiarów, głowa się podwaja (łatwiejszy cel). Inteligencja +20, Inicjatywa +10, Zwinność −1k10; na 10 czaszka pęka, odsłaniając mózg.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Int": 20,
+        "I": 10,
+        "Zw": "-k10"
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Skóra północy",
+      "category": "mh_fizyczne",
+      "effect": "Skóra staje się czarna i pochłania światło, oczy mlecznobiałe. Skradanie +20 w cieniu i ciemności.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Potworny wzrost",
+      "category": "mh_fizyczne",
+      "effect": "Rozmiar rośnie o stopień (Średni → Duży: Szybkość +2, Siła +15, Wytrzymałość +15, Zwinność −5). Przelicz Żywotność.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "S": 15,
+        "Wt": 15,
+        "Zw": -5
+      },
+      "movement": 2,
+      "traits": [
+        "Duży"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Przerośnięte ramię",
+      "category": "mh_fizyczne",
+      "effect": "Jedno ramię rośnie dwukrotnie i wlecze się po ziemi. Talent Silny Cios przy atakach tą ręką, zasięg broni o stopień dłuższy. Siła +10, Zręczność −10, Zwinność −5.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "S": 10,
+        "Zr": -10,
+        "Zw": -5
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Szpilkogłowy",
+      "category": "mh_fizyczne",
+      "effect": "Głowa kurczy się dramatycznie — straszny i śmieszny zarazem. Cecha Stworzenia Głupi.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Głupi"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Szczypce",
+      "category": "mh_fizyczne",
+      "effect": "Dłoń zmienia się w szczypce kraba — nie utrzyma nimi broni. Cechy Stworzenia Broń (BS+4) i Dusiciel, ochronny pancerz (Pancerz +2).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Broń"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Karłowacenie",
+      "category": "mh_fizyczne",
+      "effect": "Rozmiar maleje o stopień (Średni → Mały: Szybkość −1, Siła −10, Wytrzymałość −10, Zwinność +10). Przelicz Żywotność.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "S": -10,
+        "Wt": -10,
+        "Zw": 10
+      },
+      "movement": -1,
+      "severity": "poważna"
+    },
+    {
+      "name": "Nosiciel zarazy",
+      "category": "mh_fizyczne",
+      "effect": "Przewlekle nosi chorobę (Czarna Zaraza, Krwawa Biegunka, Galopująca Sraczka, Swędząca Ospa, Ospa Tragarzy albo Szczurza Gorączka) — nie umiera, ale ma objawy i zaraża innych.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Ochronna skóra",
+      "category": "mh_fizyczne",
+      "effect": "Ciało pokrywa ochronna warstwa (1k100: skóra, futro, pióra, gumowata skóra — Pancerz +1 Giętki; kora +1; łuski +2 Giętki; pancerz kraba +2; metalowe płyty +3 i Skradanie −10; runy). Domyślnie łuski.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "armour": 2,
+      "severity": "poważna"
+    },
+    {
+      "name": "Regeneracja",
+      "category": "mh_fizyczne",
+      "effect": "Ciało leczy się w niesamowitym tempie. Cecha Stworzenia Regeneracja (na 10 na k10 także Trudny do Zabicia); każda wyleczona Rana Krytyczna zostawia bliznę (Ogłada −1).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Regeneracja"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Gnijące ciało",
+      "category": "mh_fizyczne",
+      "effect": "Ciało gnije, w ranach wiją się larwy, towarzyszy mu chmara much. Cechy Stworzenia Zakażony i Zapchlony; Ogłada nie może przekroczyć 5.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "maxCharacteristics": {
+        "Ogd": 5
+      },
+      "traits": [
+        "Zakażony"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Zmiennokształtny",
+      "category": "mh_fizyczne",
+      "effect": "Wymagający (+0) Test Odporności pozwala przybrać postać innego humanoida tego samego rozmiaru (po godzinie obserwacji); przy fuszerce — Pomniejsza Manifestacja. Oszukuje każdego bez Talentu Drugi Wzrok.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Skóroskoczek",
+      "category": "mh_fizyczne",
+      "effect": "Zjadając ofiarę (4 godziny), przybiera jej postać: wygląd, S, Wt, Zw, Zr i Cechy Stworzeń (humanoidy i zwykłe zwierzęta ±1 Rozmiar).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Obdarty ze skóry",
+      "category": "mh_fizyczne",
+      "effect": "Skóra odpada z całego ciała, odsłaniając mięśnie i kości. Ogłada −20.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -20
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Pająkowaty",
+      "category": "mh_fizyczne",
+      "effect": "Z ciała wyrastają cztery długie pajęcze odnóża, a gruczoł strzela siecią. Cecha Stworzenia Wspinacz (Szybkość 5) i Sieć (zasięg BS×3).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Wspinacz"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Wylane trzewia",
+      "category": "mh_fizyczne",
+      "effect": "W brzuchu otwiera się dziura, wnętrzności zwisają na zewnątrz. Trafienia w korpus zyskują Zaletę Niszczący mimo pancerza, celowany cios to automatyczna Rana Krytyczna. Ogłada −5.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -5
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Rozszczepiony tors",
+      "category": "mh_fizyczne",
+      "effect": "Tułów rozcięty od barku do pępka jak ciosem miecza dwuręcznego — czasem z paszczą pełną zębów. Groza 1, Zwinność −10, pancerz tylko na miarę.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Zw": -10
+      },
+      "traits": [
+        "Groza 1"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Bliźnięta symbiotyczne",
+      "category": "mh_fizyczne",
+      "effect": "Z pleców wyrasta i odrywa się identyczny bliźniak (te same cechy, umiejętności i mutacje). Łączy ich więź telepatyczna i wspólne Żywotność.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Postać roju",
+      "category": "mh_fizyczne",
+      "effect": "Wymagający (+0) Test Odporności zmienia ciało w rój małych stworzeń (Cecha Stworzenia Rój, ta sama Żywotność); zabite stworzenia ranią po powrocie.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Przemiana w zwierzoczłeka",
+      "category": "mh_fizyczne",
+      "effect": "Staje się zwierzoczłekiem (Bray-Szaman, Gor, Ungor albo Minotaur) — przejmuje cechy bazowe i Cechy Stworzeń nowego gatunku, zachowując umiejętności i talenty.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Pokręcone ciało",
+      "category": "mh_fizyczne",
+      "effect": "Kręgosłup i kończyny wyginają się straszliwie. Szybkość −1, Zwinność −2k10, Wytrzymałość −1k10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Zw": "-2k10",
+        "Wt": "-k10"
+      },
+      "movement": -1,
+      "severity": "poważna"
+    },
+    {
+      "name": "Niewiarygodny guz",
+      "category": "mh_fizyczne",
+      "effect": "Na ciele rośnie guz ważący 1k10×5 kg; za każde 15 kg Żywotność +1 i jedna kara (Szybkość −1, Zwinność −10 albo Ogłada −10).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "rollLocation": true,
+      "severity": "poważna"
+    },
+    {
+      "name": "Nienaturalne ramiona",
+      "category": "mh_fizyczne",
+      "effect": "Ramiona przybierają postać kończyn istoty nienaturalnej (kryształ, demon, ogień, cień… wg MG); pozostają sprawne.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Nienaturalne ciało",
+      "category": "mh_fizyczne",
+      "effect": "Całe ciało, z głową i kończynami, zmienia się w coś głęboko nienaturalnego (kryształ, demon, ogień, cień… wg MG).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Nienaturalna głowa",
+      "category": "mh_fizyczne",
+      "effect": "Głowa przybiera postać istoty nienaturalnej (wg MG). Ogłada −20.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -20
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Szczątkowy bliźniak",
+      "category": "mh_fizyczne",
+      "effect": "Z ciała wystaje na wpół wrośnięty bliźniak z własną osobowością i ambicjami; kontroluje tylko głowę i dwie wątłe ręce.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Spaczony szał",
+      "category": "mh_fizyczne",
+      "effect": "W bitwie ciało wykręca się w nieludzkim szale. Talenty Szał Bojowy, Szarża Berserkera i Wygimnastykowany; w walce Cecha Stworzenia Nie Czuje Bólu i Strach 1, potem Stan Zmęczenie.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Zwierzołak",
+      "category": "mh_fizyczne",
+      "effect": "Jak wilkołak z legend potrafi przemienić się w humanoidalną bestię (Wymagający (+0) Test Siły Woli, modyfikowany fazą Morrslieba).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Skrzydła",
+      "category": "mh_fizyczne",
+      "effect": "Wyrastają skrzydła (ptasie, nietoperze, jaszczurcze…). 1k100: małe — łagodzą upadek; średnie — Latanie (30); duże — Latanie (60); ogromne — Latanie (120).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Latanie (30)"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Wybraniec Chaosu",
+      "category": "mh_fizyczne",
+      "effect": "Postać staje się Wybrańcem Chaosu — Mroczne Bogowie obdarzają ją szczególnymi darami (wg MG).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Wybredne podniebienie",
+      "category": "mh_psychiczne",
+      "effect": "Je tylko jeden, konkretny rodzaj jedzenia; zjedzenie czegoś innego daje Stan Zmęczenie.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Eteryczny przeciek",
+      "category": "mh_psychiczne",
+      "effect": "Eter sączy się do umysłu, wypełniając go szumem. Talent Wiedźmi!, Inteligencja −5, Inicjatywa −5.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Int": -5,
+        "I": -5
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Nałóg",
+      "category": "mh_psychiczne",
+      "effect": "Uzależnienie od czegoś (sztuka, pobożność, hazard, alkohol, narkotyki, rozpusta…), które musi tłumić, by nie ulec w złym momencie.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Nękany tragedią",
+      "category": "mh_psychiczne",
+      "effect": "Wrażliwy na smutek świata — płacze i zawodzi na widok czegoś smutnego; wtedy Ogłada −10 do końca sceny.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Żądza krwi",
+      "category": "mh_psychiczne",
+      "effect": "Pragnie przelewu krwi i uwielbia walczyć. Cecha Stworzenia Wojowniczy.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Wojowniczy"
+      ],
+      "severity": "trywialna"
+    },
+    {
+      "name": "Chaotyczne sny",
+      "category": "mh_psychiczne",
+      "effect": "Sen niszczą złowróżbne wizje. Przez pierwsze dwie godziny dnia Stan Zmęczenie; nie da się tego stłumić.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Mroczny apetyt",
+      "category": "mh_psychiczne",
+      "effect": "Łaknie czegoś odrażającego (krwi, surowego mięsa, brudu, zgnilizny, owadów, książek, żywych zwierzątek…) — i nie choruje od tego.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Przesadna próżność",
+      "category": "mh_psychiczne",
+      "effect": "Gubi się we własnym odbiciu — podziwia się przez 1k6 rund, jeśli nie stłumi odruchu; w złym momencie Ogłada −10 do końca sceny.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Fałszywy język",
+      "category": "mh_psychiczne",
+      "effect": "Koloryzuje, przesadza i kłamie niemal cały czas; przyłapany na poważnym kłamstwie — Ogłada −10 do końca sceny.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Roztargniony umysł",
+      "category": "mh_psychiczne",
+      "effect": "Umysł odpływa, a postać nuci pod nosem. Inicjatywa −5.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "I": -5
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Nienawistne odruchy",
+      "category": "mh_psychiczne",
+      "effect": "Zyskuje Psychologię Niechęć wobec gatunku lub grupy społecznej (ponownie — Nienawiść).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Irracjonalna pogarda",
+      "category": "mh_psychiczne",
+      "effect": "Zyskuje Psychologię Uprzedzenie wobec grupy (uczeni, Bretończycy, mieszczanie, kler, krasnoludy, elfy, niziołki, szlachta, cudzoziemcy…).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Chorobliwość",
+      "category": "mh_psychiczne",
+      "effect": "Myśli i rozmowy krążą wokół mrocznych, makabrycznych tematów. Ogłada −10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -10
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Nerwowe drgawki",
+      "category": "mh_psychiczne",
+      "effect": "Ciągle na krawędzi, w nieustannym ruchu. Inicjatywa +5, US −5, Zręczność −5.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "I": 5,
+        "US": -5,
+        "Zr": -5
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Talizman",
+      "category": "mh_psychiczne",
+      "effect": "Wierzy, że pewien przedmiot jest źródłem jego szczęścia; bez niego ma o 1 Punkt Szczęścia mniej.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Regresja",
+      "category": "mh_psychiczne",
+      "effect": "Pod presją wraca do dziecięcych zachowań (ssanie kciuka, napady złości). −10 do Testów Siły Woli przy przełamywaniu porażki (nie w walce).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Dzikość",
+      "category": "mh_psychiczne",
+      "effect": "Uwielbia zadawać straszne rany z bliska. WW +5, US −5, +10 przy określaniu Ran Krytycznych.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "WW": 5,
+        "US": -5
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Rozsadzające bóle głowy",
+      "category": "mh_psychiczne",
+      "effect": "Raz dziennie w chwili stresu Przeciętny (+20) Test Opanowania albo Stan Oszołomienie.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Dziwny posłaniec",
+      "category": "mh_psychiczne",
+      "effect": "W bezczynności ręce same piszą lub rysują dziwne wiadomości — proroctwa, tyrady, komentarze („On kłamie!”).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Tiki",
+      "category": "mh_psychiczne",
+      "effect": "Pod presją mechanicznie powtarza uspokajające ruchy. Inicjatywa −10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "I": -10
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Poszukiwacz wrażeń",
+      "category": "mh_psychiczne",
+      "effect": "Łaknie dreszczu ryzyka — rzuca się w niebezpieczeństwo bez planu.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "trywialna"
+    },
+    {
+      "name": "Nagłe przekleństwa",
+      "category": "mh_psychiczne",
+      "effect": "W najgorszych momentach wyrzuca z siebie szokujące przekleństwa. Ogłada −10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -10
+      },
+      "severity": "trywialna"
+    },
+    {
+      "name": "Językowy dar",
+      "category": "mh_psychiczne",
+      "effect": "Natychmiast rozumie i płynnie mówi każdym usłyszanym językiem (pisanie trzeba opanować normalnie).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Dziwaczne wyparcie",
+      "category": "mh_psychiczne",
+      "effect": "Umysł nie przyjmuje do wiadomości czegoś konkretnego (niziołków, koni, prochu…) — ignoruje to, zastępuje czymś innym albo w ogóle nie widzi.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Błoga ignorancja",
+      "category": "mh_psychiczne",
+      "effect": "Jest przekonany, że wszystko dzieje się dla dobra — niepokojąco spokojny w każdej sytuacji, bez wyrzutów sumienia.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Wybraniec",
+      "category": "mh_psychiczne",
+      "effect": "Wierzy, że bóg wybrał go do swoich celów; udaje kapłana i „błogosławi”. Talent Gadanina.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Pochłaniający gniew",
+      "category": "mh_psychiczne",
+      "effect": "Silne negatywne emocje wybuchają furią, jeśli jej nie stłumi. Talent Szał Bojowy.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Mroczne przeznaczenie",
+      "category": "mh_psychiczne",
+      "effect": "Nawiedza go wizja własnej zguby. Talent Przeznaczenie; na widok znaków zguby — Strach 1.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Prorok zagłady",
+      "category": "mh_psychiczne",
+      "effect": "Koniec jest bliski! Musi o tym opowiadać. Talent Płomienna Gorliwość; codziennie Test Opanowania albo półgodzinne kazanie.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Fałszywy czarodziej",
+      "category": "mh_psychiczne",
+      "effect": "Wierzy, że włada Wiatrami Magii — nosi szaty i kostur, bełkocze „zaklęcia”. Talent Gadanina.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Przeznaczenie chwały",
+      "category": "mh_psychiczne",
+      "effect": "Nieodparta chęć wypełnienia epickiego przeznaczenia, nawet kosztem życia. Talent Nieustraszony (wszystko).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Obsesja",
+      "category": "mh_psychiczne",
+      "effect": "Obsesyjnie rozwiązuje jakąś zagadkę (zbrodnię, skarb, zaginioną miłość…). Talent Sawant (Wiedza związana z obsesją).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Fobia",
+      "category": "mh_psychiczne",
+      "effect": "Irracjonalny lęk przed konkretnym stworzeniem, miejscem lub zjawiskiem — wywołuje Grozę 1. Talent Ucieczka! (tylko przed źródłem lęku).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Fuga",
+      "category": "mh_psychiczne",
+      "effect": "Pamięć zostaje wymazana — nie pamięta, kim jest i co przeżył, choć zachowuje umiejętności i wiedzę.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Straszliwy krzyk",
+      "category": "mh_psychiczne",
+      "effect": "Krzyk w promieniu SW metrów: Stan Ogłuszenie i Wymagający (+0) Test Opanowania albo Strach 1.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Pycha",
+      "category": "mh_psychiczne",
+      "effect": "Wyidealizowany, wyniosły obraz siebie. +10 do Testów społecznych zdobywających chwałę, −10 do pomagania innym w jej zdobyciu. Talent Charyzmatyczny.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Natychmiastowa prekognicja",
+      "category": "mh_psychiczne",
+      "effect": "Zawsze wie, co stanie się za pół sekundy. Talent Czujny, Inicjatywa +10, Ogłada −10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "I": 10,
+        "Ogd": -10
+      },
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Księżycowa odmiana",
+      "category": "mh_psychiczne",
+      "effect": "Humory zmieniają się z fazami Morrslieba — nocą od Inicjatywa i SW −10 (brak księżyca) do +10 (pełnia).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Magiczne liczby",
+      "category": "mh_psychiczne",
+      "effect": "Wszędzie widzi wzorce liczbowe i wszystko liczy. Talent Rachmistrz.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Metamorfoza",
+      "category": "mh_psychiczne",
+      "effect": "Przekonany o nadejściu Wielkiej Przemiany — eksperymentuje z nowymi formami istnienia. Talent Artysta, Farmaceuta albo Chirurg.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Nihilistyczne odrętwienie",
+      "category": "mh_psychiczne",
+      "effect": "Wszystko jest bez znaczenia. Talent Nieustraszony (wszystko), Cecha Stworzenia Nie Czuje Bólu.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Nie Czuje Bólu"
+      ],
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Poszukiwacz bólu",
+      "category": "mh_psychiczne",
+      "effect": "Zadając lub otrzymując Ranę, zyskuje na 1k10 rund S, Wt i SW +5 i dostęp do Talentu Szał Bojowy.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Opętany",
+      "category": "mh_psychiczne",
+      "effect": "W podświadomości gnieździ się pomniejszy demon; gdy postać traci przytomność, przejmuje kontrolę, jeśli nie zda Przeciętnego (+20) Testu SW.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Książę niczego",
+      "category": "mh_psychiczne",
+      "effect": "Wierzy, że pochodzi ze szlachetnego, a nawet królewskiego rodu. Talent Charyzmatyczny; zachowanie poniżej „stanu” daje Stan Zmęczenie.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Buntowniczy umysł",
+      "category": "mh_psychiczne",
+      "effect": "Władza jest zła i trzeba ją obalić. Talent Płomienna Gorliwość; codziennie Test Opanowania albo płomienna przemowa.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Święty potępionych",
+      "category": "mh_psychiczne",
+      "effect": "Jest potępiony i szerzy potępienie — codziennie musi skłonić kogoś do czynu chaotycznego. Talent Atrakcyjny albo Kocia Mowa.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Dziki umysł",
+      "category": "mh_psychiczne",
+      "effect": "Przyjmuje zwierzęce zachowania (warczenie, jedzenie rękami), zwierzęta go tolerują. Talent Zwierzęca Intuicja.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Wróżebny dotyk",
+      "category": "mh_psychiczne",
+      "effect": "Dotykając osoby lub przedmiotu, widzi związane z nimi wydarzenia. Umiejętność Psychometria +10; bez rękawiczek Stan Zmęczenie.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "skills": {
+        "Psychometria": 10
+      },
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Miękkie serce",
+      "category": "mh_psychiczne",
+      "effect": "Nie potrafi ignorować cudzego cierpienia. Talent Płomienna Gorliwość; −10 do Testów krzywdzenia lub wykorzystywania innych.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Podejrzliwy umysł",
+      "category": "mh_psychiczne",
+      "effect": "„Oni” chcą go dopaść. Strach 1 i Uprzedzenie wobec celu podejrzeń, Talent Nos do Kłopotów.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Wielki żart",
+      "category": "mh_psychiczne",
+      "effect": "Wszystko to jeden wielki, bezsensowny żart. Talent Nieustraszony (wszystko), Ogłada −10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -10
+      },
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Zawirowanie czasu",
+      "category": "mh_psychiczne",
+      "effect": "Instynktownie cofa czas o kilka sekund, by spróbować ponownie. +1 Punkt Szczęścia.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Dotknięty",
+      "category": "mh_psychiczne",
+      "effect": "Myli rzeczywistość z halucynacjami i wizjami. Talent Drugi Wzrok albo Szósty Zmysł.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Niekończąca się złośliwość",
+      "category": "mh_psychiczne",
+      "effect": "Serce stwardniało — nie dba o nikogo poza sobą. Talent Straszny, +10 do krzywdzenia innych, −10 do pomagania.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Niewidoczna obecność",
+      "category": "mh_psychiczne",
+      "effect": "Inni go przeoczają i zapominają o nim. Talent Niegodny Uwagi (działa jak przy Statusie 0).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "pomniejsza"
+    },
+    {
+      "name": "Obcy umysł",
+      "category": "mh_psychiczne",
+      "effect": "Umysł tak obcy, że −30 do odgadywania jego emocji i myśli, +20 do opierania się kontroli umysłu; telepaci muszą zdać Test Opanowania. Ogłada −20.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": -20
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Aura antymagii",
+      "category": "mh_psychiczne",
+      "effect": "W promieniu połowy SW metrów nie działa żadna magia poza magią Chaosu — również jego własna.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Władca bestii",
+      "category": "mh_psychiczne",
+      "effect": "Przeciwstawnym Testem SW rozkazuje zwierzęciu lub bezmyślnemu potworowi (Int ≤ 15) proste polecenia.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Dotyk rozkwitu i zarazy",
+      "category": "mh_psychiczne",
+      "effect": "Rośliny kwitną w jego obecności, potem gniją. Dotykiem leczy (Ogd + PS Ran), ale leczony może złapać objaw choroby.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Złamany umysł",
+      "category": "mh_psychiczne",
+      "effect": "Zepsucie poważnie uszkadza umysł. Inteligencja −20, Inicjatywa −20.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Int": -20,
+        "I": -20
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Zaraźliwe szaleństwo",
+      "category": "mh_psychiczne",
+      "effect": "Istoty w promieniu SW metrów co rundę zdają Przeciętny (+20) Test Opanowania albo ogarnia je szaleństwo. Inteligencja −10.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Int": -10
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Niestabilność wymiarowa",
+      "category": "mh_psychiczne",
+      "effect": "Migocze w przestrzeni; Przeciętnym (+20) Testem SW teleportuje się zamiast ruchu na odległość SW metrów.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Zauroczenie",
+      "category": "mh_psychiczne",
+      "effect": "Przeciwstawnym Testem SW sprawia, że ktoś desperacko chce go zadowolić (+20 do interakcji) przez BSW + PS godzin.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Eteryczny",
+      "category": "mh_psychiczne",
+      "effect": "Wymagającym (+0) Testem SW staje się bezcielesny na BSW + PS rund (Cecha Stworzenia Eteryczny).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Złe oko",
+      "category": "mh_psychiczne",
+      "effect": "Przeciwstawnym Testem SW zadaje spojrzeniem ból: Stan Zmęczenie i Trudny (−20) Test Odporności albo Powalenie.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Kształtujący ciało",
+      "category": "mh_psychiczne",
+      "effect": "Ciało i kości ustępują pod dotykiem jak glina. Umiejętność Rzemiosło (Kształtowanie Ciała) — zmienia wygląd swój i innych.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Zielony władca",
+      "category": "mh_psychiczne",
+      "effect": "Panuje nad roślinami w promieniu SW metrów — każe im rosnąć, uderzać gałęziami lub pętać korzeniami (Test SW i WW).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Niewidzialność",
+      "category": "mh_psychiczne",
+      "effect": "Wymagającym (+0) Testem SW staje się niewidzialny na SW + PS rund (widoczny dla Drugiego Wzroku).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Lewitacja",
+      "category": "mh_psychiczne",
+      "effect": "Wymagającym (+0) Testem SW lewituje — Cecha Stworzenia Latanie (30) na BSW + PS rund.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Pijawka życia",
+      "category": "mh_psychiczne",
+      "effect": "Obecność wysusza rośliny i drobne zwierzęta. Dotykiem wysysa życie: PS Obrażeń ignorujących pancerz, sam leczy tyle samo.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Magnetyczna obecność",
+      "category": "mh_psychiczne",
+      "effect": "Wszyscy go zauważają i słuchają. Status o stopień wyższy, Ogłada +10, Talenty Inspirujący, Przemawianie i Mistrz Oratorstwa; Skradanie −30 wśród ludzi.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "Ogd": 10
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Mroczny czarownik",
+      "category": "mh_psychiczne",
+      "effect": "Umysł dostraja się do mrocznych mocy — zyskuje Tradycję magii (Demonologia, Nekromancja, Czarnoksięstwo albo Magia Chaosu: Nurgle, Slaanesh, Tzeentch).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Miazmat grozy",
+      "category": "mh_psychiczne",
+      "effect": "Umysł wywiera koszmarny nacisk na otoczenie. Cecha Stworzenia Groza 1 wobec istot w promieniu SW metrów.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Groza 1"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Lustrzane odbicie",
+      "category": "mh_psychiczne",
+      "effect": "Nie ma odbicia, ale Wymagającym (+0) Testem SW przybiera wygląd, strój i głos znanej osoby.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Wyrocznia",
+      "category": "mh_psychiczne",
+      "effect": "Widzi przyszłość; oczy tracą źrenice. Umiejętność Wróżbiarstwo +10; w walce może zyskać Inicjatywa +10 i +1 Punkt Szczęścia na scenę.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "skills": {
+        "Wróżbiarstwo": 10
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Kamieniejące spojrzenie",
+      "category": "mh_psychiczne",
+      "effect": "Spojrzeniem wysysa energię albo zamienia w kamień. Cecha Stworzenia Petryfikujące Spojrzenie.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "traits": [
+        "Petryfikujące Spojrzenie"
+      ],
+      "severity": "poważna"
+    },
+    {
+      "name": "Fantasmagoryczny umysł",
+      "category": "mh_psychiczne",
+      "effect": "Myśli przenikają do rzeczywistości jako barwne obrazy. Wymagającym (+0) Testem SW tworzy iluzje (SW + PS×10 minut).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Pirokineza",
+      "category": "mh_psychiczne",
+      "effect": "Umysł włada ogniem — podpala przedmioty w promieniu SW metrów, a Wymagającym (+0) Testem SW wywołuje wybuch ognia (BSW + PS Obrażeń).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Zniszczenie duszy",
+      "category": "mh_psychiczne",
+      "effect": "Dusza wyniszczona przez zepsucie — traci zdolność używania mocy magicznych i boskich. Siła Woli −20.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "characteristics": {
+        "SW": -20
+      },
+      "severity": "poważna"
+    },
+    {
+      "name": "Widmowy towarzysz",
+      "category": "mh_psychiczne",
+      "effect": "Towarzyszy mu duch (1k10: 1–7 Duch, 8–9 Banshee, 10 Upiór Kurhanu), który szepcze rady i groźby, a czasem wyświadcza przysługi.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Kusząca aura",
+      "category": "mh_psychiczne",
+      "effect": "Żywe istoty w promieniu BSW metrów co rundę zdają Przeciętny (+20) Test SW albo podchodzą i zastygają (Stan Zaskoczenie).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Telekineza",
+      "category": "mh_psychiczne",
+      "effect": "Przeciętnym (+20) Testem SW porusza przedmioty umysłem; może też ciskać nimi w przeciwników (Test SW i US, BSW zamiast BS).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Telepatia",
+      "category": "mh_psychiczne",
+      "effect": "Emanuje psychicznym naciskiem; Przeciętnym (+20) Testem SW przesyła myśli do umysłów w promieniu SW metrów.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Niestabilność czasowa",
+      "category": "mh_psychiczne",
+      "effect": "Migocze w czasie. Wymagającym (+0) Testem SW zyskuje dodatkowy Ruch i Akcję w turze (na 10 na k10 starzeje się o rok).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Głowa gromu",
+      "category": "mh_psychiczne",
+      "effect": "Wokół głowy trzaskają błyskawice. Dotykiem ogłusza, a Wymagającym (+0) Testem SW ciska piorun (BSW + PS Obrażeń, Stan Oślepienie).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Przywoływacz wiatru",
+      "category": "mh_psychiczne",
+      "effect": "Wiatry bawią się jego szatami. Testem SW steruje wiatrem — napełnia żagle, przewraca przedmioty, ogłusza przeciwników.",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Wybraniec Chaosu",
+      "category": "mh_psychiczne",
+      "effect": "Postać staje się Wybrańcem Chaosu — Mroczne Bogowie obdarzają ją szczególnymi darami (wg MG).",
+      "source": "The Mutant's Handbook (nieoficjalny)",
+      "severity": "poważna"
+    },
+    {
+      "name": "Płonąca skóra",
+      "category": "dary_chaosu",
+      "effect": "Kto dotknie postaci (albo ona jego), zdaje Test Atletyki albo dostaje Stan Podpalenie.",
+      "source": "Warriors of Chaos (nieoficjalny)"
+    },
+    {
+      "name": "Pancerz z chityny",
+      "category": "dary_chaosu",
+      "effect": "+1 PP na dwóch losowych Miejscach Trafienia.",
+      "source": "Warriors of Chaos (nieoficjalny)"
+    },
+    {
+      "name": "Złe oko",
+      "category": "dary_chaosu",
+      "effect": "Za Punkt Szczęścia rzuca zaklęcie Złe Oko bez Testu; od razu Pomniejsza Manifestacja.",
+      "source": "Warriors of Chaos (nieoficjalny)"
+    },
+    {
+      "name": "Żelazna skóra",
+      "category": "dary_chaosu",
+      "effect": "+2 PP na wszystkich Miejscach Trafienia, Zwinność −10.",
+      "source": "Warriors of Chaos (nieoficjalny)",
+      "characteristics": {
+        "Zw": -10
+      },
+      "armour": 2
+    },
+    {
+      "name": "Dodatkowe ramiona",
+      "category": "dary_chaosu",
+      "effect": "Jeden Darmowy Atak na Rundę.",
+      "source": "Warriors of Chaos (nieoficjalny)"
+    },
+    {
+      "name": "Dodatkowe nogi",
+      "category": "dary_chaosu",
+      "effect": "Szybkość +1.",
+      "source": "Warriors of Chaos (nieoficjalny)",
+      "movement": 1
+    },
+    {
+      "name": "Twarz-czaszka",
+      "category": "dary_chaosu",
+      "effect": "Cecha Stworzenia Strach (2).",
+      "source": "Warriors of Chaos (nieoficjalny)",
+      "traits": [
+        "Strach (2)"
+      ]
+    },
+    {
+      "name": "Nierówne rogi",
+      "category": "dary_chaosu",
+      "effect": "+1 PP na głowie; rogi to naturalna broń o Obrażeniach równych BS.",
+      "source": "Warriors of Chaos (nieoficjalny)",
+      "headArmour": 1
+    },
+    {
+      "name": "Spaczony szał",
+      "category": "dary_chaosu",
+      "effect": "Cecha Stworzenia Furia; w Szale Bojowym tymczasowo zyskuje dodatkową losową mutację fizyczną.",
+      "source": "Warriors of Chaos (nieoficjalny)",
+      "traits": [
+        "Furia"
+      ]
+    },
+    {
+      "name": "Skrzydła",
+      "category": "dary_chaosu",
+      "effect": "Cecha Stworzenia Latanie (60).",
+      "source": "Warriors of Chaos (nieoficjalny)",
+      "traits": [
+        "Latanie (60)"
+      ]
+    },
+    {
+      "name": "Przemiana: Von Carstein",
+      "category": "wampiryzm",
+      "effect": "Oficjalne premie przemiany (Wampiry, s. 14). Zdegenerowana arystokracja Sylwanii — dumni, okrutni władcy pobierający krwawe daniny. Preferowane tradycje: Zwierząt, Śmierci albo Cieni, Nekromancja. Umiejętności linii (3×+5, 3×+3): Charyzma, Unik, Plotkowanie, Targowanie, Zastraszanie, Dowodzenie, Język (Dowolny), Wiedza (Heraldyka), Wiedza (Polityka), Broń Biała (Podstawowa), Percepcja, Skradanie (Wieś). Talenty linii: Wyczulony Zmysł (Dowolny), Żyłka Handlowa lub Intrygant, Błękitna Krew, Czytanie/Pisanie, Błyskotliwość lub Urodzony Wojownik. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "source": "Wampiry",
+      "characteristics": {
+        "WW": 10,
+        "S": 20,
+        "Wt": 10,
+        "I": 10,
+        "Zw": 10,
+        "Zr": 10,
+        "SW": 20,
+        "Ogd": 10
+      },
+      "movement": 2,
+      "fate": -1,
+      "resilience": 1,
+      "race": "Wampir (Von Carstein)"
+    },
+    {
+      "name": "Przemiana: Von Carstein (zasada domowa)",
+      "category": "wampiryzm",
+      "effect": "Domowe premie przemiany (wyższe niż w dodatku; Generator BN). Zdegenerowana arystokracja Sylwanii — dumni, okrutni władcy pobierający krwawe daniny. Preferowane tradycje: Zwierząt, Śmierci albo Cieni, Nekromancja. Umiejętności linii (3×+5, 3×+3): Charyzma, Unik, Plotkowanie, Targowanie, Zastraszanie, Dowodzenie, Język (Dowolny), Wiedza (Heraldyka), Wiedza (Polityka), Broń Biała (Podstawowa), Percepcja, Skradanie (Wieś). Talenty linii: Wyczulony Zmysł (Dowolny), Żyłka Handlowa lub Intrygant, Błękitna Krew, Czytanie/Pisanie, Błyskotliwość lub Urodzony Wojownik. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "source": "Domowe",
+      "characteristics": {
+        "WW": 25,
+        "S": 20,
+        "Wt": 10,
+        "I": 20,
+        "Zw": 20,
+        "Zr": 10,
+        "SW": 20,
+        "Ogd": 10
+      },
+      "movement": 2,
+      "fate": -1,
+      "resilience": 1,
+      "race": "Wampir (Von Carstein)"
+    },
+    {
+      "name": "Przemiana: Lahmianin",
+      "category": "wampiryzm",
+      "effect": "Oficjalne premie przemiany (Wampiry, s. 14). Najstarsza linia, od Neferaty — uwodziciele i intryganci, skrycie rządzący ludzkimi dworami. Preferowane tradycje: Cieni, Nekromancja albo Czarownictwo. Umiejętności linii (3×+5, 3×+3): Charyzma, Unik, Plotkowanie, Targowanie, Zastraszanie, Intuicja, Język (Dowolny), Dowodzenie, Wiedza (Historia), Broń Biała (Podstawowa), Percepcja, Skradanie (Miasto). Talenty linii: Wyczulony Zmysł (Dowolny), Ulicznik lub Cień, Atrakcyjny lub Słuch Absolutny, Mistrz Charakteryzacji, Charyzmatyczny. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "source": "Wampiry",
+      "characteristics": {
+        "WW": 10,
+        "S": 10,
+        "Wt": 10,
+        "I": 10,
+        "Zw": 10,
+        "Zr": 10,
+        "SW": 20,
+        "Ogd": 20
+      },
+      "movement": 2,
+      "fate": -1,
+      "resilience": 1,
+      "race": "Wampir (Lahmianin)"
+    },
+    {
+      "name": "Przemiana: Lahmianin (zasada domowa)",
+      "category": "wampiryzm",
+      "effect": "Domowe premie przemiany (wyższe niż w dodatku; Generator BN). Najstarsza linia, od Neferaty — uwodziciele i intryganci, skrycie rządzący ludzkimi dworami. Preferowane tradycje: Cieni, Nekromancja albo Czarownictwo. Umiejętności linii (3×+5, 3×+3): Charyzma, Unik, Plotkowanie, Targowanie, Zastraszanie, Intuicja, Język (Dowolny), Dowodzenie, Wiedza (Historia), Broń Biała (Podstawowa), Percepcja, Skradanie (Miasto). Talenty linii: Wyczulony Zmysł (Dowolny), Ulicznik lub Cień, Atrakcyjny lub Słuch Absolutny, Mistrz Charakteryzacji, Charyzmatyczny. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "source": "Domowe",
+      "characteristics": {
+        "WW": 20,
+        "S": 10,
+        "Wt": 10,
+        "I": 30,
+        "Zw": 20,
+        "SW": 20,
+        "Ogd": 20
+      },
+      "movement": 2,
+      "fate": -1,
+      "resilience": 1,
+      "race": "Wampir (Lahmianin)"
+    },
+    {
+      "name": "Przemiana: Krwawy Smok",
+      "category": "wampiryzm",
+      "effect": "Oficjalne premie przemiany (Wampiry, s. 14). Upadli rycerze Abhorasha — straszliwi wojownicy o rycerskim kodeksie, dążący do uwolnienia się od Głodu. Preferowane tradycje: Zwierząt albo Cieni, Nekromancja. Umiejętności linii (3×+5, 3×+3): Charyzma, Opanowanie, Unik, Występy (Aktorstwo), Zastraszanie, Język (Dowolny), Język (Bretoński), Wiedza (Heraldyka), Broń Biała (Podstawowa), Percepcja, Jeździectwo (Konie), Skradanie (Wieś). Talenty linii: Wyczulony Zmysł (Dowolny), Wyczucie Kierunku, Obieżyświat, Doświadczony Wędrowiec (Wybrany Teren), Bardzo Silny lub Urodzony Wojownik. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "source": "Wampiry",
+      "characteristics": {
+        "WW": 20,
+        "S": 20,
+        "Wt": 10,
+        "I": 10,
+        "Zw": 10,
+        "Zr": 10,
+        "SW": 10,
+        "Ogd": 10
+      },
+      "movement": 2,
+      "fate": -1,
+      "resilience": 1,
+      "race": "Wampir (Krwawy Smok)"
+    },
+    {
+      "name": "Przemiana: Krwawy Smok (zasada domowa)",
+      "category": "wampiryzm",
+      "effect": "Domowe premie przemiany (wyższe niż w dodatku; Generator BN). Upadli rycerze Abhorasha — straszliwi wojownicy o rycerskim kodeksie, dążący do uwolnienia się od Głodu. Preferowane tradycje: Zwierząt albo Cieni, Nekromancja. Umiejętności linii (3×+5, 3×+3): Charyzma, Opanowanie, Unik, Występy (Aktorstwo), Zastraszanie, Język (Dowolny), Język (Bretoński), Wiedza (Heraldyka), Broń Biała (Podstawowa), Percepcja, Jeździectwo (Konie), Skradanie (Wieś). Talenty linii: Wyczulony Zmysł (Dowolny), Wyczucie Kierunku, Obieżyświat, Doświadczony Wędrowiec (Wybrany Teren), Bardzo Silny lub Urodzony Wojownik. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "source": "Domowe",
+      "characteristics": {
+        "WW": 30,
+        "S": 20,
+        "Wt": 20,
+        "I": 10,
+        "Zw": 20,
+        "Zr": 10,
+        "SW": 20
+      },
+      "movement": 2,
+      "fate": -1,
+      "resilience": 1,
+      "race": "Wampir (Krwawy Smok)"
+    },
+    {
+      "name": "Przemiana: Nekrarcha",
+      "category": "wampiryzm",
+      "effect": "Oficjalne premie przemiany (Wampiry, s. 14). Potomkowie W’sorana — trupio wyglądający nekromanci-uczeni, strażnicy sekretów Nagasha. Preferowane tradycje: Śmierci, Ognia, Metalu albo Cieni, Nekromancja. Umiejętności linii (3×+5, 3×+3): Splatanie Magii (Dhar), Odporność, Zastraszanie, Język (Dowolny), Język (Magiczny), Wiedza (Alchemia), Wiedza (Nekromancja), Wiedza (Nauka), Broń Biała (Podstawowa), Percepcja, Zwinne Palce, Skradanie (Wieś). Talenty linii: Wyczulony Zmysł (Dowolny), Straszny lub Szósty Zmysł, Poliglota lub Znawca (Magia), Percepcja Magiczna, Czytanie/Pisanie. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "source": "Wampiry",
+      "characteristics": {
+        "WW": 10,
+        "S": 10,
+        "Wt": 10,
+        "I": 10,
+        "Zr": 10,
+        "Int": 20,
+        "SW": 20,
+        "Ogd": -20
+      },
+      "movement": 2,
+      "fate": -1,
+      "resilience": 1,
+      "race": "Wampir (Nekrarcha)"
+    },
+    {
+      "name": "Przemiana: Nekrarcha (zasada domowa)",
+      "category": "wampiryzm",
+      "effect": "Domowe premie przemiany (wyższe niż w dodatku; Generator BN). Potomkowie W’sorana — trupio wyglądający nekromanci-uczeni, strażnicy sekretów Nagasha. Preferowane tradycje: Śmierci, Ognia, Metalu albo Cieni, Nekromancja. Umiejętności linii (3×+5, 3×+3): Splatanie Magii (Dhar), Odporność, Zastraszanie, Język (Dowolny), Język (Magiczny), Wiedza (Alchemia), Wiedza (Nekromancja), Wiedza (Nauka), Broń Biała (Podstawowa), Percepcja, Zwinne Palce, Skradanie (Wieś). Talenty linii: Wyczulony Zmysł (Dowolny), Straszny lub Szósty Zmysł, Poliglota lub Znawca (Magia), Percepcja Magiczna, Czytanie/Pisanie. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "source": "Domowe",
+      "characteristics": {
+        "WW": 10,
+        "S": 20,
+        "Wt": 20,
+        "I": 20,
+        "Zr": 20,
+        "Int": 30,
+        "SW": 30,
+        "Ogd": -20
+      },
+      "movement": 2,
+      "fate": -1,
+      "resilience": 1,
+      "race": "Wampir (Nekrarcha)"
+    },
+    {
+      "name": "Przemiana: Strigoi",
+      "category": "wampiryzm",
+      "effect": "Oficjalne premie przemiany (Wampiry, s. 14). Bestialscy potomkowie Ushorana — tułacze cmentarzy i głuszy, władcy ghuli. Preferowane tradycje: Zwierząt, Nekromancja. Umiejętności linii (3×+5, 3×+3): Atletyka, Oswajanie, Wspinaczka, Unik, Odporność, Zastraszanie, Broń Biała (Podstawowa), Broń Biała (Bijatyka), Sztuka Przetrwania, Percepcja, Skradanie (Wieś), Tropienie. Talenty linii: Wyczulony Zmysł (Dowolny), Oburęczność lub Doświadczony Wędrowiec (Wybrany Teren), Twardziel, Tragarz lub Silne Nogi, Bardzo Silny. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "source": "Wampiry",
+      "characteristics": {
+        "WW": 10,
+        "S": 20,
+        "Wt": 10,
+        "I": 10,
+        "Zw": 20,
+        "Zr": 10,
+        "Int": 10,
+        "SW": 10,
+        "Ogd": -20
+      },
+      "movement": 2,
+      "fate": -1,
+      "resilience": 1,
+      "race": "Wampir (Strigoi)"
+    },
+    {
+      "name": "Przemiana: Strigoi (zasada domowa)",
+      "category": "wampiryzm",
+      "effect": "Domowe premie przemiany (wyższe niż w dodatku; Generator BN). Bestialscy potomkowie Ushorana — tułacze cmentarzy i głuszy, władcy ghuli. Preferowane tradycje: Zwierząt, Nekromancja. Umiejętności linii (3×+5, 3×+3): Atletyka, Oswajanie, Wspinaczka, Unik, Odporność, Zastraszanie, Broń Biała (Podstawowa), Broń Biała (Bijatyka), Sztuka Przetrwania, Percepcja, Skradanie (Wieś), Tropienie. Talenty linii: Wyczulony Zmysł (Dowolny), Oburęczność lub Doświadczony Wędrowiec (Wybrany Teren), Twardziel, Tragarz lub Silne Nogi, Bardzo Silny. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "source": "Domowe",
+      "characteristics": {
+        "WW": 20,
+        "S": 30,
+        "Wt": 20,
+        "I": 20,
+        "Zw": 30,
+        "Zr": 10,
+        "SW": 20,
+        "Ogd": -20
+      },
+      "movement": 2,
+      "fate": -1,
+      "resilience": 1,
+      "race": "Wampir (Strigoi)"
+    },
+    {
+      "name": "Przemiana: Niezależny",
+      "category": "wampiryzm",
+      "effect": "Oficjalne premie przemiany (Wampiry, s. 14). Wyrzutki bez linii albo z pomniejszych rodów — zaradni i nieufni wobec wszelkich rozkazów. Preferowane tradycje: Śmierci albo Cieni, Nekromancja albo Czarownictwo. Umiejętności linii (3×+5, 3×+3): Charyzma, Unik, Odporność, Plotkowanie, Targowanie, Zastraszanie, Język (Dowolny), Broń Biała (Podstawowa), Nawigacja, Sztuka Przetrwania, Percepcja, Skradanie (Dowolne). Talenty linii: Wyczulony Zmysł (Dowolny), Ulicznik lub Obieżyświat, Błyskotliwość lub Charyzmatyczny, losowy, losowy. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "source": "Wampiry",
+      "characteristics": {
+        "WW": 10,
+        "S": 10,
+        "Wt": 10,
+        "I": 10,
+        "Zw": 10,
+        "Zr": 10,
+        "SW": 20,
+        "Ogd": 10
+      },
+      "movement": 1,
+      "fate": -1,
+      "resilience": 1,
+      "race": "Wampir (Niezależny)"
+    },
+    {
+      "name": "Przemiana: Niezależny (zasada domowa)",
+      "category": "wampiryzm",
+      "effect": "Domowe premie przemiany (wyższe niż w dodatku; Generator BN). Wyrzutki bez linii albo z pomniejszych rodów — zaradni i nieufni wobec wszelkich rozkazów. Preferowane tradycje: Śmierci albo Cieni, Nekromancja albo Czarownictwo. Umiejętności linii (3×+5, 3×+3): Charyzma, Unik, Odporność, Plotkowanie, Targowanie, Zastraszanie, Język (Dowolny), Broń Biała (Podstawowa), Nawigacja, Sztuka Przetrwania, Percepcja, Skradanie (Dowolne). Talenty linii: Wyczulony Zmysł (Dowolny), Ulicznik lub Obieżyświat, Błyskotliwość lub Charyzmatyczny, losowy, losowy. Cechy Stworzeń: Ugryzienie, Pazur, Widzenie w Ciemności, Strach 1, Klątwa Nocy, Nie Czuje Bólu, Ożywieniec, Wampiryczny. SW < 30: Test Opanowania (+0) albo rzut w Tabeli Zepsucia Psychicznego.",
+      "source": "Domowe",
+      "characteristics": {
+        "WW": 10,
+        "S": 10,
+        "Wt": 10,
+        "I": 10,
+        "Zw": 10,
+        "Zr": 10,
+        "SW": 20
+      },
+      "movement": 1,
+      "fate": -1,
+      "resilience": 1,
+      "race": "Wampir (Niezależny)"
+    },
+    {
+      "name": "Atak Językiem",
+      "category": "dary_krwi",
+      "effect": "Zyskujesz Cechę Atak Językiem (+BS+3). Zasięg równy jest twojemu Bonusowi z Umiejętności Strzeleckich w metrach. Każdy kolejny zakup zwiększa obrażenia i zasięg w metrach o jeden. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "Bonus z Siły"
+    },
+    {
+      "name": "Awangarda",
+      "category": "dary_krwi",
+      "effect": "Jeśli masz wierzchowca z Cechą Długi Krok, możesz wykonać jedną darmową Akcję Biegu, zanim ktokolwiek inny zacznie działać w starciu. Nadal możesz wykonać swoją Akcję i Ruch w swojej zwykłej turze Inicjatywy. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Bezbożna Dusza",
+      "category": "dary_krwi",
+      "effect": "Jesteś niewrażliwy na odstraszające działanie przedmiotów religijnych i możesz swobodnie wchodzić do miejsc kultu, takich jak świątynie i kaplice. Ani bóg, ani demon cię nie onieśmieli. Poświęcona broń zachowuje jednak swoją skuteczność. Tego Daru Krwi nie można łączyć z Wyzwaniem Świtu, i odwrotnie. Zalecane dla: Lahmianie, Krwawe Smoki, Strigoi.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Bezbożna Regeneracja",
+      "category": "dary_krwi",
+      "effect": "Twoje rany goją się w zdumiewającym tempie. Zyskujesz Cechę Stworzenia Regeneracja. Rany zadane srebrnym orężem nie goją się dzięki tej Cesze. Zalecane dla: Krwawe Smoki.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Bezbożny Impet",
+      "category": "dary_krwi",
+      "effect": "Ilekroć zabijesz wroga w walce, wszystkie stworzenia nieumarłe i Ghule w promieniu tylu metrów, ile wynosi twój Bonus z Ogłady, mogą natychmiast wykonać Darmowy Atak albo darmowy Ruch. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Błędny Rycerz",
+      "category": "dary_krwi",
+      "effect": "Nie tracisz już Przewagi tylko dlatego, że jesteś w mniejszości. Przeciwnicy nadal otrzymują zwykłe modyfikatory do trafienia. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Chodzenie po Wodzie",
+      "category": "dary_krwi",
+      "effect": "Po udanym Teście Opanowania o poziomie Wymagającym (+0) możesz przekroczyć zbiornik wodny, przejść przez niego w bród albo go przepłynąć bez obrażeń i bez złych skutków. Musisz rzucać na nowo przy każdym kolejnym zbiorniku albo co 100 metrów przebytej wody. Drugi zakup tego Daru Krwi oznacza pełną niewrażliwość na wodę i brak konieczności rzucania. Zalecane dla: Krwawe Smoki, Strigoi, Niezależni.",
+      "source": "Wampiry",
+      "limit": "2"
+    },
+    {
+      "name": "Chodzenie po Ścianach",
+      "category": "dary_krwi",
+      "effect": "Zyskujesz Cechę Chodzenie po Ścianach. Zalecane dla: von Carstein.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Chory (rodzaj)",
+      "category": "dary_krwi",
+      "effect": "Jesteś nosicielem konkretnej choroby i zyskujesz Cechę Choroba (rodzaj). Najczęstszą zarazą jest Szkorbutowe Szaleństwo, ale możesz wybrać inną. Jeśli masz Talent Twardziel na (choroby), nigdy nie możesz wziąć tego Daru Krwi. Nowa choroba: Szkorbutowe Szaleństwo Szkorbutowe Szaleństwo powoduje opuchliznę warg, dziąseł i języka, które przy najlżejszym bodźcu pękają, wyrzucając zakaźną ropę. Głównymi objawami są omamy, gorączka i niewiarygodne pragnienie; chorych trzeba często polewać zimną wodą, by nie doszło do śmiertelnego przegrzania. Skutki Szkorbutowego Szaleństwa bywają tak silne, że ludzie wpadali w gwałtowny szał albo przyznawali się do najohydniejszych zbrodni. Zarażenie: gdy nie zdasz Testu Odporności o poziomie Wymagającym (+0) po kontakcie z ropą albo z zarażonymi. Wylęganie: k10 dni Czas trwania: 2k10 dni Objawy: Zaraza (umiarkowana), Kaszel i Kichanie, Gorączka (silna), Ospa Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Czempion (rodzaj)",
+      "category": "dary_krwi",
+      "effect": "Możesz wybrać Czempiona, który będzie ci służył. To istota rozumna, mająca własną wolę i osobowość, podlegająca zasadom Popleczników. Może to być Dziewica albo Wielbiciel, Sylwański Pospolitak, Zszywaniec, Klątwiec, Groza Krypt, Wilk Zagłady, Król Upiorów, Varghulf albo Vargheist. Czempion zaczyna z podstawowym profilem, wszystkimi standardowymi Cechami i jedną wybraną przez ciebie Cechą Opcjonalną. Czempiona możesz kupować wielokrotnie jako nowy Dar Krwi, zyskując przy każdym zakupie kolejnego Czempiona. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "Bonus z Ogłady"
+    },
+    {
+      "name": "Diabelski Krzyk",
+      "category": "dary_krwi",
+      "effect": "Możesz wydać całą swoją Przewagę (minimum 2), by wydać straszliwy krzyk, który przeszywa serca żywych istot i napełnia je palącą męką. To Darmowy Atak obejmujący wszystkie żywe cele w promieniu tylu metrów, ile wynosi twoja Inicjatywa, zadający +3 Stany Ogłuszenie. Drugi zakup tego Daru Krwi dokłada +k10 obrażeń, które ignorują Bonus z Wytrzymałości i Punkty Pancerza. Trzeci zakup dokłada dla wszystkich celów Test Odporności o poziomie Przeciętnym (+20), by uniknąć +1 Stanu Panika (po trzecim zakupie Dar działa identycznie jak Cecha Upiorne Wycie). Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "3"
+    },
+    {
+      "name": "Dominacja",
+      "category": "dary_krwi",
+      "effect": "Możesz spróbować nagiąć czyjś umysł Przeciwstawnym Testem Charyzmy/Opanowania. Jeśli ci się powiedzie, przeciwnik otrzymuje tyle Stanów Przymus, ile uzyskałeś PS; usunie je wyłącznie przez wykonanie twoich poleceń. Nowy Stan: Przymus Stan Przymus wywołują nadprzyrodzone efekty naginające umysł i uczucia. Zwykle opierasz się im Opanowaniem (przeciwko Ogładzie albo Sile Woli sprawcy). Pod wpływem Stanu Przymus odczuwasz silne pragnienie wykonania wydanego ci polecenia. Jeśli nie zniesiesz Stanu natychmiast Determinacją, nie możesz wydawać ani odzyskiwać Punktów Determinacji ani Bohatera, dopóki polecenie nie zostanie wypełnione. Stan nie może zmusić cię do bezpośredniego skrzywdzenia kogoś, chyba że przymuszające stworzenie uzyska 6+ PS. Możesz natomiast zostać poproszony o zejście z drogi albo o przyzwolenie na coś, o ile nie naraża to bezpośrednio ciebie ani kogoś, kogo kochasz (jeśli wampirzyca prosi, byś zszedł jej z drogi, gdy chce uderzyć twojego pana, jest to dopuszczalne, o ile naprawdę tego pana nie kochasz). Jeśli polecenie kłóci się wprost z twoją osobowością albo Motywacją, możesz zamiast tego przyjąć +1 Stan Oszołomienie za każdy uzyskany PS. Naraża cię to na większą krzywdę fizyczną, ale oszczędza szkód duchowych, jakie taki czyn mógłby wyrządzić na dłuższą metę. Dopóki Stan trwa, masz karę -10 do wszystkich Testów, które nie służą wypełnieniu polecenia. Skutki wielu Stanów Przymus kumulują się. Stany Przymus ustępują same, gdy wykonasz polecenie najlepiej, jak potrafisz. Po wykonaniu zadania zyskujesz +1 Stan Zmęczenie i odzyskujesz +1 punkt Determinacji. Jeśli po godzinie nie zdołasz wypełnić zadania, możesz wykonać Test Opanowania o poziomie Wymagającym (+0), by usunąć 1 Stan Przymus — i natychmiast zyskujesz wtedy +1 Stan Zmęczenie. Rzut możesz powtarzać co godzinę, aż wszystkie Stany Przymus ustąpią; za każdy usunięty w ten sposób Stan zyskujesz +1 Stan Zmęczenie. Zalecane dla: Lahmianie.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Dręczyciel Umysłów",
+      "category": "dary_krwi",
+      "effect": "Możesz użyć swojej straszliwej woli, by łamać cudze umysły. W ramach Akcji możesz wydać całą Przewagę (minimum 2), by wywołać Przeciwstawny Test Opanowania. Przy sukcesie przeciwnik otrzymuje Stan Oszołomienie plus jeden dodatkowy Stan Oszołomienie za każdy kolejny poziom Dręczyciela Umysłów. Jeśli wygrasz o 6+ PS, przeciwnik zyskuje zamiast tego +1 Stan Panika. Jeśli celem jest czarownik, Test może być przeciwstawiony Językiem (Magicznym), bo rzuca on kontrzaklęcia. Zalecane dla: von Carstein.",
+      "source": "Wampiry",
+      "limit": "Bonus z Inicjatywy"
+    },
+    {
+      "name": "Eteryczna Mgła",
+      "category": "dary_krwi",
+      "effect": "Raz dziennie możesz poświęcić Akcję, by zmienić siebie i cały niesiony dobytek w upiorny opar. W tej postaci nie możesz otrzymywać obrażeń zwykłymi środkami i liczysz się jako posiadający Cechy Eteryczny i Unoszący się. Dryfujesz ze swoją zwykłą Szybkością i nie można cię rozproszyć. Aby odzyskać zwykłą postać, musisz poświęcić kolejną Akcję. Przy drugim zakupie tego Daru Krwi przemiana w obie strony staje się Darmową Akcją. Nowa Cecha: Unoszący się Możesz wznieść się na wysokość do 2 metrów nad ziemią i unosić się. Dzięki temu pokonujesz bez kar każdy trudny teren, w tym przeszkody i wodę. Twoja prędkość równa jest podstawowej Szybkości, ale nie możesz biec. Zalecane dla: von Carstein, Lahmianie,.",
+      "source": "Wampiry",
+      "limit": "2"
+    },
+    {
+      "name": "Eteryczny Szyfr",
+      "category": "dary_krwi",
+      "effect": "Testy: każdy Test Opanowania przeciw Percepcji Magicznej Potrafisz ukryć własne zdolności magiczne przed wścibskimi oczami. Każdy, kto używa Talentu Wykrywanie Magii, by ustalić, czy władasz magią, musi wygrać Przeciwstawny Test Intuicji/Opanowania przeciwko tobie. Ponadto amulety z czosnku, demonicznego korzenia i wiedźmiego ziela przestają na ciebie działać. Zalecane dla: Lahmianie, Nekrarchowie.",
+      "source": "Wampiry",
+      "limit": "Bonus z Siły Woli"
+    },
+    {
+      "name": "Gospodarz",
+      "category": "dary_krwi",
+      "effect": "Twoje ciało jest opanowane przez ohydne owady i robactwo. Ilekroć stracisz 2 lub więcej punktów Żywotności od jednego ataku, robactwo ukazuje się w całej swojej odrażającej okazałości. Każdy, kto ujrzy ten groteskowy pokaz, musi zdać Rozszerzony Test Opanowania tak, jakby twoja wartość Strachu była o +2 wyższa niż zwykle (minimum Strach 3). Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Hipnotyczne Spojrzenie",
+      "category": "dary_krwi",
+      "effect": "Możesz poświęcić Akcję i wdać się w Przeciwstawny Test Charyzmy/Opanowania z kimkolwiek w polu widzenia. Jeśli wygrasz, ofiara liczy się przez następną rundę jako Bezbronny Cel. Możesz utrzymywać tę moc przez kilka tur, ale ofiara może raz na turę spróbować się wyrwać. Zalecane dla: von Carstein, Lahmianie.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Hipnoza",
+      "category": "dary_krwi",
+      "effect": "W ramach Akcji możesz spróbować Przeciwstawnego Testu Dowodzenia/Opanowania, by usunąć celowi świeże wspomnienia. Usuwane wspomnienia muszą tworzyć jeden ciągły blok zdarzeń mieszczący się w okresie wyznaczonym przez twoje poziomy tego Daru Krwi, ale możesz z tego okresu wyjąć dowolny fragment — od jednej sekundy po całość. Jeśli wygrasz, przeciwnik zyskuje +1 Stan Oszołomienie i zapomina, co zaszło. Za każde +2 PS przewagi nad nim zyskuje kolejny Stan Oszołomienie. Kolejne zakupy tego Daru wydłużają okres, który da się usunąć. Poziomy Okres 1 godzina 2 doba 3 tydzień 4 miesiąc 5 4 miesiące 6 rok 7 4 lata 8 dekada 9+ całe życie Przykład: przez ostatnie dwa dni używałeś Dominacji, by zmusić człowieka do zabicia miejscowego Łowcy Wampirów. Teraz chcesz zatrzeć ślady przed wyjazdem z miasta. Masz Hipnozę 3 i chcesz usunąć wspomnienia z ostatnich dwóch dni. To jeden ciągły blok, więc wystarczy jeden Przeciwstawny Test Dowodzenia/Opanowania. Gdybyś korzystał z tego człowieka przez dwa dni, potem zrobił dwa dni przerwy i znów użył go przez dwa dni, musiałbyś albo usunąć wspomnienia z całych sześciu dni, albo dwukrotnie zastosować Hipnozę, by usunąć oba bloki. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "4"
+    },
+    {
+      "name": "Iluzja",
+      "category": "dary_krwi",
+      "effect": "Testy: każdy Test Charyzmy w przebraniu Możesz wykorzystać wrodzoną wampirzą zdolność do kamuflażu, by zmieniać swój wygląd bez Zestawu do Charakteryzacji. Korzystając z Ludzkiego Pozoru, możesz poświęcić Akcję, by wydać się piękniejszym (+10 Ogłady), brzydszym (+10 Zastraszania) albo niepodobnym do siebie (+10 Występów (Aktorstwo)) na liczbę minut równą Bonusowi z Siły Woli powiększonemu o PS. Efekt możesz przedłużać w nieskończoność o minutę za każdy PS uzyskany w Rozszerzonym Teście Opanowania. Naśladowanie wyglądu konkretnej osoby wymaga godziny studiowania jej twarzy i zachowania, a potem Testu Intuicji o poziomie Wymagającym (+0). Jeśli dana osoba pochodzi z innego kręgu etnicznego, jest innej rasy, płci, wieku albo rozmiaru, Poziom Trudności rośnie. Przy sukcesie twój wygląd przekona większość ludzi mijanych przelotnie, ale ktoś, kto zna twój cel bardzo dobrze (członek rodziny albo bliski przyjaciel), może wykonać Przeciwstawny Test Intuicji/Występów (Aktorstwo), by zorientować się, że coś jest nie tak. Jeśli wygra, nie będzie pewien, co dokładnie, chyba że uzyska 6+ PS — ale zacznie patrzeć na ciebie podejrzliwie, a ty dostaniesz karę -20 do wszystkich Testów Ogłady wobec tej osoby. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "Bonus z Ogłady"
+    },
+    {
+      "name": "Jadowita Żółć",
+      "category": "dary_krwi",
+      "effect": "Zyskujesz Cechę Jad (Wymagający). Każdy kolejny zakup zwiększa Poziom Trudności obrony przed Jadem o jeden stopień. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "3"
+    },
+    {
+      "name": "Kroczenie z Wiatrem",
+      "category": "dary_krwi",
+      "effect": "Możesz unosić się do 2 metrów nad ziemią. Zyskujesz Cechę Unoszący się i możesz poruszać się ze swoją zwykłą Szybkością. Woda ani przeszkody w rodzaju bram, nad którymi możesz się unieść, nie stanowią dla ciebie problemu. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Krocząca Śmierć",
+      "category": "dary_krwi",
+      "effect": "Jeśli zechcesz, możesz ujawnić swoją nieumarłą naturę, przybierając potworne, trupie oblicze. Zyskujesz tymczasowo Cechę Groza o wartości 1. Jeśli masz już Grozę, Krocząca Śmierć dodaje +1 do jej wartości za każdy poziom tego Daru Krwi. Zalecane dla: von Carstein, Nekrarchowie, Strigoi.",
+      "source": "Wampiry",
+      "limit": "Bonus z Wytrzymałości"
+    },
+    {
+      "name": "Krwawa Furia",
+      "category": "dary_krwi",
+      "effect": "Zyskujesz Cechę Furia. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Kwasowa Krew",
+      "category": "dary_krwi",
+      "effect": "Zyskujesz Cechę Kwasowa Krew. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Lodowata Obecność",
+      "category": "dary_krwi",
+      "effect": "Zyskujesz Cechę Lodowaty Uścisk, z tym że podstawowe obrażenia równe są 0 + liczba PS uzyskanych w Teście. Drugi zakup zwiększa obrażenia do k10 + PS punktów Żywotności. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "2"
+    },
+    {
+      "name": "Ludzki Pozór",
+      "category": "dary_krwi",
+      "effect": "Potrafisz przybrać ludzki wygląd. Rysy ci łagodnieją, kły i pazury chowają się, wszelkie deformacje chwilowo znikają, a ty przestajesz budzić Strach i Grozę. Zmiana postaci to Darmowa Akcja, którą możesz wykonywać dowolnie często. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Mieszana Krew",
+      "category": "dary_krwi",
+      "effect": "Pochodzisz z kundlowatej Linii Krwi i w twoich żyłach płyną zdolności kilku Pierwszych Dzieci, choć słabsze niż u ich czystokrwistych potomków. Możesz brać Dary Krwi spoza listy swojej Linii Krwi, ale kosztują cię one dwa razy więcej niż Dary z tej listy. Zalecane dla: Niezależni.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Mistrz Ostrza",
+      "category": "dary_krwi",
+      "effect": "Jesteś mistrzem każdego stylu i odmiany walki wręcz, przez co przewidujesz każdy ruch przeciwnika. Zyskujesz Cechę Stworzenia Czempion. Zalecane dla: Krwawe Smoki.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Mroczne Przeznaczenie",
+      "category": "dary_krwi",
+      "effect": "Jakiś bóg gdzieś ci sprzyja. Może Khaine, bóg mordu, dostrzegł rozlew krwi, który powodujesz, i przemoc, jaką zaszczepiasz w sercach innych — mimo twojej własnej zimnej, beznamiętnej natury. A może to sam Nagash kieruje twoją ręką ku jakiemuś niewysłowionemu przeznaczeniu. Tak czy inaczej masz Punkty Mrocznego Przeznaczenia. Za każdy poziom tego Daru Krwi zyskujesz +1 Punkt Mrocznego Przeznaczenia i +1 Punkt Mrocznego Szczęścia. Możesz wydawać je jak zwykłe Punkty Przeznaczenia i Szczęścia, a te drugie odnawiają się jak zwykle. O ile jednak Przeznaczenie odzyskuje się za czyny bohaterskie, Mroczne Przeznaczenie należy przyznawać za czyny czystego łajdactwa i zła. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "Bonus z Siły Woli"
+    },
+    {
+      "name": "Mroczny Akolita",
+      "category": "dary_krwi",
+      "effect": "Testy: każdy Przeciwstawny Test Języka (Magicznego) Twoje zaklęcia trudniej rozproszyć niż zwykle. Każda próba rozproszenia wywołuje Mniejszą Manifestację, jeśli się powiedzie, albo Większą Manifestację, jeśli zawiedzie. Ponadto wynik Krytyczny liczy się jako Drobna Ekspozycja na Wpływ Zepsucia, a Pech — jako Umiarkowana Ekspozycja. Wampiry nie odczuwają tych skutków, ale mogą one przeskoczyć na pobliską żywą istotę (zwykle taką, która ma związek z wampirem próbującym rozproszyć magię). Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "Bonus z Siły Woli"
+    },
+    {
+      "name": "Mroczny Majestat",
+      "category": "dary_krwi",
+      "effect": "Testy: każdy Test Charyzmy wobec Ożywieńców i Ghuli Możesz rozkazywać liczbie stworzeń równej dwukrotności twojej Siły Woli. Za każdy kupiony poziom tego Daru Krwi zwiększasz podstawową liczbę stworzeń, którymi możesz kierować, o wartość swojej Siły Woli. Mając zatem Mroczny Majestat 3, możesz rozkazywać liczbie stworzeń równej czterokrotności twojej Siły Woli. Zalecane dla: von Carstein, Nekrarchowie.",
+      "source": "Wampiry",
+      "limit": "Bonus z Ogłady"
+    },
+    {
+      "name": "Nasycony Krwią",
+      "category": "dary_krwi",
+      "effect": "Testy: każdy Test Opanowania, by oprzeć się karmieniu Głodniejesz dwa razy wolniej niż inni. Możesz odmawiać sobie krwi przez dwa razy dłuższy czas niż normalnie. Ponadto Test Opanowania, by nie karmić się, wykonujesz tylko co drugi Odstęp Karmienia. Kumuluje się to z Talentem Wstrzemięźliwy. Zalecane dla: Nekrarchowie, Strigoi.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Nehekhariańskie Zwoje",
+      "category": "dary_krwi",
+      "effect": "Zachowałeś część pradawnej wiedzy Krainy Umarłych. Wybierz jedno zaklęcie z Tradycji Nekromancji albo z Tradycji Śmierci. Możesz odtąd rzucać to zaklęcie, jakby należało do twojej listy zaklęć. Za każdym razem, gdy zdobywasz tę Cechę na nowo, zyskujesz kolejne zaklęcie. Zalecane dla: Nekrarchowie.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Niezapadająca w Pamięć Twarz",
+      "category": "dary_krwi",
+      "effect": "O ile zachowujesz dyskrecję, łatwo o tobie zapomnieć — rozpływasz się we mgle wspomnień. Każdy, kto próbuje cię sobie przypomnieć, w tym twój wygląd albo twój udział w wydarzeniach, których był świadkiem, musi najpierw wykonać Rozszerzony Test Opanowania i uzyskać więcej PS, niż wynosi twój Bonus z Siły Woli powiększony o poziomy tego Daru Krwi. Poziom Trudności może zależeć od twoich czynów i tego, jak bardzo rzucałeś się w oczy — dużo łatwiej zapamiętać kogoś, kto skrzywdził ciebie albo twoją rodzinę, niż nieznajomego mijanego w nocy. Jednak nawet ci, którzy pamiętają oczywiste zdarzenia, nie zdołają przypomnieć sobie szczegółów twojej twarzy bez 6+ PS. Zapiski i wizerunki przedstawiające ciebie również blakną, plamią się albo znikają w ciągu k10 dni. Jeśli nie masz jeszcze Słabości Brak Odbicia, zyskujesz ją wraz z tym Darem Krwi — możesz więc mieć więcej niż 6 Słabości. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "Bonus z Inicjatywy"
+    },
+    {
+      "name": "Niezmordowany",
+      "category": "dary_krwi",
+      "effect": "Dhar w twoim ciele stale cię pobudza. Możesz zignorować karę -10 z jednego Stanu Zmęczenie. Każdy kolejny poziom Niezmordowanego pozwala zignorować karę z kolejnego Stanu Zmęczenie. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "Bonus z Wytrzymałości"
+    },
+    {
+      "name": "Nieśmiertelni Słudzy",
+      "category": "dary_krwi",
+      "effect": "Testy: każdy Test Dowodzenia wobec Ożywieńców Wszystkie stworzenia z Cechą Ożywieniec w promieniu tylu metrów, ile wynosi twój Bonus z Siły Woli, tymczasowo ignorują Cechę Niestabilny. Cecha ta wraca, gdy tylko stworzenia opuszczą ten zasięg. Za każdy poziom tego Daru Krwi zwiększasz zasięg o kolejny Bonus z Siły Woli w metrach. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "Bonus z Ogłady"
+    },
+    {
+      "name": "Nocna Wiedźma",
+      "category": "dary_krwi",
+      "effect": "Traktujesz Język (Magiczny) i Splatanie Magii (Dhar) jak Umiejętności należące do każdej Profesji, do której wchodzisz; jeśli już w niej są, kupujesz je o 5 PD taniej za Rozwinięcie. Zalecane dla: Lahmianie.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Nocny Drapieżnik",
+      "category": "dary_krwi",
+      "effect": "Atakując z cienia, możesz użyć Skradania zamiast Broni Białej w Przeciwstawnych Testach Broni Białej. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Objawienie Potwora",
+      "category": "dary_krwi",
+      "effect": "Nawet na tle innych wampirów twoja potworna natura budzi wstręt — jest brutalnym przypomnieniem bestii mieszkającej we wszystkich wampirach, cokolwiek by udawały. Zyskujesz Cechę Broń (szpony) o obrażeniach BS+6 oraz Cechę Ugryzienie o obrażeniach BS+4, co oddaje bestialską i potworną postać, do jakiej sprowadzono wampiry Strigoi. Ten Dar Krwi mogą wziąć tylko wampiry Strigoi. Zalecane dla: Strigoi.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Odwieczna Przebiegłość",
+      "category": "dary_krwi",
+      "effect": "Testy: każdy Test Przeciwstawny narzucający Zaskoczenie lub przed nim chroniący Jesteś mistrzem zasadzek i ataków z ukrycia, po których wrogowie zataczają się oszołomieni. Możesz wydać całą swoją Przewagę (minimum 2), by wywołać Zaskoczenie u jednego przeciwnika, nawet jeśli walka już się zaczęła. Zalecane dla: Niezależni.",
+      "source": "Wampiry",
+      "limit": "Bonus z Inicjatywy"
+    },
+    {
+      "name": "Ognioodporność",
+      "category": "dary_krwi",
+      "effect": "Ten Dar Krwi pozwala dodać do redukcji obrażeń od ognia niemagicznego premię równą twojemu Bonusowi z Wytrzymałości. Jeśli masz Słabość Ogień, pozwala ci to redukować obrażenia od ognia normalnie. Jeśli jej nie masz, w praktyce podwajasz swój Bonus z Wytrzymałości wobec ognia. Stany Podpalenie wywołane Słabościami Bieżąca Woda i Symbole Religijne nie pochodzą tak naprawdę od ognia, lecz od parzącego działania wody, więc ten Dar Krwi na nie nie wpływa. Stany Podpalenie od Światła Słonecznego podlegają mu normalnie. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Opancerzone Ciało",
+      "category": "dary_krwi",
+      "effect": "Zyskujesz Cechę Pancerz o wartości 1 Punktu Pancerza w każdej lokacji. Każdy kolejny zakup tego Daru Krwi zwiększa wartość Pancerza o +1 PP. Gdy odbijasz tym Pancerzem Rany Krytyczne, częściowo niszczysz zgrubiałe tkanki, które cię chronią. Odtworzenie każdego uszkodzonego PP wymaga 5 punktów Żywotności wypitej krwi. PP leczą się równomiernie po całym ciele, zaczynając od najbardziej poranionej Lokacji Trafienia (albo od Lokacji wybranej przez ciebie, jeśli wszystkie są poranione tak samo). Przykład: odbijasz po 2 PP na Głowie i Prawym Ramieniu oraz 3 PP na Korpusie. Wypijasz potem krew wartą 20 punktów Żywotności, czyli dość, by wyleczyć 4 PP. Najpierw wyleczysz po 1 PP we wszystkich trzech Lokacjach, zaczynając od Korpusu, a potem drugi PP na Korpusie. Wszystkie trzy Lokacje będą wtedy na -1 PP. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "Bonus z Wytrzymałości"
+    },
+    {
+      "name": "Pasożyt",
+      "category": "dary_krwi",
+      "effect": "Zaznałeś czasów rozpaczy i je przetrwałeś. Możesz żywić się martwym mięsem i krwią. Smak nie jest przyjemny i nigdy go nie polubisz, ale nie musisz polować na żywych, by odpędzić głód. Ponadto możesz pożerać robactwo i owady, by się nasycić. Zalecane dla: Nekrarchowie.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Posrebrzona Krew",
+      "category": "dary_krwi",
+      "effect": "Srebrna broń nie zadaje ci dodatkowych obrażeń — zachowuje się jak każda inna. Nie możesz wziąć tego Daru Krwi, jeśli masz Wyzwanie Świtu, i odwrotnie. Zalecane dla: von Carstein, Nekrarchowie,.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Postać Chowańca",
+      "category": "dary_krwi",
+      "effect": "W ramach Akcji możesz przemienić się w dowolne zwierzę nie większe niż pies domowy. Twój dobytek przemienia się razem z tobą i pojawia się z powrotem, gdy wracasz do zwykłej postaci. Zyskujesz wszystkie Cechy tego zwierzęcia, ale zachowujesz własną Inicjatywę, Inteligencję, Siłę Woli, Ogładę i Żywotność. Możesz wrócić do swojej postaci, kiedy zechcesz, i korzystać z tej zdolności tak często, jak trzeba. Przy drugim zakupie przemiana w obie strony staje się Darmową Akcją. Szczegóły wampirzych chowańców znajdziesz w Dodatku. Zalecane dla: Lahmianie.",
+      "source": "Wampiry",
+      "limit": "2"
+    },
+    {
+      "name": "Postać Nietoperza",
+      "category": "dary_krwi",
+      "effect": "Możesz poświęcić Akcję, by przemienić się w nietoperza. Twoje ubranie i dobytek wchłaniają się w ciało i pojawiają ponownie po zakończeniu przemiany. Zyskujesz wszystkie Cechy tego zwierzęcia, ale zachowujesz własną Inicjatywę, Inteligencję, Siłę Woli, Ogładę i Żywotność. Patrz profil Wampirzego Nietoperza w Dodatku. Powrót do zwykłej postaci też jest Akcją, ale możesz go dokonać, kiedy zechcesz. Przy drugim zakupie tego Daru Krwi przemiana w obie strony staje się Darmową Akcją. Zalecane dla: von Carstein, Strigoi.",
+      "source": "Wampiry",
+      "limit": "2"
+    },
+    {
+      "name": "Postać Roju (rodzaj)",
+      "category": "dary_krwi",
+      "effect": "Raz dziennie, w ramach Akcji, możesz zmienić swoje ciało w rój stworzeń — chrząszczy, karaluchów, much, myszy, szczurów albo kruków. Przy zakupie tego Daru Krwi wybierasz jedną postać roju i zawsze będziesz przybierać tę samą. Cały dobytek przemienia się razem z tobą i odtwarza, gdy wracasz do swojej postaci. W tej postaci nie możesz atakować ani odnosić ran, choć atakujący sprawiają ci dyskomfort. Przeciśniesz się przez każdą szczelinę dość dużą, by przeszło przez nią jedno ze stworzeń twojego roju. Postać ta trwa przez liczbę minut równą twojemu Bonusowi z Siły Woli. Przy drugim zakupie możesz stać się rojem Darmową Akcją w dowolnym momencie przed końcem swojej tury (nawet przed swoim zwykłym miejscem w kolejności Inicjatywy). Pozwala to przemienić się, zanim wróg zdąży zadać cios. Ten Dar Krwi możesz kupować od nowa, jak nowy Dar, by nabyć kolejne postaci roju. Zalecane dla: Niezależni.",
+      "source": "Wampiry",
+      "limit": "2"
+    },
+    {
+      "name": "Postać Wilka",
+      "category": "dary_krwi",
+      "effect": "W ramach Akcji możesz przemienić się w Wilka Zagłady (patrz Dodatek). Całe Wyposażenie i dobytek wchłaniają się w twoje ciało i pojawiają ponownie po odwróceniu przemiany. Powrót również zajmuje Akcję, ale możesz go dokonać w dowolnej chwili. Przy drugim zakupie tego Daru Krwi możesz przemieniać się Darmową Akcją. Zalecane dla: von Carstein, Krwawe Smoki.",
+      "source": "Wampiry",
+      "limit": "2"
+    },
+    {
+      "name": "Potworna Chwała",
+      "category": "dary_krwi",
+      "effect": "W chwili swojego krwawego zwycięstwa jesteś naprawdę ogromny. Ilekroć zabijesz wroga, wszyscy jego sojusznicy w promieniu tylu metrów, ile wynosi twój Bonus z Siły Woli, muszą zdać Test Opanowania o poziomie Wymagającym (+0) albo otrzymują +1 Stan Panika. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Potworna Masa",
+      "category": "dary_krwi",
+      "effect": "Jesteś tak ogromny i potworny, że nawet Rany Krytyczne mniej ci szkodzą. Rany Krytyczne zadają ci o 2 punkty Żywotności mniej (minimum 1), a każdy przeciwnik rzucający przeciwko tobie na Ranę Krytyczną musi rzucić dwa razy i przyjąć niższy wynik. Zalecane dla: Strigoi.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Potężna Postać",
+      "category": "dary_krwi",
+      "effect": "Masz teraz blisko trzy metry wzrostu. Zyskujesz Cechę Rozmiar (Duży). Korzystając z Ludzkiego Pozoru, wracasz do Rozmiaru Średniego, ale i tak jesteś o co najmniej trzydzieści centymetrów wyższy niż wcześniej. Dla tych, którzy znali cię za życia, będzie to wyraźny znak twojej bezbożnej natury. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Powolna Śmierć",
+      "category": "dary_krwi",
+      "effect": "Twoje zęby i pazury kryją paskudne niespodzianki. Gdy atakujesz nimi, ofiary mogą umierać powoli od zadanych ran. Zyskujesz Cechę Zakażony. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Powstały",
+      "category": "dary_krwi",
+      "effect": "Jeśli spadniesz do 0 punktów Żywotności, możesz natychmiast wykonać Test Odporności o poziomie Wymagającym (+0), by wyleczyć 1 punkt Żywotności i odzyskać przytomność. Jeśli masz zarówno Powstałego, jak i Bezbożną Regenerację, musisz najpierw użyć Powstałego, zanim spróbujesz Bezbożnej Regeneracji. Zalecane dla: Strigoi.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Przeszywający Cios",
+      "category": "dary_krwi",
+      "effect": "Ilekroć zadasz przeciwnikowi Ranę Krytyczną, możesz rzucić dwa razy i przyjąć wyższy wynik. Zalecane dla: Krwawe Smoki.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Przyzwanie Burzy",
+      "category": "dary_krwi",
+      "effect": "Raz dziennie możesz poświęcić Akcję, by przyzwać burzę. Zaciemni ona światło w promieniu półtora kilometra wokół ciebie i uniemożliwi latanie. Wszystkie Testy Umiejętności Strzeleckich i Percepcji mają karę -10. Burza trwa przez liczbę godzin równą twojemu Bonusowi z Siły Woli. Zalecane dla: von Carstein.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Przyzwanie Ghuli",
+      "category": "dary_krwi",
+      "effect": "Wydajesz ryk, który niesie się daleko i zwabia okoliczne Ghule z ich kryjówek. Musisz poświęcić Akcję i zdać Test Dowodzenia o poziomie Wymagającym (+0), a także móc krzyknąć na cały głos. Z okolicy przybędzie tyle ghuli, ile uzyskałeś PS, plus k10 (minimum 1). Dotrą po liczbie rund równej połowie kości jedności twojego Testu. W walce działają w twojej rundzie Inicjatywy i słuchają twoich rozkazów. Odejdą po liczbie godzin równej twojemu Bonusowi z Siły Woli. Zalecane dla: Strigoi.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Przyzwanie Pradawnych",
+      "category": "dary_krwi",
+      "effect": "Rzucając dowolne zaklęcie ożywiania albo przyzywania na cele martwe lub nieumarłe, liczysz się jako mający +2 PS w udanym Teście za każdy poziom tego Daru Krwi. Premię tę możesz przeznaczyć na nadczarowanie, by przyzwać więcej sług albo wydłużyć czas trwania zaklęcia. Na przykład przy Powstaniu Umarłych każdy poziom pozwala przyzwać dodatkowe +PS szkieletów. Zalecane dla: Nekrarchowie.",
+      "source": "Wampiry",
+      "limit": "Bonus z Siły Woli"
+    },
+    {
+      "name": "Przyzwanie Robactwa",
+      "category": "dary_krwi",
+      "effect": "Wydajesz przenikliwy pisk, który niesie się daleko, i wykonujesz Test Dowodzenia o poziomie Wymagającym (+0). Przyzywasz z okolicy rój Wielkich Szczurów, Wielkich Pająków albo węży. Użyj standardowego profilu danego stworzenia z dodaną Cechą Rój. Za każde +2 PS w Teście dodaj rojowi 1 punkt Żywotności. Stworzenia przybywają natychmiast, pełznąc ze wszystkich stron. W walce działają w twojej rundzie Inicjatywy i słuchają prostych rozkazów: atakuj, tropij, broń. Rozpierzchną się albo odejdą po liczbie godzin równej twojemu Bonusowi z Siły Woli. Zalecane dla: Strigoi, Niezależni.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Przyzwanie Wilków",
+      "category": "dary_krwi",
+      "effect": "Wydajesz potężny ryk, który niesie się daleko. Testem Dowodzenia o poziomie Wymagającym (+0) przyzywasz nim wilki albo straszliwe wilki w zasięgu słuchu. Z okolicy przybędzie tyle wilków, ile uzyskałeś PS, albo o połowę mniej straszliwych wilków (minimum 1). Dotrą po liczbie rund równej połowie kości jedności twojego Testu. W walce działają w twojej rundzie Inicjatywy i słuchają prostych rozkazów: atakuj, tropij, broń. Odejdą po liczbie godzin równej twojemu Bonusowi z Siły Woli. Zalecane dla: von Carstein, Krwawe Smoki.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Rtęć",
+      "category": "dary_krwi",
+      "effect": "Poruszasz się tak szybko, że w walce zawsze działasz pierwszy. Przy Broni Białej działasz jako pierwszy w kolejności Inicjatywy, tak jakbyś atakował bronią z cechą Szybka i wybrał pierwszeństwo. Jeśli inny walczący ma broń Szybką, atakuje po tobie. Jeśli dwa wampiry mają Rtęć, pierwszy działa to o wyższej Inicjatywie. Zalecane dla: Lahmianie.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Rycerski Honor",
+      "category": "dary_krwi",
+      "effect": "Testy: każdy Test Opanowania wykonany zgodnie z twoim kodeksem honorowym Wyznajesz wypaczoną formę rycerskości. Ilekroć przyjmiesz formalne wyzwanie do walki, natychmiast zyskujesz +1 Przewagi i +1 punkt Determinacji. Jeśli odrzucisz szczere wyzwanie do walki, musisz zamiast tego wydać 1 punkt Determinacji. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "Bonus z Ogłady"
+    },
+    {
+      "name": "Skrzydła",
+      "category": "dary_krwi",
+      "effect": "Możesz wypuścić z pleców skórzaste skrzydła. Zyskujesz Cechę Latanie o wartości równej dwukrotności twojej Szybkości. Zalecane dla: Krwawe Smoki, Niezależni.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Smród",
+      "category": "dary_krwi",
+      "effect": "Gdy nie korzystasz z Ludzkiego Pozoru, cuchniesz zgnilizną, padliną i rozkładem. Zyskujesz Cechę Dekoncentrujący. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Straszliwe Ciosy",
+      "category": "dary_krwi",
+      "effect": "Twoja wielka siła i niebywała szybkość pozwalają ci zasypywać wrogów ciosami o przerażającej mocy. Wszystkie twoje ataki zyskują Zaletę Druzgocąca. Jeśli twój oręż już ją ma, zadajesz zamiast tego dodatkowe +4 obrażeń. Zalecane dla: Krwawe Smoki.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Szlachetne Pochodzenie",
+      "category": "dary_krwi",
+      "effect": "Twój zasięg władzy nad Ożywieńcami sięga 200 metrów. Każdy kolejny zakup wydłuża go o +100 metrów. Zalecane dla: von Carstein, Lahmianie.",
+      "source": "Wampiry",
+      "limit": "Bonus z Ogłady"
+    },
+    {
+      "name": "Szpony",
+      "category": "dary_krwi",
+      "effect": "Gdy nie korzystasz z Ludzkiego Pozoru, możesz Darmową Akcją wydłużyć pazury do dwukrotnej długości. Zamiast BS+4 zadają wtedy BS+6 obrażeń i zyskują cechę Nadziewająca. Ich Zasięg rośnie z Osobistego do Bardzo Krótkiego. Dostajesz też +10 do Testów Wspinaczki i Otwierania Zamków, ale -20 do wszystkich innych Testów opartych na Zręczności, dopóki pazury są wysunięte. Z obnażonymi szponami nie możesz trzymać w rękach żadnej broni poza tarczą. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Szybkokrwisty",
+      "category": "dary_krwi",
+      "effect": "Testy: Testy Uniku przeciwko atakom dystansowym Jeśli chcesz, możesz używać Uniku, by wymijać ataki dystansowe — również te, których normalnie nie da się uniknąć. Zalecane dla: Lahmianie, Krwawe Smoki.",
+      "source": "Wampiry",
+      "limit": "Bonus ze Zwinności"
+    },
+    {
+      "name": "Trwały Obraz",
+      "category": "dary_krwi",
+      "effect": "Zachowujesz odbicie w lustrze i cień. Zalecane dla: von Carstein, Krwawe Smoki.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Trębacz",
+      "category": "dary_krwi",
+      "effect": "Potrafisz przekuć mrok w swojej duszy w natchnienie dla sojuszników i strach dla wrogów. Możesz poświęcić Akcję, by zadąć w róg albo uderzyć w bęben wojenny. Ty i każdy sojusznik, który usłyszy ten straszliwy zew, zyskujecie +1 Przewagi. Za pierwszym razem, gdy zadmiesz w róg w danym starciu, ty i twoi sojusznicy zyskujecie dodatkowo Strach +1. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Twarda Skóra",
+      "category": "dary_krwi",
+      "effect": "Twoje ciało jest jak skóra wyprawiona, a kości jak stal, dzięki czemu zbywasz większość skutków tępych uderzeń. Redukując otrzymywane obrażenia od broni z cechą Ogłuszająca, dodajesz Bonus z Wytrzymałości po raz drugi. Jeśli taki atak normalnie ignoruje twój Bonus z Wytrzymałości, ignoruje tylko zwykły bonus, a nie ten dodatkowy z tego Daru Krwi. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Wrodzony Nekromanta",
+      "category": "dary_krwi",
+      "effect": "Możesz intuicyjnie rozkazywać Ożywieńcom i Ghulom w promieniu 100 metrów. Możesz kierować liczbą takich stworzeń do wartości swojej Siły Woli, nawet jeśli nie znasz Nekromancji. Proste polecenia w rodzaju „atakuj\", „broń\", „znajdź\" czy „tropij\" są automatyczne i możesz wydać je wszystkim naraz Darmową Akcją. Bardziej złożone polecenia albo polecenia poza zasięgiem 100 metrów wymagają Testu Dowodzenia o poziomie Wymagającym (+0). Większość Ożywieńców i Ghuli nie opiera się twoim rozkazom, choć wyjątkowo potężni Ożywieńcy mogą spróbować, jeśli MG uzna to za stosowne. Jeśli nauczysz się Nekromancji, nie doświadczasz Mniejszej Manifestacji za wyrzucenie dubletu w udanym Teście Splatania Magii (Dhar) ani w Teście Języka (Magicznego) z użyciem Dharu. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Wybuch Krwi",
+      "category": "dary_krwi",
+      "effect": "Twoja krew jest lepka i tryska z ran. Każdy wróg, który zada ci co najmniej 1 punkt obrażeń Żywotności, musi zdać Test Uniku o poziomie Wymagającym (+0) albo przez następne dwie rundy dostaje -20 do wszystkich Testów wymagających ruchu, w tym do walki. Zalecane dla: Krwawe Smoki, Niezależni.",
+      "source": "Wampiry",
+      "limit": "Bonus z Wytrzymałości"
+    },
+    {
+      "name": "Wymiociny",
+      "category": "dary_krwi",
+      "effect": "Zyskujesz Cechę Wymiot. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Wyssanie Duszy",
+      "category": "dary_krwi",
+      "effect": "Testy: każdy Przeciwstawny Test Opanowania Nie wystarczy ci sączyć krew ofiar — twoja nieumarła postać potrzebuje o wiele więcej energii, by się utrzymać. Stajesz się studnią uczuć, wysysając wolę i emocje z żywych istot wokół siebie. W każdej rundzie, jako Darmową Akcję, możesz wykonać Przeciwstawny Test Opanowania przeciwko wszystkim żywym istotom w promieniu tylu metrów, ile wynosi twój Bonus z Siły Woli (rzucasz raz, a każdy przeciwnik rzuca raz, próbując dorównać twoim PS albo je przewyższyć). Każdy przeciwnik, który z tobą przegra, otrzymuje kumulatywną karę −10 do wszystkich Cech. Żadnej Cechy nie można w ten sposób obniżyć poniżej 1. Kary te zanikają w tempie 10 punktów za każdą godzinę spędzoną z dala od ciebie. Zalecane dla: Krwawe Smoki, Niezależni.",
+      "source": "Wampiry",
+      "limit": "Bonus z Inicjatywy"
+    },
+    {
+      "name": "Wyzwanie Świtu",
+      "category": "dary_krwi",
+      "effect": "Jeśli zdasz Test Odporności o poziomie Wymagającym (+0), możesz chodzić w świetle dnia przez godzinę. Test możesz powtarzać raz na godzinę z kumulującą się karą -10, by opierać się wyniszczającemu działaniu słońca. Gdy zawiedziesz, zaczynasz otrzymywać obrażenia i skutki Słabości Słońce jak zwykle. Zalecane dla: von Carstein, Lahmianie,.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Wzrok Śmierci",
+      "category": "dary_krwi",
+      "effect": "Testy: każdy Test Charyzmy lub Dowodzenia przy rozmowie z duchami Przez cały czas widzisz i wyczuwasz zjawy, duchy i Eterycznych Ożywieńców. One również są świadome twojej obecności — na dobre albo na złe. Możesz też wykonać Test Intuicji o poziomie Wymagającym (+0), by ocenić, jak zdrowy albo wątły jest cel (na przykład ile zostało mu Żywotności albo ile ma lat). Zalecane dla: Nekrarchowie.",
+      "source": "Wampiry",
+      "limit": "Bonus z Ogłady"
+    },
+    {
+      "name": "Węch Krwi",
+      "category": "dary_krwi",
+      "effect": "Wyczuwasz świeżą krew w promieniu 16 metrów, nawet jeśli jeszcze nie została przelana. Żadna żywa istota w tym promieniu nie ukryje przed tobą tego zapachu. Magiczne i zwyczajne próby zamaskowania stworzenia albo jego krwi zawodzą automatycznie. Zalecane dla: Krwawe Smoki, Niezależni.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Władca Nocy",
+      "category": "dary_krwi",
+      "effect": "Twoi nieumarli sojusznicy i słudzy są chronieni twoją mroczną obecnością. W promieniu tylu metrów, ile wynosi twój Bonus z Siły Woli, zyskują Cechę Ochrona (9+) przeciwko obrażeniom niemagicznym. Każdy kolejny zakup tego Daru Krwi obniża wartość Ochrony o 1. Ś Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "Bonus z Ogłady"
+    },
+    {
+      "name": "Władza nad Śmiercią",
+      "category": "dary_krwi",
+      "effect": "Jesteś mistrzem w rozkazywaniu umarłym. Ten Dar Krwi pozwala ci użyć wyniku kości jedności zamiast wyrzuconych PS w każdym udanym Teście Języka (Magicznego) wpływającym na umarłych albo na stworzenia z Cechą Ożywieniec. Zalecane dla: Nekrarchowie.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Wściekła Szarża",
+      "category": "dary_krwi",
+      "effect": "Jesteś rozjuszonym taranem przemocy i wiesz dokładnie, gdzie wyprowadzić cios, by przyniósł największy skutek. Gdy szarżujesz, twoje ataki ignorują wszystkie Punkty Pancerza. Zalecane dla: Krwawe Smoki.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Zapalczywość",
+      "category": "dary_krwi",
+      "effect": "Zyskujesz Cechę Wojowniczy. Zalecane dla: Strigoi.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Zepsuta Niewinność",
+      "category": "dary_krwi",
+      "effect": "Wyglądasz tak pięknie albo tak niewinnie, że wrogowie muszą się dwa razy zastanowić, zanim cię uderzą. Każda rozumna istota, która chciałaby cię skrzywdzić, musi najpierw wygrać Przeciwstawny Test Opanowania/Charyzmy. Zalecane dla: Lahmianie.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Zimnokrwistość",
+      "category": "dary_krwi",
+      "effect": "Zyskujesz Cechę Zimnokrwisty. Zalecane dla: Nekrarchowie.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Zmysł Śmierci",
+      "category": "dary_krwi",
+      "effect": "Testy: każdy Test wykrywania umarłych, ghuli i Ożywieńców Wyczuwasz Wiatry Dharu, co pozwala ci odnajdywać zwłoki na twoje plugawe potrzeby albo szukać Ghuli i Ożywieńców, którymi możesz rozkazywać. Ten Dar Krwi pozwala używać Percepcji, Tropienia i Intuicji do znajdowania, śledzenia i wykrywania umarłych, Ożywieńców oraz Ghuli. Jeśli w promieniu tylu metrów, ile wynosi twoja Siła Woli, znajdują się jakiekolwiek szczątki, nawet niewidoczne, ten Dar Krwi pozwala ci rzucić na Percepcję, by je zlokalizować. Sukces daje ci przybliżone pojęcie o tym, gdzie są zwłoki, ile ich jest i jakiego rodzaju są to szczątki. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "Bonus z Inicjatywy"
+    },
+    {
+      "name": "Zniekształcony",
+      "category": "dary_krwi",
+      "effect": "Stałeś się w jakiś sposób potwornie odrażający. Czy to pokrywają cię pękające krosty, czy gnije ci skóra — budzisz absolutny wstręt. Gdy nie korzystasz z Ludzkiego Pozoru, masz Cechę Groza 1. Jeśli masz już Grozę, Zniekształcony dodaje +1 do jej wartości za każdy poziom tego Daru Krwi. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "Bonus z Wytrzymałości"
+    },
+    {
+      "name": "Zwierzęca Percepcja",
+      "category": "dary_krwi",
+      "effect": "Testy: każdy Test Percepcji podczas korzystania ze Zwierzęcej Percepcji Możesz patrzeć oczami stworzeń, które przyzwałeś albo którymi rozkazujesz. Poświęcając Akcję, odbierasz to, co odbierają one, wszystkimi dostępnymi im zmysłami (również magicznymi). Jeśli zmysły stworzenia są w czymś ograniczone (brakuje mu na przykład oka albo jest Drobne, więc patrzy z niżej), odczuwasz te same ograniczenia. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "Bonus z Inicjatywy"
+    },
+    {
+      "name": "Zwierzęce Szepty",
+      "category": "dary_krwi",
+      "effect": "Testy: każdy Test dotyczący porozumiewania się ze zwierzętami Możesz rozmawiać ze zwierzętami. Pozwala to na prawdziwą wymianę myśli, wykraczającą poza proste rozkazy dopuszczalne przy Przyzwaniu Robactwa, Przyzwaniu Wilków czy większości zaklęć. Możesz teraz wydawać szczegółowe polecenia i otrzymywać szczegółowe odpowiedzi. Stworzenia bestialskie porozumiewają się urywanymi słowami i obrazami, ale istoty inteligentniejsze potrafią wyrażać swoje myśli i opinie w sposób bardziej wyszukany. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "Bonus z Siły Woli"
+    },
+    {
+      "name": "Źródło Dharu",
+      "category": "dary_krwi",
+      "effect": "Twoja dusza jest tak zepsuta mroczną magią, że stała się naturalną sadzawką czystego Dharu. Wszyscy czarodzieje w promieniu 24 metrów (w tym ty sam) dodają jedną trzecią twojego Bonusu Siły Woli (w dół) w PS do swojego testu rzucania. Każdy, kto rzuca w zasięgu zaklęcie z innej Tradycji, podlega zasadom takim, jakby splatał Dhar (Enemy in Shadows Companion, s. 78). Możesz być objęty działaniem kilku takich Cech naraz. To jeden z powodów, dla których wampiry Nekrarchów przyjmują uczniów. Możesz wyłączać i włączać tę zdolność Akcją Darmową. Zalecane dla: Nekrarchowie.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Żarłoczna Bestia",
+      "category": "dary_krwi",
+      "effect": "Testy: każdy Test Percepcji przy wykrywaniu krwi Jesteś nienasyconym potworem, którego głód nie zna granic. Możesz użyć Darmowej Akcji, by dobrowolnie przyjąć +1 Stan Głód, ilekroć widzisz albo czujesz żywy cel. Stan usuwa się na zwykłych zasadach. Zalecane dla: dowolna.",
+      "source": "Wampiry",
+      "limit": "Bonus z Inicjatywy"
+    },
+    {
+      "name": "Żelazne Ścięgna",
+      "category": "dary_krwi",
+      "effect": "Stałeś się niebywale silny. W każdym Przeciwstawnym Teście Broni Białej albo Siły przeciwnik otrzymuje karę -2 PS. Magia Ożywieńców Wampiry są istotami plugawego Dharu. Z natury ciągnie je więc do Tradycji Nekromancji, choć niekiedy uczą się też innych Tradycji. Gdy korzystają z innych Tradycji, swobodnie i niebezpiecznie mieszają ze sobą wszystkie Wiatry Magii, manifestując Dhar zamiast właściwego Wiatru danej Tradycji. Takie zaklęcia są wykrzywioną parodią tego, Zalecane dla: Krwawe Smoki, Strigoi.",
+      "source": "Wampiry",
+      "limit": "1"
+    },
+    {
+      "name": "Bariery",
+      "category": "slabosci_wampira",
+      "effect": "Taki wampir nie może wejść do żadnej budowli, która nie należy do niego, o ile nie zostanie wpierw zaproszony. Po zaproszeniu może wchodzić i wychodzić swobodnie. Nekrarchowie zwykle mają tę słabość.",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Bieżąca Woda",
+      "category": "slabosci_wampira",
+      "effect": "Część wampirów nie potrafi przekroczyć bieżącej wody i doznaje przy próbie ciężkich obrażeń. Na potrzeby tej klątwy woda musi mieć co najmniej metr szerokości, trzydzieści centymetrów głębokości i nurt. Samo ochlapanie wampira wodą nie wystarczy, podobnie jak deszcz czy wylanie mu wiadra wody na głowę. Próba przekroczenia takiego zbiornika zadaje k10 punktów obrażeń za każdą rundę spędzoną w wodzie albo na niej, bez względu na Bonus Wytrzymałości i pancerz. Jeśli wampir spadnie do 0 Żywotności, ginie, rozpuszczając się w wodzie jak błyskawicznie gnijące zwłoki. Przelot, przeskok, przejazd wierzchem albo pojazdem lub statkiem znosi te kary — podobnie jak przejście po moście.",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Brak Odbicia",
+      "category": "slabosci_wampira",
+      "effect": "Wiele wampirów przeklęto tak, że nigdy nie ujrzą własnego oblicza w tafli lustra ani w cieniu rzucanym przez księżyc. Lustra i inne odbijające powierzchnie nie pokazują wyglądu takich wampirów.",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Czosnek",
+      "category": "slabosci_wampira",
+      "effect": "Wiele wampirów ma niezwykłą słabość do rzadkich korzeni i roślin, co widać po Demonicznym Korzeniu i Wiedźmim Zielu. Nieliczne obarczone są wrażliwością na rośliny pospolitsze, jak czosnek. Takie wampiry otrzymują karę −20 do wszystkich Testów, póki znajdują się w promieniu 6 metrów od tej substancji.",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Demoniczny Korzeń i Wiedźmie Ziele",
+      "category": "slabosci_wampira",
+      "effect": "Część wampirów odpychają Demoniczny Korzeń i Wiedźmie Ziele. Wampir z tą słabością musi zdać Test Opanowania, żeby podejść do tych ziół bliżej niż na 2 metry.",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Gromril",
+      "category": "slabosci_wampira",
+      "effect": "Dotyk krasnoludzkiego gromrilu jest dla części wampirów przekleństwem. Ilekroć taki wampir zostanie zraniony orężem z gromrilu, nie może odejmować Bonusu Wytrzymałości od obrażeń. ignorują twój Bonus z Wytrzymałości, a pancerz chroni cię normalnie. (R6, s. 8)",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Ithilmar",
+      "category": "slabosci_wampira",
+      "effect": "Powiada się, że srebrzysta stal elfów kryje w sobie niesamowitą moc magiczną. Choć wiele tego kruszcu idzie na pancerze i przedmioty ozdobne, elfy słyną z potężnego oręża kutego z tej rudy. Jeśli wampir straci co najmniej 1 punkt Żywotności od ataku bronią wykutą z ithilmaru, musi zdać Problematyczny (−10) Test Atletyki albo zyskuje stan Podpalenie. ignorują twój Bonus z Wytrzymałości, a pancerz chroni cię normalnie. (R6, s. 8)",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Kołki",
+      "category": "slabosci_wampira",
+      "effect": "Wbicie kołka w serce jest dla każdego stworzenia dostatecznie wstrząsające, ale przy wampirach z tą słabością każdy atak kołkiem wystarczy, by je odpędzić. Kołek musi być wykonany ze szczególnego drewna, na przykład jesionu, głogu albo różanego. Jeśli wampir zostanie trafiony takim kołkiem i straci co najmniej 1 punkt Żywotności, pozostaje unieruchomiony, póki się kołka nie wyjmie (Akcja). Póki tkwi nieruchomo, nie może wykonywać żadnych Akcji Ruchu.",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Liczenie",
+      "category": "slabosci_wampira",
+      "effect": "Te wampiry mają osobliwą obsesję na punkcie liczenia. Zawsze gdy wampir stanie przed zbiorem drobnych przedmiotów — nasion maku, monet, kawałków sznurka — musi zdać Problematyczny (−10) Test Opanowania albo zacznie je liczyć, co zwykle zajmuje k10 minut. Jeśli wampir zda test, otrzymuje karę −10 do wszystkich Testów, póki niepoliczone przedmioty pozostają w polu widzenia.",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Ogień",
+      "category": "slabosci_wampira",
+      "effect": "Nieliczne wampiry są wrażliwe na oczyszczający płomień. Takie wampiry nie mogą odejmować Bonusu Wytrzymałości od obrażeń zadanych ogniem (magicznym czy zwykłym).",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Poświęcona Broń",
+      "category": "slabosci_wampira",
+      "effect": "Poświęcona broń zyskuje przeciwko tobie cechę Przebijająca. Woda święcona również cię rani, zadając k10 obrażeń na turę kontaktu, modyfikowanych jak zwykle o Bonus z Wytrzymałości i Pancerz, ale nie mniej niż 1 punkt Żywotności na turę. Przedmioty religijne przyciśnięte do gołej skóry zadają 1 punkt obrażeń Żywotności na turę, ignorując Bonus z Wytrzymałości i Pancerz.",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Spaczeń",
+      "category": "slabosci_wampira",
+      "effect": "Twoja wampirza postać jest mniej stabilna niż zwykle, a spaczeń wywołuje jej mutacje. Musisz wykonać Test Opanowania o poziomie Wymagającym (+0), by zbliżyć się na mniej niż 6 metrów do spaczenia. Po godzinie w jego obecności musisz przerzucić jeden Dar Krwi i jedną Słabość — zmieniają się one na stałe.",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Srebro",
+      "category": "slabosci_wampira",
+      "effect": "Sam dotyk srebra pali ciało wampira z tą słabością. Jeśli wampir straci co najmniej 1 punkt Żywotności od posrebrzanego oręża, traci automatycznie 3 kolejne, z pominięciem pancerza i Bonusu Wytrzymałości.",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Symbole Religijne",
+      "category": "slabosci_wampira",
+      "effect": "Moc wiary jest w Starym Świecie całkiem duża, a śmiertelnicy wznoszący ikony i symbole swoich bogów potrafią czasem odpędzić wampira. Wampir wrażliwy na takie przedmioty musi zdać Test Opanowania, żeby podejść bliżej niż na 2 metry do osoby wznoszącej symbol religijny. Musi też zdać Trudny (−20) Test Opanowania, żeby wejść do świątyni albo chwycić religijną ikonę. MG może zmienić poziom trudności tego testu zależnie od siły wiary wyznawców świątyni albo dzierżyciela ikony.",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Słońce",
+      "category": "slabosci_wampira",
+      "effect": "Wampir w bezpośrednim świetle słońca ma wszystkie Cechy zmniejszone o połowę (w dół) i traci 1 punkt Żywotności za każdą minutę wystawienia, bez względu na Bonus Wytrzymałości i pancerz. Jeśli wampir spadnie w ten sposób do 0 Żywotności, ginie, podpalony światłem słońca. Kara nie działa, jeśli dzień jest wyraźnie pochmurny (zachmurzenie 80% albo więcej), ale wampir idący gdzieś w taki dzień musi co godzinę rzucić k10 — przy wyniku 1–2 niebo przejaśnia się dostatecznie, by zadać mu obrażenia. Za każdą rundę spędzoną w bezpośrednim świetle słońca wampir musi zdać Problematyczny (−10) Test Atletyki albo zyskuje stan Podpalenie.",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Trociny",
+      "category": "slabosci_wampira",
+      "effect": "Nieliczne wampiry odpychają akcesoria tych, którzy zajmują się zwłokami, na przykład trociny albo płyn balsamujący. Wampir z tą słabością musi zdać Test przeciw Grozie, gdy zetknie się z tymi substancjami.",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Łzy",
+      "category": "slabosci_wampira",
+      "effect": "Nieliczne wampiry nie znoszą łez cnotliwego śmiertelnika i dlatego nigdy nie żywią się niewinnymi, wolą zaś zepsutych, okrutnych i przestępców. Takie wampiry często zadają ofiarom szereg pytań, by ocenić jakość swoich śmiertelników, zanim zaatakują.",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Śpiący w Ziemi",
+      "category": "slabosci_wampira",
+      "effect": "Czy to przez zabobon, czy przez duchowe zerwanie więzi z życiodajną ziemią, możesz w pełni zasnąć tylko w ziemi z krain, które nazywałeś domem za życia. Musisz spać z co najmniej dwiema garściami tej ziemi każdego dnia, inaczej po przebudzeniu wieczorem zyskujesz +1 Stan Zmęczenie. Stanów tych nie da się usunąć, dopóki nie prześpisz całego dnia z dwiema garściami rodzinnej ziemi, przy czym ich kary nie mogą obniżyć żadnej Cechy poniżej 10.",
+      "source": "Wampiry"
+    },
+    {
+      "name": "Dowódca Oddziału",
+      "category": "profile_bohatera",
+      "effect": "Stworzenie, które nieco wybija się ponad swój rodzaj — sierżant, herszt bandy, przodownik.",
+      "source": "Bestiariusz 2.0",
+      "characteristics": {
+        "WW": 15,
+        "US": 10,
+        "S": 5,
+        "Wt": 5,
+        "I": 10,
+        "Zw": 5,
+        "Int": 5,
+        "SW": 10,
+        "Ogd": 10
+      }
+    },
+    {
+      "name": "Pomniejszy Bohater",
+      "category": "profile_bohatera",
+      "effect": "Zaprawione w boju stworzenie, które ma stanowić wyzwanie dla graczy.",
+      "source": "Bestiariusz 2.0",
+      "characteristics": {
+        "WW": 30,
+        "US": 20,
+        "S": 10,
+        "Wt": 10,
+        "I": 20,
+        "Zw": 10,
+        "Zr": 5,
+        "Int": 10,
+        "SW": 20,
+        "Ogd": 20
+      },
+      "traits": [
+        "+1 do Pancerza",
+        "Mistrz",
+        "+1 do Broni"
+      ]
+    },
+    {
+      "name": "Wielki Bohater",
+      "category": "profile_bohatera",
+      "effect": "Niezwykle potężny wódz lub boss — oś przygody albo jej ważny kamień milowy.",
+      "source": "Bestiariusz 2.0",
+      "characteristics": {
+        "WW": 45,
+        "US": 30,
+        "S": 20,
+        "Wt": 20,
+        "I": 30,
+        "Zw": 20,
+        "Zr": 10,
+        "Int": 20,
+        "SW": 30,
+        "Ogd": 30
+      },
+      "traits": [
+        "+2 do Pancerza",
+        "Mistrz",
+        "Twardziel",
+        "Tropiciel",
+        "+2 do Broni"
+      ]
+    }
+  ]
+}
