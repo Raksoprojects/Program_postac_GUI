@@ -22,7 +22,31 @@
       "Szamanka",
       "Kowal Run",
       "Artylerzysta",
-      "Kartografka"
+      "Kartografka",
+      "Kapłan Kuźni",
+      "Kapłan Ogniska",
+      "Runopisarz",
+      "Strażnik-Kapłan Taala",
+      "Kapłan Manana",
+      "Kapłan Morra",
+      "Kapłan Myrmidii",
+      "Kapłan Ranalda",
+      "Kapłanka Rhyi",
+      "Kapłanka Shallyi",
+      "Kapłan Sigmara",
+      "Kapłan Taala",
+      "Kapłan Ulryka",
+      "Kapłanka Vereny",
+      "Mag",
+      "Kapłan-Kowal Vaula",
+      "Tkacz Burzy",
+      "Mistrz Wiedzy Hoetha",
+      "Szaman Stada",
+      "Czarownik Chaosu",
+      "Magus Kultu Nurgle'a",
+      "Magus Kultu Slaanesha",
+      "Demonokowal",
+      "Wieszcz Północy"
     ]
   },
   "Mieszczanie": {
@@ -49,7 +73,9 @@
       "Służąca",
       "Szlachcic",
       "Szpieg",
-      "Zwadźca"
+      "Zwadźca",
+      "Than",
+      "Estetyk"
     ]
   },
   "Pospólstwo": {
@@ -63,7 +89,10 @@
       "Zarządca",
       "Zielarka",
       "Zwiadowca",
-      "Jasnowidząca"
+      "Jasnowidząca",
+      "Gajowy",
+      "Kłusownik",
+      "Kapłan Druidzki"
     ]
   },
   "Wędrowcy": {
@@ -77,7 +106,13 @@
       "Posłaniec",
       "Strażniczka Dróg",
       "Woźnica",
-      "Ciura Obozowa"
+      "Ciura Obozowa",
+      "Zwiadowca Karaku",
+      "Elementalista",
+      "Rogaty Łowca Taala",
+      "Wojownik Cienia",
+      "Skald",
+      "Najeźdźca Ungorów"
     ]
   },
   "Wodniacy": {
@@ -90,7 +125,10 @@
       "Przemytniczka",
       "Przewoźnik",
       "Strażnik Rzeczny",
-      "Żeglarz"
+      "Żeglarz",
+      "Kupiec Poszukiwacz Przygód",
+      "Łupieżca Północy",
+      "Wielorybnik Norski"
     ]
   },
   "Łotry": {
@@ -103,7 +141,15 @@
       "Rajfur",
       "Rekietierka",
       "Szarlatan",
-      "Złodziej"
+      "Złodziej",
+      "Kapłan-Złodziej",
+      "Fałszerz",
+      "Nekromanta",
+      "Nocny Łotr Ranalda",
+      "Kapłan-Hazardzista",
+      "Kapłan-Zwodziciel",
+      "Kapłan-Opiekun",
+      "Nadzorca Niewolników"
     ]
   },
   "Wojownicy": {
@@ -129,7 +175,33 @@
       "Lekki Kawalerzysta",
       "Specjalista Oblężniczy",
       "Pikinier",
-      "Kapłanka Bitewna Myrmidii"
+      "Kapłanka Bitewna Myrmidii",
+      "Kapłan Zagłady",
+      "Młotodzierżca",
+      "Żelazołamacz",
+      "Szpitalnik Shallyi",
+      "Strażnik Szali Vereny",
+      "Tarczowniczka Myrmidii",
+      "Siostra Sigmara",
+      "Strażnik Burzy Manana",
+      "Kapłan Bitewny Morra",
+      "Kapłan Bitewny Sigmara",
+      "Kapłan Bitewny Ulryka",
+      "Straż Morska",
+      "Mistrz Miecza",
+      "Berserker",
+      "Bestigor",
+      "Rycerz Chaosu",
+      "Maruder Chaosu",
+      "Kultysta Khorne'a",
+      "Wywyższony Bohater",
+      "Wolny Człowiek Północy",
+      "Piekielny Rycerz",
+      "Piekielna Straż",
+      "Rycerz Tzeentcha",
+      "Rycerz Zarazy",
+      "Miażdżyciel Czaszek",
+      "Wojownik Chaosu"
     ]
   }
 }

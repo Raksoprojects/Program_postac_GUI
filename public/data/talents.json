@@ -336,7 +336,7 @@
     "description": "Dobrze przewidujesz, czego będą potrzebować inni i co przyda się tobie. Tyle razy na sesję, ile razy wykupiłeś ten Talent, możesz wyciągnąć z plecaka lub sakwy niezbędny przedmiot, jeśli jego ciężar w punktach obciążenia wynosi 0, mógł zostać niedawno kupiony i jego posiadanie nie jest czymś niezwykłym. Może to być butelka spirytusu, potrzebna do polania rany kompana, lub gwizdek, którego zabrakło występującemu cyrkowcowi. Kiedy użyjesz tego Talentu, odlicz pieniądze za przedmiot, pokazując tym, że wcześniej go kupiłeś.",
     "source": "Podręcznik podstawowy"
   },
-  "Doświadczony Wędrowiec (Wybrany T eren)": {
+  "Doświadczony Wędrowiec (Wybrany Teren)": {
     "max": {
       "type": "characteristic",
       "attr": "Zw",
@@ -637,7 +637,10 @@
     "source": "Podręcznik podstawowy",
     "variants": {
       "pod_bronia": {
-        "max": { "type": "fixed", "value": 1 },
+        "max": {
+          "type": "fixed",
+          "value": 1
+        },
         "max_raw": "1",
         "description": "Wiesz dobrze, gdzie uderzyć, by wyrządzić jak najwięcej krzywdy. Kiedy rzucasz w Tabeli Ran Krytycznych, rzuć dwa razy i wybierz jeden z wyników.",
         "source": "Pod Bronią"
@@ -784,7 +787,10 @@
     "source": "Podręcznik podstawowy",
     "variants": {
       "pod_bronia": {
-        "max": { "type": "fixed", "value": 1 },
+        "max": {
+          "type": "fixed",
+          "value": 1
+        },
         "max_raw": "1",
         "description": "Kiedy skupisz się na celu, nie sposób cię powstrzymać przed dotarciem do niego. Koszt wykonania Akcji Ucieczka przed zagrożeniem zostaje zmniejszony do 1 Przewagi.",
         "source": "Pod Bronią"
@@ -1490,17 +1496,6 @@
       }
     }
   },
-  "T owarzyski": {
-    "max": {
-      "type": "characteristic",
-      "attr": "Ogd",
-      "attr_name": "Ogłady"
-    },
-    "max_raw": "Bonus z Ogłady",
-    "tests": "Plotkowanie z wędrowcami",
-    "description": "Po prostu lubisz sobie pogadać z ludźmi, a oni z tobą. Możesz odwrócić kolejność kostek nieudanego Testu Plotkowania, jeśli nowy wynik będzie oznaczał udany Test.",
-    "source": "Podręcznik podstawowy"
-  },
   "Tragarz": {
     "max": {
       "type": "characteristic",
@@ -1521,17 +1516,6 @@
     "max_raw": "Bonus z Inicjatywy",
     "tests": "Percepcja, by zauważyć pułapki, Zastawianie Pułapek",
     "description": "Wiesz, jak używać wnyków, i możesz wykonać Test Percepcji, by je zauważyć, bez konieczności deklarowania poszukiwań. MG będzie pewnie wolał wykonać go samemu, na wypadek gdyby rzut okazał się nieudany.",
-    "source": "Podręcznik podstawowy"
-  },
-  "T wardziel": {
-    "max": {
-      "type": "characteristic",
-      "attr": "Wt",
-      "attr_name": "Wytrzymałości"
-    },
-    "max_raw": "Bonus z Wytrzymałości",
-    "tests": null,
-    "description": "Na stałe zwiększasz swoją Żywotność o Bonus z Wytrzymałości. Jeśli ten się zwiększy, wraz z nim wzrośnie również twoja Żywotność wynikająca z tego Talentu.",
     "source": "Podręcznik podstawowy"
   },
   "Ulicznik": {
@@ -1967,9 +1951,9 @@
     },
     "max_raw": null,
     "tests": null,
-    "wounds_toughness_bonus": true,
     "description": "",
-    "source": "Do uzupełnienia"
+    "source": "Do uzupełnienia",
+    "wounds_toughness_bonus": true
   },
   "Towarzyski": {
     "max": {
@@ -1982,12 +1966,15 @@
   },
   "Pamiętliwy": {
     "max": {
-      "type": "none"
+      "type": "characteristic",
+      "attr": "Int",
+      "attr_name": "Inteligencji"
     },
-    "max_raw": null,
-    "tests": null,
-    "description": "",
-    "source": "Do uzupełnienia"
+    "max_raw": "Bonus z Inteligencji",
+    "tests": "",
+    "description": "Testy: Testy Inteligencji na przypomnienie sobie Nigdy nie zapominasz twarzy — ani obietnicy. W przeciwieństwie do elfiej techniki Wieża Pamięci ( Podręcznik Główny WFRP ), którą Krasnoludy uważają za błahą i wadliwą, korzystasz z pamięci zmysłowej, wiążąc szczegóły z realnymi miejscami, w których je zaobserwowałeś, przez przywołanie konkretnego wrażenia, smaku albo zapachu z tamtego miejsca. Przypominając sobie ważne wydarzenia, w których brałeś udział wcześniej w kampanii, pamiętasz bezbłędnie porę, datę, miejsce i widoczne twarze wszystkich obecnych oraz dokładnie to, co obiecali powiedzieć lub zrobić. Przy ważnym wydarzeniu, którego byłeś świadkiem przed rozpoczęciem kampanii, może być potrzebny Test Inteligencji, o trudności zależnej od upływu czasu — Łatwy (+40) dla wydarzeń sprzed kilku miesięcy, Bardzo Trudny (–20) dla sprzed stulecia.",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 80
   },
   "Zręczne Palce": {
     "max": {
@@ -2009,11 +1996,406 @@
   },
   "Mistrzowska Magia Runiczna": {
     "max": {
+      "type": "characteristic",
+      "attr": "SW",
+      "attr_name": "Siły Woli"
+    },
+    "max_raw": "Bonus z Siły Woli",
+    "tests": "",
+    "description": "Testy: Runotwórstwo Poznałeś sekretne obrzędy tworzenia runy mistrzowskiej… lecz to, czy starczy ci umiejętności, by ją wykuć, dopiero się okaże. Wybierz runę mistrzowską ze stron 127–131. Jeśli twój Talent określa formę albo formy run (np. Runy Ochronne), musisz wybrać runę mistrzowską ze wskazanych list. Możesz użyć Przedsięwzięcia Wykuwanie Runy, by wyryć wybraną runę mistrzowską na przedmiocie. Za każdym razem, gdy kupujesz ten Talent, poznajesz nową runę mistrzowską, którą potrafisz wykuć. Pełne zasady runotwórstwa znajdziesz na stronie 121. Ponadto przy pierwszym zdobyciu tego Talentu poznajesz także wszystkie trzy Runy Zagłady (s. 132).",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 81
+  },
+  "Duchowy Chowaniec": {
+    "max": {
+      "type": "fixed",
+      "value": 1
+    },
+    "max_raw": "1",
+    "tests": null,
+    "source": "Grimuar (nieoficjalny), s. 20",
+    "description": "Duch zwierzęcia z twojej wizji staje się twoim chowańcem — podąża za tobą i przynosi korzyści w zamian za przestrzeganie Nakazów Starej Wiary. Zwierzęta z gatunku chowańca reagują na ciebie obojętnie albo przyjaźnie. Druid musi mieć ten Talent, by rzucać zaklęcia."
+  },
+  "Błogosławiony przez Ishę": {
+    "max": {
+      "type": "fixed",
+      "value": 1
+    },
+    "max_raw": "1",
+    "tests": "",
+    "description": "Tylko Elfy. Służyłeś jako nowicjusz Ishy i otrzymałeś błogosławieństwo wiecznej królowej na Ulthuanie (Asur) albo Ariel w Athel Loren (Asrai). Możesz nauczyć się Talentu Wysoka Magia.",
+    "source": "Podręcznik Gracza: Wysokie Elfy",
+    "page": 83
+  },
+  "Wysoka Magia": {
+    "max": {
       "type": "none"
     },
-    "max_raw": null,
+    "max_raw": "brak",
+    "tests": "Splatanie Magii (Qhaysh)",
+    "description": "Wymaga Splatania Magii (Qhaysh) i Talentu Błogosławiony przez Ishę. Możesz czerpać z Wiatrów, które normalnie byłyby dla ciebie niedostępne — rzucając zaklęcia Tradycji Zwierząt, Śmierci, Ognia, Niebios, Życia, Światła, Metalu lub Cieni brak dostępu do Wiatru nie przeszkadza. Po udanym rzuceniu poziom Wysokiej Magii dolicza się do PS Przeciążania. Możesz uczyć się zaklęć Tradycji Wysokiej Magii.",
+    "source": "Podręcznik Gracza: Wysokie Elfy",
+    "page": 83,
+    "minTier": "heroiczny"
+  },
+  "Błogosławieństwo Lileath": {
+    "max": {
+      "type": "characteristic",
+      "attr": "I",
+      "attr_name": "Inicjatywy"
+    },
+    "max_raw": "Bonus z Inicjatywy",
+    "tests": "Splatanie Magii (Qhaysh)",
+    "description": "Wykorzystujesz ruchy ciał niebieskich, sny i wróżby, by wzmocnić Qhaysh. Każdy poziom daje +1 PS do Testów Splatania Magii (Qhaysh) i pozwala utrzymać dodatkowe zaklęcie auryczne (dającą Ochronę), także zaklęć Kolorów.",
+    "source": "Podręcznik Gracza: Wysokie Elfy",
+    "page": 83
+  },
+  "Sztuki Walki": {
+    "max": {
+      "type": "characteristic",
+      "attr": "WW",
+      "attr_name": "Walki Wręcz"
+    },
+    "max_raw": "Bonus z Walki Wręcz",
+    "tests": "",
+    "description": "Ataki bez broni tracą Wadę Niegroźny. Za każdy kolejny poziom możesz walcząc bez broni korzystać z jednej Zalety: Przebijająca, Parująca, Dekoncentrująca, Szybka, Przekłuwająca, Precyzyjna albo Ogłuszająca — wybierasz ją na początku walki i każdej swojej Tury.",
+    "source": "Podręcznik Gracza: Wysokie Elfy",
+    "page": 68
+  },
+  "Taniec Miecza": {
+    "max": {
+      "type": "fixed",
+      "value": 1
+    },
+    "max_raw": "1",
+    "tests": "",
+    "description": "Znasz starożytną tradycję Tańca Miecza (wymaga Dwuręcznego Miecza Hoetha albo rodowego zaczarowanego miecza) i możesz zapamiętywać jej techniki. Znasz Rytuał Oczyszczenia; kolejna technika kosztuje 100 PD za każdą już znaną.",
+    "source": "Podręcznik Gracza: Wysokie Elfy",
+    "page": 68
+  },
+  "Medytacja Cadai": {
+    "max": {
+      "type": "fixed",
+      "value": 1
+    },
+    "max_raw": "1",
+    "tests": "Modlitwa",
+    "description": "Codzienna, co najmniej godzinna medytacja i Przeciętny (+20) Test Modlitwy pozwalają dostosować Stan Yenlui do Yenlui (Światło).",
+    "source": "Podręcznik Gracza: Wysokie Elfy",
+    "page": 101
+  },
+  "Umysł Ponad Ciałem": {
+    "max": {
+      "type": "fixed",
+      "value": 3
+    },
+    "max_raw": "3",
+    "tests": "Modlitwa",
+    "description": "Ta technika medytacyjna pozwala elfiemu rzucającemu znosić cierpienie fizyczne, a nawet widzieć po trwałym oślepieniu. By skorzystać z tego Talentu, musisz spędzić co najmniej dwadzieścia minut w cichej kontemplacji, po czym zdać Wymagający (+0) Test Modlitwy. Jeśli go zdasz, zyskujesz następujące korzyści na 1k10 + PS k10 godzin. 1 poziom: Zyskujesz Cechę Stworzenia Bezbolesny i nie otrzymujesz Stanów wywołanych bólem. 2 poziomy: Zyskujesz boski wzrok. Możesz dostrzegać kształty przedmiotów lub stworzeń oczyma umysłu, lecz nie kolory, wyrazy twarzy ani drobne detale — z wyjątkiem przedmiotów wykutych. Testy Rzemiosła (Kowalstwo) wykonujesz bez kary za ślepotę i jesteś odporny na Stan Oślepienie, nawet z magicznych lub boskich źródeł. 3 poziomy: Możesz użyć Determinacji, by zignorować kary z Ran Krytycznych podczas Testów Rozszerzonych (takich jak Przedsięwzięcia Rzemieślnicze ).",
+    "source": "Podręcznik Gracza: Wysokie Elfy",
+    "page": 101
+  },
+  "Oko Sztormu": {
+    "max": {
+      "type": "fixed",
+      "value": 3
+    },
+    "max_raw": "3",
+    "tests": "Modlitwa",
+    "description": "Ta medytacyjna technika poprawia skupienie i odporność elfiego rzucającego zaklęcia, a ci, którzy w pełni ją opanują, mogą wpływać na pogodę. Aby skorzystać z tego Talentu, musisz spędzić co najmniej dwadzieścia minut w cichym skupieniu, po czym zdać Wymagający (+0) Test Modlitwy. Jeśli ci się powiedzie, zyskujesz poniższe korzyści na 1k10 + PS k10 godzin. 1 poziom: Jesteś odporny na wszelkie rozproszenia, które normalnie przerwałyby Splatanie Magii. 2 poziomy: Usuwasz Stany Zmęczenia w połowie normalnego czasu ustalonego przez MG ( WFRP, strona 169). Dodatkowo możesz ignorować kary do Testów Splatania Magii i Rzucania Zaklęcia wynikające ze Stanów Zmęczenia. 3 poziomy: Wykonując rzut na Tabeli Pogody (zob. Morze Szponów, strona 106, lub **Zwinne Kroki, Lekkie Palce**, strona 114), możesz dodać lub odjąć 1 od wszystkich rzutów kością. Kapłan Mathlanna Kult Mathlanna to luźno zorganizowana hierarchia, a jego świątynie są często zaniedbane. Tkacze Burzy mają więc swobodę żeglowania po morzach w poszukiwaniu przygód. Rafowe świątynki Mathlanna znajdują się wszędzie tam, dokąd dotarły elfie żagle. Świątynki te często rzeźbi się na podobieństwo samego boga albo jednego z jego ulubionych morskich stworzeń. Główna świątynia Ulthuanu to wielowieżowa budowla z dolomitu i koralu, położona na Zmiennych Wyspach.",
+    "source": "Podręcznik Gracza: Wysokie Elfy",
+    "page": 105
+  },
+  "Azyl Umysłu": {
+    "max": {
+      "type": "fixed",
+      "value": 3
+    },
+    "max_raw": "3",
+    "tests": "Modlitwa",
+    "description": "Medytacyjne techniki Hoetha są wykorzystywane przez elfich rzucających zaklęcia, by chronić umysł przed zepsuciem i szaleństwem. Aby skorzystać z tego Talentu, musisz spędzić co najmniej dwadzieścia minut w cichym skupieniu, po czym zdać Wymagający (+0) Test Modlitwy. Jeśli ci się powiedzie, zyskujesz poniższe korzyści na 1k10 + PS k10 godzin. 1 poziom: Jesteś odporny na wszelkie punkty Zepsucia wynikające z rzucania zaklęć. 2 poziomy: Możesz dodać +1 PS do dowolnych wykonywanych Testów Badań Naukowych. 3 poziomy: Jesteś zwolniony z ujemnych modyfikatorów wynikających ze Stanów Yenlui (zob. strona 47).",
+    "source": "Podręcznik Gracza: Wysokie Elfy",
+    "page": 109
+  },
+  "Krew Aenariona": {
+    "max": {
+      "type": "fixed",
+      "value": 1
+    },
+    "max_raw": "1",
+    "tests": "",
+    "description": "Jesteś potomkiem Aenariona, pierwszego feniksowego króla: masz wyjątkowe przeznaczenie i dodatkowy Punkt Przeznaczenia. Jedni Elfowie cię podziwiają, inni uważają potomków Aenariona za z natury niebezpiecznych.",
+    "source": "Podręcznik Gracza: Wysokie Elfy",
+    "page": 51
+  },
+  "Obuchowiec": {
+    "max": {
+      "type": "characteristic",
+      "attr": "S",
+      "attr_name": "Siły"
+    },
+    "max_raw": "Bonus z Siły",
+    "tests": "",
+    "description": "Testy: Testy Siły przy aktywowaniu Cechy Oręża Tłukąca. Potężniejszych wrogów zmuszasz do uległości brutalnymi uderzeniami młota w głowę, przez co są zupełnie bezbronni, gdy ich dobijasz. Gdy wygrasz Test Sporny, by aktywować Cechę Tłukąca, nakładasz dodatkowy Stan Oszołomiony za każdy poziom Obuchowca.",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 80
+  },
+  "Burzyciel": {
+    "max": {
+      "type": "characteristic",
+      "attr": "S",
+      "attr_name": "Siły"
+    },
+    "max_raw": "Bonus z Siły",
+    "tests": "",
+    "description": "Testy: Broń Biała przy niszczeniu przedmiotów nieożywionych bronią z Cechą Rąbiąca Osłona ani zbroja nie chronią przed cięciem twojego topora. Gdy aktywujesz Cechę Rąbiąca w ramach ataku, zadajesz +1 dodatkowych Obrażeń trafionej zbroi albo tarczy za każdy poziom Burzyciela. Ponadto gdy atakujesz wroga w osłonie bronią z Cechą Rąbiąca, twarda osłona liczy się jak średnia, średnia jak miękka, a miękka nie daje żadnej ochrony.",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 80
+  },
+  "Smoczy Wydech": {
+    "max": {
+      "type": "special"
+    },
+    "max_raw": "Bonus z Umiejętności Strzeleckich",
+    "tests": "",
+    "description": "Niektóre plemiona Goblinów nazywają krasnoludzką broń palną „smoczymi wydechami” — od wściekłego ryku i wybuchu dymu przy wystrzale. Wykorzystujesz ten psychologiczny efekt, by rozproszyć i przygwoździć przeciwników ogniem zaporowym. Gdy strzelasz z broni z Cechą Prochowa, wzięci na cel wrogowie, którym nie powiedzie się Test Opanowania, otrzymują dodatkowy Stan Załamany za każdy poziom Smoczego Wydechu.",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 80
+  },
+  "Okopanie": {
+    "max": {
+      "type": "characteristic",
+      "attr": "Int",
+      "attr_name": "Inteligencji"
+    },
+    "max_raw": "Bonus z Inteligencji",
+    "tests": "",
+    "description": "Testy: Rzemiosło przy budowaniu osłon Wykorzystujesz każdy dostępny teren, by osłonić siebie i sojuszników przed ostrzałem. Gdy jesteś w miękkiej osłonie, ataki wymierzone w ciebie są Bardzo Trudne (–20) zamiast Trudnych (–10). Gdy jesteś w średniej osłonie, ataki są Ekstremalnie Trudne (–30) zamiast Bardzo Trudnych (– 20).",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 80
+  },
+  "Chwalebny Kres": {
+    "max": {
+      "type": "fixed",
+      "value": 1
+    },
+    "max_raw": "1",
+    "tests": "",
+    "description": "Twoja żądza krwi jest tak silna, że przełamuje naturalny odruch ciała, by po urazie odpocząć. Gdy otrzymasz Stan Nieprzytomny, możesz przerwać kolejność Tur i wykonać natychmiastowy atak Bronią Białą jako Darmową Akcję, zanim zostaniesz wyłączony z walki. Gdy otrzymasz Stan Oszołomiony, możesz wydać punkt Szczęścia, by wykonać natychmiastowy atak Bronią Białą jako Darmową Akcję. Swoją kolejną Turę rozgrywasz normalnie, co oznacza, że nie możesz wykonać Akcji, jeśli wciąż jesteś Oszołomiony.",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 80
+  },
+  "Harpunnik": {
+    "max": {
+      "type": "special"
+    },
+    "max_raw": "Bonus z Umiejętności Strzeleckich",
+    "tests": "",
+    "description": "Jako doświadczony kusznik razisz cel z precyzją, przebijając go bełtami w wyjątkowo bolesnych miejscach. Gdy zadasz Trafienie Krytyczne bronią kuszową, możesz zwiększyć wynik rzutu w tabeli Trafień Krytycznych o +10 za każdy poziom Harpunnika, maksymalnie do 00. Ponadto bełty tkwiące w ciele celu za sprawą Cechy Nadziewająca obniżają jego Ruch",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 80
+  },
+  "Gwardia Królewska": {
+    "max": {
+      "type": "fixed",
+      "value": 3
+    },
+    "max_raw": "3",
+    "tests": "",
+    "description": "Jesteś zaprzysiężony bronić życia swojego pana i każdego, kogo ten wskaże jako objętego twoją ochroną. Jeśli oznacza to poświęcenie własnego życia, by osłonić powierzoną ci osobę, jesteś na to gotów. Każdy atak wroga wymierzony w sojusznika znajdującego się w promieniu 2 metrów od ciebie otrzymuje modyfikator –10 za każdy poziom Gwardii Królewskiej. Talent nie działa na ataki wymierzone w ciebie ani wtedy, gdy cierpisz na jakikolwiek Stan.",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 80
+  },
+  "Odszczepieniec": {
+    "max": {
+      "type": "special"
+    },
+    "max_raw": "Bonus ze Zwinności",
+    "tests": "",
+    "description": "Testy: Testy Żeglarstwa (Machiny Latające) przy szybkim i ryzykownym lataniu. Jesteś doświadczonym, choć lekkomyślnym lotnikiem, który stawia na szybkość i miażdżącą siłę ognia. Nie otrzymujesz kary –20 do ataków Bronią Zasięgową, korzystając z Cechy Stworzenia Latanie.",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 81
+  },
+  "Krótki Lont": {
+    "max": {
+      "type": "characteristic",
+      "attr": "Int",
+      "attr_name": "Inteligencji"
+    },
+    "max_raw": "Bonus z Inteligencji",
+    "tests": "",
+    "description": "Odmierzasz czas swoim ładunkom tak, by wybuchały w najlepszym momencie, rozsiewając odłamki najdalej, jak się da. Używając broni wybuchowej z Cechą Wybuchowa, zwiększ jej Wartość o +1 za każdy poziom Krótkiego Lontu.",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 82
+  },
+  "Podkopywacz": {
+    "max": {
+      "type": "special"
+    },
+    "max_raw": "Bonus ze Zwinności",
+    "tests": "",
+    "description": "Testy: Rzadko masz nad wrogiem przewagę wzrostu, ale nauczyłeś się to nadrabiać, atakując z nieoczekiwanej strony. Nie otrzymujesz kar za atakowanie, gdy masz Stan Powalony albo w inny sposób znajdujesz się poniżej celu. Wrogowie nie otrzymują premii do ataków na ciebie, gdy masz Stan Powalony. Zyskujesz dodatkowe +20 do trafienia Zaskoczonych wrogów, gdy wyłaniasz się z tunelu, dołu albo innej ukrytej pozycji pod nimi.",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 82
+  },
+  "Wir Śmierci": {
+    "max": {
+      "type": "fixed",
+      "value": 1
+    },
+    "max_raw": "1",
+    "tests": "",
+    "description": "Atakujesz zamaszyście, bez wyboru celu, w furii, przedzierając się przez całe szyki wrogich wojowników. Jako Akcję możesz wydać 1 punkt Szczęścia, by wykonać atak Bronią Białą przeciw wszystkim stworzeniom Związanym z tobą Walką. MG wybiera jednego wroga, który przeciwstawi się temu Testowi. Jeśli atak się powiedzie, zadajesz te same Obrażenia w to samo Miejsce Trafienia wszystkim Związanym Walką stworzeniom, licząc je normalnie. Przy atakach Wiru Śmierci nie stosuje się Trafień Krytycznych, choć Rany Krytyczne przypadają normalnie wrogom sprowadzonym do 0 Żywotności. W ramach Wiru Śmierci nie możesz aktywować żadnych innych opcji ataku specjalnego. Jeśli jednak Bohater z Talentem Dwie Bronie ( Podręcznik Główny WFRP ) trzyma w Wirze Śmierci dwie bronie, może Odwrócić Test ataku Bronią Białą.",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 82
+  },
+  "Oko Bogów": {
+    "max": {
+      "type": "characteristic",
+      "attr": "WW",
+      "attr_name": "Walki Wręcz"
+    },
+    "max_raw": "Bonus z Walki Wręcz",
+    "tests": "Walka wręcz w pojedynku",
+    "description": "Wszyscy czterej Mroczni Bogowie uznali cię za Czempiona Chaosu. W walce możesz jako Akcję wyzwać jednego przeciwnika na pojedynek (+1 do Obrażeń wręcz w pojedynku); wyzwania elitarnych wrogów musisz przyjąć. Przegrany albo odrzucony pojedynek: 1k10+8 Ran ignorujących BWt i PP. Zwycięstwo nad godnym rywalem: rzut k10 na tabelę Daru Chaosu.",
+    "source": "Warriors of Chaos (Ratter)"
+  },
+  "Znak Chaosu (Bóg)": {
+    "max": {
+      "type": "fixed",
+      "value": 3
+    },
+    "max_raw": "3 (ogólny Znak Chaosu: 1)",
     "tests": null,
-    "description": "",
-    "source": "Do uzupełnienia"
+    "description": "Czempion ślubuje jednemu Mrocznemu Bogu i otrzymuje jego znak (wybór ostateczny). Khorne: Nienawiść (Slaanesh) i Wrogość (Tzeentch), nie może używać magii, Szał Bojowy bez Testu; 2. poziom — brak Zmęczenia po Szale; 3. poziom — dwa Darmowe Ataki wręcz na Rundę. Nurgle: Nienawiść (Tzeentch) i Wrogość (Slaanesh), Cecha Nie Czuje Bólu; 2. — Dekoncentrujący; 3. — Regeneracja. Slaanesh: Nienawiść (Khorne) i Wrogość (Nurgle), +poziom do PS Testów Psychologii; 2. — Wojowniczy; 3. — ignoruje kary od Cech Stworzeń wpływających na walkę. Tzeentch: Nienawiść (Nurgle) i Wrogość (Khorne), Ochrona (9+) i o 1 lepsza za poziom (do 7+); 2. — Odporność na Magię równa BSW; 3. — Talent Przeszywające Spojrzenie. Czarujący wybierają tylko Nurgle’a, Slaanesha albo Tzeentcha i używają jego Tradycji Chaosu.",
+    "source": "Warriors of Chaos (Ratter)"
+  },
+  "Przesycenie Magią": {
+    "max": {
+      "type": "fixed",
+      "value": 1
+    },
+    "max_raw": "1",
+    "tests": null,
+    "description": "Wszystkie zaklęcia rzucane w promieniu tylu metrów, ile wynosi twój Bonus z Siły Woli, zyskują +1 PS przy rzucaniu (premia tylko raz na zaklęcie).",
+    "source": "Bestiariusz 2.0"
+  },
+  "Przeszywające Spojrzenie": {
+    "max": {
+      "type": "characteristic",
+      "attr": "I",
+      "attr_name": "Inicjatywy"
+    },
+    "max_raw": "Bonus z Inicjatywy",
+    "tests": "Percepcja (Wzrok)",
+    "description": "Dar Tzeentcha. Jako Akcję badasz przeciwników w walce; w następnej Turze twoje ataki wręcz ignorują ich Bonus z Wytrzymałości i Punkty Pancerza. Liczba badanych przeciwników = poziom Talentu.",
+    "source": "Warriors of Chaos (Ratter)"
+  },
+  "Podwójne Życie": {
+    "max": {
+      "type": "fixed",
+      "value": 1
+    },
+    "description": "Talent kultystów z dodatku Enemy in Shadows Companion (Double Life). Prowadzisz drugie, jawne życie, które skrywa twoją przynależność do kultu — szczegółowe zasady w tym dodatku; ustal działanie z MG.",
+    "source": "Warriors of Chaos (nieoficjalny)"
+  },
+  "Kontrolowane Zepsucie": {
+    "max": {
+      "type": "fixed",
+      "value": 1
+    },
+    "description": "Talent z dodatku Power Behind the Throne Companion (Controlled Corruption). Pozwala panować nad skutkami Zepsucia (mutacjami) zsyłanymi przez Slaanesha — szczegółowe zasady w tym dodatku; ustal działanie z MG.",
+    "source": "Warriors of Chaos (nieoficjalny)"
+  },
+  "Dodatkowe Zaklęcie": {
+    "max": {
+      "type": "none"
+    },
+    "description": "Talent z dodatku Power Behind the Throne Companion (Extra Spell). Poznajesz dodatkowe zaklęcie ze znanej tradycji (wg dodatku) — ustal szczegóły z MG.",
+    "source": "Warriors of Chaos (nieoficjalny)"
+  },
+  "Błogosławieństwo Tzeentcha": {
+    "max": {
+      "type": "fixed",
+      "value": 1
+    },
+    "description": "Talent z dodatku Enemy in Shadows Companion (Tzeentch's Blessing) — dar Pana Przemian dla jego czarowników; szczegółowe zasady w tym dodatku, ustal działanie z MG.",
+    "source": "Warriors of Chaos (nieoficjalny)"
+  },
+  "Kantor": {
+    "max": {
+      "type": "fixed",
+      "value": 1
+    },
+    "max_raw": "1",
+    "tests": "Występy (Śpiewanie)",
+    "description": "Szkolono cię na kantora Kolegiów Magii. Możesz używać Występów (Śpiewanie) zamiast Splatania Magii; wszyscy magowie w promieniu tylu metrów, ile wynosi twoja Ogłada, mogą co rundę podebrać po 1 PS z twojego Rozszerzonego testu Splatania Magii. Możesz wspierać Splatanie Magii innego czarodzieja, nawet bez zdolności magicznych.",
+    "source": "Bestiariusz 2.0"
+  },
+  "Zdjęcie Klątwy": {
+    "max": {
+      "type": "special"
+    },
+    "max_raw": "Bieżący poziom profesji magicznej lub kapłańskiej (1–4)",
+    "tests": "Język (Magiczny) lub Modlitwa przy rozpraszaniu klątwy",
+    "description": "Dostępny dla postaci z talentem Magia Tajemna, Magia Chaosu, Czarownica! lub Inwokacja. Przy nieudanym teście Rozproszenia klątwy możesz odwrócić wynik rzutu, jeśli pozwoli to zdać test (także w testach Rozszerzonych). Naraz można zdjąć tylko jedną klątwę.",
+    "source": "Bestiariusz 2.0"
+  },
+  "Przesycenie Ulgu": {
+    "max": {
+      "type": "fixed",
+      "value": 1
+    },
+    "max_raw": "1",
+    "tests": "Testy, w których Splatanie Magii (Ulgu) zastępuje Skradanie",
+    "description": "Możesz używać Splatania Magii (Ulgu) zamiast Skradania we wszystkich stosownych testach. Każde udane rzucenie zaklęcia z Tradycji Cienia w promieniu 8 metrów od ciebie zyskuje +1 PS (premia tylko raz).",
+    "source": "Bestiariusz 2.0"
+  },
+  "Uraz Przodków": {
+    "max": {
+      "type": "characteristic",
+      "attr": "SW",
+      "attr_name": "Siły Woli"
+    },
+    "max_raw": "Bonus z Siły Woli",
+    "tests": "",
+    "description": "W Wielkiej Księdze Urazów są wpisy — zwłaszcza te przeciw Orkom, Goblinom i Skavenom — tak ciężkie, że pomścić je może wyłącznie wytępienie całego ich rodzaju. Odziedziczyłeś jeden z tych legendarnych urazów i choć nie masz szans doczekać jego zaspokojenia, z radością robisz swoje. Wybierz kulturę albo stronnictwo będące celem twojego Urazu Przodków (np. Orki, Gobliny, Skaveny, Trolle, demony Khorne’a itd.). Wpisz je do swojej Księgi Uraz jako cel zemsty, zgodnie z zasadami ze strony 33. Nosisz wobec tej grupy Krwawy Uraz, którego nigdy nie da się zaspokoić. Za każdym razem jednak, gdy odniesiesz nad nią znaczące zwycięstwo — niszcząc jej dzieła, odbierając coś skradzionego albo zabijając wielu jej przedstawicieli — otrzymujesz 50 PD.",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 80
+  },
+  "Ogień Kuźni": {
+    "max": {
+      "type": "fixed",
+      "value": 1
+    },
+    "max_raw": "1",
+    "tests": "",
+    "description": "Jesteś żywym ogniwem runicznej mocy i roztaczasz aurę bitewnej furii, która nasyca pobliski oręż żarem kuźni. Gdy jesteś Związany Walką, każda broń biała w rękach twoich albo sojusznika w promieniu Bonusu z Siły Woli w metrach zyskuje Cechę Przebijająca. Jeśli broń już jest Przebijająca, jej ataki ignorują dodatkowo 1 punkt niemetalowej zbroi.",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 80
+  },
+  "Płynna Forteca": {
+    "max": {
+      "type": "characteristic",
+      "attr": "Wt",
+      "attr_name": "Wytrzymałości"
+    },
+    "max_raw": "Bonus z Wytrzymałości",
+    "tests": "",
+    "description": "Testy: Mocna Głowa Wiele Krasnoludów twierdzi, że dobre piwo uspokaja nerwy i poprawia sprawność bojową krzepkiego wojownika. Mimo to rozważny wojak uważa, by nie uzależnić się od trunku — inaczej dopadnie go „gorączka piwna”. Po wypiciu alkoholu zyskujesz +10 do Siły i Wytrzymałości. Daje to natychmiastową premię do Testu Mocnej Głowy na wypicie trunku, a korzyść działa niezależnie od tego, czy Test się powiedzie. Zachowujesz ją, dopóki od ostatniego kielicha nie minie godzina — kolejne picie może przedłużyć efekt, ale nie zwiększa premii do Cech ponad +10.",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 80
+  },
+  "Wzgarda dla Magii": {
+    "max": {
+      "type": "characteristic",
+      "attr": "SW",
+      "attr_name": "Siły Woli"
+    },
+    "max_raw": "Bonus z Siły Woli",
+    "tests": "",
+    "description": "Testy: Testy Siły Woli przy używaniu Odporności na Magię ( Podręcznika Głównego WFRP ) Uziemiasz wrogie czary własnym ciałem, odmawiając poddania się ich kapryśnym zaklęciom. Możesz Odwrócić każdy Test, który musisz wykonać w ramach działania czaru, a także Testy rozpraszania magii przy pomocy Odporności na Magię ( Podręcznik Główny WFRP ).",
+    "source": "Podręcznik Gracza: Krasnoludy",
+    "page": 81
   }
 }

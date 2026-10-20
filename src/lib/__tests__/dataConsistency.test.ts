@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import type { ProfessionsData, SkillsData, TalentsData } from "../types";
+import { parseSpecialization } from "../specialization";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const dataDir = resolve(here, "../../../public/data");
@@ -43,10 +44,15 @@ describe("spojnosc danych: professions.json vs skills/talents (Faza I, pkt 20)",
   const talentKeys = new Set(Object.keys(talents).map(norm));
   const talentBases = new Set(Object.keys(talents).map(base));
 
+  // Wybór między całymi pozycjami ("A albo B" poza nawiasem) — każda opcja osobno.
+  const options = (name: string): string[] => {
+    const parts = parseSpecialization(name);
+    return parts.kind === "choice" && !parts.base ? parts.options : [name];
+  };
   const skillOk = (name: string): boolean =>
-    skillNames.has(norm(name)) || skillBases.has(base(name));
+    options(name).every((n) => skillNames.has(norm(n)) || skillBases.has(base(n)));
   const talentOk = (name: string): boolean =>
-    talentKeys.has(norm(name)) || talentBases.has(base(name));
+    options(name).every((n) => talentKeys.has(norm(n)) || talentBases.has(base(n)));
 
   const missingSkills: string[] = [];
   const missingTalents: string[] = [];
