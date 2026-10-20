@@ -12,6 +12,8 @@ export default defineConfig({
     svelte(),
     VitePWA({
       registerType: "autoUpdate",
+      // Rejestracja w src/main.ts (virtual:pwa-register) - przeladowuje strone po aktualizacji.
+      injectRegister: false,
       includeAssets: ["favicon.svg", "icon-192.png", "icon-512.png"],
       manifest: {
         name: "Karta Postaci WFRP 4ed",
