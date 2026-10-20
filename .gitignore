@@ -26,3 +26,7 @@ Thumbs.db
 
 # --- Podreczniki zrodlowe do przegladu (lokalne, NIE na repo) ---
 Sources/
+
+# --- Prywatne notatki i PDF-y w docs/ (lokalnie). W repo tylko struktura projektu ---
+docs/*
+!docs/STRUKTURA_PROJEKTU.md

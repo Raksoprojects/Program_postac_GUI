@@ -5,9 +5,9 @@ Ten dokument wyjaśnia, z jakich plików i katalogów składa się aplikacja
 można go bezpiecznie modyfikować. Jest to mapa dla osób, które chcą rozwijać
 projekt lub zmieniać dane gry.
 
-Powiązane przewodniki:
-- [ROZSZERZANIE_DANYCH.md](ROZSZERZANIE_DANYCH.md) — dodawanie talentów, umiejętności i profesji.
-- [DODAWANIE_PROFESJI_Z_DODATKU.md](DODAWANIE_PROFESJI_Z_DODATKU.md) — dodawanie profesji spoza podstawki.
+Powiązane przewodniki (tylko w lokalnej kopii autora, poza repozytorium):
+`ROZSZERZANIE_DANYCH.md` — dodawanie talentów, umiejętności i profesji;
+`DODAWANIE_PROFESJI_Z_DODATKU.md` — dodawanie profesji spoza podstawki.
 
 ---
 
@@ -73,6 +73,11 @@ npm test         # testy jednostkowe (Vitest)
 | `rules.ts` | Reguły gry WFRP 4ed: koszty rozwinięć cech/umiejętności/talentów, lista kodów cech (`ATTRIBUTES`). | Gdy zmieniają się progi/koszty mechaniki. |
 | `character.ts` | `DataManager` — model postaci: cechy, umiejętności, talenty, profesja, ścieżka kariery, import/eksport, tworzenie nowej postaci. Serce logiki. | Przy zmianie zachowania modelu postaci. |
 | `creation.ts` | Tworzenie postaci: rzuty kośćmi (k100, 2k10), losowanie rasy, wyliczanie Żywotności i ruchu. Funkcje czyste (przyjmują generator losowy → testowalne). | Przy zmianie zasad tworzenia postaci. |
+| `magic.ts` | Zaklęcia i modlitwy: profil z talentów (Magia Prosta/Tajemna/Chaosu, Błogosławieństwo, Inwokacja), dostępność i wykluczenia, koszty wg podstawki (Prosta: BSW darmowych, potem 50 PD × krotność BSW; Tajemna: 100 PD × krotność BInt; cuda: 100 PD × liczba znanych). Funkcje czyste. | Przy zmianie zasad nauki zaklęć/cudów. |
+| `artefacts.ts` | Generator przedmiotów magicznych (przeniesiony z Generatora BN): tabele k100 z *Treasure & Artefacts*, Zalety/Wady, klątwy, runy krasnoludzkie i Klausera, Broń Chaosu/demoniczna, przedmioty z podręczników. `rollArtefact`, `categoryList`, `categoryChoices`, `artefactToText`. | Przy zmianie zasad losowania przedmiotów. |
+| `equipment.ts` | Broń i pancerz: kopia pozycji z katalogu, Obrażenia (+BS), umiejętność ataku, PP na lokacjach, Tarcza, suma Obciążenia. Funkcje czyste. | Przy zmianie zasad broni/pancerza. |
+| `dice.ts` | Kości i losowanie z wstrzykiwanym RNG (`seedRng` do testów). | Rzadko. |
+| `modifiers.ts` | Modyfikatory postaci (mutacje, wampiryzm, Dary Chaosu/Krwi, własne): rzuty kośćmi z katalogu, tworzenie modyfikatora, sumowanie zmian cech/umiejętności/Żywotności. Funkcje czyste. | Przy zmianie zasad działania modyfikatorów. |
 | `pending.ts` | Silnik „oczekujących zmian”: zakup od razu zmniejsza PD, zatwierdzenie utrwala, cofnięcie zwraca PD. | Przy zmianie mechaniki wydawania PD. |
 | `gameData.ts` | Dostęp do danych gry (`public/data/*.json`): wczytywanie, wyszukiwanie profesji/klas/ras, dopasowywanie nazw, rozwijalność w profesji, mapowanie nazw cech na kody. | Przy dodawaniu akcesorów do danych. |
 | `storage.ts` | Trwałość: autozapis w `localStorage`, pobieranie i wczytywanie plików JSON/PDF (działa na telefonie i desktopie). | Przy zmianie sposobu zapisu/odczytu. |
@@ -92,6 +97,13 @@ npm test         # testy jednostkowe (Vitest)
 | `TabCechy.svelte` | Zakładka **Cechy**: 10 cech (początkowa/rozwinięcie/wartość/maks), przyciski `±1/±5`, filtr „tylko rozwijalne”, wartości drugorzędne. |
 | `TabUmiejetnosci.svelte` | Zakładka **Umiejętności**: lista z filtrem, dodawanie własnych, oznaczanie profesyjnych. |
 | `TabTalenty.svelte` | Zakładka **Talenty**: dodawanie z listy/własnych, maksima, opisy. |
+| `TabMagia.svelte` | Zakładka **Zaklęcia/Modlitwy**: znane zaklęcia (wg tradycji), błogosławieństwa z talentu, cuda; okno wyszukiwania całej bazy z kosztem, Zgodą MG i opcją „bez kosztu PD”. |
+| `TabModyfikatory.svelte` | Zakładka **Modyfikatory**: katalog mutacji/wampiryzmu/darów, modyfikatory własne, włączanie/wyłączanie, edycja. |
+| `TabBron.svelte` | Zakładka **Broń i pancerz**: broń i pancerz z katalogu lub własne, wartość testu (umiejętność albo sama cecha), Obrażenia z BS, PP na lokacjach (+BWt), Tarcza, Obciążenie. Eksport na stronę 2 karty PDF. |
+| `TabPrzedmioty.svelte` | Zakładka **Przedmioty magiczne**: generator (losowy / pół-losowy / własny) i lista przedmiotów zapisanych w postaci. Dane generatora ładowane leniwie przy pierwszym otwarciu. |
+| `ArtefactCard.svelte` | Karta wylosowanego przedmiotu (SW, Zalety/Wady, moce, zaklęcia z opisem, klątwa; przerzut, kopiowanie, „Dodaj do postaci”). |
+| `ModifierEditorModal.svelte` | Okno edycji modyfikatora (zmiany cech, umiejętności, Szybkości, Żywotności, Przeznaczenia/Bohatera, lokalizacja). |
+| `SpecializationModal.svelte` | Wybór specjalizacji dla wpisów „(Dowolna)” / „A albo B” (także przypisanie posiadanej pozycji). Przy wpisie dowolnym pokazuje podpowiedzi z danych (`gameData.specializationSuggestions`: specjalizacje z profesji, ras i pochodzeń, tradycje z `spells.json`, bóstwa z `prayers.json`). Otwiera się też przy dodawaniu szablonu („Język (...)”, „Magia Tajemna (Tradycja)”). |
 | `TabProfesja.svelte` | Zakładka **Profesja**: status kompletowania, edytor klasy/profesji/poziomu, ścieżka kariery, schemat poziomów 1–4. |
 | `TabKoszty.svelte` | Zakładka **Koszty**: kalkulator na żywo i tabela progów rozwinięć. |
 | `TabDoswiadczenie.svelte` | Zakładka **Doświadczenie**: ustawianie/dodawanie PD. |
@@ -114,17 +126,23 @@ test.
 | Element | Do czego służy |
 |---------|----------------|
 | `data/professions.json` | Profesje (kariery) i ich 4 poziomy: cechy, umiejętności, talenty, wyposażenie. |
-| `data/classes.json` | Klasy i przypisane do nich profesje (lista `careers`). |
+| `data/classes.json` | Klasy i przypisane do nich profesje (lista `careers`). Profesje z `evil: true` (Warriors of Chaos) są domyślnie ukryte — przełącznik „Profesje zła” w zakładce Profesja pokazuje je w osobnych grupach wg klas. |
 | `data/races.json` | Rasy: bazowe cechy, ruch, Żywotność, pule Przeznaczenia/Bohatera, tabele losowania. |
 | `data/skills.json` | Kanoniczna lista umiejętności (nazwa, cecha wiodąca, czy grupowa). |
 | `data/talents.json` | Talenty: limity (maksima), testy, opisy, źródło. |
+| `data/spells.json` | Zaklęcia (594) w 32 tradycjach z metadanymi (`group`: petty/arcane/chaos, `aliases` = nazwy w talentach). Z bazy Generatora BN + Necromancer Career (przekład). |
+| `data/prayers.json` | Błogosławieństwa (19), przydział 6 na bóstwo, cuda (131): podstawka, Zwinne Stopy Lekkie Palce (aspekty Ranalda, Taal), Warriors of Salvation (przekład). |
+| `data/modifiers.json` | Katalog modyfikatorów: mutacje (podręcznik i Mutant's Handbook), Dary Chaosu, przemiana w wampira (oficjalna i domowa), Dary Krwi, Słabości, profile bohatera. Generowany skryptem `tools/import_modifiers.mjs` z danych `Generator_NPC`, potem można edytować ręcznie. |
+| `data/weapons.json` | Katalog broni (białej 58, zasięgowej 37), pancerzy (14) i opisów Zalet/Wad. Kopia z `Generator_NPC`. |
+| `data/profession_titles.json` | Formy [męska, żeńska] nazw profesji i tytułów poziomów. Kopia z `Generator_NPC` uzupełniona skryptem `tools/titles_overlay.mjs` (profesje kapłańskie, krasnoludzkie, Warriors of Chaos + poprawki form żeńskich) — po ponownym skopiowaniu uruchomić skrypt. |
+| `data/names.json` | Imiona i nazwiska wg rasy i płci — przycisk „Losuj imię” w kreatorze. Kopia z `Generator_NPC`. |
+| `data/artefacts.json`, `data/treasures.json`, `data/magic_items.json` | Dane generatora przedmiotów magicznych — kopie z `Generator_NPC/public/data` (tam nic nie zmieniamy; po aktualizacji generatora skopiować ponownie). |
 | `data/empty_card.pdf` | Pusty szablon formularza PDF używany przy eksporcie nowej postaci. |
 | `favicon.svg`, `icon-192.png`, `icon-512.png` | Ikony aplikacji / PWA. |
 
 **Pliki `data/*.json` to kanoniczne źródło danych gry** — edytujesz je ręcznie
-w repozytorium (UTF-8). Szczegółowe schematy i przykłady znajdziesz w
-[ROZSZERZANIE_DANYCH.md](ROZSZERZANIE_DANYCH.md) oraz
-[DODAWANIE_PROFESJI_Z_DODATKU.md](DODAWANIE_PROFESJI_Z_DODATKU.md).
+w repozytorium (UTF-8). Schematy najłatwiej podejrzeć w istniejących wpisach
+tych plików.
 
 Po edycji JSON-a:
 
@@ -167,11 +185,32 @@ python -m unittest discover -p "test_*.py"   # testy
 
 ---
 
+## Wybory specjalizacji i modyfikatory w zapisie postaci
+
+- **Wybory „(Dowolna)” / „A albo B”** ze schematu profesji są zapisywane w JSON postaci
+  w polu `profession_choices` (klucz `profesja|poziom|wpis`, np.
+  `Żołnierz|2|Broń Biała (Dowolna)` → `Broń Biała (Drzewcowa)`). Wybrana pozycja jest
+  rozwijalna jak każda inna z profesji; każdy wpis „dowolny” to osobny slot. Wpis
+  bez wyboru nie odblokowuje całej grupy — w zakładkach Umiejętności/Talenty pojawia
+  się jako „Wybierz…”. Listę wyborów (z cofaniem) pokazuje zakładka Profesja.
+- **Modyfikatory** (pole `modifiers`) zmieniają wartość cech/umiejętności, ale nie są
+  rozwinięciami (nie wpływają na koszty PD ani kompletowanie profesji). Szybkość,
+  Przeznaczenie i Punkty Bohatera są doliczane do statystyk przy włączeniu modyfikatora
+  i odejmowane przy wyłączeniu/usunięciu. Karta PDF nie przechowuje ani wyborów, ani
+  modyfikatorów (eksportowane są tylko ich efekty w wartościach).
+
+Ponowne wygenerowanie katalogu modyfikatorów (nadpisuje ręczne zmiany w pliku):
+
+```powershell
+node tools/import_modifiers.mjs            # domyślnie ../Generator_NPC/public/data
+```
+
 ## Najczęstsze scenariusze modyfikacji
 
 - **Dodać/zmienić talent, umiejętność lub profesję** → edytuj odpowiedni plik
-  w `public/data/`; patrz [ROZSZERZANIE_DANYCH.md](ROZSZERZANIE_DANYCH.md).
-- **Dodać profesję z dodatku** → [DODAWANIE_PROFESJI_Z_DODATKU.md](DODAWANIE_PROFESJI_Z_DODATKU.md).
+  w `public/data/`.
+- **Dodać profesję z dodatku** → nowy wpis w `professions.json` i nazwa profesji
+  w liście `careers` klasy w `classes.json` (test `dataConsistency` sprawdza spójność).
 - **Zmienić koszty rozwoju / progi** → `src/lib/rules.ts`.
 - **Zmienić zasady tworzenia postaci** → `src/lib/creation.ts` i `src/components/CreatorModal.svelte`.
 - **Zmienić wygląd** → `src/styles/global.css` (zmienne) lub style w komponentach.
