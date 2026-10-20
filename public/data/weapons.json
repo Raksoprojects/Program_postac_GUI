@@ -1,0 +1,1970 @@
+{
+  "melee": {
+    "Bułat": {
+      "group": "Podstawowa",
+      "hands": "jednoręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Krótka",
+      "twoHanded": false,
+      "qualities": [
+        "Sieczna (1P)"
+      ],
+      "flaws": [],
+      "note": "Zakrzywione ostrze – straszliwe cięcia, krótszy zasięg niż miecz.",
+      "enc": "1",
+      "availability": "Ograniczona"
+    },
+    "Buzdygan": {
+      "group": "Podstawowa",
+      "hands": "jednoręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Średnia",
+      "twoHanded": false,
+      "qualities": [
+        "Ogłuszający"
+      ],
+      "flaws": [
+        "Niewyważony"
+      ],
+      "enc": "1",
+      "availability": "Powszechna"
+    },
+    "Broń improwizowana": {
+      "group": "Podstawowa",
+      "hands": "jednoręczna",
+      "damage": 1,
+      "sb": true,
+      "reach": "Różna",
+      "twoHanded": false,
+      "qualities": [],
+      "flaws": [
+        "Niewyważona",
+        "Tępa"
+      ],
+      "note": "Noga od krzesła, kamień, butelka, kij bilardowy…"
+    },
+    "Miecz": {
+      "group": "Podstawowa",
+      "hands": "jednoręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Średnia",
+      "twoHanded": false,
+      "qualities": [],
+      "flaws": [],
+      "note": "Wzorzec, do którego porównuje się resztę broni – dobrze wyważony, zwinny w ataku i obronie.",
+      "enc": "1",
+      "availability": "Powszechna"
+    },
+    "Mizerykordia": {
+      "group": "Podstawowa",
+      "hands": "jednoręczna",
+      "damage": 1,
+      "sb": true,
+      "reach": "B. krótka",
+      "twoHanded": false,
+      "qualities": [
+        "Nadziewająca",
+        "Precyzyjna",
+        "Przekłuwająca"
+      ],
+      "flaws": [],
+      "note": "* Nadziewająca i Precyzyjna działają tylko na cel Zaskoczony lub Powalony.",
+      "enc": "0",
+      "availability": "Ograniczona"
+    },
+    "Młot jednoręczny": {
+      "group": "Podstawowa",
+      "hands": "jednoręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Średnia",
+      "twoHanded": false,
+      "qualities": [
+        "Ogłuszający albo Przekłuwający"
+      ],
+      "flaws": [
+        "Niewyważony"
+      ],
+      "enc": "1",
+      "availability": "Ograniczona"
+    },
+    "Nadziak jednoręczny": {
+      "group": "Podstawowa",
+      "hands": "jednoręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Średnia",
+      "twoHanded": false,
+      "qualities": [
+        "Przekłuwający"
+      ],
+      "flaws": [
+        "Niewyważony"
+      ],
+      "enc": "1",
+      "availability": "Ograniczona"
+    },
+    "Nóż": {
+      "group": "Podstawowa",
+      "hands": "jednoręczna",
+      "damage": 1,
+      "sb": true,
+      "reach": "B. krótka",
+      "twoHanded": false,
+      "qualities": [],
+      "flaws": [
+        "Tępy"
+      ],
+      "note": "Krótkie ostrza nieprzeznaczone do walki: kuchenne, myśliwskie.",
+      "enc": "0",
+      "availability": "Powszechna"
+    },
+    "Pałka": {
+      "group": "Podstawowa",
+      "hands": "jednoręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Średnia",
+      "twoHanded": false,
+      "qualities": [],
+      "flaws": [
+        "Niewyważona",
+        "Tępa"
+      ],
+      "note": "W lesie: Wydłużony Sztuka Przetrwania (+0), 7 PS.",
+      "enc": "1",
+      "availability": "Powszechna"
+    },
+    "Sztylet": {
+      "group": "Podstawowa",
+      "hands": "jednoręczna",
+      "damage": 2,
+      "sb": true,
+      "reach": "B. krótka",
+      "twoHanded": false,
+      "qualities": [
+        "Sztylet"
+      ],
+      "flaws": [],
+      "note": "Złamany miecz jako sztylet: Wada Niebezpieczny, jeśli brak całej rękojeści.",
+      "enc": "0",
+      "availability": "Powszechna"
+    },
+    "Topór": {
+      "group": "Podstawowa",
+      "hands": "jednoręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Średnia",
+      "twoHanded": false,
+      "qualities": [
+        "Rąbiący"
+      ],
+      "flaws": [
+        "Niewyważony"
+      ],
+      "enc": "1",
+      "availability": "Powszechna"
+    },
+    "Puklerz": {
+      "group": "Podstawowa",
+      "hands": "druga ręka",
+      "damage": 1,
+      "sb": true,
+      "reach": "Kontaktowa",
+      "twoHanded": false,
+      "qualities": [
+        "Tarcza 1",
+        "Parująca"
+      ],
+      "flaws": [
+        "Tępa"
+      ],
+      "enc": "0",
+      "availability": "Powszechna",
+      "shield": 1
+    },
+    "Tarcza": {
+      "group": "Podstawowa",
+      "hands": "druga ręka",
+      "damage": 2,
+      "sb": true,
+      "reach": "B. krótka",
+      "twoHanded": false,
+      "qualities": [
+        "Tarcza 2",
+        "Parująca"
+      ],
+      "flaws": [
+        "Tępa"
+      ],
+      "note": "PP z Tarczy dostajesz, broniąc się bronią w wiodącej ręce. Zaskoczony: brak korzyści.",
+      "enc": "1",
+      "availability": "Powszechna",
+      "shield": 2
+    },
+    "Tarcza duża": {
+      "group": "Podstawowa",
+      "hands": "druga ręka",
+      "damage": 3,
+      "sb": true,
+      "reach": "B. krótka",
+      "twoHanded": false,
+      "qualities": [
+        "Tarcza 3",
+        "Parująca"
+      ],
+      "flaws": [
+        "Tępa"
+      ],
+      "note": "PP z Tarczy dostajesz, broniąc się bronią w wiodącej ręce. Zaskoczony: brak korzyści.",
+      "enc": "3",
+      "availability": "Powszechna",
+      "shield": 3
+    },
+    "Pawęż": {
+      "group": "Podstawowa",
+      "hands": "tarcza stawiana",
+      "damage": 2,
+      "sb": true,
+      "reach": "—",
+      "twoHanded": false,
+      "qualities": [
+        "Tarcza 5"
+      ],
+      "flaws": [],
+      "note": "Ustawienie: 2 Akcje, w wybranym kierunku; stoisz ≤1 m za nią. Wręcz chroni tylko z tego kierunku i tylko w 1. Rundzie walki. Jako duża tarcza: Tarcza 3, Parująca, Tępa + Ciężka, Powolna (   −30 Inicjatywy).",
+      "enc": "4",
+      "availability": "Rzadka",
+      "shield": 5
+    },
+    "Kopia": {
+      "group": "Kawaleryjska",
+      "hands": "z siodła",
+      "damage": 6,
+      "sb": true,
+      "reach": "B. długa",
+      "twoHanded": false,
+      "qualities": [
+        "Druzgocząca",
+        "Nadziewająca"
+      ],
+      "flaws": [],
+      "note": "W Rundzie bez Szarży liczy się jako Broń Improwizowana.",
+      "enc": "3",
+      "availability": "Rzadka"
+    },
+    "Lanca": {
+      "group": "Kawaleryjska",
+      "hands": "z siodła",
+      "damage": 5,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": false,
+      "qualities": [
+        "Druzgocząca",
+        "Nadziewająca"
+      ],
+      "flaws": [],
+      "note": "W Rundzie bez Szarży liczy się jako Broń Improwizowana.",
+      "enc": "2",
+      "availability": "Ograniczona"
+    },
+    "Młot kawaleryjski": {
+      "group": "Kawaleryjska",
+      "hands": "dwuręczna",
+      "damage": 5,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": true,
+      "qualities": [
+        "Ogłuszający"
+      ],
+      "flaws": [],
+      "note": "Pieszo: używasz Broni Białej (Dwuręcznej).",
+      "enc": "3",
+      "availability": "Ograniczona"
+    },
+    "Szabla": {
+      "group": "Kawaleryjska",
+      "hands": "jednoręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Średnia",
+      "twoHanded": false,
+      "qualities": [
+        "Sieczna (1P)"
+      ],
+      "flaws": [],
+      "note": "Pieszo z Bronią Białą (Podstawową): Sieczna (2P). Z Bronią Białą (Szermierczą): zostaje Sieczna (1P).",
+      "enc": "1",
+      "availability": "Ograniczona"
+    },
+    "Floret": {
+      "group": "Szermiercza",
+      "hands": "jednoręczna",
+      "damage": 3,
+      "sb": true,
+      "reach": "Średnia",
+      "twoHanded": false,
+      "qualities": [
+        "Nadziewający",
+        "Precyzyjny",
+        "Szybki"
+      ],
+      "flaws": [
+        "Tępy"
+      ],
+      "enc": "1",
+      "availability": "Ograniczona"
+    },
+    "Rapier": {
+      "group": "Szermiercza",
+      "hands": "jednoręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": false,
+      "qualities": [
+        "Nadziewający",
+        "Szybki"
+      ],
+      "flaws": [],
+      "enc": "1",
+      "availability": "Ograniczona"
+    },
+    "Szpada": {
+      "group": "Szermiercza",
+      "hands": "jednoręczna",
+      "damage": 2,
+      "sb": true,
+      "reach": "Krótka",
+      "twoHanded": false,
+      "qualities": [
+        "Nadziewająca",
+        "Precyzyjna",
+        "Szybka"
+      ],
+      "flaws": [],
+      "note": "Sportowa szpada (tępy czubek i krawędzie) ma dodatkowo Wadę Tępa.",
+      "enc": "1",
+      "availability": "Ograniczona"
+    },
+    "Pięści i kopniaki": {
+      "group": "Bijatyka",
+      "hands": "—",
+      "damage": 0,
+      "sb": true,
+      "reach": "Kontaktowa",
+      "twoHanded": false,
+      "qualities": [],
+      "flaws": [
+        "Tępe"
+      ]
+    },
+    "Bosak": {
+      "group": "Bijatyka",
+      "hands": "jednoręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Krótka",
+      "twoHanded": false,
+      "qualities": [
+        "Przewracający"
+      ],
+      "flaws": [
+        "Tępy"
+      ],
+      "enc": "0",
+      "availability": "Powszechna"
+    },
+    "Garota": {
+      "group": "Bijatyka",
+      "hands": "dwuręczna",
+      "damage": 2,
+      "sb": true,
+      "reach": "Kontaktowa",
+      "twoHanded": true,
+      "qualities": [
+        "Unieruchamiająca"
+      ],
+      "flaws": [
+        "Niewyważona",
+        "Powolna",
+        "Tępa"
+      ],
+      "note": "Wykonanie w mieście: Wydłużony Rzemiosło (+0), 5 PS.",
+      "enc": "0",
+      "availability": "Rzadka"
+    },
+    "Kastet": {
+      "group": "Bijatyka",
+      "hands": "jednoręczna",
+      "damage": 2,
+      "sb": true,
+      "reach": "Kontaktowa",
+      "twoHanded": false,
+      "qualities": [],
+      "flaws": [],
+      "note": "Wykonanie w mieście: Wydłużony Rzemiosło (+0), 10 PS.",
+      "enc": "0",
+      "availability": "Powszechna"
+    },
+    "Kolczasta rękawica": {
+      "group": "Bijatyka",
+      "hands": "jednoręczna",
+      "damage": 3,
+      "sb": true,
+      "reach": "Kontaktowa",
+      "twoHanded": false,
+      "qualities": [
+        "Nadziewająca"
+      ],
+      "flaws": [
+        "Niewyważona"
+      ],
+      "note": "Może być częścią zbroi płytowej – liczy się Obc. samej zbroi.",
+      "enc": "1",
+      "availability": "Ograniczona"
+    },
+    "Tłuk": {
+      "group": "Bijatyka",
+      "hands": "jednoręczna",
+      "damage": 1,
+      "sb": true,
+      "reach": "Kontaktowa",
+      "twoHanded": false,
+      "qualities": [
+        "Ogłuszający"
+      ],
+      "flaws": [
+        "Niewyważony",
+        "Tępy"
+      ],
+      "note": "Wykonanie w mieście: Wydłużony Rzemiosło (+0), 15 PS.",
+      "enc": "0",
+      "availability": "Rzadka"
+    },
+    "Zamykana rękawica": {
+      "group": "Bijatyka",
+      "hands": "jednoręczna",
+      "damage": 2,
+      "sb": true,
+      "reach": "Kontaktowa",
+      "twoHanded": false,
+      "qualities": [],
+      "flaws": [
+        "Tępa"
+      ],
+      "note": "Gdy miałbyś upuścić trzymany przedmiot, nie upuszczasz go – ale masz −20 do Testów z nim, póki trwa efekt (min. 1 Tura). Kolejny taki efekt w tym czasie – upuszczasz.",
+      "enc": "1",
+      "availability": "Ograniczona"
+    },
+    "Cep bojowy": {
+      "group": "Korbacz",
+      "hands": "jednoręczna",
+      "damage": 3,
+      "sb": true,
+      "reach": "Średnia",
+      "twoHanded": false,
+      "qualities": [
+        "Dekoncentrujący",
+        "Plączący"
+      ],
+      "flaws": [
+        "Nieprecyzyjny"
+      ],
+      "note": "Bez Umiejętności Broń Biała (Korbacze): Wada Niebezpieczny, brak Zalet.",
+      "enc": "1",
+      "availability": "Powszechna"
+    },
+    "Kiścień": {
+      "group": "Korbacz",
+      "hands": "dwuręczna",
+      "damage": 5,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": true,
+      "qualities": [
+        "Dekoncentrujący",
+        "Druzgoczący",
+        "Plączący"
+      ],
+      "flaws": [
+        "Ciężki"
+      ],
+      "note": "Bez Umiejętności Broń Biała (Korbacze): Wada Niebezpieczny, brak Zalet.",
+      "enc": "2",
+      "availability": "Rzadka"
+    },
+    "Korbacz": {
+      "group": "Korbacz",
+      "hands": "jednoręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Średnia",
+      "twoHanded": false,
+      "qualities": [
+        "Dekoncentrujący",
+        "Plączący"
+      ],
+      "flaws": [],
+      "note": "Bez Umiejętności Broń Biała (Korbacze): Wada Niebezpieczny, brak Zalet.",
+      "enc": "1",
+      "availability": "Ograniczona"
+    },
+    "Lewak": {
+      "group": "Parująca",
+      "hands": "jednoręczna",
+      "damage": 2,
+      "sb": true,
+      "reach": "B. krótka",
+      "twoHanded": false,
+      "qualities": [
+        "Parujący"
+      ],
+      "flaws": [],
+      "note": "Bez Broni Białej (Parującej) to zwykły sztylet – traci Zaletę Parujący.",
+      "enc": "0",
+      "availability": "Rzadka"
+    },
+    "Łamacz mieczy": {
+      "group": "Parująca",
+      "hands": "jednoręczna",
+      "damage": 3,
+      "sb": true,
+      "reach": "Krótka",
+      "twoHanded": false,
+      "qualities": [
+        "Łamacz mieczy",
+        "Parujący"
+      ],
+      "flaws": [],
+      "enc": "1",
+      "availability": "Ograniczona"
+    },
+    "Obciążona sieć": {
+      "group": "Parująca",
+      "hands": "dwuręczna",
+      "damage": 0,
+      "sb": true,
+      "reach": "Krótka",
+      "twoHanded": true,
+      "qualities": [
+        "Parująca",
+        "Plącząca",
+        "Tarcza 1",
+        "Unieruchamiająca"
+      ],
+      "flaws": [
+        "Powolna",
+        "Tępa"
+      ],
+      "note": "Trafiony dostaje Pochwycenie z Siłą 55.",
+      "enc": "1",
+      "availability": "Rzadka",
+      "shield": 1
+    },
+    "Płaszcz": {
+      "group": "Parująca",
+      "hands": "jednoręczna",
+      "damage": 0,
+      "sb": true,
+      "reach": "Krótka",
+      "twoHanded": false,
+      "qualities": [
+        "Parujący",
+        "Unieruchamiający"
+      ],
+      "flaws": [
+        "Tępy"
+      ],
+      "note": "Trafiony dostaje Pochwycenie z Siłą 25.",
+      "enc": "1",
+      "availability": "Powszechna"
+    },
+    "Halabarda": {
+      "group": "Drzewcowa",
+      "hands": "dwuręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": true,
+      "qualities": [
+        "Parująca",
+        "Nadziewająca albo Rąbiąca"
+      ],
+      "flaws": [],
+      "enc": "3",
+      "availability": "Powszechna"
+    },
+    "Kostur": {
+      "group": "Drzewcowa",
+      "hands": "dwuręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": true,
+      "qualities": [
+        "Ogłuszający",
+        "Parujący"
+      ],
+      "flaws": [],
+      "note": "W lesie: Wydłużony Sztuka Przetrwania (+0), 20 PS.",
+      "enc": "2",
+      "availability": "Powszechna"
+    },
+    "Łapacz": {
+      "group": "Drzewcowa",
+      "hands": "dwuręczna",
+      "damage": 2,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": true,
+      "qualities": [
+        "Parujący",
+        "Unieruchamiający"
+      ],
+      "flaws": [],
+      "note": "Wersja sprężynowa (4 ZK): +20 do Siły Pochwycenia.",
+      "enc": "3",
+      "availability": "Rzadka"
+    },
+    "Partyzana / glewia": {
+      "group": "Drzewcowa",
+      "hands": "dwuręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": true,
+      "qualities": [
+        "Parująca",
+        "Nadziewająca albo Sieczna (2P)"
+      ],
+      "flaws": [],
+      "enc": "3",
+      "availability": "Ograniczona"
+    },
+    "Pika": {
+      "group": "Drzewcowa",
+      "hands": "dwuręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Ogromna",
+      "twoHanded": true,
+      "qualities": [
+        "Nadziewająca"
+      ],
+      "flaws": [],
+      "note": "Ogromna: wiąże walką wrogów do 6 m.",
+      "enc": "4",
+      "availability": "Rzadka"
+    },
+    "Sierpak": {
+      "group": "Drzewcowa",
+      "hands": "dwuręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": true,
+      "qualities": [
+        "Parujący",
+        "Przewracający albo Rąbiący"
+      ],
+      "flaws": [],
+      "enc": "3",
+      "availability": "Ograniczona"
+    },
+    "Szydło": {
+      "group": "Drzewcowa",
+      "hands": "dwuręczna",
+      "damage": 3,
+      "sb": true,
+      "reach": "B. długa",
+      "twoHanded": true,
+      "qualities": [
+        "Nadziewające",
+        "Przekłuwające"
+      ],
+      "flaws": [],
+      "note": "Bardzo długa: wiąże walką wrogów do 4 m.",
+      "enc": "2",
+      "availability": "Ograniczona"
+    },
+    "Topór drzewcowy": {
+      "group": "Drzewcowa",
+      "hands": "dwuręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": true,
+      "qualities": [
+        "Parujący",
+        "Nadziewający albo Ogłuszający albo Rąbiący"
+      ],
+      "flaws": [],
+      "enc": "3",
+      "availability": "Ograniczona"
+    },
+    "Włócznia": {
+      "group": "Drzewcowa",
+      "hands": "dwuręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "B. długa",
+      "twoHanded": true,
+      "qualities": [
+        "Nadziewająca"
+      ],
+      "flaws": [],
+      "note": "Bardzo długa: wiąże walką wrogów do 4 m.",
+      "enc": "2",
+      "availability": "Powszechna"
+    },
+    "Flamberg": {
+      "group": "Dwuręczna",
+      "hands": "dwuręczna",
+      "damage": 5,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": true,
+      "qualities": [
+        "Przebijający",
+        "Rąbiący",
+        "Sieczny (2P)"
+      ],
+      "flaws": [],
+      "enc": "3",
+      "availability": "Egzotyczna"
+    },
+    "Miecz dwuręczny": {
+      "group": "Dwuręczna",
+      "hands": "dwuręczna",
+      "damage": 5,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": true,
+      "qualities": [
+        "Przebijający",
+        "Rąbiący"
+      ],
+      "flaws": [],
+      "enc": "3",
+      "availability": "Ograniczona"
+    },
+    "Młot bojowy": {
+      "group": "Dwuręczna",
+      "hands": "dwuręczna",
+      "damage": 6,
+      "sb": true,
+      "reach": "Średnia",
+      "twoHanded": true,
+      "qualities": [
+        "Ogłuszający",
+        "Przebijający"
+      ],
+      "flaws": [
+        "Powolny"
+      ],
+      "enc": "3",
+      "availability": "Powszechna"
+    },
+    "Nadziak": {
+      "group": "Dwuręczna",
+      "hands": "dwuręczna",
+      "damage": 5,
+      "sb": true,
+      "reach": "Średnia",
+      "twoHanded": true,
+      "qualities": [
+        "Nadziewający",
+        "Przebijający"
+      ],
+      "flaws": [
+        "Powolny"
+      ],
+      "enc": "3",
+      "availability": "Powszechna"
+    },
+    "Półtorak": {
+      "group": "Dwuręczna",
+      "hands": "dwuręczna",
+      "damage": 5,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": true,
+      "qualities": [
+        "Parujący",
+        "Przebijający"
+      ],
+      "flaws": [],
+      "note": "Z Bronią Białą (Podstawową) możesz go używać jednorącz – dostaje wtedy Wady Ciężki i Powolny.",
+      "enc": "3",
+      "availability": "Ograniczona"
+    },
+    "Wielki topór": {
+      "group": "Dwuręczna",
+      "hands": "dwuręczna",
+      "damage": 6,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": true,
+      "qualities": [
+        "Druzgoczący",
+        "Rąbiący"
+      ],
+      "flaws": [
+        "Ciężki"
+      ],
+      "enc": "3",
+      "availability": "Powszechna"
+    },
+    "Krasnoludzki topór": {
+      "group": "Podstawowa",
+      "hands": "jednoręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Średnia",
+      "twoHanded": false,
+      "qualities": [
+        "Rąbiąca"
+      ],
+      "flaws": [],
+      "enc": "1",
+      "availability": "Powszechna",
+      "source": "Podręcznik Gracza: Krasnoludy",
+      "page": 93
+    },
+    "Krasnoludzki młot bojowy": {
+      "group": "Podstawowa",
+      "hands": "jednoręczna",
+      "damage": 4,
+      "sb": true,
+      "reach": "Średnia",
+      "twoHanded": false,
+      "qualities": [
+        "Ogłuszająca"
+      ],
+      "flaws": [],
+      "enc": "1",
+      "availability": "Powszechna",
+      "source": "Podręcznik Gracza: Krasnoludy",
+      "page": 93
+    },
+    "Wirujące ostrza śmierci": {
+      "group": "Korbacz",
+      "hands": "jednoręczna",
+      "damage": 5,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": false,
+      "qualities": [
+        "Dekoncentrująca",
+        "Rąbiąca",
+        "Druzgocząca",
+        "Plącząca"
+      ],
+      "flaws": [
+        "Ciężka"
+      ],
+      "enc": "2",
+      "availability": "Bardzo rzadka",
+      "source": "Podręcznik Gracza: Krasnoludy",
+      "page": 93,
+      "note": "Broń Zabójców (Poszukiwaczy Zguby Grimnira)."
+    },
+    "Krasnoludzki wielki topór": {
+      "group": "Dwuręczna",
+      "hands": "dwuręczna",
+      "damage": 6,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": true,
+      "qualities": [
+        "Rąbiąca",
+        "Druzgocząca"
+      ],
+      "flaws": [
+        "Ciężka"
+      ],
+      "enc": "3",
+      "availability": "Powszechna",
+      "source": "Podręcznik Gracza: Krasnoludy",
+      "page": 93
+    },
+    "Krasnoludzki wielki młot": {
+      "group": "Dwuręczna",
+      "hands": "dwuręczna",
+      "damage": 7,
+      "sb": true,
+      "reach": "Średnia",
+      "twoHanded": true,
+      "qualities": [
+        "Przebijająca",
+        "Ogłuszająca"
+      ],
+      "flaws": [],
+      "enc": "3",
+      "availability": "Powszechna",
+      "source": "Podręcznik Gracza: Krasnoludy",
+      "page": 93
+    },
+    "Krasnoludzki kilof": {
+      "group": "Dwuręczna",
+      "hands": "dwuręczna",
+      "damage": 6,
+      "sb": true,
+      "reach": "Średnia",
+      "twoHanded": true,
+      "qualities": [
+        "Przebijająca",
+        "Nadziewająca"
+      ],
+      "flaws": [],
+      "enc": "3",
+      "availability": "Powszechna",
+      "source": "Podręcznik Gracza: Krasnoludy",
+      "page": 93,
+      "note": "Często sprzedawany z garścią świec do przymocowania jako prowizoryczne światło."
+    },
+    "Wielki miecz Hoetha": {
+      "group": "Dwuręczna",
+      "hands": "dwuręczna",
+      "damage": 6,
+      "sb": true,
+      "reach": "Długa",
+      "twoHanded": true,
+      "qualities": [
+        "Druzgocząca",
+        "Rąbiąca"
+      ],
+      "flaws": [],
+      "enc": "2",
+      "availability": "Unikatowa",
+      "source": "Podręcznik Gracza: Wysokie Elfy",
+      "page": 33,
+      "note": "Wytrzymały 3, Wyśmienity 3. Niezbędny do tańca mieczy."
+    }
+  },
+  "ranged": {
+    "Krótki łuk": {
+      "group": "Łuk",
+      "hands": "dwuręczna",
+      "damage": 2,
+      "sb": true,
+      "range": "20",
+      "twoHanded": true,
+      "qualities": [],
+      "flaws": [],
+      "enc": "1",
+      "availability": "Powszechna"
+    },
+    "Łuk": {
+      "group": "Łuk",
+      "hands": "dwuręczna",
+      "damage": 3,
+      "sb": true,
+      "range": "50",
+      "twoHanded": true,
+      "qualities": [],
+      "flaws": [],
+      "enc": "2",
+      "availability": "Powszechna"
+    },
+    "Łuk długi": {
+      "group": "Łuk",
+      "hands": "dwuręczna",
+      "damage": 4,
+      "sb": true,
+      "range": "100",
+      "twoHanded": true,
+      "qualities": [
+        "Przebijający"
+      ],
+      "flaws": [],
+      "enc": "3",
+      "availability": "Ograniczona"
+    },
+    "Łuk elfi": {
+      "group": "Łuk",
+      "hands": "dwuręczna",
+      "damage": 4,
+      "sb": true,
+      "range": "150",
+      "twoHanded": true,
+      "qualities": [
+        "Przebijający",
+        "Precyzyjny"
+      ],
+      "flaws": [],
+      "enc": "2",
+      "availability": "Egzotyczna"
+    },
+    "Kusza pistoletowa": {
+      "group": "Kusza",
+      "hands": "jednoręczna",
+      "damage": 5,
+      "sb": false,
+      "range": "10",
+      "twoHanded": false,
+      "qualities": [
+        "Pistolet"
+      ],
+      "flaws": [],
+      "note": "Bez Specjalizacji możesz testować Umiejętności Strzeleckie, ale bez Zalet broni (Wady działają).",
+      "enc": "0",
+      "availability": "Ograniczona"
+    },
+    "Kusza": {
+      "group": "Kusza",
+      "hands": "dwuręczna",
+      "damage": 8,
+      "sb": false,
+      "range": "60",
+      "twoHanded": true,
+      "qualities": [],
+      "flaws": [
+        "Przeładowanie 1"
+      ],
+      "note": "Bez Specjalizacji możesz testować Umiejętności Strzeleckie, ale bez Zalet broni (Wady działają).",
+      "enc": "2",
+      "availability": "Powszechna"
+    },
+    "Ciężka kusza": {
+      "group": "Kusza",
+      "hands": "dwuręczna",
+      "damage": 9,
+      "sb": false,
+      "range": "100",
+      "twoHanded": true,
+      "qualities": [
+        "Przebijająca"
+      ],
+      "flaws": [
+        "Przeładowanie 2"
+      ],
+      "note": "Bez Specjalizacji możesz testować Umiejętności Strzeleckie, ale bez Zalet broni (Wady działają).",
+      "enc": "3",
+      "availability": "Rzadka"
+    },
+    "Proca": {
+      "group": "Proca",
+      "hands": "jednoręczna",
+      "damage": 6,
+      "sb": false,
+      "range": "60",
+      "twoHanded": false,
+      "qualities": [],
+      "flaws": [],
+      "enc": "0",
+      "availability": "Powszechna"
+    },
+    "Proca drzewcowa": {
+      "group": "Proca",
+      "hands": "dwuręczna",
+      "damage": 7,
+      "sb": false,
+      "range": "100",
+      "twoHanded": true,
+      "qualities": [],
+      "flaws": [],
+      "enc": "2",
+      "availability": "Ograniczona"
+    },
+    "Bolas": {
+      "group": "Miotana",
+      "hands": "jednoręczna",
+      "damage": null,
+      "sb": false,
+      "range": "BS×3",
+      "twoHanded": false,
+      "qualities": [
+        "Unieruchamiające"
+      ],
+      "flaws": [],
+      "note": "Pudło → Rozrzut: 2k10 m w losowym kierunku (PG s.163). Bez Specjalizacji możesz testować Umiejętności Strzeleckie, ale bez Zalet broni (Wady działają).",
+      "enc": "0",
+      "availability": "Rzadka"
+    },
+    "Kamień": {
+      "group": "Miotana",
+      "hands": "jednoręczna",
+      "damage": 0,
+      "sb": true,
+      "range": "BS×3",
+      "twoHanded": false,
+      "qualities": [],
+      "flaws": [],
+      "note": "Pudło → Rozrzut: 2k10 m w losowym kierunku (PG s.163). Bez Specjalizacji możesz testować Umiejętności Strzeleckie, ale bez Zalet broni (Wady działają).",
+      "enc": "0",
+      "availability": "darmo"
+    },
+    "Nóż do rzucania": {
+      "group": "Miotana",
+      "hands": "jednoręczna",
+      "damage": 2,
+      "sb": true,
+      "range": "BS×2",
+      "twoHanded": false,
+      "qualities": [],
+      "flaws": [],
+      "note": "Pudło → Rozrzut: 2k10 m w losowym kierunku (PG s.163). Bez Specjalizacji możesz testować Umiejętności Strzeleckie, ale bez Zalet broni (Wady działają).",
+      "enc": "0",
+      "availability": "Powszechna"
+    },
+    "Oszczep": {
+      "group": "Miotana",
+      "hands": "jednoręczna",
+      "damage": 3,
+      "sb": true,
+      "range": "BS×3",
+      "twoHanded": false,
+      "qualities": [
+        "Nadziewający"
+      ],
+      "flaws": [],
+      "note": "Pudło → Rozrzut: 2k10 m w losowym kierunku (PG s.163). Bez Specjalizacji możesz testować Umiejętności Strzeleckie, ale bez Zalet broni (Wady działają).",
+      "enc": "1",
+      "availability": "Ograniczona"
+    },
+    "Strzałka": {
+      "group": "Miotana",
+      "hands": "jednoręczna",
+      "damage": 1,
+      "sb": true,
+      "range": "BS×2",
+      "twoHanded": false,
+      "qualities": [
+        "Nadziewająca"
+      ],
+      "flaws": [],
+      "note": "Pudło → Rozrzut: 2k10 m w losowym kierunku (PG s.163). Bez Specjalizacji możesz testować Umiejętności Strzeleckie, ale bez Zalet broni (Wady działają).",
+      "enc": "0",
+      "availability": "Ograniczona"
+    },
+    "Topór do rzucania": {
+      "group": "Miotana",
+      "hands": "jednoręczna",
+      "damage": 3,
+      "sb": true,
+      "range": "BS×2",
+      "twoHanded": false,
+      "qualities": [
+        "Rąbiący"
+      ],
+      "flaws": [],
+      "note": "Pudło → Rozrzut: 2k10 m w losowym kierunku (PG s.163). Bez Specjalizacji możesz testować Umiejętności Strzeleckie, ale bez Zalet broni (Wady działają).",
+      "enc": "1",
+      "availability": "Powszechna"
+    },
+    "Arkan": {
+      "group": "Oplątująca",
+      "hands": "jednoręczna",
+      "damage": null,
+      "sb": false,
+      "range": "BS×2",
+      "twoHanded": false,
+      "qualities": [
+        "Unieruchamiający"
+      ],
+      "flaws": [],
+      "enc": "0",
+      "availability": "Powszechna"
+    },
+    "Bicz": {
+      "group": "Oplątująca",
+      "hands": "jednoręczna",
+      "damage": 2,
+      "sb": true,
+      "range": "6",
+      "twoHanded": false,
+      "qualities": [
+        "Unieruchamiający"
+      ],
+      "flaws": [],
+      "enc": "0",
+      "availability": "Powszechna"
+    },
+    "Pistolet": {
+      "group": "Prochowa",
+      "hands": "jednoręczna",
+      "damage": 8,
+      "sb": false,
+      "range": "20",
+      "twoHanded": false,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca",
+        "Pistolet"
+      ],
+      "flaws": [
+        "Przeładowanie 1"
+      ],
+      "note": "Pech parzysty (00, 88…): wybuch – pełne Obr. w ciebie, broń zniszczona.",
+      "enc": "0",
+      "availability": "Rzadka"
+    },
+    "Rusznica": {
+      "group": "Prochowa",
+      "hands": "dwuręczna",
+      "damage": 9,
+      "sb": false,
+      "range": "50",
+      "twoHanded": true,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca"
+      ],
+      "flaws": [
+        "Niebezpieczna",
+        "Przeładowanie 3"
+      ],
+      "note": "Pech parzysty (00, 88…): wybuch – pełne Obr. w ciebie, broń zniszczona.",
+      "enc": "2",
+      "availability": "Ograniczona"
+    },
+    "Rusznica lontowa": {
+      "group": "Prochowa",
+      "hands": "dwuręczna",
+      "damage": 8,
+      "sb": false,
+      "range": "50",
+      "twoHanded": true,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca"
+      ],
+      "flaws": [
+        "Niebezpieczna",
+        "Przeładowanie 4"
+      ],
+      "note": "Przed strzałem: 1 Akcja na podpalenie lontu (gaśnie w deszczu/wietrze). Pech parzysty (00, 88…): wybuch – pełne Obr. w ciebie, broń zniszczona.",
+      "enc": "2",
+      "availability": "Rzadka"
+    },
+    "Rusznica dwulufowa": {
+      "group": "Prochowa",
+      "hands": "dwuręczna",
+      "damage": 9,
+      "sb": false,
+      "range": "50",
+      "twoHanded": true,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca",
+        "Wielostrzał 2"
+      ],
+      "flaws": [
+        "Niebezpieczna",
+        "Przeładowanie 4"
+      ],
+      "note": "Pech parzysty (00, 88…): wybuch – pełne Obr. w ciebie, broń zniszczona.",
+      "enc": "3",
+      "availability": "Egzotyczna"
+    },
+    "Arkebuz": {
+      "group": "Prochowa",
+      "hands": "dwuręczna",
+      "damage": 9,
+      "sb": false,
+      "range": "40",
+      "twoHanded": true,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca"
+      ],
+      "flaws": [
+        "Niebezpieczny",
+        "Nieprecyzyjny",
+        "Przeładowanie 5"
+      ],
+      "note": "Pech parzysty (00, 88…): wybuch – pełne Obr. w ciebie, broń zniszczona.",
+      "enc": "3",
+      "availability": "Egzotyczna"
+    },
+    "Garłacz": {
+      "group": "Prochowa",
+      "hands": "dwuręczna",
+      "damage": 8,
+      "sb": false,
+      "range": "20",
+      "twoHanded": true,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca",
+        "Odłamkowy 3"
+      ],
+      "flaws": [
+        "Niebezpieczny",
+        "Przeładowanie 2"
+      ],
+      "note": "Ładuje się śrutem. Pech parzysty (00, 88…): wybuch – pełne Obr. w ciebie, broń zniszczona.",
+      "enc": "1",
+      "availability": "Ograniczona"
+    },
+    "Garłacz lontowy": {
+      "group": "Prochowa",
+      "hands": "dwuręczna",
+      "damage": 7,
+      "sb": false,
+      "range": "20",
+      "twoHanded": true,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca",
+        "Rozrzucający 3"
+      ],
+      "flaws": [
+        "Niebezpieczny",
+        "Przeładowanie 3"
+      ],
+      "note": "Jak rusznica lontowa: 1 Akcja na podpalenie lontu. Pech parzysty (00, 88…): wybuch – pełne Obr. w ciebie, broń zniszczona.",
+      "enc": "1",
+      "availability": "Rzadka"
+    },
+    "Gryfia łapa": {
+      "group": "Prochowa",
+      "hands": "jednoręczna",
+      "damage": 7,
+      "sb": false,
+      "range": "10",
+      "twoHanded": false,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca",
+        "Rozrzucająca 5"
+      ],
+      "flaws": [
+        "Nieprecyzyjna",
+        "Przeładowanie 6"
+      ],
+      "note": "Odpala 6 luf naraz. Pech parzysty (00, 88…): wybuch – pełne Obr. w ciebie, broń zniszczona.",
+      "enc": "1",
+      "availability": "Egzotyczna"
+    },
+    "Muszkiet hochlandzki": {
+      "group": "Prochowa",
+      "hands": "dwuręczna",
+      "damage": 9,
+      "sb": false,
+      "range": "100",
+      "twoHanded": true,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca",
+        "Celny",
+        "Precyzyjny"
+      ],
+      "flaws": [
+        "Przeładowanie 4"
+      ],
+      "note": "Pech parzysty (00, 88…): wybuch – pełne Obr. w ciebie, broń zniszczona.",
+      "enc": "3",
+      "availability": "Egzotyczna"
+    },
+    "Halabarda pistoletowa": {
+      "group": "Prochowa",
+      "hands": "dwuręczna",
+      "damage": 9,
+      "sb": false,
+      "range": "30",
+      "twoHanded": true,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca"
+      ],
+      "flaws": [
+        "Niebezpieczna",
+        "Nieprecyzyjna",
+        "Przeładowanie 4"
+      ],
+      "note": "Wręcz: jak halabarda. Naładowana + Pech wręcz = strzał w istotę tuż za tobą.",
+      "enc": "3",
+      "availability": "Egzotyczna"
+    },
+    "Topór pistoletowy": {
+      "group": "Prochowa",
+      "hands": "dwuręczna",
+      "damage": 9,
+      "sb": false,
+      "range": "30",
+      "twoHanded": true,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca"
+      ],
+      "flaws": [
+        "Niebezpieczny",
+        "Nieprecyzyjny",
+        "Przeładowanie 4"
+      ],
+      "note": "Wręcz: jak topór (Broń Ręczna). Naładowany + Pech wręcz = strzał w twój korpus.",
+      "enc": "1",
+      "availability": "Egzotyczna"
+    },
+    "Laska pistoletowa": {
+      "group": "Eksperymentalna",
+      "hands": "jednoręczna",
+      "damage": 8,
+      "sb": false,
+      "range": "10",
+      "twoHanded": false,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca"
+      ],
+      "flaws": [
+        "Niebezpieczna",
+        "Nieprecyzyjna",
+        "Przeładowanie 6"
+      ],
+      "note": "Wykrycie: Percepcja (−20); nie znając prochowej (−30). Pech parzysty (00, 88…): wybuch – pełne Obr. w ciebie, broń zniszczona.",
+      "enc": "1",
+      "availability": "Egzotyczna"
+    },
+    "Moździerz ręczny": {
+      "group": "Eksperymentalna",
+      "hands": "dwuręczna",
+      "damage": 7,
+      "sb": false,
+      "range": "30",
+      "twoHanded": true,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca"
+      ],
+      "flaws": [
+        "Niebezpieczny",
+        "Nieprecyzyjny",
+        "Przeładowanie 2"
+      ],
+      "note": "Strzela bombami i dużymi pociskami. Każdy Pech przy przeładowaniu = broń wybucha.",
+      "enc": "3",
+      "availability": "Egzotyczna"
+    },
+    "Pieprzniczka": {
+      "group": "Eksperymentalna",
+      "hands": "jednoręczna",
+      "damage": 8,
+      "sb": false,
+      "range": "10",
+      "twoHanded": false,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca",
+        "Pistolet",
+        "Wielostrzał 4"
+      ],
+      "flaws": [
+        "Niebezpieczna",
+        "Przeładowanie 4"
+      ],
+      "note": "Jedną ręką traci Wielostrzał. Pech parzysty (00, 88…): wybuch – pełne Obr. w ciebie, broń zniszczona.",
+      "enc": "1",
+      "availability": "Rzadka"
+    },
+    "Pistolet samopowtarzalny": {
+      "group": "Eksperymentalna",
+      "hands": "jednoręczna",
+      "damage": 8,
+      "sb": false,
+      "range": "10",
+      "twoHanded": false,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca",
+        "Pistolet",
+        "Wielostrzał 4"
+      ],
+      "flaws": [
+        "Niebezpieczny",
+        "Przeładowanie 4"
+      ],
+      "note": "Pech parzysty (00, 88…): wybuch – pełne Obr. w ciebie, broń zniszczona.",
+      "enc": "1",
+      "availability": "Rzadka"
+    },
+    "Rusznica samopowtarzalna": {
+      "group": "Eksperymentalna",
+      "hands": "dwuręczna",
+      "damage": 9,
+      "sb": false,
+      "range": "30",
+      "twoHanded": true,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca",
+        "Wielostrzał 4"
+      ],
+      "flaws": [
+        "Niebezpieczna",
+        "Przeładowanie 5"
+      ],
+      "note": "Pech parzysty (00, 88…): wybuch – pełne Obr. w ciebie, broń zniszczona.",
+      "enc": "3",
+      "availability": "Rzadka"
+    },
+    "Krasnoludzka kusza": {
+      "group": "Kusza",
+      "hands": "dwuręczna",
+      "damage": 10,
+      "sb": false,
+      "range": "60",
+      "twoHanded": true,
+      "qualities": [
+        "Nadziewająca"
+      ],
+      "flaws": [
+        "Przeładowanie 1"
+      ],
+      "enc": "2",
+      "availability": "Powszechna",
+      "source": "Podręcznik Gracza: Krasnoludy",
+      "page": 94
+    },
+    "Krasnoludzka hakownica": {
+      "group": "Prochowa",
+      "hands": "dwuręczna",
+      "damage": 10,
+      "sb": false,
+      "range": "50",
+      "twoHanded": true,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca",
+        "Nadziewająca",
+        "Przekłuwająca"
+      ],
+      "flaws": [
+        "Przeładowanie 3"
+      ],
+      "enc": "2",
+      "availability": "Rzadka",
+      "source": "Podręcznik Gracza: Krasnoludy",
+      "page": 94,
+      "note": "Niezawodna — ulega Awarii tylko przy rzucie 00."
+    },
+    "Krasnoludzki pistolet": {
+      "group": "Prochowa",
+      "hands": "jednoręczna",
+      "damage": 10,
+      "sb": false,
+      "range": "20",
+      "twoHanded": false,
+      "qualities": [
+        "Prochowa",
+        "Przebijająca",
+        "Nadziewająca",
+        "Przekłuwająca",
+        "Pistolet"
+      ],
+      "flaws": [
+        "Przeładowanie 1"
+      ],
+      "enc": "0",
+      "availability": "Bardzo rzadka",
+      "source": "Podręcznik Gracza: Krasnoludy",
+      "page": 94,
+      "note": "Niezawodny — ulega Awarii tylko przy rzucie 00."
+    },
+    "Krasnoludzki topór do rzucania": {
+      "group": "Miotana",
+      "hands": "jednoręczna",
+      "damage": 4,
+      "sb": true,
+      "range": "BS×2",
+      "twoHanded": false,
+      "qualities": [
+        "Rąbiąca"
+      ],
+      "flaws": [],
+      "enc": "1",
+      "availability": "Powszechna",
+      "source": "Podręcznik Gracza: Krasnoludy",
+      "page": 94
+    }
+  },
+  "armour": {
+    "Skórzana kurta": {
+      "type": "Miękka skóra",
+      "locations": [
+        "ramiona",
+        "korpus"
+      ],
+      "ap": 1,
+      "qualities": []
+    },
+    "Skórzany kaftan": {
+      "type": "Miękka skóra",
+      "locations": [
+        "korpus"
+      ],
+      "ap": 1,
+      "qualities": []
+    },
+    "Skórzane nogawice": {
+      "type": "Miękka skóra",
+      "locations": [
+        "nogi"
+      ],
+      "ap": 1,
+      "qualities": []
+    },
+    "Skórzany hełm": {
+      "type": "Miękka skóra",
+      "locations": [
+        "głowa"
+      ],
+      "ap": 1,
+      "qualities": [
+        "Częściowy"
+      ]
+    },
+    "Kolet": {
+      "type": "Skóra hartowana",
+      "locations": [
+        "korpus"
+      ],
+      "ap": 2,
+      "qualities": [
+        "Wrażliwe punkty"
+      ]
+    },
+    "Nogawice kolcze": {
+      "type": "Kolczuga",
+      "locations": [
+        "nogi"
+      ],
+      "ap": 2,
+      "qualities": [
+        "Giętkie"
+      ]
+    },
+    "Kolczuga": {
+      "type": "Kolczuga",
+      "locations": [
+        "ramiona",
+        "korpus"
+      ],
+      "ap": 2,
+      "qualities": [
+        "Giętka"
+      ]
+    },
+    "Czepiec kolczy": {
+      "type": "Kolczuga",
+      "locations": [
+        "głowa"
+      ],
+      "ap": 2,
+      "qualities": [
+        "Częściowy",
+        "Giętki"
+      ],
+      "penalty": "-10 do Percepcji"
+    },
+    "Kaftan kolczy": {
+      "type": "Kolczuga",
+      "locations": [
+        "korpus"
+      ],
+      "ap": 2,
+      "qualities": [
+        "Giętki"
+      ]
+    },
+    "Napierśnik": {
+      "type": "Płytowy",
+      "locations": [
+        "korpus"
+      ],
+      "ap": 2,
+      "qualities": [
+        "Nieprzebijalny",
+        "Wrażliwe punkty"
+      ]
+    },
+    "Hełm otwarty": {
+      "type": "Płytowy",
+      "locations": [
+        "głowa"
+      ],
+      "ap": 2,
+      "qualities": [
+        "Częściowy"
+      ],
+      "penalty": "-10 do Percepcji"
+    },
+    "Naramienniki": {
+      "type": "Płytowy",
+      "locations": [
+        "ramiona"
+      ],
+      "ap": 2,
+      "qualities": [
+        "Nieprzebijalne",
+        "Wrażliwe punkty"
+      ]
+    },
+    "Nagolenniki płytowe": {
+      "type": "Płytowy",
+      "locations": [
+        "nogi"
+      ],
+      "ap": 2,
+      "qualities": [
+        "Nieprzebijalne",
+        "Wrażliwe punkty"
+      ],
+      "penalty": "-10 do Skradania"
+    },
+    "Hełm": {
+      "type": "Płytowy",
+      "locations": [
+        "głowa"
+      ],
+      "ap": 2,
+      "qualities": [
+        "Nieprzebijalny",
+        "Wrażliwe punkty"
+      ],
+      "penalty": "-20 do Percepcji"
+    }
+  },
+  "armourSets": {
+    "brak": [],
+    "lekki": [
+      "Skórzana kurta",
+      "Skórzane nogawice",
+      "Skórzany hełm"
+    ],
+    "sredni": [
+      "Skórzana kurta",
+      "Kolczuga",
+      "Skórzane nogawice",
+      "Czepiec kolczy"
+    ],
+    "ciezki": [
+      "Skórzana kurta",
+      "Kolczuga",
+      "Napierśnik",
+      "Naramienniki",
+      "Nogawice kolcze",
+      "Hełm"
+    ],
+    "pelna_plyta": [
+      "Skórzana kurta",
+      "Kolczuga",
+      "Nogawice kolcze",
+      "Napierśnik",
+      "Naramienniki",
+      "Nagolenniki płytowe",
+      "Hełm"
+    ]
+  },
+  "qualities": {
+    "Celna": "Strzelając z tej broni, masz +10 do Testu trafienia.",
+    "Dekoncentrująca": "Zamiast zadawać Obrażenia, udany atak może zmusić wroga do cofnięcia się o 1 m za każdy PS, o który wygrywasz Test Przeciwstawny.",
+    "Druzgocząca": "Po trafieniu dodaj do Obrażeń wynik z kości jedności rzutu na atak. Broń Tępa nigdy nie jest Druzgocząca.",
+    "Łamacz mieczy": "Krytyk przy obronie przed bronią sieczną: zamiast efektu Krytyka możesz ją unieruchomić – Przeciwstawny Test Siły (+ PS z Testu walki). Sukces: wróg upuszcza broń; Zdumiewający Sukces: dodatkowo łamie ostrze (chyba że Niełamliwa).",
+    "Nadziewająca": "Trafienie Krytyczne także przy udanym wyniku podzielnym przez 10 (10, 20, 30…), oprócz dubletów. Pocisk (strzała, bełt, kula) utkwi w ciele: wyjęcie strzały/bełtu = Leczenie (+0), kuli = Chirurgia; każdy tkwiący pocisk blokuje leczenie 1 Rany.",
+    "Niełamliwa": "W większości okoliczności nie złamie się, nie skoroduje i nie stępi.",
+    "Ogłuszająca": "Trafienie w głowę → Przeciwstawny Test Siły / Odporności celu. Wygrana: cel dostaje Oszołomienie.",
+    "Parująca": "+1 PS do każdego Testu Broni Białej, gdy parujesz. Jednoręczną bronią Parującą możesz walczyć Umiejętnością Broń Biała (Parująca) – wtedy parujesz nią bez kary −20 za drugą rękę.",
+    "Pistolet": "Możesz nią atakować w zwarciu, a także strzelać, będąc Związany Walką.",
+    "Plącząca": "Testy Broni Białej przeciwko tej broni mają −1 PS (ciosy owijają się wokół ostrzy i tarcz).",
+    "Precyzyjna": "+1 PS do każdego udanego Testu ataku tą bronią.",
+    "Prochowa": "Cel musi zdać Przeciętny (+20) Test Opanowania, inaczej dostaje Strach – nawet gdy strzał spudłuje.",
+    "Przebijająca": "Do Obrażeń dodajesz PS albo wynik z kości jedności – co wyższe. Broń Tępa nigdy nie jest Przebijająca.",
+    "Przekłuwająca": "Ignoruje PP z warstw niemetalowych; z pozostałych pancerzy pomija pierwszy PP.",
+    "Rąbiąca": "Trafienie uszkadza trafiony element pancerza lub tarczy o 1 PP; cel ranisz normalnie.",
+    "Szybka": "+30 do Inicjatywy. Obrona Bronią Białą przed nią: −1 PS, jeśli obrońca nie ma broni Szybkiej. Szybka nigdy nie jest Powolna.",
+    "Tarcza": "Ilekroć bronisz się przed atakiem Walki Wręcz lub Broni Białej, masz +X PP. Działa też, gdy w wiodącej ręce trzymasz broń i nią parujesz. Tarcza 2, 3 i wyższa: możesz też bronić się przed pociskami w polu widzenia.",
+    "Unieruchamiająca": "Trafiony dostaje Stan Pochwycenie z Siłą równą twojej Sile. Tej broni nie użyjesz do innego ataku na unieruchomionego; możesz go puścić w każdej chwili.",
+    "Wielostrzał": "Oddajesz X strzałów, broń przeładowuje się sama po każdym. Potem – pełne przeładowanie.",
+    "Odłamkowa": "Wszyscy w promieniu X m od trafionego celu otrzymują Obrażenia broni + PS i wszystkie jej Stany.",
+    "Ciężka": "Druzgocząca i Przebijająca działają tylko w Turze Szarży.",
+    "Niebezpieczna": "Każdy nieudany Test z 9 na kości dziesiątek lub jedności to Pech.",
+    "Nieprecyzyjna": "−1 PS do ataku. Nigdy nie jest Precyzyjna.",
+    "Powolna": "−30 do Inicjatywy; obrońca ma +1 PS do obrony.",
+    "Przeładowanie": "Przeładowanie = Wydłużony Test Broni Zasięgowej do X PS. Przerwanie = od początku.",
+    "Tępa": "Obrońca liczy wszystkie PP podwójnie; nie działa minimum 1 Rany (może być 0).",
+    "Giętki": "Można nosić pod innym pancerzem (bez tej Zalety) i korzystać z obu.",
+    "Nieprzebijalny": "Rany Krytyczne z nieparzystego wyniku na trafienie są ignorowane.",
+    "Częściowy": "Przeciwnik z parzystym wynikiem lub Trafieniem Krytycznym ignoruje PP tego pancerza.",
+    "Wrażliwe punkty": "Przy Trafieniu Krytycznym bronią Nadziewającą wszystkie PP tego pancerza są ignorowane.",
+    "Przewracająca": "Po trafieniu możesz wydać 2 Przewagi → Przeciwstawny Test Siła / Atletyka. Wygrana: Powalenie (jeździec spada z 2 m, potem Powalenie). Przegrana: zwykłe skutki przegranego Testu.",
+    "Rozrzucająca": "Zasięg Bezpośredni: jeden cel, +X Obrażeń. Bliski/Daleki: trafia wybrany cel i X najbliższych widocznych istot (nie dalej niż X m od siebie). Bardzo Daleki: jak wyżej, ale −X Obrażeń.",
+    "Sieczna": "Gdy zadasz Ranę Krytyczną, ofiara dostaje także 1 poziom Krwawienia. Możesz wydać X Przewag, by dodać kolejny poziom Krwawienia.",
+    "Sztylet": "+20 do Inicjatywy (zaleta domowa sztyletów).",
+    "Zaraza": "(Cecha Stworzenia; ma ją amunicja „szmelc”) Gdy zranisz żywego przeciwnika, musi zdać Łatwy (+40) Test Odporności, inaczej dostaje Ropiejącą Ranę.",
+    "Niewyważona": "Parując tą bronią, masz −1 PS do Testu."
+  },
+  "legacy": {
+    "Broń Ręczna": "Miecz",
+    "Tarcza (puklerz)": "Puklerz",
+    "Tarcza (duża)": "Tarcza duża",
+    "Broń Improwizowana": "Broń improwizowana"
+  },
+  "handWeapon": {
+    "default": {
+      "Miecz": 4,
+      "Topór": 2,
+      "Buzdygan": 1,
+      "Młot jednoręczny": 1,
+      "Pałka": 1
+    },
+    "race": {
+      "Krasnolud": {
+        "Topór": 6,
+        "Młot jednoręczny": 4,
+        "Miecz": 0.5,
+        "Pałka": 0.3,
+        "Buzdygan": 0.5
+      },
+      "Niziołek": {
+        "Miecz": 3,
+        "Pałka": 2,
+        "Topór": 1,
+        "Buzdygan": 0.3,
+        "Młot jednoręczny": 0.3
+      },
+      "Wysoki elf": {
+        "Miecz": 10,
+        "Topór": 0.2,
+        "Pałka": 0.1,
+        "Buzdygan": 0.2,
+        "Młot jednoręczny": 0.1
+      },
+      "Leśny elf": {
+        "Miecz": 6,
+        "Topór": 2,
+        "Pałka": 0.1,
+        "Buzdygan": 0.1,
+        "Młot jednoręczny": 0.1
+      }
+    },
+    "archetype": {
+      "Chłop": {
+        "Topór": 3,
+        "Pałka": 4,
+        "Miecz": 0.3
+      },
+      "Oprych": {
+        "Pałka": 3,
+        "Topór": 2,
+        "Miecz": 2,
+        "Buzdygan": 1
+      },
+      "Złodziej": {
+        "Miecz": 1,
+        "Pałka": 2,
+        "Topór": 0.5
+      },
+      "Kupiec": {
+        "Miecz": 3,
+        "Pałka": 1
+      },
+      "Kapłan": {
+        "Młot jednoręczny": 4,
+        "Buzdygan": 3,
+        "Miecz": 1
+      },
+      "Szlachcic": {
+        "Miecz": 5,
+        "Topór": 0.2,
+        "Pałka": 0.1
+      },
+      "Strażnik": {
+        "Miecz": 3,
+        "Pałka": 3,
+        "Buzdygan": 1
+      },
+      "Wodniak": {
+        "Topór": 2,
+        "Miecz": 2,
+        "Pałka": 2
+      }
+    },
+    "creatureGroup": {
+      "Zielonoskórzy": {
+        "Topór": 5,
+        "Pałka": 3,
+        "Miecz": 0.5,
+        "Buzdygan": 1
+      },
+      "Skaveny": {
+        "Miecz": 3,
+        "Topór": 1,
+        "Pałka": 1
+      },
+      "Chaos": {
+        "Topór": 4,
+        "Miecz": 3,
+        "Buzdygan": 2
+      },
+      "Ludy": {
+        "Pałka": 4,
+        "Topór": 2,
+        "Buzdygan": 2
+      }
+    }
+  },
+  "twoHandedWeapon": {
+    "default": {
+      "Miecz dwuręczny": 3,
+      "Wielki topór": 2,
+      "Młot bojowy": 1,
+      "Półtorak": 1
+    },
+    "race": {
+      "Krasnolud": {
+        "Wielki topór": 6,
+        "Młot bojowy": 4,
+        "Miecz dwuręczny": 0.3,
+        "Półtorak": 0.2
+      },
+      "Wysoki elf": {
+        "Miecz dwuręczny": 5,
+        "Półtorak": 3,
+        "Wielki topór": 0.2,
+        "Młot bojowy": 0.1
+      }
+    },
+    "archetype": {
+      "Kapłan": {
+        "Młot bojowy": 5
+      }
+    },
+    "creatureGroup": {
+      "Zielonoskórzy": {
+        "Wielki topór": 5,
+        "Młot bojowy": 2
+      },
+      "Chaos": {
+        "Wielki topór": 4,
+        "Miecz dwuręczny": 2,
+        "Flamberg": 1
+      }
+    }
+  },
+  "raceVariants": {
+    "Krasnolud": {
+      "chance": 0.85,
+      "weapons": {
+        "Topór": "Krasnoludzki topór",
+        "Młot jednoręczny": "Krasnoludzki młot bojowy",
+        "Wielki topór": "Krasnoludzki wielki topór",
+        "Młot bojowy": "Krasnoludzki wielki młot",
+        "Nadziak": "Krasnoludzki kilof",
+        "Kusza": "Krasnoludzka kusza",
+        "Rusznica": "Krasnoludzka hakownica",
+        "Pistolet": "Krasnoludzki pistolet",
+        "Topór do rzucania": "Krasnoludzki topór do rzucania"
+      }
+    }
+  }
+}
