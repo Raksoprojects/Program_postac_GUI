@@ -2,7 +2,7 @@
   import { store, type PhantomEntry } from "../lib/store.svelte";
   import { ATTRIBUTES } from "../lib/rules";
   import { ATTRIBUTE_FULL_NAMES } from "../lib/store.svelte";
-  import { getTalent, findOwnedName, findTalentDef, specPlaceholderInfo } from "../lib/gameData";
+  import { getTalent, findOwnedName, findTalentDef, specPlaceholderInfo, sourceShort, talentSource } from "../lib/gameData";
   import type { ChoiceSlot, TalentMax, TalentMaxType } from "../lib/types";
   import Modal from "./Modal.svelte";
   import SpecializationModal from "./SpecializationModal.svelte";
@@ -361,7 +361,7 @@
           class:sel={pickerSel === name}
           onclick={() => (pickerSel = name)}
         >
-          {name}
+          {name}{#if talentSource(name)} <span class="text-dim src">({sourceShort(talentSource(name))})</span>{/if}
         </button>
       {/each}
       {#if pickerList.length === 0}
@@ -640,6 +640,9 @@
     min-width: calc(160px * var(--ui-scale));
   }
 
+  .pick-item .src {
+    margin-left: 0.35em;
+  }
   .pick-item {
     text-align: left;
     background: transparent;

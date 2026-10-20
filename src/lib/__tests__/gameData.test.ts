@@ -18,6 +18,10 @@ import {
   isLuckPoolMerged,
   startingLuckPool,
   getRace,
+  sourceShort,
+  withSource,
+  professionSource,
+  talentSource,
   isSkillDevelopable,
   isCharacteristicDevelopable,
   normalize,
@@ -126,6 +130,23 @@ describe("gameData: profesje i klasy", () => {
     expect(steps.length).toBe(2);
     expect(steps[0].resolved).toBe(true);
     expect(steps[1].resolved).toBe(false);
+  });
+});
+
+describe("gameData: zrodla na listach wyboru", () => {
+  it("krotkie nazwy zrodel i dopisek w nawiasie", () => {
+    expect(sourceShort("Podręcznik podstawowy")).toBe("Podstawka");
+    expect(sourceShort("Podręcznik Gracza: Wysokie Elfy")).toBe("PG: Wysokie Elfy");
+    expect(sourceShort("Warriors of Chaos (nieoficjalny)")).toBe("Warriors of Chaos, nieof.");
+    expect(sourceShort("Pod Bronią")).toBe("Pod Bronią");
+    expect(withSource("Rycerz Chaosu", professionSource("Rycerz Chaosu"))).toBe("Rycerz Chaosu (Warriors of Chaos, nieof.)");
+    expect(talentSource("Magia Tajemna (Ognia)")).toBe(talentSource("Magia Tajemna (Tradycja)"));
+  });
+
+  it("kazdy talent i profesja ma zrodlo z ujednoliconej listy", () => {
+    const bad = (s: string) => !s || /Do uzupełnienia|gracza Krasnoluda|Ratter|, s\. \d/.test(s);
+    expect(allTalentNames().filter((n) => bad(talentSource(n)))).toEqual([]);
+    expect(allProfessionNames().filter((n) => bad(professionSource(n)))).toEqual([]);
   });
 });
 

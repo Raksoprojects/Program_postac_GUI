@@ -256,14 +256,14 @@
       {#if picker === "spell"}
         {#each spellList.slice(0, 300) as x (x.def.name)}
           <button class="pick-item" class:sel={selSpell === x.def} class:blocked={!x.offer.allowed} onclick={() => (selSpell = x.def)}>
-            <span>{x.def.name} <span class="text-dim small">· {loreLabel(x.def.lore)} · PZ {x.def.cn}</span></span>
+            <span>{x.def.name} <span class="text-dim small">· {loreLabel(x.def.lore)} · PZ {x.def.cn} · ({gameData.sourceShort(x.def.source)})</span></span>
             <span class="small">{x.offer.known ? "znane" : x.offer.allowed ? `${x.offer.cost} PD` : "niedostępne"}</span>
           </button>
         {/each}
       {:else}
         {#each miracleList.slice(0, 300) as x (x.def.name)}
           <button class="pick-item" class:sel={selMiracle === x.def} class:blocked={!x.offer.allowed} onclick={() => (selMiracle = x.def)}>
-            <span>{x.def.name} <span class="text-dim small">· {x.def.deity}{x.def.aspect ? ` — ${x.def.aspect}` : ""}</span></span>
+            <span>{x.def.name} <span class="text-dim small">· {x.def.deity}{x.def.aspect ? ` — ${x.def.aspect}` : ""} · ({gameData.sourceShort(x.def.source)})</span></span>
             <span class="small">{x.offer.known ? "znany" : x.offer.allowed ? `${x.offer.cost} PD` : "niedostępny"}</span>
           </button>
         {/each}

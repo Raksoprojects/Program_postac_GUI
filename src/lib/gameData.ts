@@ -199,6 +199,32 @@ export function talentSourceGroup(name: string): SourceGroup {
   return sourceGroup((getTalent(name) ?? findTalentDef(name))?.source);
 }
 
+/** Krotka nazwa zrodla do list wyboru ("Podstawka", "PG: Wysokie Elfy", "Warriors of Chaos, nieof."). */
+export function sourceShort(source: string | undefined | null): string {
+  const s = (source ?? "").trim();
+  if (!s) return "";
+  if (/^Podręcznik podstawowy/i.test(s)) return "Podstawka";
+  const pg = /^Podręcznik Gracza:\s*(.+)$/i.exec(s);
+  if (pg) return `PG: ${pg[1]}`;
+  return s.replace(/\s*\(nieoficjalny\)/i, ", nieof.");
+}
+
+/** Nazwa z dopiskiem zrodla w nawiasie, np. "Mistrz Miecza (Podstawka)". */
+export function withSource(name: string, source: string | undefined | null): string {
+  const s = sourceShort(source);
+  return s ? `${name} (${s})` : name;
+}
+
+/** Zrodlo profesji (pole source). */
+export function professionSource(name: string): string {
+  return getProfession(name)?.source ?? "";
+}
+
+/** Zrodlo talentu (takze wariantu ze specjalizacja, np. "Magia Tajemna (Ognia)"). */
+export function talentSource(name: string): string {
+  return (getTalent(name) ?? findTalentDef(name))?.source ?? "";
+}
+
 /** Czy grupa proweniencji przechodzi przez wybrany preset filtra. */
 export function matchesSourceFilter(group: SourceGroup, filter: SourceFilter): boolean {
   switch (filter) {

@@ -169,11 +169,11 @@
         <select bind:value={selProfession}>
           <option value="">— wybierz —</option>
           {#each professionsForClass as p (p)}
-            <option value={p}>{store.professionLabel(p)}</option>
+            <option value={p}>{gameData.withSource(store.professionLabel(p), gameData.professionSource(p))}</option>
           {/each}
           {#each evilGroups as g (g.cls)}
             <optgroup label={`Profesje zła — ${g.cls}`}>
-              {#each g.names as p (p)}<option value={p}>{store.professionLabel(p)}</option>{/each}
+              {#each g.names as p (p)}<option value={p}>{gameData.withSource(store.professionLabel(p), gameData.professionSource(p))}</option>{/each}
             </optgroup>
           {/each}
         </select>

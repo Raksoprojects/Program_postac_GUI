@@ -209,7 +209,7 @@
     <div class="picker-list">
       {#each catalog.slice(0, 300) as e, i (`${e.category}|${e.name}|${i}`)}
         <button class="pick-item" class:sel={picked === e} onclick={() => (picked = e)}>
-          <span>{e.name}</span>
+          <span>{e.name}{#if e.source} <span class="text-dim small">({gameData.sourceShort(e.source)})</span>{/if}</span>
           <span class="text-dim small">
             {e.severity ? `${e.severity} · ` : ""}{catFilter ? "" : gameData.modifierCategoryLabel(e.category)}
           </span>
