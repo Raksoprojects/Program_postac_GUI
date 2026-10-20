@@ -1,0 +1,3299 @@
+{
+  "note": "Formy [męska, żeńska] nazw profesji i tytułów poziomów. Klucz tytułu: \"Profesja|poziom\".",
+  "professions": {
+    "Aptekarka": [
+      "Aptekarz",
+      "Aptekarka"
+    ],
+    "Czarodziej": [
+      "Czarodziej",
+      "Czarodziejka"
+    ],
+    "Mag": [
+      "Mag",
+      "Magini"
+    ],
+    "Straż Morska": [
+      "Straż Morska",
+      "Straż Morska"
+    ],
+    "Mistrz Miecza": [
+      "Mistrz Miecza",
+      "Mistrzyni Miecza"
+    ],
+    "Wojownik Cienia": [
+      "Wojownik Cienia",
+      "Wojowniczka Cienia"
+    ],
+    "Kupiec Poszukiwacz Przygód": [
+      "Kupiec Poszukiwacz Przygód",
+      "Kupczyni Poszukiwaczka Przygód"
+    ],
+    "Estetyk": [
+      "Estetyk",
+      "Estetka"
+    ],
+    "Kapłan-Kowal Vaula": [
+      "Kapłan-Kowal Vaula",
+      "Kapłanka-Kowalka Vaula"
+    ],
+    "Tkacz Burzy": [
+      "Tkacz Burzy",
+      "Tkaczka Burzy"
+    ],
+    "Mistrz Wiedzy Hoetha": [
+      "Mistrz Wiedzy Hoetha",
+      "Mistrzyni Wiedzy Hoetha"
+    ],
+    "Inżynier": [
+      "Inżynier",
+      "Inżynierka"
+    ],
+    "Kapłan": [
+      "Kapłan",
+      "Kapłanka"
+    ],
+    "Medyczka": [
+      "Medyk",
+      "Medyczka"
+    ],
+    "Mniszka": [
+      "Mnich",
+      "Mniszka"
+    ],
+    "Prawniczka": [
+      "Prawnik",
+      "Prawniczka"
+    ],
+    "Uczony": [
+      "Uczony",
+      "Uczona"
+    ],
+    "Świecki Alchemik": [
+      "Świecki Alchemik",
+      "Świecka Alchemiczka"
+    ],
+    "Magister Rewizor": [
+      "Magister Rewizor",
+      "Magister Rewizor"
+    ],
+    "Hierofant": [
+      "Hierofant",
+      "Hierofantka"
+    ],
+    "Alchemik": [
+      "Alchemik",
+      "Alchemiczka"
+    ],
+    "Druidka": [
+      "Druid",
+      "Druidka"
+    ],
+    "Astromanta": [
+      "Astromanta",
+      "Astromantka"
+    ],
+    "Iluzjonista": [
+      "Iluzjonista",
+      "Iluzjonistka"
+    ],
+    "Spirytysta": [
+      "Spirytysta",
+      "Spirytystka"
+    ],
+    "Piromanta": [
+      "Piromanta",
+      "Piromantka"
+    ],
+    "Szamanka": [
+      "Szaman",
+      "Szamanka"
+    ],
+    "Kowal Run": [
+      "Kowal Run",
+      "Kowal Run"
+    ],
+    "Agitator": [
+      "Agitator",
+      "Agitatorka"
+    ],
+    "Kupiec": [
+      "Kupiec",
+      "Kupcowa"
+    ],
+    "Mieszczka": [
+      "Mieszczanin",
+      "Mieszczka"
+    ],
+    "Rzemieślniczka": [
+      "Rzemieślnik",
+      "Rzemieślniczka"
+    ],
+    "Strażnik": [
+      "Strażnik",
+      "Strażniczka"
+    ],
+    "Szczurołap": [
+      "Szczurołap",
+      "Szczurołapka"
+    ],
+    "Śledczy": [
+      "Śledczy",
+      "Śledcza"
+    ],
+    "Żebrak": [
+      "Żebrak",
+      "Żebraczka"
+    ],
+    "Piwowar": [
+      "Piwowar",
+      "Piwowarka"
+    ],
+    "Artystka": [
+      "Artysta",
+      "Artystka"
+    ],
+    "Doradca": [
+      "Doradca",
+      "Doradczyni"
+    ],
+    "Namiestnik": [
+      "Namiestnik",
+      "Namiestniczka"
+    ],
+    "Poseł": [
+      "Poseł",
+      "Posłanka"
+    ],
+    "Służąca": [
+      "Służący",
+      "Służąca"
+    ],
+    "Szlachcic": [
+      "Szlachcic",
+      "Szlachcianka"
+    ],
+    "Szpieg": [
+      "Szpieg",
+      "Szpieg"
+    ],
+    "Zwadźca": [
+      "Zwadźca",
+      "Zwadźczyni"
+    ],
+    "Chłopka": [
+      "Chłop",
+      "Chłopka"
+    ],
+    "Górnik": [
+      "Górnik",
+      "Górniczka"
+    ],
+    "Guślarz": [
+      "Guślarz",
+      "Guślarka"
+    ],
+    "Łowczyni": [
+      "Łowca",
+      "Łowczyni"
+    ],
+    "Mistyczka": [
+      "Mistyk",
+      "Mistyczka"
+    ],
+    "Zarządca": [
+      "Zarządca",
+      "Zarządczyni"
+    ],
+    "Zielarka": [
+      "Zielarz",
+      "Zielarka"
+    ],
+    "Zwiadowca": [
+      "Zwiadowca",
+      "Zwiadowczyni"
+    ],
+    "Jasnowidząca": [
+      "Jasnowidzący",
+      "Jasnowidząca"
+    ],
+    "Biczownik": [
+      "Biczownik",
+      "Biczowniczka"
+    ],
+    "Domokrążca": [
+      "Domokrążca",
+      "Domokrążczyni"
+    ],
+    "Kuglarka": [
+      "Kuglarz",
+      "Kuglarka"
+    ],
+    "Łowca Czarownic": [
+      "Łowca Czarownic",
+      "Łowczyni Czarownic"
+    ],
+    "Łowczyni Nagród": [
+      "Łowca Nagród",
+      "Łowczyni Nagród"
+    ],
+    "Posłaniec": [
+      "Posłaniec",
+      "Posłanniczka"
+    ],
+    "Strażniczka Dróg": [
+      "Strażnik Dróg",
+      "Strażniczka Dróg"
+    ],
+    "Woźnica": [
+      "Woźnica",
+      "Woźnica"
+    ],
+    "Doker": [
+      "Doker",
+      "Dokerka"
+    ],
+    "Flisak": [
+      "Flisak",
+      "Flisaczka"
+    ],
+    "Pilotka Rzeczna": [
+      "Pilot Rzeczny",
+      "Pilotka Rzeczna"
+    ],
+    "Pirat Rzeczny": [
+      "Pirat Rzeczny",
+      "Piratka Rzeczna"
+    ],
+    "Przemytniczka": [
+      "Przemytnik",
+      "Przemytniczka"
+    ],
+    "Przewoźnik": [
+      "Przewoźnik",
+      "Przewoźniczka"
+    ],
+    "Strażnik Rzeczny": [
+      "Strażnik Rzeczny",
+      "Strażniczka Rzeczna"
+    ],
+    "Żeglarz": [
+      "Żeglarz",
+      "Żeglarka"
+    ],
+    "Banita": [
+      "Banita",
+      "Banitka"
+    ],
+    "Czarownica": [
+      "Czarownik",
+      "Czarownica"
+    ],
+    "Hiena Cmentarna": [
+      "Hiena Cmentarna",
+      "Hiena Cmentarna"
+    ],
+    "Paser": [
+      "Paser",
+      "Paserka"
+    ],
+    "Rajfur": [
+      "Rajfur",
+      "Rajfurka"
+    ],
+    "Rekietierka": [
+      "Rekieter",
+      "Rekietierka"
+    ],
+    "Szarlatan": [
+      "Szarlatan",
+      "Szarlatanka"
+    ],
+    "Złodziej": [
+      "Złodziej",
+      "Złodziejka"
+    ],
+    "Gladiator": [
+      "Gladiator",
+      "Gladiatorka"
+    ],
+    "Kapłan Bitewny": [
+      "Kapłan Bitewny",
+      "Kapłanka Bitewna"
+    ],
+    "Kawalerzysta": [
+      "Kawalerzysta",
+      "Kawalerzystka"
+    ],
+    "Ochroniarz": [
+      "Ochroniarz",
+      "Ochroniarka"
+    ],
+    "Oprych": [
+      "Oprych",
+      "Oprych"
+    ],
+    "Rycerz": [
+      "Rycerz",
+      "Rycerz"
+    ],
+    "Zabójca": [
+      "Zabójca",
+      "Zabójczyni"
+    ],
+    "Żołnierz": [
+      "Żołnierz",
+      "Żołnierz"
+    ],
+    "Bedel": [
+      "Bedel",
+      "Bedelka"
+    ],
+    "Łucznicza": [
+      "Łucznik",
+      "Łuczniczka"
+    ],
+    "Gwardzista Elektorski": [
+      "Gwardzista Elektorski",
+      "Gwardzistka Elektorska"
+    ],
+    "Halabardnik": [
+      "Halabardnik",
+      "Halabardniczka"
+    ],
+    "Strzelec": [
+      "Strzelec",
+      "Strzelczyni"
+    ],
+    "Artylerzysta": [
+      "Artylerzysta",
+      "Artylerzystka"
+    ],
+    "Ciura Obozowa": [
+      "Ciura Obozowa",
+      "Ciura Obozowa"
+    ],
+    "Kartografka": [
+      "Kartograf",
+      "Kartografka"
+    ],
+    "Rycerz Najemny": [
+      "Rycerz Najemny",
+      "Rycerz Najemny"
+    ],
+    "Rycerz Płonącego Słońca": [
+      "Rycerz Płonącego Słońca",
+      "Rycerz Płonącego Słońca"
+    ],
+    "Rycerz Białego Wilka": [
+      "Rycerz Białego Wilka",
+      "Rycerz Białego Wilka"
+    ],
+    "Rycerz Pantery": [
+      "Rycerz Pantery",
+      "Rycerz Pantery"
+    ],
+    "Lekki Kawalerzysta": [
+      "Lekki Kawalerzysta",
+      "Lekka Kawalerzystka"
+    ],
+    "Specjalista Oblężniczy": [
+      "Specjalista Oblężniczy",
+      "Specjalistka Oblężnicza"
+    ],
+    "Pikinier": [
+      "Pikinier",
+      "Pikinierka"
+    ],
+    "Kapłanka Bitewna Myrmidii": [
+      "Kapłan Bitewny Myrmidii",
+      "Kapłanka Bitewna Myrmidii"
+    ],
+    "Elementalista": [
+      "Elementalista",
+      "Elementalistka"
+    ],
+    "Kapłan Druidzki": [
+      "Kapłan Druidzki",
+      "Kapłanka Druidzka"
+    ],
+    "Kapłan Zagłady": [
+      "Kapłan Zagłady",
+      "Kapłanka Zagłady"
+    ],
+    "Kapłan Kuźni": [
+      "Kapłan Kuźni",
+      "Kapłanka Kuźni"
+    ],
+    "Kapłan Ogniska": [
+      "Kapłan Ogniska",
+      "Kapłanka Ogniska"
+    ],
+    "Młotodzierżca": [
+      "Młotodzierżca",
+      "Młotodzierżczyni"
+    ],
+    "Żelazołamacz": [
+      "Żelazołamacz",
+      "Żelazołamaczka"
+    ],
+    "Zwiadowca Karaku": [
+      "Zwiadowca Karaku",
+      "Zwiadowczyni Karaku"
+    ],
+    "Runopisarz": [
+      "Runopisarz",
+      "Runopisarka"
+    ],
+    "Than": [
+      "Than",
+      "Thanka"
+    ],
+    "Kapłan-Złodziej": [
+      "Kapłan-Złodziej",
+      "Kapłanka-Złodziejka"
+    ],
+    "Fałszerz": [
+      "Fałszerz",
+      "Fałszerka"
+    ],
+    "Strażnik-Kapłan Taala": [
+      "Strażnik-Kapłan Taala",
+      "Strażniczka-Kapłanka Taala"
+    ],
+    "Gajowy": [
+      "Gajowy",
+      "Gajowa"
+    ],
+    "Kłusownik": [
+      "Kłusownik",
+      "Kłusowniczka"
+    ],
+    "Nekromanta": [
+      "Nekromanta",
+      "Nekromantka"
+    ],
+    "Kapłan Manana": [
+      "Kapłan Manana",
+      "Kapłanka Manana"
+    ],
+    "Kapłan Morra": [
+      "Kapłan Morra",
+      "Kapłanka Morra"
+    ],
+    "Kapłan Myrmidii": [
+      "Kapłan Myrmidii",
+      "Kapłanka Myrmidii"
+    ],
+    "Kapłan Ranalda": [
+      "Kapłan Ranalda",
+      "Kapłanka Ranalda"
+    ],
+    "Kapłanka Rhyi": [
+      "Kapłan Rhyi",
+      "Kapłanka Rhyi"
+    ],
+    "Kapłanka Shallyi": [
+      "Kapłan Shallyi",
+      "Kapłanka Shallyi"
+    ],
+    "Kapłan Sigmara": [
+      "Kapłan Sigmara",
+      "Kapłanka Sigmara"
+    ],
+    "Kapłan Taala": [
+      "Kapłan Taala",
+      "Kapłanka Taala"
+    ],
+    "Kapłan Ulryka": [
+      "Kapłan Ulryka",
+      "Kapłanka Ulryka"
+    ],
+    "Kapłanka Vereny": [
+      "Kapłan Vereny",
+      "Kapłanka Vereny"
+    ],
+    "Rogaty Łowca Taala": [
+      "Rogaty Łowca Taala",
+      "Rogata Łowczyni Taala"
+    ],
+    "Nocny Łotr Ranalda": [
+      "Nocny Łotr Ranalda",
+      "Nocna Łotrzyca Ranalda"
+    ],
+    "Szpitalnik Shallyi": [
+      "Szpitalnik Shallyi",
+      "Szpitalniczka Shallyi"
+    ],
+    "Strażnik Szali Vereny": [
+      "Strażnik Szali Vereny",
+      "Strażniczka Szali Vereny"
+    ],
+    "Tarczowniczka Myrmidii": [
+      "Tarczownik Myrmidii",
+      "Tarczowniczka Myrmidii"
+    ],
+    "Siostra Sigmara": [
+      "Brat Sigmara",
+      "Siostra Sigmara"
+    ],
+    "Strażnik Burzy Manana": [
+      "Strażnik Burzy Manana",
+      "Strażniczka Burzy Manana"
+    ],
+    "Kapłan Bitewny Morra": [
+      "Kapłan Bitewny Morra",
+      "Kapłanka Bitewna Morra"
+    ],
+    "Kapłan Bitewny Sigmara": [
+      "Kapłan Bitewny Sigmara",
+      "Kapłanka Bitewna Sigmara"
+    ],
+    "Kapłan Bitewny Ulryka": [
+      "Kapłan Bitewny Ulryka",
+      "Kapłanka Bitewna Ulryka"
+    ],
+    "Kapłan-Hazardzista": [
+      "Kapłan-Hazardzista",
+      "Kapłanka-Hazardzistka"
+    ],
+    "Kapłan-Zwodziciel": [
+      "Kapłan-Zwodziciel",
+      "Kapłanka-Zwodzicielka"
+    ],
+    "Kapłan-Opiekun": [
+      "Kapłan-Opiekun",
+      "Kapłanka-Opiekunka"
+    ],
+    "Berserker": [
+      "Berserker",
+      "Berserkerka"
+    ],
+    "Bestigor": [
+      "Bestigor",
+      "Bestigor"
+    ],
+    "Szaman Stada": [
+      "Szaman Stada",
+      "Szamanka Stada"
+    ],
+    "Rycerz Chaosu": [
+      "Rycerz Chaosu",
+      "Rycerka Chaosu"
+    ],
+    "Maruder Chaosu": [
+      "Maruder Chaosu",
+      "Maruderka Chaosu"
+    ],
+    "Czarownik Chaosu": [
+      "Czarownik Chaosu",
+      "Czarownica Chaosu"
+    ],
+    "Kultysta Khorne'a": [
+      "Kultysta Khorne'a",
+      "Kultystka Khorne'a"
+    ],
+    "Magus Kultu Nurgle'a": [
+      "Magus Kultu Nurgle'a",
+      "Magini Kultu Nurgle'a"
+    ],
+    "Magus Kultu Slaanesha": [
+      "Magus Kultu Slaanesha",
+      "Magini Kultu Slaanesha"
+    ],
+    "Demonokowal": [
+      "Demonokowal",
+      "Demonokowalka"
+    ],
+    "Wywyższony Bohater": [
+      "Wywyższony Bohater",
+      "Wywyższona Bohaterka"
+    ],
+    "Wolny Człowiek Północy": [
+      "Wolny Człowiek Północy",
+      "Wolna Kobieta Północy"
+    ],
+    "Piekielny Rycerz": [
+      "Piekielny Rycerz",
+      "Piekielna Rycerka"
+    ],
+    "Piekielna Straż": [
+      "Piekielna Straż",
+      "Piekielna Straż"
+    ],
+    "Rycerz Tzeentcha": [
+      "Rycerz Tzeentcha",
+      "Rycerka Tzeentcha"
+    ],
+    "Łupieżca Północy": [
+      "Łupieżca Północy",
+      "Łupieżczyni Północy"
+    ],
+    "Wieszcz Północy": [
+      "Wieszcz Północy",
+      "Wieszczka Północy"
+    ],
+    "Skald": [
+      "Skald",
+      "Skaldka"
+    ],
+    "Rycerz Zarazy": [
+      "Rycerz Zarazy",
+      "Rycerka Zarazy"
+    ],
+    "Miażdżyciel Czaszek": [
+      "Miażdżyciel Czaszek",
+      "Miażdżycielka Czaszek"
+    ],
+    "Nadzorca Niewolników": [
+      "Nadzorca Niewolników",
+      "Nadzorczyni Niewolników"
+    ],
+    "Najeźdźca Ungorów": [
+      "Najeźdźca Ungorów",
+      "Najeźdźczyni Ungorów"
+    ],
+    "Wojownik Chaosu": [
+      "Wojownik Chaosu",
+      "Wojowniczka Chaosu"
+    ],
+    "Wielorybnik Norski": [
+      "Wielorybnik Norski",
+      "Wielorybniczka Norska"
+    ]
+  },
+  "titles": {
+    "Aptekarka|1": [
+      "Uczeń Aptekarza",
+      "Uczennica Aptekarki"
+    ],
+    "Aptekarka|2": [
+      "Aptekarz",
+      "Aptekarka"
+    ],
+    "Aptekarka|3": [
+      "Farmaceuta",
+      "Farmaceutka"
+    ],
+    "Aptekarka|4": [
+      "Mistrz Aptekarstwa",
+      "Mistrzyni Aptekarstwa"
+    ],
+    "Czarodziej|1": [
+      "Uczeń Czarodzieja",
+      "Uczennica Czarodzieja"
+    ],
+    "Czarodziej|2": [
+      "Czarodziej",
+      "Czarodziejka"
+    ],
+    "Czarodziej|3": [
+      "Mistrz Magii",
+      "Mistrzyni Magii"
+    ],
+    "Czarodziej|4": [
+      "Arcymag",
+      "Arcymagini"
+    ],
+    "Mag|1": [
+      "Nowicjusz",
+      "Nowicjuszka"
+    ],
+    "Mag|2": [
+      "Mag-Uczeń",
+      "Magini-Uczennica"
+    ],
+    "Mag|3": [
+      "Mag",
+      "Magini"
+    ],
+    "Mag|4": [
+      "Wysoki Mag",
+      "Wysoka Magini"
+    ],
+    "Mag|5": [
+      "Arcymag",
+      "Arcymagini"
+    ],
+    "Straż Morska|1": [
+      "Strażnik Morski",
+      "Strażniczka Morska"
+    ],
+    "Straż Morska|2": [
+      "Straż Morska",
+      "Straż Morska"
+    ],
+    "Straż Morska|3": [
+      "Mistrz Morza",
+      "Mistrzyni Morza"
+    ],
+    "Straż Morska|4": [
+      "Ster Morza",
+      "Ster Morza"
+    ],
+    "Mistrz Miecza|1": [
+      "Strażnik Miecza",
+      "Strażniczka Miecza"
+    ],
+    "Mistrz Miecza|2": [
+      "Mistrz Miecza",
+      "Mistrzyni Miecza"
+    ],
+    "Mistrz Miecza|3": [
+      "Mistrz Klingi",
+      "Mistrzyni Klingi"
+    ],
+    "Mistrz Miecza|4": [
+      "Władca Ostrzy",
+      "Władczyni Ostrzy"
+    ],
+    "Wojownik Cienia|1": [
+      "Nowicjusz Cienia",
+      "Nowicjuszka Cienia"
+    ],
+    "Wojownik Cienia|2": [
+      "Wojownik Cienia",
+      "Wojowniczka Cienia"
+    ],
+    "Wojownik Cienia|3": [
+      "Mistrz Cienia",
+      "Mistrzyni Cienia"
+    ],
+    "Wojownik Cienia|4": [
+      "Chodzący w Cieniu",
+      "Chodząca w Cieniu"
+    ],
+    "Kupiec Poszukiwacz Przygód|1": [
+      "Morski Posłaniec",
+      "Morska Posłanka"
+    ],
+    "Kupiec Poszukiwacz Przygód|2": [
+      "Kupiec Poszukiwacz Przygód",
+      "Kupczyni Poszukiwaczka Przygód"
+    ],
+    "Kupiec Poszukiwacz Przygód|3": [
+      "Morski Odkrywca",
+      "Morska Odkrywczyni"
+    ],
+    "Kupiec Poszukiwacz Przygód|4": [
+      "Łowca Potworów Morskich",
+      "Łowczyni Potworów Morskich"
+    ],
+    "Estetyk|1": [
+      "Zaopatrzeniowiec",
+      "Zaopatrzeniowczyni"
+    ],
+    "Estetyk|2": [
+      "Estetyk",
+      "Estetka"
+    ],
+    "Estetyk|3": [
+      "Arbiter Elegancji",
+      "Arbiterka Elegancji"
+    ],
+    "Estetyk|4": [
+      "Mistrz Harmonii",
+      "Mistrzyni Harmonii"
+    ],
+    "Kapłan-Kowal Vaula|3": [
+      "Kapłan-Kowal",
+      "Kapłanka-Kowalka"
+    ],
+    "Kapłan-Kowal Vaula|4": [
+      "Mistrz Kapłan-Kowal",
+      "Mistrzyni Kapłanka-Kowalka"
+    ],
+    "Kapłan-Kowal Vaula|5": [
+      "Arcykapłan Kuźni",
+      "Arcykapłanka Kuźni"
+    ],
+    "Tkacz Burzy|3": [
+      "Mag Mgły",
+      "Magini Mgły"
+    ],
+    "Tkacz Burzy|4": [
+      "Tkacz Burzy",
+      "Tkaczka Burzy"
+    ],
+    "Tkacz Burzy|5": [
+      "Przyzywacz Wiru",
+      "Przyzywaczka Wiru"
+    ],
+    "Mistrz Wiedzy Hoetha|3": [
+      "Mistrz Wiedzy",
+      "Mistrzyni Wiedzy"
+    ],
+    "Mistrz Wiedzy Hoetha|4": [
+      "Arcymistrz Wiedzy",
+      "Arcymistrzyni Wiedzy"
+    ],
+    "Mistrz Wiedzy Hoetha|5": [
+      "Wielki Mistrz Wiedzy",
+      "Wielka Mistrzyni Wiedzy"
+    ],
+    "Inżynier|1": [
+      "Student Inżynierii",
+      "Studentka Inżynierii"
+    ],
+    "Inżynier|2": [
+      "Inżynier",
+      "Inżynierka"
+    ],
+    "Inżynier|3": [
+      "Renomowany Inżynier",
+      "Renomowana Inżynierka"
+    ],
+    "Inżynier|4": [
+      "Mistrz Inżynierii",
+      "Mistrzyni Inżynierii"
+    ],
+    "Kapłan|1": [
+      "Kleryk",
+      "Kleryk"
+    ],
+    "Kapłan|2": [
+      "Kapłan",
+      "Kapłanka"
+    ],
+    "Kapłan|3": [
+      "Arcykapłan",
+      "Arcykapłanka"
+    ],
+    "Kapłan|4": [
+      "Lektor",
+      "Lektorka"
+    ],
+    "Medyczka|1": [
+      "Student Medycyny",
+      "Studentka Medycyny"
+    ],
+    "Medyczka|2": [
+      "Medyk",
+      "Medyczka"
+    ],
+    "Medyczka|3": [
+      "Doktor",
+      "Doktor"
+    ],
+    "Medyczka|4": [
+      "Nadworny Medyk",
+      "Nadworna Medyczka"
+    ],
+    "Mniszka|1": [
+      "Nowicjusz",
+      "Nowicjuszka"
+    ],
+    "Mniszka|2": [
+      "Mnich",
+      "Mniszka"
+    ],
+    "Mniszka|3": [
+      "Przeor",
+      "Przeorysza"
+    ],
+    "Mniszka|4": [
+      "Ojciec Przełożony",
+      "Matka Przełożona"
+    ],
+    "Prawniczka|1": [
+      "Student Prawa",
+      "Studentka Prawa"
+    ],
+    "Prawniczka|2": [
+      "Prawnik",
+      "Prawniczka"
+    ],
+    "Prawniczka|3": [
+      "Obrońca",
+      "Obrończyni"
+    ],
+    "Prawniczka|4": [
+      "Sędzia",
+      "Sędzia"
+    ],
+    "Uczony|1": [
+      "Student",
+      "Studentka"
+    ],
+    "Uczony|2": [
+      "Uczony",
+      "Uczona"
+    ],
+    "Uczony|3": [
+      "Wykładowca",
+      "Wykładowczyni"
+    ],
+    "Uczony|4": [
+      "Profesor",
+      "Profesor"
+    ],
+    "Świecki Alchemik|1": [
+      "Majsterkowicz",
+      "Majsterkowiczka"
+    ],
+    "Świecki Alchemik|2": [
+      "Świecki Alchemik",
+      "Świecka Alchemiczka"
+    ],
+    "Świecki Alchemik|3": [
+      "Mistrz Alchemii",
+      "Mistrzyni Alchemii"
+    ],
+    "Świecki Alchemik|4": [
+      "Transmutator",
+      "Transmutatorka"
+    ],
+    "Magister Rewizor|1": [
+      "Uczeń Rewizora",
+      "Uczennica Rewizora"
+    ],
+    "Magister Rewizor|2": [
+      "Magister Rewizor",
+      "Magister Rewizor"
+    ],
+    "Magister Rewizor|3": [
+      "Magister Inkwizytor",
+      "Magister Inkwizytor"
+    ],
+    "Magister Rewizor|4": [
+      "Arcymag Rewizor",
+      "Arcymag Rewizor"
+    ],
+    "Hierofant|1": [
+      "Akolita Kolegium Światła",
+      "Akolitka Kolegium Światła"
+    ],
+    "Hierofant|2": [
+      "Hierofant",
+      "Hierofantka"
+    ],
+    "Hierofant|3": [
+      "Mistrz Hierofantów",
+      "Mistrzyni Hierofantów"
+    ],
+    "Hierofant|4": [
+      "Strażnik Kolegium Światła",
+      "Strażniczka Kolegium Światła"
+    ],
+    "Alchemik|1": [
+      "Uczeń Alchemika",
+      "Uczennica Alchemika"
+    ],
+    "Alchemik|2": [
+      "Alchemik",
+      "Alchemiczka"
+    ],
+    "Alchemik|3": [
+      "Mistrz Transmutacji",
+      "Mistrzyni Transmutacji"
+    ],
+    "Alchemik|4": [
+      "Arcyalchemik",
+      "Arcyalchemiczka"
+    ],
+    "Druidka|1": [
+      "Uczeń Druida",
+      "Uczennica Druidki"
+    ],
+    "Druidka|2": [
+      "Druid",
+      "Druidka"
+    ],
+    "Druidka|3": [
+      "Mistrz Druidów",
+      "Mistrzyni Druidek"
+    ],
+    "Druidka|4": [
+      "Arcydruid",
+      "Arcydruidka"
+    ],
+    "Astromanta|1": [
+      "Akolita Niebios",
+      "Akolitka Niebios"
+    ],
+    "Astromanta|2": [
+      "Astromanta",
+      "Astromantka"
+    ],
+    "Astromanta|3": [
+      "Wielki Astromanta",
+      "Wielka Astromantka"
+    ],
+    "Astromanta|4": [
+      "Arcyniebianin",
+      "Arcyniebianka"
+    ],
+    "Iluzjonista|1": [
+      "Uczeń Iluzjonisty",
+      "Uczennica Iluzjonisty"
+    ],
+    "Iluzjonista|2": [
+      "Iluzjonista",
+      "Iluzjonistka"
+    ],
+    "Iluzjonista|3": [
+      "Szary Strażnik",
+      "Szara Strażniczka"
+    ],
+    "Iluzjonista|4": [
+      "Arcyiluzjonista",
+      "Arcyiluzjonistka"
+    ],
+    "Spirytysta|1": [
+      "Uczeń Spirytysty",
+      "Uczennica Spirytysty"
+    ],
+    "Spirytysta|2": [
+      "Spirytysta",
+      "Spirytystka"
+    ],
+    "Spirytysta|3": [
+      "Mistrz Spirytyzmu",
+      "Mistrzyni Spirytyzmu"
+    ],
+    "Spirytysta|4": [
+      "Arcyspirytysta",
+      "Arcyspirytystka"
+    ],
+    "Piromanta|1": [
+      "Uczeń Piromanty",
+      "Uczennica Piromanty"
+    ],
+    "Piromanta|2": [
+      "Piromanta",
+      "Piromantka"
+    ],
+    "Piromanta|3": [
+      "Mistrz Piromancji",
+      "Mistrzyni Piromancji"
+    ],
+    "Piromanta|4": [
+      "Arcypiromanta",
+      "Arcypiromantka"
+    ],
+    "Szamanka|1": [
+      "Uczeń Szamana",
+      "Uczennica Szamanki"
+    ],
+    "Szamanka|2": [
+      "Szaman",
+      "Szamanka"
+    ],
+    "Szamanka|3": [
+      "Mistrz Szamanów",
+      "Mistrzyni Szamanek"
+    ],
+    "Szamanka|4": [
+      "Arcyszaman",
+      "Arcyszamanka"
+    ],
+    "Kowal Run|1": [
+      "Uczeń Kowala Run",
+      "Uczennica Kowala Run"
+    ],
+    "Kowal Run|2": [
+      "Kowal Run",
+      "Kowal Run"
+    ],
+    "Kowal Run|3": [
+      "Mistrz Runiczny",
+      "Mistrzyni Runiczna"
+    ],
+    "Kowal Run|4": [
+      "Arcykowal Runiczny",
+      "Arcykowal Runiczny"
+    ],
+    "Agitator|1": [
+      "Pamflecista",
+      "Pamflecistka"
+    ],
+    "Agitator|2": [
+      "Agitator",
+      "Agitatorka"
+    ],
+    "Agitator|3": [
+      "Podżegacz",
+      "Podżegaczka"
+    ],
+    "Agitator|4": [
+      "Demagog",
+      "Demagożka"
+    ],
+    "Kupiec|1": [
+      "Handlarz",
+      "Handlarka"
+    ],
+    "Kupiec|2": [
+      "Kupiec",
+      "Kupcowa"
+    ],
+    "Kupiec|3": [
+      "Mistrz Kupiectwa",
+      "Mistrzyni Kupiectwa"
+    ],
+    "Kupiec|4": [
+      "Patrycjusz",
+      "Patrycjuszka"
+    ],
+    "Mieszczka|1": [
+      "Przekupień",
+      "Przekupka"
+    ],
+    "Mieszczka|2": [
+      "Mieszczanin",
+      "Mieszczka"
+    ],
+    "Mieszczka|3": [
+      "Rajca Miejski",
+      "Rajczyni Miejska"
+    ],
+    "Mieszczka|4": [
+      "Burmistrz",
+      "Burmistrzyni"
+    ],
+    "Rzemieślniczka|1": [
+      "Czeladnik",
+      "Czeladniczka"
+    ],
+    "Rzemieślniczka|2": [
+      "Rzemieślnik",
+      "Rzemieślniczka"
+    ],
+    "Rzemieślniczka|3": [
+      "Mistrz Rzemiosła",
+      "Mistrzyni Rzemiosła"
+    ],
+    "Rzemieślniczka|4": [
+      "Mistrz Cechu",
+      "Mistrzyni Cechu"
+    ],
+    "Strażnik|1": [
+      "Rekrut Straży",
+      "Rekrut Straży"
+    ],
+    "Strażnik|2": [
+      "Strażnik",
+      "Strażniczka"
+    ],
+    "Strażnik|3": [
+      "Sierżant Straży",
+      "Sierżant Straży"
+    ],
+    "Strażnik|4": [
+      "Kapitan Straży",
+      "Kapitan Straży"
+    ],
+    "Szczurołap|1": [
+      "Uczeń Szczurołapa",
+      "Uczennica Szczurołapa"
+    ],
+    "Szczurołap|2": [
+      "Szczurołap",
+      "Szczurołapka"
+    ],
+    "Szczurołap|3": [
+      "Strażnik Kanałów",
+      "Strażniczka Kanałów"
+    ],
+    "Szczurołap|4": [
+      "Tępiciel",
+      "Tępicielka"
+    ],
+    "Śledczy|1": [
+      "Szpicel",
+      "Szpicel"
+    ],
+    "Śledczy|2": [
+      "Śledczy",
+      "Śledcza"
+    ],
+    "Śledczy|3": [
+      "Starszy Śledczy",
+      "Starsza Śledcza"
+    ],
+    "Śledczy|4": [
+      "Detektyw",
+      "Detektyw"
+    ],
+    "Żebrak|1": [
+      "Biedak",
+      "Biedaczka"
+    ],
+    "Żebrak|2": [
+      "Żebrak",
+      "Żebraczka"
+    ],
+    "Żebrak|3": [
+      "Mistrz Żebraków",
+      "Mistrzyni Żebraków"
+    ],
+    "Żebrak|4": [
+      "Król Żebraków",
+      "Królowa Żebraków"
+    ],
+    "Piwowar|1": [
+      "Uczeń Piwowara",
+      "Uczennica Piwowara"
+    ],
+    "Piwowar|2": [
+      "Piwowar",
+      "Piwowarka"
+    ],
+    "Piwowar|3": [
+      "Mistrz Piwowarstwa",
+      "Mistrzyni Piwowarstwa"
+    ],
+    "Piwowar|4": [
+      "Szef Zaopatrzenia",
+      "Szefowa Zaopatrzenia"
+    ],
+    "Artystka|1": [
+      "Uczeń Artysty",
+      "Uczennica Artysty"
+    ],
+    "Artystka|2": [
+      "Artysta",
+      "Artystka"
+    ],
+    "Artystka|3": [
+      "Mistrz Sztuki",
+      "Mistrzyni Sztuki"
+    ],
+    "Artystka|4": [
+      "Maestro",
+      "Maestro"
+    ],
+    "Doradca|1": [
+      "Asystent",
+      "Asystentka"
+    ],
+    "Doradca|2": [
+      "Doradca",
+      "Doradczyni"
+    ],
+    "Doradca|3": [
+      "Radca",
+      "Radczyni"
+    ],
+    "Doradca|4": [
+      "Kanclerz",
+      "Kanclerz"
+    ],
+    "Namiestnik|1": [
+      "Nadzorca",
+      "Nadzorczyni"
+    ],
+    "Namiestnik|2": [
+      "Namiestnik",
+      "Namiestniczka"
+    ],
+    "Namiestnik|3": [
+      "Seneszal",
+      "Seneszal"
+    ],
+    "Namiestnik|4": [
+      "Gubernator",
+      "Gubernatorka"
+    ],
+    "Poseł|1": [
+      "Herold",
+      "Heroldka"
+    ],
+    "Poseł|2": [
+      "Poseł",
+      "Posłanka"
+    ],
+    "Poseł|3": [
+      "Dyplomata",
+      "Dyplomatka"
+    ],
+    "Poseł|4": [
+      "Ambasador",
+      "Ambasadorka"
+    ],
+    "Służąca|1": [
+      "Posługacz",
+      "Posługaczka"
+    ],
+    "Służąca|2": [
+      "Służący",
+      "Służąca"
+    ],
+    "Służąca|3": [
+      "Pokojowiec",
+      "Pokojowa"
+    ],
+    "Służąca|4": [
+      "Ochmistrz",
+      "Ochmistrzyni"
+    ],
+    "Szlachcic|1": [
+      "Dziedzic",
+      "Dziedziczka"
+    ],
+    "Szlachcic|2": [
+      "Szlachcic",
+      "Szlachcianka"
+    ],
+    "Szlachcic|3": [
+      "Magnat",
+      "Magnatka"
+    ],
+    "Szlachcic|4": [
+      "Lord",
+      "Lady"
+    ],
+    "Szpieg|1": [
+      "Informator",
+      "Informatorka"
+    ],
+    "Szpieg|2": [
+      "Szpieg",
+      "Szpieg"
+    ],
+    "Szpieg|3": [
+      "Agent",
+      "Agentka"
+    ],
+    "Szpieg|4": [
+      "Mistrz Szpiegów",
+      "Mistrzyni Szpiegów"
+    ],
+    "Zwadźca|1": [
+      "Szermierz",
+      "Szermierka"
+    ],
+    "Zwadźca|2": [
+      "Zwadźca",
+      "Zwadźczyni"
+    ],
+    "Zwadźca|3": [
+      "Mistrz Pojedynków",
+      "Mistrzyni Pojedynków"
+    ],
+    "Zwadźca|4": [
+      "Szampierz Sądowy",
+      "Szampierz Sądowy"
+    ],
+    "Chłopka|1": [
+      "Wyrobnik",
+      "Wyrobnica"
+    ],
+    "Chłopka|2": [
+      "Chłop",
+      "Chłopka"
+    ],
+    "Chłopka|3": [
+      "Gospodarz",
+      "Gospodyni"
+    ],
+    "Chłopka|4": [
+      "Starszy Wioski",
+      "Starsza Wioski"
+    ],
+    "Górnik|1": [
+      "Poszukiwacz",
+      "Poszukiwaczka"
+    ],
+    "Górnik|2": [
+      "Górnik",
+      "Górniczka"
+    ],
+    "Górnik|3": [
+      "Sztygar",
+      "Sztygar"
+    ],
+    "Górnik|4": [
+      "Mistrz Górnictwa",
+      "Mistrzyni Górnictwa"
+    ],
+    "Guślarz|1": [
+      "Uczeń Guślarza",
+      "Uczennica Guślarza"
+    ],
+    "Guślarz|2": [
+      "Guślarz",
+      "Guślarka"
+    ],
+    "Guślarz|3": [
+      "Starszy Guślarzy",
+      "Starsza Guślarzy"
+    ],
+    "Guślarz|4": [
+      "Wiedzący",
+      "Wiedząca"
+    ],
+    "Łowczyni|1": [
+      "Traper",
+      "Traperka"
+    ],
+    "Łowczyni|2": [
+      "Łowca",
+      "Łowczyni"
+    ],
+    "Łowczyni|3": [
+      "Tropiciel",
+      "Tropicielka"
+    ],
+    "Łowczyni|4": [
+      "Nadworny Łowczy",
+      "Nadworna Łowczyni"
+    ],
+    "Mistyczka|1": [
+      "Wróżbiarz",
+      "Wróżbiarka"
+    ],
+    "Mistyczka|2": [
+      "Mistyk",
+      "Mistyczka"
+    ],
+    "Mistyczka|3": [
+      "Widzący",
+      "Widząca"
+    ],
+    "Mistyczka|4": [
+      "Prorok",
+      "Prorokini"
+    ],
+    "Zarządca|1": [
+      "Poborca Podatków",
+      "Poborczyni Podatków"
+    ],
+    "Zarządca|2": [
+      "Zarządca",
+      "Zarządczyni"
+    ],
+    "Zarządca|3": [
+      "Włodarz",
+      "Włodarz"
+    ],
+    "Zarządca|4": [
+      "Komornik",
+      "Komorniczka"
+    ],
+    "Zielarka|1": [
+      "Zbieracz Ziół",
+      "Zbieraczka Ziół"
+    ],
+    "Zielarka|2": [
+      "Zielarz",
+      "Zielarka"
+    ],
+    "Zielarka|3": [
+      "Mistrz Ziołolecznictwa",
+      "Mistrzyni Ziołolecznictwa"
+    ],
+    "Zielarka|4": [
+      "Arcyzielarz",
+      "Arcyzielarka"
+    ],
+    "Zwiadowca|1": [
+      "Przewodnik",
+      "Przewodniczka"
+    ],
+    "Zwiadowca|2": [
+      "Zwiadowca",
+      "Zwiadowczyni"
+    ],
+    "Zwiadowca|3": [
+      "Przepatrywacz",
+      "Przepatrywaczka"
+    ],
+    "Zwiadowca|4": [
+      "Odkrywca",
+      "Odkrywczyni"
+    ],
+    "Jasnowidząca|1": [
+      "Nawiedzony",
+      "Nawiedzona"
+    ],
+    "Jasnowidząca|2": [
+      "Jasnowidzący",
+      "Jasnowidząca"
+    ],
+    "Jasnowidząca|3": [
+      "Psychometra",
+      "Psychometryczka"
+    ],
+    "Jasnowidząca|4": [
+      "Czytający Przyszłość",
+      "Czytająca Przyszłość"
+    ],
+    "Biczownik|1": [
+      "Gorliwiec",
+      "Gorliwa"
+    ],
+    "Biczownik|2": [
+      "Biczownik",
+      "Biczowniczka"
+    ],
+    "Biczownik|3": [
+      "Pokutnik",
+      "Pokutnica"
+    ],
+    "Biczownik|4": [
+      "Piewca Zagłady",
+      "Piewczyni Zagłady"
+    ],
+    "Domokrążca|1": [
+      "Powsinoga",
+      "Powsinoga"
+    ],
+    "Domokrążca|2": [
+      "Domokrążca",
+      "Domokrążczyni"
+    ],
+    "Domokrążca|3": [
+      "Doświadczony Domokrążca",
+      "Doświadczona Domokrążczyni"
+    ],
+    "Domokrążca|4": [
+      "Wędrowny Handlarz",
+      "Wędrowna Handlarka"
+    ],
+    "Kuglarka|1": [
+      "Muzykant",
+      "Muzykantka"
+    ],
+    "Kuglarka|2": [
+      "Kuglarz",
+      "Kuglarka"
+    ],
+    "Kuglarka|3": [
+      "Trubadur",
+      "Trubadurka"
+    ],
+    "Kuglarka|4": [
+      "Przywódca Trupy",
+      "Przywódczyni Trupy"
+    ],
+    "Łowca Czarownic|1": [
+      "Oprawca",
+      "Oprawczyni"
+    ],
+    "Łowca Czarownic|2": [
+      "Łowca Czarownic",
+      "Łowczyni Czarownic"
+    ],
+    "Łowca Czarownic|3": [
+      "Inkwizytor",
+      "Inkwizytorka"
+    ],
+    "Łowca Czarownic|4": [
+      "Generał Łowców Czarownic",
+      "Generał Łowców Czarownic"
+    ],
+    "Łowczyni Nagród|1": [
+      "Pogromca Złodziei",
+      "Pogromczyni Złodziei"
+    ],
+    "Łowczyni Nagród|2": [
+      "Łowca Nagród",
+      "Łowczyni Nagród"
+    ],
+    "Łowczyni Nagród|3": [
+      "Doświadczony Łowca Nagród",
+      "Doświadczona Łowczyni Nagród"
+    ],
+    "Łowczyni Nagród|4": [
+      "Legendarny Łowca Nagród",
+      "Legendarna Łowczyni Nagród"
+    ],
+    "Posłaniec|1": [
+      "Goniec",
+      "Goniec"
+    ],
+    "Posłaniec|2": [
+      "Posłaniec",
+      "Posłanniczka"
+    ],
+    "Posłaniec|3": [
+      "Kurier",
+      "Kurierka"
+    ],
+    "Posłaniec|4": [
+      "Kapitan Kurierów",
+      "Kapitan Kurierów"
+    ],
+    "Strażniczka Dróg|1": [
+      "Mytnik",
+      "Mytniczka"
+    ],
+    "Strażniczka Dróg|2": [
+      "Strażnik Dróg",
+      "Strażniczka Dróg"
+    ],
+    "Strażniczka Dróg|3": [
+      "Sierżant Strażników Dróg",
+      "Sierżant Strażników Dróg"
+    ],
+    "Strażniczka Dróg|4": [
+      "Kapitan Strażników Dróg",
+      "Kapitan Strażników Dróg"
+    ],
+    "Woźnica|1": [
+      "Foryś",
+      "Foryś"
+    ],
+    "Woźnica|2": [
+      "Woźnica",
+      "Woźnica"
+    ],
+    "Woźnica|3": [
+      "Mistrz Woźniców",
+      "Mistrzyni Woźniców"
+    ],
+    "Woźnica|4": [
+      "Mistrz Szlaków",
+      "Mistrzyni Szlaków"
+    ],
+    "Doker|1": [
+      "Pomocnik Dokera",
+      "Pomocniczka Dokera"
+    ],
+    "Doker|2": [
+      "Doker",
+      "Dokerka"
+    ],
+    "Doker|3": [
+      "Brygadzista",
+      "Brygadzistka"
+    ],
+    "Doker|4": [
+      "Mistrz Dokerów",
+      "Mistrzyni Dokerów"
+    ],
+    "Flisak|1": [
+      "Rybak",
+      "Rybaczka"
+    ],
+    "Flisak|2": [
+      "Flisak",
+      "Flisaczka"
+    ],
+    "Flisak|3": [
+      "Znawca Rzeki",
+      "Znawczyni Rzeki"
+    ],
+    "Flisak|4": [
+      "Starszy Rzeczny",
+      "Starsza Rzeczna"
+    ],
+    "Pilotka Rzeczna|1": [
+      "Przewodnik Rzeczny",
+      "Przewodniczka Rzeczna"
+    ],
+    "Pilotka Rzeczna|2": [
+      "Pilot Rzeczny",
+      "Pilotka Rzeczna"
+    ],
+    "Pilotka Rzeczna|3": [
+      "Starszy Pilot",
+      "Starsza Pilotka"
+    ],
+    "Pilotka Rzeczna|4": [
+      "Legendarny Pilot",
+      "Legendarna Pilotka"
+    ],
+    "Pirat Rzeczny|1": [
+      "Szabrownik",
+      "Szabrowniczka"
+    ],
+    "Pirat Rzeczny|2": [
+      "Pirat Rzeczny",
+      "Piratka Rzeczna"
+    ],
+    "Pirat Rzeczny|3": [
+      "Łupieżca",
+      "Łupieżczyni"
+    ],
+    "Pirat Rzeczny|4": [
+      "Kapitan Łupieżców",
+      "Kapitan Łupieżców"
+    ],
+    "Przemytniczka|1": [
+      "Szmugler Rzeczny",
+      "Szmuglerka Rzeczna"
+    ],
+    "Przemytniczka|2": [
+      "Przemytnik",
+      "Przemytniczka"
+    ],
+    "Przemytniczka|3": [
+      "Doświadczony Przemytnik",
+      "Doświadczona Przemytniczka"
+    ],
+    "Przemytniczka|4": [
+      "Król Przemytników",
+      "Królowa Przemytników"
+    ],
+    "Przewoźnik|1": [
+      "Chłopiec Pokładowy",
+      "Dziewczyna Pokładowa"
+    ],
+    "Przewoźnik|2": [
+      "Przewoźnik",
+      "Przewoźniczka"
+    ],
+    "Przewoźnik|3": [
+      "Sternik",
+      "Sterniczka"
+    ],
+    "Przewoźnik|4": [
+      "Kapitan Barki",
+      "Kapitan Barki"
+    ],
+    "Strażnik Rzeczny|1": [
+      "Rekrut Rzeczny",
+      "Rekrut Rzeczny"
+    ],
+    "Strażnik Rzeczny|2": [
+      "Strażnik Rzeczny",
+      "Strażniczka Rzeczna"
+    ],
+    "Strażnik Rzeczny|3": [
+      "Żołnierz Okrętowy",
+      "Żołnierz Okrętowy"
+    ],
+    "Strażnik Rzeczny|4": [
+      "Mistrz Żołnierzy Okrętowych",
+      "Mistrzyni Żołnierzy Okrętowych"
+    ],
+    "Żeglarz|1": [
+      "Szczur Lądowy",
+      "Szczur Lądowy"
+    ],
+    "Żeglarz|2": [
+      "Żeglarz",
+      "Żeglarka"
+    ],
+    "Żeglarz|3": [
+      "Bosman",
+      "Bosman"
+    ],
+    "Żeglarz|4": [
+      "Kapitan Statku",
+      "Kapitan Statku"
+    ],
+    "Banita|1": [
+      "Zbój",
+      "Zbójniczka"
+    ],
+    "Banita|2": [
+      "Banita",
+      "Banitka"
+    ],
+    "Banita|3": [
+      "Herszt Banitów",
+      "Herszt Banitów"
+    ],
+    "Banita|4": [
+      "Król Banitów",
+      "Królowa Banitów"
+    ],
+    "Czarownica|1": [
+      "Szeptun",
+      "Szeptucha"
+    ],
+    "Czarownica|2": [
+      "Czarownik",
+      "Czarownica"
+    ],
+    "Czarownica|3": [
+      "Wiedźmin",
+      "Wiedźma"
+    ],
+    "Czarownica|4": [
+      "Arcyczarownik",
+      "Arcyczarownica"
+    ],
+    "Hiena Cmentarna|1": [
+      "Porywacz Zwłok",
+      "Porywaczka Zwłok"
+    ],
+    "Hiena Cmentarna|2": [
+      "Hiena Cmentarna",
+      "Hiena Cmentarna"
+    ],
+    "Hiena Cmentarna|3": [
+      "Rabuś Grobowców",
+      "Rabuś Grobowców"
+    ],
+    "Hiena Cmentarna|4": [
+      "Łowca Skarbów",
+      "Łowczyni Skarbów"
+    ],
+    "Paser|1": [
+      "Pośrednik",
+      "Pośredniczka"
+    ],
+    "Paser|2": [
+      "Paser",
+      "Paserka"
+    ],
+    "Paser|3": [
+      "Mistrz Paserów",
+      "Mistrzyni Paserów"
+    ],
+    "Paser|4": [
+      "Broker Informacji",
+      "Brokerka Informacji"
+    ],
+    "Rajfur|1": [
+      "Naganiacz",
+      "Naganiaczka"
+    ],
+    "Rajfur|2": [
+      "Rajfur",
+      "Rajfurka"
+    ],
+    "Rajfur|3": [
+      "Stręczyciel",
+      "Stręczycielka"
+    ],
+    "Rajfur|4": [
+      "Herszt Rajfurów",
+      "Herszt Rajfurów"
+    ],
+    "Rekietierka|1": [
+      "Zakapior",
+      "Zakapiorka"
+    ],
+    "Rekietierka|2": [
+      "Rekieter",
+      "Rekietierka"
+    ],
+    "Rekietierka|3": [
+      "Głowa Gangu",
+      "Głowa Gangu"
+    ],
+    "Rekietierka|4": [
+      "Król Podziemia",
+      "Królowa Podziemia"
+    ],
+    "Szarlatan|1": [
+      "Kanciarz",
+      "Kanciarka"
+    ],
+    "Szarlatan|2": [
+      "Szarlatan",
+      "Szarlatanka"
+    ],
+    "Szarlatan|3": [
+      "Oszust",
+      "Oszustka"
+    ],
+    "Szarlatan|4": [
+      "Łajdak",
+      "Łajdaczka"
+    ],
+    "Złodziej|1": [
+      "Bandzior",
+      "Bandzior"
+    ],
+    "Złodziej|2": [
+      "Złodziej",
+      "Złodziejka"
+    ],
+    "Złodziej|3": [
+      "Mistrz Złodziejski",
+      "Mistrzyni Złodziejska"
+    ],
+    "Złodziej|4": [
+      "Włamywacz",
+      "Włamywaczka"
+    ],
+    "Gladiator|1": [
+      "Pięściarz",
+      "Pięściarka"
+    ],
+    "Gladiator|2": [
+      "Gladiator",
+      "Gladiatorka"
+    ],
+    "Gladiator|3": [
+      "Mistrz Areny",
+      "Mistrzyni Areny"
+    ],
+    "Gladiator|4": [
+      "Legenda Areny",
+      "Legenda Areny"
+    ],
+    "Kapłan Bitewny|1": [
+      "Nowicjusz Kapłanów Bitewnych",
+      "Nowicjuszka Kapłanów Bitewnych"
+    ],
+    "Kapłan Bitewny|2": [
+      "Kapłan Bitewny",
+      "Kapłanka Bitewna"
+    ],
+    "Kapłan Bitewny|3": [
+      "Kapłan-sierżant",
+      "Kapłanka-sierżant"
+    ],
+    "Kapłan Bitewny|4": [
+      "Kapłan-kapitan",
+      "Kapłanka-kapitan"
+    ],
+    "Kawalerzysta|1": [
+      "Jeździec",
+      "Jeźdźczyni"
+    ],
+    "Kawalerzysta|2": [
+      "Kawalerzysta",
+      "Kawalerzystka"
+    ],
+    "Kawalerzysta|3": [
+      "Sierżant Kawalerii",
+      "Sierżant Kawalerii"
+    ],
+    "Kawalerzysta|4": [
+      "Oficer Kawalerii",
+      "Oficer Kawalerii"
+    ],
+    "Ochroniarz|1": [
+      "Stróż",
+      "Stróżka"
+    ],
+    "Ochroniarz|2": [
+      "Ochroniarz",
+      "Ochroniarka"
+    ],
+    "Ochroniarz|3": [
+      "Gwardzista",
+      "Gwardzistka"
+    ],
+    "Ochroniarz|4": [
+      "Oficer Gwardii",
+      "Oficer Gwardii"
+    ],
+    "Oprych|1": [
+      "Tani Drań",
+      "Tani Drań"
+    ],
+    "Oprych|2": [
+      "Oprych",
+      "Oprych"
+    ],
+    "Oprych|3": [
+      "Płatny Morderca",
+      "Płatna Morderczyni"
+    ],
+    "Oprych|4": [
+      "Skrytobójca",
+      "Skrytobójczyni"
+    ],
+    "Rycerz|1": [
+      "Giermek",
+      "Giermek"
+    ],
+    "Rycerz|2": [
+      "Rycerz",
+      "Rycerz"
+    ],
+    "Rycerz|3": [
+      "Pierwszy Rycerz",
+      "Pierwszy Rycerz"
+    ],
+    "Rycerz|4": [
+      "Rycerz Wewnętrznego Kręgu",
+      "Rycerz Wewnętrznego Kręgu"
+    ],
+    "Zabójca|1": [
+      "Zabójca Trolli",
+      "Zabójczyni Trolli"
+    ],
+    "Zabójca|2": [
+      "Zabójca Olbrzymów",
+      "Zabójczyni Olbrzymów"
+    ],
+    "Zabójca|3": [
+      "Zabójca Smoków",
+      "Zabójczyni Smoków"
+    ],
+    "Zabójca|4": [
+      "Zabójca Demonów",
+      "Zabójczyni Demonów"
+    ],
+    "Żołnierz|1": [
+      "Rekrut",
+      "Rekrut"
+    ],
+    "Żołnierz|2": [
+      "Żołnierz",
+      "Żołnierz"
+    ],
+    "Żołnierz|3": [
+      "Sierżant",
+      "Sierżant"
+    ],
+    "Żołnierz|4": [
+      "Oficer",
+      "Oficer"
+    ],
+    "Bedel|1": [
+      "Laborant",
+      "Laborantka"
+    ],
+    "Bedel|2": [
+      "Bedel",
+      "Bedelka"
+    ],
+    "Bedel|3": [
+      "Dozorca",
+      "Dozorczyni"
+    ],
+    "Bedel|4": [
+      "Postrach Wydziału",
+      "Postrach Wydziału"
+    ],
+    "Łucznicza|1": [
+      "Młody Łucznik",
+      "Młoda Łuczniczka"
+    ],
+    "Łucznicza|2": [
+      "Łucznik",
+      "Łuczniczka"
+    ],
+    "Łucznicza|3": [
+      "Sierżant Łuczników",
+      "Sierżant Łuczniczek"
+    ],
+    "Łucznicza|4": [
+      "Kapitan Łuczników",
+      "Kapitan Łuczniczek"
+    ],
+    "Gwardzista Elektorski|1": [
+      "Kadet Gwardii Elektorskiej",
+      "Kadet Gwardii Elektorskiej"
+    ],
+    "Gwardzista Elektorski|2": [
+      "Gwardzista Elektorski",
+      "Gwardzistka Elektorska"
+    ],
+    "Gwardzista Elektorski|3": [
+      "Sierżant Gwardii Elektorskiej",
+      "Sierżant Gwardii Elektorskiej"
+    ],
+    "Gwardzista Elektorski|4": [
+      "Kapitan Gwardii Elektorskiej",
+      "Kapitan Gwardii Elektorskiej"
+    ],
+    "Halabardnik|1": [
+      "Rekrut Halabardników",
+      "Rekrut Halabardników"
+    ],
+    "Halabardnik|2": [
+      "Halabardnik",
+      "Halabardniczka"
+    ],
+    "Halabardnik|3": [
+      "Sierżant Halabardników",
+      "Sierżant Halabardników"
+    ],
+    "Halabardnik|4": [
+      "Kapitan Halabardników",
+      "Kapitan Halabardników"
+    ],
+    "Strzelec|1": [
+      "Rekrut Strzelców",
+      "Rekrut Strzelców"
+    ],
+    "Strzelec|2": [
+      "Strzelec",
+      "Strzelczyni"
+    ],
+    "Strzelec|3": [
+      "Sierżant Strzelców",
+      "Sierżant Strzelców"
+    ],
+    "Strzelec|4": [
+      "Kapitan Strzelców",
+      "Kapitan Strzelców"
+    ],
+    "Artylerzysta|1": [
+      "Uczeń Artylerzysty",
+      "Uczennica Artylerzysty"
+    ],
+    "Artylerzysta|2": [
+      "Artylerzysta",
+      "Artylerzystka"
+    ],
+    "Artylerzysta|3": [
+      "Kapitan Artylerii",
+      "Kapitan Artylerii"
+    ],
+    "Artylerzysta|4": [
+      "Mistrz Artylerii",
+      "Mistrzyni Artylerii"
+    ],
+    "Ciura Obozowa|1": [
+      "Wszetecznik",
+      "Wszetecznica"
+    ],
+    "Ciura Obozowa|2": [
+      "Ciura Obozowa",
+      "Ciura Obozowa"
+    ],
+    "Ciura Obozowa|3": [
+      "Doświadczony Zbieracz",
+      "Doświadczona Zbieraczka"
+    ],
+    "Ciura Obozowa|4": [
+      "Przywódca Obozu",
+      "Przywódczyni Obozu"
+    ],
+    "Kartografka|1": [
+      "Geometra",
+      "Geometrka"
+    ],
+    "Kartografka|2": [
+      "Kartograf",
+      "Kartografka"
+    ],
+    "Kartografka|3": [
+      "Dyplomowany Kartograf",
+      "Dyplomowana Kartografka"
+    ],
+    "Kartografka|4": [
+      "Mistrz Kartografii",
+      "Mistrzyni Kartografii"
+    ],
+    "Rycerz Najemny|1": [
+      "Giermek Rycerza Najemnego",
+      "Giermek Rycerza Najemnego"
+    ],
+    "Rycerz Najemny|2": [
+      "Rycerz Najemny",
+      "Rycerz Najemny"
+    ],
+    "Rycerz Najemny|3": [
+      "Kapitan Rycerzy Najemnych",
+      "Kapitan Rycerzy Najemnych"
+    ],
+    "Rycerz Najemny|4": [
+      "Dowódca Rycerzy",
+      "Dowódczyni Rycerzy"
+    ],
+    "Rycerz Płonącego Słońca|1": [
+      "Nowicjusz Płonącego Słońca",
+      "Nowicjuszka Płonącego Słońca"
+    ],
+    "Rycerz Płonącego Słońca|2": [
+      "Rycerz Płonącego Słońca",
+      "Rycerz Płonącego Słońca"
+    ],
+    "Rycerz Płonącego Słońca|3": [
+      "Komtur",
+      "Komtur"
+    ],
+    "Rycerz Płonącego Słońca|4": [
+      "Rycerz Wewnętrznego Kręgu",
+      "Rycerz Wewnętrznego Kręgu"
+    ],
+    "Rycerz Białego Wilka|1": [
+      "Nowicjusz Białego Wilka",
+      "Nowicjuszka Białego Wilka"
+    ],
+    "Rycerz Białego Wilka|2": [
+      "Rycerz Białego Wilka",
+      "Rycerz Białego Wilka"
+    ],
+    "Rycerz Białego Wilka|3": [
+      "Sierżant Rycerzy Świątynnych",
+      "Sierżant Rycerzy Świątynnych"
+    ],
+    "Rycerz Białego Wilka|4": [
+      "Dowódca Kompanii Białego Wilka (Wewnętrzny Krąg)",
+      "Dowódczyni Kompanii Białego Wilka (Wewnętrzny Krąg)"
+    ],
+    "Rycerz Pantery|1": [
+      "Giermek Rycerza Pantery",
+      "Giermek Rycerza Pantery"
+    ],
+    "Rycerz Pantery|2": [
+      "Rycerz Pantery",
+      "Rycerz Pantery"
+    ],
+    "Rycerz Pantery|3": [
+      "Pierwszy Rycerz Pantery",
+      "Pierwszy Rycerz Pantery"
+    ],
+    "Rycerz Pantery|4": [
+      "Dowódca Kompanii Pantery (Wewnętrzny Krąg)",
+      "Dowódczyni Kompanii Pantery (Wewnętrzny Krąg)"
+    ],
+    "Lekki Kawalerzysta|1": [
+      "Rozbójnik",
+      "Rozbójniczka"
+    ],
+    "Lekki Kawalerzysta|2": [
+      "Lekki Kawalerzysta",
+      "Lekka Kawalerzystka"
+    ],
+    "Lekki Kawalerzysta|3": [
+      "Lansjer",
+      "Lansjer"
+    ],
+    "Lekki Kawalerzysta|4": [
+      "Kapitan Kawalerzystów",
+      "Kapitan Kawalerzystów"
+    ],
+    "Specjalista Oblężniczy|1": [
+      "Kusznik",
+      "Kuszniczka"
+    ],
+    "Specjalista Oblężniczy|2": [
+      "Specjalista Oblężniczy",
+      "Specjalistka Oblężnicza"
+    ],
+    "Specjalista Oblężniczy|3": [
+      "Saper",
+      "Saper"
+    ],
+    "Specjalista Oblężniczy|4": [
+      "Mistrz Oblężeń",
+      "Mistrzyni Oblężeń"
+    ],
+    "Pikinier|1": [
+      "Rekrut Pikinierów",
+      "Rekrut Pikinierów"
+    ],
+    "Pikinier|2": [
+      "Pikinier",
+      "Pikinierka"
+    ],
+    "Pikinier|3": [
+      "Dowódca Szeregu",
+      "Dowódczyni Szeregu"
+    ],
+    "Pikinier|4": [
+      "Kapitan Chorągwi",
+      "Kapitan Chorągwi"
+    ],
+    "Kapłanka Bitewna Myrmidii|1": [
+      "Pierwszy Orzeł",
+      "Pierwsza Orlica"
+    ],
+    "Kapłanka Bitewna Myrmidii|2": [
+      "Kapłan Bitewny Myrmidii",
+      "Kapłanka Bitewna Myrmidii"
+    ],
+    "Kapłanka Bitewna Myrmidii|3": [
+      "Kapłan-Sierżant Myrmidii",
+      "Kapłanka-Sierżant Myrmidii"
+    ],
+    "Kapłanka Bitewna Myrmidii|4": [
+      "Kapłan-Kapitan Myrmidii",
+      "Kapłanka-Kapitan Myrmidii"
+    ],
+    "Elementalista|1": [
+      "Uczeń Elementalisty",
+      "Uczennica Elementalisty"
+    ],
+    "Elementalista|2": [
+      "Elementalista",
+      "Elementalistka"
+    ],
+    "Elementalista|3": [
+      "Mistrz Kształtowania",
+      "Mistrzyni Kształtowania"
+    ],
+    "Elementalista|4": [
+      "Władca Elementalistów",
+      "Władczyni Elementalistów"
+    ],
+    "Kapłan Druidzki|1": [
+      "Inicjat Druidzki",
+      "Inicjatka Druidzka"
+    ],
+    "Kapłan Druidzki|2": [
+      "Kapłan Druidzki",
+      "Kapłanka Druidzka"
+    ],
+    "Kapłan Druidzki|3": [
+      "Mistrz Druidzki",
+      "Mistrzyni Druidzka"
+    ],
+    "Kapłan Druidzki|4": [
+      "Starszy Druid",
+      "Starsza Druidka"
+    ],
+    "Kapłan Zagłady|1": [
+      "Sławiciel",
+      "Sławicielka"
+    ],
+    "Kapłan Zagłady|2": [
+      "Kapłan Zagłady",
+      "Kapłanka Zagłady"
+    ],
+    "Kapłan Zagłady|3": [
+      "Kapłan Berserker",
+      "Kapłanka Berserkerka"
+    ],
+    "Kapłan Zagłady|4": [
+      "Pieczętnik Wrót",
+      "Pieczętniczka Wrót"
+    ],
+    "Kapłan Kuźni|1": [
+      "Nowicjusz Kuźni",
+      "Nowicjuszka Kuźni"
+    ],
+    "Kapłan Kuźni|2": [
+      "Kapłan Kuźni",
+      "Kapłanka Kuźni"
+    ],
+    "Kapłan Kuźni|3": [
+      "Mistrz Kuźni",
+      "Mistrzyni Kuźni"
+    ],
+    "Kapłan Kuźni|4": [
+      "Władca Kuźni",
+      "Władczyni Kuźni"
+    ],
+    "Kapłan Ogniska|1": [
+      "Nowicjusz Ogniska",
+      "Nowicjuszka Ogniska"
+    ],
+    "Kapłan Ogniska|2": [
+      "Kapłan Ogniska",
+      "Kapłanka Ogniska"
+    ],
+    "Kapłan Ogniska|3": [
+      "Mistrz Ogniska",
+      "Mistrzyni Ogniska"
+    ],
+    "Kapłan Ogniska|4": [
+      "Wieszcz Ogniska",
+      "Wieszczka Ogniska"
+    ],
+    "Młotodzierżca|1": [
+      "Zaprzysiężony",
+      "Zaprzysiężona"
+    ],
+    "Młotodzierżca|2": [
+      "Młotodzierżca",
+      "Młotodzierżczyni"
+    ],
+    "Młotodzierżca|3": [
+      "Strażnik Wrót",
+      "Strażniczka Wrót"
+    ],
+    "Młotodzierżca|4": [
+      "Tarczonosiciel",
+      "Tarczonosicielka"
+    ],
+    "Żelazołamacz|1": [
+      "Tarczołamacz",
+      "Tarczołamaczka"
+    ],
+    "Żelazołamacz|2": [
+      "Żelazołamacz",
+      "Żelazołamaczka"
+    ],
+    "Żelazołamacz|3": [
+      "Smok Żelaza",
+      "Smoczyca Żelaza"
+    ],
+    "Żelazołamacz|4": [
+      "Żelaznobrody",
+      "Żelaznobroda"
+    ],
+    "Zwiadowca Karaku|1": [
+      "Górołaz",
+      "Górołazka"
+    ],
+    "Zwiadowca Karaku|2": [
+      "Zwiadowca Karaku",
+      "Zwiadowczyni Karaku"
+    ],
+    "Zwiadowca Karaku|3": [
+      "Sokole Oko",
+      "Sokole Oko"
+    ],
+    "Zwiadowca Karaku|4": [
+      "Kapitan Zwiadowców",
+      "Kapitan Zwiadowców"
+    ],
+    "Runopisarz|1": [
+      "Czeladnik Runopisarski",
+      "Czeladniczka Runopisarska"
+    ],
+    "Runopisarz|2": [
+      "Runopisarz",
+      "Runopisarka"
+    ],
+    "Runopisarz|3": [
+      "Strażnik Wiedzy",
+      "Strażniczka Wiedzy"
+    ],
+    "Runopisarz|4": [
+      "Mistrz Wiedzy",
+      "Mistrzyni Wiedzy"
+    ],
+    "Than|1": [
+      "Dziedzic",
+      "Dziedziczka"
+    ],
+    "Than|2": [
+      "Than",
+      "Thanka"
+    ],
+    "Than|3": [
+      "Wódz Zastępu",
+      "Wodzini Zastępu"
+    ],
+    "Than|4": [
+      "Pan Karaku",
+      "Pani Karaku"
+    ],
+    "Kapłan-Złodziej|1": [
+      "Inicjowany",
+      "Inicjowana"
+    ],
+    "Kapłan-Złodziej|2": [
+      "Kapłan-Złodziej",
+      "Kapłanka-Złodziejka"
+    ],
+    "Kapłan-Złodziej|3": [
+      "Arcykapłan",
+      "Arcykapłanka"
+    ],
+    "Kapłan-Złodziej|4": [
+      "Cienisty Łazik",
+      "Cienista Łaziczka"
+    ],
+    "Fałszerz|1": [
+      "Oszust",
+      "Oszustka"
+    ],
+    "Fałszerz|2": [
+      "Fałszerz",
+      "Fałszerka"
+    ],
+    "Fałszerz|3": [
+      "Fałszerz Monet",
+      "Fałszerka Monet"
+    ],
+    "Fałszerz|4": [
+      "Mistrz Fałszerzy Monet",
+      "Mistrzyni Fałszerzy Monet"
+    ],
+    "Strażnik-Kapłan Taala|1": [
+      "Inicjowany",
+      "Inicjowana"
+    ],
+    "Strażnik-Kapłan Taala|2": [
+      "Strażnik-Kapłan",
+      "Strażniczka-Kapłanka"
+    ],
+    "Strażnik-Kapłan Taala|3": [
+      "Arcykapłan",
+      "Arcykapłanka"
+    ],
+    "Strażnik-Kapłan Taala|4": [
+      "Wicehierarcha",
+      "Wicehierarchini"
+    ],
+    "Gajowy|1": [
+      "Podgajowy",
+      "Podgajowa"
+    ],
+    "Gajowy|2": [
+      "Gajowy",
+      "Gajowa"
+    ],
+    "Gajowy|3": [
+      "Główny Gajowy",
+      "Główna Gajowa"
+    ],
+    "Gajowy|4": [
+      "Mistrz Gajowych",
+      "Mistrzyni Gajowych"
+    ],
+    "Kłusownik|1": [
+      "Sadowy Złodziejaszek",
+      "Sadowa Złodziejka"
+    ],
+    "Kłusownik|2": [
+      "Kłusownik",
+      "Kłusowniczka"
+    ],
+    "Kłusownik|3": [
+      "Mistrz Kłusownictwa",
+      "Mistrzyni Kłusownictwa"
+    ],
+    "Kłusownik|4": [
+      "Czempion Kłusowników",
+      "Czempionka Kłusowników"
+    ],
+    "Nekromanta|1": [
+      "Przeklęty Aspirant",
+      "Przeklęta Aspirantka"
+    ],
+    "Nekromanta|2": [
+      "Nekromanta",
+      "Nekromantka"
+    ],
+    "Nekromanta|3": [
+      "Mistrz Śmierci",
+      "Mistrzyni Śmierci"
+    ],
+    "Nekromanta|4": [
+      "Mistrz Nekromancji",
+      "Mistrzyni Nekromancji"
+    ],
+    "Kapłan Manana|1": [
+      "Adept Manana",
+      "Adeptka Manana"
+    ],
+    "Kapłan Manana|2": [
+      "Szafarz",
+      "Szafarka"
+    ],
+    "Kapłan Manana|3": [
+      "Starszy Szafarz",
+      "Starsza Szafarka"
+    ],
+    "Kapłan Manana|4": [
+      "Wielki Szafarz",
+      "Wielka Szafarka"
+    ],
+    "Kapłan Morra|1": [
+      "Pisklę",
+      "Pisklę"
+    ],
+    "Kapłan Morra|2": [
+      "Akolita Morra",
+      "Akolitka Morra"
+    ],
+    "Kapłan Morra|3": [
+      "Wysoki Strażnik",
+      "Wysoka Strażniczka"
+    ],
+    "Kapłan Morra|4": [
+      "Opat Strażników",
+      "Ksieni Strażników"
+    ],
+    "Kapłan Myrmidii|1": [
+      "Rekrut Myrmidii",
+      "Rekrutka Myrmidii"
+    ],
+    "Kapłan Myrmidii|2": [
+      "Strażnik Myrmidii",
+      "Strażniczka Myrmidii"
+    ],
+    "Kapłan Myrmidii|3": [
+      "Mistrz Strażników",
+      "Mistrzyni Strażników"
+    ],
+    "Kapłan Myrmidii|4": [
+      "Ręka Myrmidii",
+      "Ręka Myrmidii"
+    ],
+    "Kapłan Ranalda|1": [
+      "Wspólnik",
+      "Wspólniczka"
+    ],
+    "Kapłan Ranalda|2": [
+      "Agent Ranalda",
+      "Agentka Ranalda"
+    ],
+    "Kapłan Ranalda|3": [
+      "Brat Ranalda",
+      "Siostra Ranalda"
+    ],
+    "Kapłan Ranalda|4": [
+      "Usta Ranalda",
+      "Usta Ranalda"
+    ],
+    "Kapłanka Rhyi|1": [
+      "Syn Rhyi",
+      "Córa Rhyi"
+    ],
+    "Kapłanka Rhyi|2": [
+      "Ojciec",
+      "Matka"
+    ],
+    "Kapłanka Rhyi|3": [
+      "Patriarcha",
+      "Matriarchini"
+    ],
+    "Kapłanka Rhyi|4": [
+      "Strażnik Czuwania",
+      "Strażniczka Czuwania"
+    ],
+    "Kapłanka Shallyi|1": [
+      "Uczeń Shallyi",
+      "Uczennica Shallyi"
+    ],
+    "Kapłanka Shallyi|2": [
+      "Opiekun",
+      "Opiekunka"
+    ],
+    "Kapłanka Shallyi|3": [
+      "Brat Shallyi",
+      "Siostra Shallyi"
+    ],
+    "Kapłanka Shallyi|4": [
+      "Arcyopiekun",
+      "Arcyopiekunka"
+    ],
+    "Kapłan Sigmara|1": [
+      "Zaprzysiężony Sigmara",
+      "Zaprzysiężona Sigmara"
+    ],
+    "Kapłan Sigmara|2": [
+      "Czempion Sigmara",
+      "Czempionka Sigmara"
+    ],
+    "Kapłan Sigmara|3": [
+      "Mistrz Wiary",
+      "Mistrzyni Wiary"
+    ],
+    "Kapłan Sigmara|4": [
+      "Wielki Mistrz Wiary",
+      "Wielka Mistrzyni Wiary"
+    ],
+    "Kapłan Taala|1": [
+      "Owat",
+      "Owatka"
+    ],
+    "Kapłan Taala|2": [
+      "Druid Taala",
+      "Druidka Taala"
+    ],
+    "Kapłan Taala|3": [
+      "Arcydruid",
+      "Arcydruidka"
+    ],
+    "Kapłan Taala|4": [
+      "Mistyk Taala",
+      "Mistyczka Taala"
+    ],
+    "Kapłan Ulryka|1": [
+      "Krewniak",
+      "Krewniaczka"
+    ],
+    "Kapłan Ulryka|2": [
+      "Klanowiec",
+      "Klanówna"
+    ],
+    "Kapłan Ulryka|3": [
+      "Strażnik Klanu",
+      "Strażniczka Klanu"
+    ],
+    "Kapłan Ulryka|4": [
+      "Patriarcha Ulryka",
+      "Matriarchini Ulryka"
+    ],
+    "Kapłanka Vereny|1": [
+      "Neofita",
+      "Neofitka"
+    ],
+    "Kapłanka Vereny|2": [
+      "Sędzia",
+      "Sędzina"
+    ],
+    "Kapłanka Vereny|3": [
+      "Rozjemca",
+      "Rozjemczyni"
+    ],
+    "Kapłanka Vereny|4": [
+      "Najwyższy Sędzia",
+      "Najwyższa Sędzina"
+    ],
+    "Rogaty Łowca Taala|1": [
+      "Nowicjusz Łowów",
+      "Nowicjuszka Łowów"
+    ],
+    "Rogaty Łowca Taala|2": [
+      "Rogaty Łowca",
+      "Rogata Łowczyni"
+    ],
+    "Rogaty Łowca Taala|3": [
+      "Leśny Mentor",
+      "Leśna Mentorka"
+    ],
+    "Rogaty Łowca Taala|4": [
+      "Czempion Dziczy",
+      "Czempionka Dziczy"
+    ],
+    "Nocny Łotr Ranalda|1": [
+      "Nowicjusz Oszusta",
+      "Nowicjuszka Oszusta"
+    ],
+    "Nocny Łotr Ranalda|2": [
+      "Nocny Łotr",
+      "Nocna Łotrzyca"
+    ],
+    "Nocny Łotr Ranalda|3": [
+      "Dżentelmen Włamywacz",
+      "Dama Włamywaczka"
+    ],
+    "Nocny Łotr Ranalda|4": [
+      "Czarny Kot",
+      "Czarna Kotka"
+    ],
+    "Szpitalnik Shallyi|1": [
+      "Nowicjusz Gołębicy",
+      "Nowicjuszka Gołębicy"
+    ],
+    "Szpitalnik Shallyi|2": [
+      "Szpitalnik",
+      "Szpitalniczka"
+    ],
+    "Szpitalnik Shallyi|3": [
+      "Sanitariusz",
+      "Sanitariuszka"
+    ],
+    "Szpitalnik Shallyi|4": [
+      "Naczelny Chirurg",
+      "Naczelna Chirurżka"
+    ],
+    "Strażnik Szali Vereny|1": [
+      "Nowicjusz Miecza i Szali",
+      "Nowicjuszka Miecza i Szali"
+    ],
+    "Strażnik Szali Vereny|2": [
+      "Strażnik Szali",
+      "Strażniczka Szali"
+    ],
+    "Strażnik Szali Vereny|3": [
+      "Arbiter",
+      "Arbiterka"
+    ],
+    "Strażnik Szali Vereny|4": [
+      "Sędzia Vereny",
+      "Sędzina Vereny"
+    ],
+    "Tarczowniczka Myrmidii|1": [
+      "Pierwszy Orzeł",
+      "Pierwsza Orlica"
+    ],
+    "Tarczowniczka Myrmidii|2": [
+      "Tarczownik",
+      "Tarczowniczka"
+    ],
+    "Tarczowniczka Myrmidii|3": [
+      "Sierżant Świątynny",
+      "Sierżant Świątynna"
+    ],
+    "Tarczowniczka Myrmidii|4": [
+      "Wysoki Orzeł",
+      "Wysoka Orlica"
+    ],
+    "Siostra Sigmara|1": [
+      "Nowicjusz Bractwa",
+      "Nowicjuszka Siostrzeństwa"
+    ],
+    "Siostra Sigmara|2": [
+      "Brat Sigmara",
+      "Siostra Sigmara"
+    ],
+    "Siostra Sigmara|3": [
+      "Brat Przełożony",
+      "Siostra Przełożona"
+    ],
+    "Siostra Sigmara|4": [
+      "Patron Sigmaryjski",
+      "Matrona Sigmaryjska"
+    ],
+    "Strażnik Burzy Manana|1": [
+      "Nowicjusz Burzy",
+      "Nowicjuszka Burzy"
+    ],
+    "Strażnik Burzy Manana|2": [
+      "Strażnik Burzy",
+      "Strażniczka Burzy"
+    ],
+    "Strażnik Burzy Manana|3": [
+      "Strażnik Czarnego Żelaza",
+      "Strażniczka Czarnego Żelaza"
+    ],
+    "Strażnik Burzy Manana|4": [
+      "Święty Burzy",
+      "Święta Burzy"
+    ],
+    "Kapłan Bitewny Morra|1": [
+      "Nowicjusz Kruka",
+      "Nowicjuszka Kruka"
+    ],
+    "Kapłan Bitewny Morra|2": [
+      "Kapłan Bitewny Morra",
+      "Kapłanka Bitewna Morra"
+    ],
+    "Kapłan Bitewny Morra|3": [
+      "Kapłan-Sierżant Morra",
+      "Kapłanka-Sierżant Morra"
+    ],
+    "Kapłan Bitewny Morra|4": [
+      "Kapłan-Kapitan Morra",
+      "Kapłanka-Kapitan Morra"
+    ],
+    "Kapłan Bitewny Sigmara|1": [
+      "Nowicjusz Młota",
+      "Nowicjuszka Młota"
+    ],
+    "Kapłan Bitewny Sigmara|2": [
+      "Kapłan Bitewny Sigmara",
+      "Kapłanka Bitewna Sigmara"
+    ],
+    "Kapłan Bitewny Sigmara|3": [
+      "Kapłan-Sierżant Sigmara",
+      "Kapłanka-Sierżant Sigmara"
+    ],
+    "Kapłan Bitewny Sigmara|4": [
+      "Kapłan-Kapitan Sigmara",
+      "Kapłanka-Kapitan Sigmara"
+    ],
+    "Kapłan Bitewny Ulryka|1": [
+      "Nowicjusz Wilka",
+      "Nowicjuszka Wilka"
+    ],
+    "Kapłan Bitewny Ulryka|2": [
+      "Kapłan Bitewny Ulryka",
+      "Kapłanka Bitewna Ulryka"
+    ],
+    "Kapłan Bitewny Ulryka|3": [
+      "Kapłan-Sierżant Ulryka",
+      "Kapłanka-Sierżant Ulryka"
+    ],
+    "Kapłan Bitewny Ulryka|4": [
+      "Kapłan-Kapitan Ulryka",
+      "Kapłanka-Kapitan Ulryka"
+    ],
+    "Kapłan-Hazardzista|1": [
+      "Inicjowany",
+      "Inicjowana"
+    ],
+    "Kapłan-Hazardzista|2": [
+      "Kapłan-Hazardzista",
+      "Kapłanka-Hazardzistka"
+    ],
+    "Kapłan-Hazardzista|3": [
+      "Arcykapłan",
+      "Arcykapłanka"
+    ],
+    "Kapłan-Hazardzista|4": [
+      "Mistrz Losu",
+      "Mistrzyni Losu"
+    ],
+    "Kapłan-Zwodziciel|1": [
+      "Inicjowany",
+      "Inicjowana"
+    ],
+    "Kapłan-Zwodziciel|2": [
+      "Kapłan-Zwodziciel",
+      "Kapłanka-Zwodzicielka"
+    ],
+    "Kapłan-Zwodziciel|3": [
+      "Arcykapłan",
+      "Arcykapłanka"
+    ],
+    "Kapłan-Zwodziciel|4": [
+      "Książę Nierządu",
+      "Księżna Nierządu"
+    ],
+    "Kapłan-Opiekun|1": [
+      "Inicjowany",
+      "Inicjowana"
+    ],
+    "Kapłan-Opiekun|2": [
+      "Kapłan-Opiekun",
+      "Kapłanka-Opiekunka"
+    ],
+    "Kapłan-Opiekun|3": [
+      "Arcykapłan",
+      "Arcykapłanka"
+    ],
+    "Kapłan-Opiekun|4": [
+      "Obrońca Ludu",
+      "Obrończyni Ludu"
+    ],
+    "Berserker|1": [
+      "Dzikus",
+      "Dzikuska"
+    ],
+    "Berserker|2": [
+      "Berserker",
+      "Berserkerka"
+    ],
+    "Berserker|3": [
+      "Mistrz Topora",
+      "Mistrzyni Topora"
+    ],
+    "Berserker|4": [
+      "Wódz Wojenny",
+      "Wodzini Wojenna"
+    ],
+    "Bestigor|1": [
+      "Rozszarpywacz",
+      "Rozszarpywaczka"
+    ],
+    "Bestigor|2": [
+      "Bestigor",
+      "Bestigor"
+    ],
+    "Bestigor|3": [
+      "Wargor",
+      "Wargor"
+    ],
+    "Bestigor|4": [
+      "Władca Bestii",
+      "Władczyni Bestii"
+    ],
+    "Szaman Stada|1": [
+      "Uczeń Szamana",
+      "Uczennica Szamana"
+    ],
+    "Szaman Stada|2": [
+      "Szaman Stada",
+      "Szamanka Stada"
+    ],
+    "Szaman Stada|3": [
+      "Mistrz Szamanów",
+      "Mistrzyni Szamanów"
+    ],
+    "Szaman Stada|4": [
+      "Wielki Szaman",
+      "Wielka Szamanka"
+    ],
+    "Rycerz Chaosu|1": [
+      "Giermek Zagłady",
+      "Giermka Zagłady"
+    ],
+    "Rycerz Chaosu|2": [
+      "Rycerz Chaosu",
+      "Rycerka Chaosu"
+    ],
+    "Rycerz Chaosu|3": [
+      "Rycerz Zagłady",
+      "Rycerka Zagłady"
+    ],
+    "Rycerz Chaosu|4": [
+      "Miecz Chaosu",
+      "Miecz Chaosu"
+    ],
+    "Maruder Chaosu|1": [
+      "Człowiek Północy",
+      "Kobieta Północy"
+    ],
+    "Maruder Chaosu|2": [
+      "Maruder Chaosu",
+      "Maruderka Chaosu"
+    ],
+    "Maruder Chaosu|3": [
+      "Czempion Maruderów",
+      "Czempionka Maruderów"
+    ],
+    "Maruder Chaosu|4": [
+      "Wódz Maruderów",
+      "Wodzini Maruderów"
+    ],
+    "Czarownik Chaosu|1": [
+      "Złorzeczący",
+      "Złorzecząca"
+    ],
+    "Czarownik Chaosu|2": [
+      "Czarownik Chaosu",
+      "Czarownica Chaosu"
+    ],
+    "Czarownik Chaosu|3": [
+      "Obdzieracz Dusz",
+      "Obdzieraczka Dusz"
+    ],
+    "Czarownik Chaosu|4": [
+      "Władca Czarowników",
+      "Władczyni Czarowników"
+    ],
+    "Kultysta Khorne'a|1": [
+      "Akolita Khorne'a",
+      "Akolitka Khorne'a"
+    ],
+    "Kultysta Khorne'a|2": [
+      "Kultysta Khorne'a",
+      "Kultystka Khorne'a"
+    ],
+    "Kultysta Khorne'a|3": [
+      "Wybraniec Khorne'a",
+      "Wybranka Khorne'a"
+    ],
+    "Kultysta Khorne'a|4": [
+      "Mistrz Rzezi",
+      "Mistrzyni Rzezi"
+    ],
+    "Magus Kultu Nurgle'a|1": [
+      "Akolita Nurgle'a",
+      "Akolitka Nurgle'a"
+    ],
+    "Magus Kultu Nurgle'a|2": [
+      "Magus Kultu Nurgle'a",
+      "Magini Kultu Nurgle'a"
+    ],
+    "Magus Kultu Nurgle'a|3": [
+      "Wybraniec Nurgle'a",
+      "Wybranka Nurgle'a"
+    ],
+    "Magus Kultu Nurgle'a|4": [
+      "Arcymagus Zarazy",
+      "Arcymagini Zarazy"
+    ],
+    "Magus Kultu Slaanesha|1": [
+      "Akolita Slaanesha",
+      "Akolitka Slaanesha"
+    ],
+    "Magus Kultu Slaanesha|2": [
+      "Magus Kultu Slaanesha",
+      "Magini Kultu Slaanesha"
+    ],
+    "Magus Kultu Slaanesha|3": [
+      "Wybraniec Slaanesha",
+      "Wybranka Slaanesha"
+    ],
+    "Magus Kultu Slaanesha|4": [
+      "Arcymagus Rozpusty",
+      "Arcymagini Rozpusty"
+    ],
+    "Demonokowal|1": [
+      "Piekielny Robotnik",
+      "Piekielna Robotnica"
+    ],
+    "Demonokowal|2": [
+      "Demonokowal",
+      "Demonokowalka"
+    ],
+    "Demonokowal|3": [
+      "Arcykapłan Hashuta",
+      "Arcykapłanka Hashuta"
+    ],
+    "Demonokowal|4": [
+      "Czarownik-Prorok Hashuta",
+      "Czarownica-Prorokini Hashuta"
+    ],
+    "Wywyższony Bohater|1": [
+      "Wywyższony Czempion",
+      "Wywyższona Czempionka"
+    ],
+    "Wywyższony Bohater|2": [
+      "Wywyższony Bohater",
+      "Wywyższona Bohaterka"
+    ],
+    "Wywyższony Bohater|3": [
+      "Herold Zagłady",
+      "Heroldka Zagłady"
+    ],
+    "Wywyższony Bohater|4": [
+      "Władca Chaosu",
+      "Władczyni Chaosu"
+    ],
+    "Wolny Człowiek Północy|1": [
+      "Przysięgły",
+      "Przysięgła"
+    ],
+    "Wolny Człowiek Północy|2": [
+      "Wolny Człowiek",
+      "Wolna Kobieta"
+    ],
+    "Wolny Człowiek Północy|3": [
+      "Huskarl",
+      "Huskarl"
+    ],
+    "Wolny Człowiek Północy|4": [
+      "Jarl",
+      "Jarlini"
+    ],
+    "Piekielny Rycerz|1": [
+      "Lubieżny Giermek",
+      "Lubieżna Giermka"
+    ],
+    "Piekielny Rycerz|2": [
+      "Piekielny Rycerz",
+      "Piekielna Rycerka"
+    ],
+    "Piekielny Rycerz|3": [
+      "Diabelski Rycerz",
+      "Diabelska Rycerka"
+    ],
+    "Piekielny Rycerz|4": [
+      "Palatyn Slaanesha",
+      "Palatynka Slaanesha"
+    ],
+    "Piekielna Straż|1": [
+      "Zhańbiony",
+      "Zhańbiona"
+    ],
+    "Piekielna Straż|2": [
+      "Piekielny Strażnik",
+      "Piekielna Strażniczka"
+    ],
+    "Piekielna Straż|3": [
+      "Żelazoprzysięgły",
+      "Żelazoprzysięgła"
+    ],
+    "Piekielna Straż|4": [
+      "Piekielny Kasztelan",
+      "Piekielna Kasztelanka"
+    ],
+    "Rycerz Tzeentcha|1": [
+      "Oświecony Giermek",
+      "Oświecona Giermka"
+    ],
+    "Rycerz Tzeentcha|2": [
+      "Rycerz Tzeentcha",
+      "Rycerka Tzeentcha"
+    ],
+    "Rycerz Tzeentcha|3": [
+      "Rycerz Runiczny",
+      "Rycerka Runiczna"
+    ],
+    "Rycerz Tzeentcha|4": [
+      "Ostrze Przemiany",
+      "Ostrze Przemiany"
+    ],
+    "Łupieżca Północy|1": [
+      "Maruder Morski",
+      "Maruderka Morska"
+    ],
+    "Łupieżca Północy|2": [
+      "Łupieżca",
+      "Łupieżczyni"
+    ],
+    "Łupieżca Północy|3": [
+      "Łowca Niewolników",
+      "Łowczyni Niewolników"
+    ],
+    "Łupieżca Północy|4": [
+      "Wódz Wyprawy",
+      "Wodzini Wyprawy"
+    ],
+    "Wieszcz Północy|1": [
+      "Akolita Wieszcza",
+      "Akolitka Wieszcza"
+    ],
+    "Wieszcz Północy|2": [
+      "Wieszcz",
+      "Wieszczka"
+    ],
+    "Wieszcz Północy|3": [
+      "Vikti",
+      "Vikti"
+    ],
+    "Wieszcz Północy|4": [
+      "Tkacz Zagłady",
+      "Tkaczka Zagłady"
+    ],
+    "Skald|1": [
+      "Naznaczony Poeta",
+      "Naznaczona Poetka"
+    ],
+    "Skald|2": [
+      "Skald",
+      "Skaldka"
+    ],
+    "Skald|3": [
+      "Chorąży",
+      "Chorąża"
+    ],
+    "Skald|4": [
+      "Pieśniarz Wojny",
+      "Pieśniarka Wojny"
+    ],
+    "Rycerz Zarazy|1": [
+      "Zgniły Giermek",
+      "Zgniła Giermka"
+    ],
+    "Rycerz Zarazy|2": [
+      "Rycerz Zarazy",
+      "Rycerka Zarazy"
+    ],
+    "Rycerz Zarazy|3": [
+      "Zwiastun Śmierci",
+      "Zwiastunka Śmierci"
+    ],
+    "Rycerz Zarazy|4": [
+      "Jeździec Apokalipsy",
+      "Jeźdźczyni Apokalipsy"
+    ],
+    "Miażdżyciel Czaszek|1": [
+      "Krwiożerczy Giermek",
+      "Krwiożercza Giermka"
+    ],
+    "Miażdżyciel Czaszek|2": [
+      "Miażdżyciel Czaszek",
+      "Miażdżycielka Czaszek"
+    ],
+    "Miażdżyciel Czaszek|3": [
+      "Łowca Czaszek",
+      "Łowczyni Czaszek"
+    ],
+    "Miażdżyciel Czaszek|4": [
+      "Pan Czaszek",
+      "Pani Czaszek"
+    ],
+    "Nadzorca Niewolników|1": [
+      "Osiłek",
+      "Osiłka"
+    ],
+    "Nadzorca Niewolników|2": [
+      "Nadzorca Niewolników",
+      "Nadzorczyni Niewolników"
+    ],
+    "Nadzorca Niewolników|3": [
+      "Władca Bicza",
+      "Władczyni Bicza"
+    ],
+    "Nadzorca Niewolników|4": [
+      "Piekielny Nadzorca",
+      "Piekielna Nadzorczyni"
+    ],
+    "Najeźdźca Ungorów|1": [
+      "Łowca Ludzi",
+      "Łowczyni Ludzi"
+    ],
+    "Najeźdźca Ungorów|2": [
+      "Najeźdźca Ungorów",
+      "Najeźdźczyni Ungorów"
+    ],
+    "Najeźdźca Ungorów|3": [
+      "Półrogi Najeźdźca",
+      "Półroga Najeźdźczyni"
+    ],
+    "Najeźdźca Ungorów|4": [
+      "Wódz Półrogich",
+      "Wodzini Półrogich"
+    ],
+    "Wojownik Chaosu|1": [
+      "Wyznawca Chaosu",
+      "Wyznawczyni Chaosu"
+    ],
+    "Wojownik Chaosu|2": [
+      "Wojownik Chaosu",
+      "Wojowniczka Chaosu"
+    ],
+    "Wojownik Chaosu|3": [
+      "Aspirujący Czempion",
+      "Aspirująca Czempionka"
+    ],
+    "Wojownik Chaosu|4": [
+      "Wybraniec Chaosu",
+      "Wybranka Chaosu"
+    ],
+    "Wielorybnik Norski|1": [
+      "Członek Załogi",
+      "Członkini Załogi"
+    ],
+    "Wielorybnik Norski|2": [
+      "Wielorybnik",
+      "Wielorybniczka"
+    ],
+    "Wielorybnik Norski|3": [
+      "Łowca Lewiatanów",
+      "Łowczyni Lewiatanów"
+    ],
+    "Wielorybnik Norski|4": [
+      "Kapitan Wielorybników",
+      "Kapitan Wielorybników"
+    ]
+  }
+}
