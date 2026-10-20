@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Interaktywna karta postaci WFRP 4ed - aplikacja webowa (PWA)",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "svelte-check --tsconfig ./tsconfig.json && vite build",
