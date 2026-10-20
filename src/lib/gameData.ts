@@ -215,6 +215,22 @@ export function withSource(name: string, source: string | undefined | null): str
   return s ? `${name} (${s})` : name;
 }
 
+/**
+ * Poziomy profesji z danych (Wysokie Elfy maja profesje 1-5 i zaczynajace
+ * sie od 3. poziomu); profesja spoza bazy - 1-4.
+ */
+export function professionLevels(name: string): number[] {
+  const lv = (getProfession(name)?.levels ?? []).map((l) => l.level).filter((n) => Number.isFinite(n));
+  return lv.length ? [...new Set(lv)].sort((a, b) => a - b) : [1, 2, 3, 4];
+}
+
+/** Poziom przyciety do zakresu poziomow profesji. */
+export function clampProfessionLevel(name: string, level: number): number {
+  const lv = professionLevels(name);
+  const n = Math.trunc(Number(level)) || lv[0];
+  return Math.max(lv[0], Math.min(lv[lv.length - 1], n));
+}
+
 /** Zrodlo profesji (pole source). */
 export function professionSource(name: string): string {
   return getProfession(name)?.source ?? "";
@@ -644,12 +660,24 @@ export function getWeaponsData(): WeaponsData {
 
 /** Opis Zalety/Wady broni lub pancerza ("Tarcza 2" -> "Tarcza"; "Giętka" -> "Giętki"). */
 export function equipmentQualityDescription(q: string): string {
+  // Wybor "Ogłuszający albo Przekłuwający" - opis kazdej opcji.
+  const alts = q.split(/\s+albo\s+/i);
+  if (alts.length > 1) {
+    return alts
+      .map((a) => {
+        const d = equipmentQualityDescription(a);
+        return d ? `${a.trim()}: ${d}` : "";
+      })
+      .filter(Boolean)
+      .join("\n");
+  }
   const base = q.replace(/\s*\(?\d+\w?\)?$/, "").trim();
   const d = weaponsData.qualities;
   if (d[base]) return d[base];
   // Odmiana rodzaju: "Giętka"/"Giętkie" -> "Giętki", "Nieprzebijalne" -> "Nieprzebijalny".
-  const stem = base.replace(/(a|e|y|i)$/, "");
-  const hit = Object.keys(d).find((k) => k.replace(/(a|e|y|i)$/, "") === stem);
+  const stemOf = (s: string) => s.replace(/(ie|a|e|y|i)$/, "");
+  const stem = stemOf(base);
+  const hit = Object.keys(d).find((k) => stemOf(k) === stem);
   return hit ? d[hit] : "";
 }
 

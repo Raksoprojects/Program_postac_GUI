@@ -194,8 +194,8 @@
       "attr_name": "Inteligencji"
     },
     "max_raw": "Premia z Inteligencji",
-    "tests": "Leczenie poza walką, czyli kiedy możesz właściwie zająć się",
-    "description": "rannym Lata nauki trudnego rzemiosła chirurga pozwalają ci dokonywać cudu operacji, zabiegu niezbędnego przy leczeniu najgroźniejszych obrażeń. W opisie wybranych Trafień Krytycznych znajdziecie informację, że wymagają one interwencji chirurga. Właśnie ty jesteś w stanie im zaradzić. Operacja to Wydłużony Wymagający (+0) Test Leczenia. Liczba wymaganych PS jest ustalana przez MG, ale zwykle to 5-10. Podczas procedury zadajesz pacjentowi 1k10 obrażeń i nakładasz na niego Stan Krwawienie za każdym razem, gdy wykonujesz Test. To oznacza, że chory może umrzeć, a szansa na to jest wysoka. Po operacji pacjent musi wykonać Przeciętny (+20) Test Odporności, a jego niepowodzenie oznacza drobną infekcję (patrz strona 187).",
+    "tests": "Leczenie poza walką, czyli kiedy możesz właściwie zająć się rannym",
+    "description": "Lata nauki trudnego rzemiosła chirurga pozwalają ci dokonywać cudu operacji, zabiegu niezbędnego przy leczeniu najgroźniejszych obrażeń. W opisie wybranych Trafień Krytycznych znajdziecie informację, że wymagają one interwencji chirurga. Właśnie ty jesteś w stanie im zaradzić. Operacja to Wydłużony Wymagający (+0) Test Leczenia. Liczba wymaganych PS jest ustalana przez MG, ale zwykle to 5-10. Podczas procedury zadajesz pacjentowi 1k10 obrażeń i nakładasz na niego Stan Krwawienie za każdym razem, gdy wykonujesz Test. To oznacza, że chory może umrzeć, a szansa na to jest wysoka. Po operacji pacjent musi wykonać Przeciętny (+20) Test Odporności, a jego niepowodzenie oznacza drobną infekcję (patrz strona 187).",
     "source": "Podręcznik podstawowy"
   },
   "Chodu!": {
@@ -267,8 +267,8 @@
       "attr_name": "Zwinności"
     },
     "max_raw": "Bonus ze Zwinności",
-    "tests": "Kuglarstwo lub Testy Zwinności w sytuacji, gdy przydaje się",
-    "description": "gibkość Jesteś w stanie wyginać swoje ciało i manipulować nim na sposoby, które zdają się przeczyć naturze. Dzięki temu możesz przeciskać się przez niewielkie otwory lub zmuszać kończyny do nieprawdopodobnych rzeczy. Granice tego wyznacza MG i udany Test Zwinności.",
+    "tests": "Kuglarstwo lub Testy Zwinności w sytuacji, gdy przydaje się gibkość",
+    "description": "Jesteś w stanie wyginać swoje ciało i manipulować nim na sposoby, które zdają się przeczyć naturze. Dzięki temu możesz przeciskać się przez niewielkie otwory lub zmuszać kończyny do nieprawdopodobnych rzeczy. Granice tego wyznacza MG i udany Test Zwinności.",
     "source": "Podręcznik podstawowy"
   },
   "Czujny": {
@@ -365,8 +365,8 @@
       "attr_name": "Zwinności"
     },
     "max_raw": "Bonus ze Zwinności",
-    "tests": "Broń Biała lub Zasięgowa, kiedy atakujesz dwoma sztukami",
-    "description": "oręża Kiedy jesteś uzbrojony w dwie bronie, podczas swojej Akcji możesz zaatakować obydwiema naraz. Najpierw wykonaj Test trafienia dla broni, którą trzymasz w wiodącej ręce, a jeśli trafisz, określ normalnie obrażenia. Zostaw kości 1k100 na stole, przydadzą się za chwilę. Skoro pierwszy atak się udał i zostały zadane obrażenia, możesz użyć drugiej broni, by uderzyć jeszcze raz. Wykorzystujesz wynik pierwszego rzutu, ale odwracasz kolejność kostek. I tak rzut na trafienie 34 stanie się 43. Pamiętaj, by obniżyć go o modyfikator wynikający z walki słabszą ręką (-20, chyba że posiadasz Talent Oburęczność). Drugi atak też jest Testem Przeciwstawnym. Twój przeciwnik wykonuje Test obrony, na nowo określane są obrażenia. Wyjątkiem jest sytuacja, gdy pierwszy atak zakończył się Trafieniem Krytycznym. Jeśli tak się stanie, wykorzystaj wynik rzutu w Tabeli Trafień Krytycznych do określenia, czy drugi atak trafił, czy nie. Na przykład, jeśli pierwszy atak trafił przeciwnika krytycznie w głowę, a wynik rzutu w Tabeli Trafień Krytycznych to 56 (Poważna rana oka), to korzystasz z tego rezultatu jako wyniku rzutu na trafienie w drugim ataku. Jeśli atakujesz obydwiema broniami, twoje rzuty na obronę obarczone są modyfikatorem -10 do końca twojej następnej Tury. Nie zyskujesz Przewagi za trafienie lub zranienie przeciwnika, jeśli korzystasz z tego Talentu, chyba że trafisz obydwoma atakami.",
+    "tests": "Broń Biała lub Zasięgowa, kiedy atakujesz dwoma sztukami oręża",
+    "description": "Kiedy jesteś uzbrojony w dwie bronie, podczas swojej Akcji możesz zaatakować obydwiema naraz. Najpierw wykonaj Test trafienia dla broni, którą trzymasz w wiodącej ręce, a jeśli trafisz, określ normalnie obrażenia. Zostaw kości 1k100 na stole, przydadzą się za chwilę. Skoro pierwszy atak się udał i zostały zadane obrażenia, możesz użyć drugiej broni, by uderzyć jeszcze raz. Wykorzystujesz wynik pierwszego rzutu, ale odwracasz kolejność kostek. I tak rzut na trafienie 34 stanie się 43. Pamiętaj, by obniżyć go o modyfikator wynikający z walki słabszą ręką (-20, chyba że posiadasz Talent Oburęczność). Drugi atak też jest Testem Przeciwstawnym. Twój przeciwnik wykonuje Test obrony, na nowo określane są obrażenia. Wyjątkiem jest sytuacja, gdy pierwszy atak zakończył się Trafieniem Krytycznym. Jeśli tak się stanie, wykorzystaj wynik rzutu w Tabeli Trafień Krytycznych do określenia, czy drugi atak trafił, czy nie. Na przykład, jeśli pierwszy atak trafił przeciwnika krytycznie w głowę, a wynik rzutu w Tabeli Trafień Krytycznych to 56 (Poważna rana oka), to korzystasz z tego rezultatu jako wyniku rzutu na trafienie w drugim ataku. Jeśli atakujesz obydwiema broniami, twoje rzuty na obronę obarczone są modyfikatorem -10 do końca twojej następnej Tury. Nie zyskujesz Przewagi za trafienie lub zranienie przeciwnika, jeśli korzystasz z tego Talentu, chyba że trafisz obydwoma atakami.",
     "source": "Podręcznik podstawowy"
   },
   "Etykieta (Grupa Społeczna)": {
@@ -941,8 +941,8 @@
       "attr_name": "Inicjatywy"
     },
     "max_raw": "Bonus z Inicjatywy",
-    "tests": "Dowolny wiążący się z Tropieniem lub polowaniem na zwie-",
-    "description": "rzynę Jesteś dobrym myśliwym i znasz najlepsze sposoby szukania zwierzyny. Kiedy podróżujesz po bogatych w nią ziemiach, jesteś automatycznie w stanie wyżywić siebie i tylu towarzyszy, ile razy wykupiłeś ten Talent, jeśli tylko masz czas, by zapolować, oraz odpowiednie wyposażenie. Więcej pożywienia możesz zapewnić, wykorzystując zasady znajdujące się na stronie 129.",
+    "tests": "Dowolny wiążący się z Tropieniem lub polowaniem na zwierzynę",
+    "description": "Jesteś dobrym myśliwym i znasz najlepsze sposoby szukania zwierzyny. Kiedy podróżujesz po bogatych w nią ziemiach, jesteś automatycznie w stanie wyżywić siebie i tylu towarzyszy, ile razy wykupiłeś ten Talent, jeśli tylko masz czas, by zapolować, oraz odpowiednie wyposażenie. Więcej pożywienia możesz zapewnić, wykorzystując zasady znajdujące się na stronie 129.",
     "source": "Podręcznik podstawowy"
   },
   "Percepcja Magiczna": {
@@ -974,8 +974,8 @@
       "attr_name": "Inicjatywy"
     },
     "max_raw": "Bonus z Inicjatywy",
-    "tests": "Wiosłowanie lub Żeglowanie podczas wytyczania kursu przez",
-    "description": "nieznane wody Potrafisz kierować okrętem po zdradliwych akwenach. Kiedy nie powiedzie ci się Test na niepewnych wodach, możesz odwrócić kolejność kości, jeżeli nowy wynik pozwoli ci odnieść sukces. Maksymalnie możesz w ten sposób osiągnąć +1 PS, ponieważ w ostatniej chwili wypatrzyłeś niebezpieczeństwo.",
+    "tests": "Wiosłowanie lub Żeglowanie podczas wytyczania kursu przez nieznane wody",
+    "description": "Potrafisz kierować okrętem po zdradliwych akwenach. Kiedy nie powiedzie ci się Test na niepewnych wodach, możesz odwrócić kolejność kości, jeżeli nowy wynik pozwoli ci odnieść sukces. Maksymalnie możesz w ten sposób osiągnąć +1 PS, ponieważ w ostatniej chwili wypatrzyłeś niebezpieczeństwo.",
     "source": "Podręcznik podstawowy"
   },
   "Pilot Rzeczny": {
@@ -1083,8 +1083,8 @@
       "attr_name": "Ogłady"
     },
     "max_raw": "Bonus z Ogłady",
-    "tests": "Charyzma, gdy prowadzisz debatę lub się z kimś spierasz na",
-    "description": "argumenty Przywykłeś do debatowania i obrony swojego zdania. Jeśli uda ci się Test Charyzmy, możesz normalnie obliczyć PS lub określić ich liczbę, odczytując wynik z kości jedności. Udany Test z wynikiem 24 może dać ci więc 4 PS.",
+    "tests": "Charyzma, gdy prowadzisz debatę lub się z kimś spierasz na argumenty",
+    "description": "Przywykłeś do debatowania i obrony swojego zdania. Jeśli uda ci się Test Charyzmy, możesz normalnie obliczyć PS lub określić ich liczbę, odczytując wynik z kości jedności. Udany Test z wynikiem 24 może dać ci więc 4 PS.",
     "source": "Podręcznik podstawowy"
   },
   "Przestępca": {
@@ -1198,8 +1198,8 @@
       "attr_name": "Inteligencji"
     },
     "max_raw": "Bonus z Inteligencji",
-    "tests": "Występy (Aktorstwo), by uwiarygodnić swoją sekretną toż-",
-    "description": "samość Posiadasz alter ego, które jest bogatszym lub biedniejszym człowiekiem od ciebie. Wybierz Profesję, na którą przystanie MG. Dopóki jesteś odpowiednio ubrany, dopóty możesz korzystać z oferowanego przez nią Statusu, zamiast swojego. To oznacza, że korzystasz z jej modyfikatorów do Testów Ogłady, a nawet możesz zignorować skutki działania Talentu Przestępca. Utrzymywanie sekretnej tożsamości wymaga udanych Testów Umiejętności Występy (Aktorstwo), gdy spotykasz kogoś, kto może cię przejrzeć. Każde wykupienie tego Talentu pozwala ci na stworzenie dodatkowej sekretnej tożsamości.",
+    "tests": "Występy (Aktorstwo), by uwiarygodnić swoją sekretną tożsamość",
+    "description": "Posiadasz alter ego, które jest bogatszym lub biedniejszym człowiekiem od ciebie. Wybierz Profesję, na którą przystanie MG. Dopóki jesteś odpowiednio ubrany, dopóty możesz korzystać z oferowanego przez nią Statusu, zamiast swojego. To oznacza, że korzystasz z jej modyfikatorów do Testów Ogłady, a nawet możesz zignorować skutki działania Talentu Przestępca. Utrzymywanie sekretnej tożsamości wymaga udanych Testów Umiejętności Występy (Aktorstwo), gdy spotykasz kogoś, kto może cię przejrzeć. Każde wykupienie tego Talentu pozwala ci na stworzenie dodatkowej sekretnej tożsamości.",
     "source": "Podręcznik podstawowy"
   },
   "Silne Nogi": {
@@ -1231,8 +1231,8 @@
       "attr_name": "Zręczności"
     },
     "max_raw": "Bonus ze Zręczności",
-    "tests": "Podczas wchodzenia w zasięg broni przeciwnika i w walce",
-    "description": "kontaktowej Wiesz, jak przyciągnąć do siebie przeciwnika, i nie dotyczą cię modyfikatory za walkę z wrogiem, który ma broń dłuższą niż Twoja. Jeśli używasz opcjonalnych zasad walki kontaktowej (patrz strona 297), otrzymujesz premię +10 do trafienia przeciwnika.",
+    "tests": "Podczas wchodzenia w zasięg broni przeciwnika i w walce kontaktowej",
+    "description": "Wiesz, jak przyciągnąć do siebie przeciwnika, i nie dotyczą cię modyfikatory za walkę z wrogiem, który ma broń dłuższą niż Twoja. Jeśli używasz opcjonalnych zasad walki kontaktowej (patrz strona 297), otrzymujesz premię +10 do trafienia przeciwnika.",
     "source": "Podręcznik podstawowy"
   },
   "Słuch Absolutny": {
@@ -1242,8 +1242,8 @@
       "attr_name": "Inicjatywy"
     },
     "max_raw": "Bonus z Inicjatywy",
-    "tests": "Występy (Śpiewanie), Języki (tonalne, takie jak Eltharin, Ki-",
-    "description": "tajski czy Magiczny) Jesteś w stanie dokładnie powtórzyć i zidentyfikować notację nutową. Co więcej, dodaj Umiejętność Występy (Śpiewanie) do listy Umiejętności swojej każdej bieżącej Profesji, a jeśli znajduje się ona na liście, koszt każdego Rozwinięcia spada o 5 PD.",
+    "tests": "Występy (Śpiewanie), Języki (tonalne, takie jak Eltharin, Kitajski czy Magiczny)",
+    "description": "Jesteś w stanie dokładnie powtórzyć i zidentyfikować notację nutową. Co więcej, dodaj Umiejętność Występy (Śpiewanie) do listy Umiejętności swojej każdej bieżącej Profesji, a jeśli znajduje się ona na liście, koszt każdego Rozwinięcia spada o 5 PD.",
     "source": "Podręcznik podstawowy"
   },
   "Snajper": {
@@ -1392,8 +1392,8 @@
       "attr_name": "Inteligencji"
     },
     "max_raw": "Bonus z Inteligencji",
-    "tests": "Badania Naukowe i Język, gdy ważne jest szybkie przyswa -",
-    "description": "janie treści Czytasz księgi z zadziwiającą szybkością. Możesz odwrócić kolejność kości nieudanego Testu Badań Naukowych, jeśli to przyniesie ci sukces. Jeżeli szybkie przeczytanie tekstu odgrywa rolę podczas walki, to w ciągu Rundy możesz przeanalizować tyle stron, ile PS uzyskasz dzięki udanemu Testowi Języków plus tyle, ile razy wykupiłeś ten Talent (minimum jedną, jeśli Test się nie powiódł).",
+    "tests": "Badania Naukowe i Język, gdy ważne jest szybkie przyswajanie treści",
+    "description": "Czytasz księgi z zadziwiającą szybkością. Możesz odwrócić kolejność kości nieudanego Testu Badań Naukowych, jeśli to przyniesie ci sukces. Jeżeli szybkie przeczytanie tekstu odgrywa rolę podczas walki, to w ciągu Rundy możesz przeanalizować tyle stron, ile PS uzyskasz dzięki udanemu Testowi Języków plus tyle, ile razy wykupiłeś ten Talent (minimum jedną, jeśli Test się nie powiódł).",
     "source": "Podręcznik podstawowy"
   },
   "Szybkie Przeładowanie": {
@@ -2110,7 +2110,7 @@
     },
     "max_raw": "3",
     "tests": "Modlitwa",
-    "description": "Ta medytacyjna technika poprawia skupienie i odporność elfiego rzucającego zaklęcia, a ci, którzy w pełni ją opanują, mogą wpływać na pogodę. Aby skorzystać z tego Talentu, musisz spędzić co najmniej dwadzieścia minut w cichym skupieniu, po czym zdać Wymagający (+0) Test Modlitwy. Jeśli ci się powiedzie, zyskujesz poniższe korzyści na 1k10 + PS k10 godzin. 1 poziom: Jesteś odporny na wszelkie rozproszenia, które normalnie przerwałyby Splatanie Magii. 2 poziomy: Usuwasz Stany Zmęczenia w połowie normalnego czasu ustalonego przez MG ( WFRP, strona 169). Dodatkowo możesz ignorować kary do Testów Splatania Magii i Rzucania Zaklęcia wynikające ze Stanów Zmęczenia. 3 poziomy: Wykonując rzut na Tabeli Pogody (zob. Morze Szponów, strona 106, lub **Zwinne Kroki, Lekkie Palce**, strona 114), możesz dodać lub odjąć 1 od wszystkich rzutów kością. Kapłan Mathlanna Kult Mathlanna to luźno zorganizowana hierarchia, a jego świątynie są często zaniedbane. Tkacze Burzy mają więc swobodę żeglowania po morzach w poszukiwaniu przygód. Rafowe świątynki Mathlanna znajdują się wszędzie tam, dokąd dotarły elfie żagle. Świątynki te często rzeźbi się na podobieństwo samego boga albo jednego z jego ulubionych morskich stworzeń. Główna świątynia Ulthuanu to wielowieżowa budowla z dolomitu i koralu, położona na Zmiennych Wyspach.",
+    "description": "Ta medytacyjna technika poprawia skupienie i odporność elfiego rzucającego zaklęcia, a ci, którzy w pełni ją opanują, mogą wpływać na pogodę. Aby skorzystać z tego Talentu, musisz spędzić co najmniej dwadzieścia minut w cichym skupieniu, po czym zdać Wymagający (+0) Test Modlitwy. Jeśli ci się powiedzie, zyskujesz poniższe korzyści na 1k10 + PS k10 godzin. 1 poziom: Jesteś odporny na wszelkie rozproszenia, które normalnie przerwałyby Splatanie Magii. 2 poziomy: Usuwasz Stany Zmęczenia w połowie normalnego czasu ustalonego przez MG ( WFRP, strona 169). Dodatkowo możesz ignorować kary do Testów Splatania Magii i Rzucania Zaklęcia wynikające ze Stanów Zmęczenia. 3 poziomy: Wykonując rzut na Tabeli Pogody (zob. Morze Szponów, strona 106, lub Zwinne Stopy, Lekkie Palce, strona 114), możesz dodać lub odjąć 1 od wszystkich rzutów kością.",
     "source": "Podręcznik Gracza: Wysokie Elfy",
     "page": 105
   },

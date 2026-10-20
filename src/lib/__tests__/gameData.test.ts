@@ -20,6 +20,9 @@ import {
   getRace,
   sourceShort,
   withSource,
+  findTalentDef,
+  professionLevels,
+  clampProfessionLevel,
   professionSource,
   talentSource,
   isSkillDevelopable,
@@ -130,6 +133,24 @@ describe("gameData: profesje i klasy", () => {
     expect(steps.length).toBe(2);
     expect(steps[0].resolved).toBe(true);
     expect(steps[1].resolved).toBe(false);
+  });
+});
+
+describe("gameData: odwolania i poziomy", () => {
+  it("talenty ras istnieja w bazie (takze ze specjalizacja)", () => {
+    for (const race of ["Człowiek", "Krasnolud", "Niziołek", "Wysoki elf", "Leśny elf"]) {
+      for (const t of getRace(race)!.talents) {
+        for (const n of t.options ?? (t.name ? [t.name] : [])) expect(findTalentDef(n), `${race}: ${n}`).toBeTruthy();
+      }
+    }
+  });
+
+  it("poziomy profesji z danych (Wysokie Elfy: 1-5 i od 3.)", () => {
+    expect(professionLevels("Mag")).toEqual([1, 2, 3, 4, 5]);
+    expect(professionLevels("Tkacz Burzy")).toEqual([3, 4, 5]);
+    expect(professionLevels("nieznana")).toEqual([1, 2, 3, 4]);
+    expect(clampProfessionLevel("Tkacz Burzy", 1)).toBe(3);
+    expect(clampProfessionLevel("Mag", 5)).toBe(5);
   });
 });
 

@@ -614,7 +614,7 @@ export class DataManager {
     const canonical = gameData.resolveProfessionName(profession);
     const name = canonical ?? profession;
     this.currentCareer = name;
-    this.currentCareerLevel = Math.max(1, Math.min(4, toInt(level, 1)));
+    this.currentCareerLevel = gameData.clampProfessionLevel(name, toInt(level, 1));
     const resolvedClass = gameData.classOfCareer(name);
     if (resolvedClass) this.characterClass = resolvedClass;
     const resolved = Boolean(canonical);
@@ -640,13 +640,13 @@ export class DataManager {
 
   /** Awansuje do nowej profesji: oznacza obecna jako ukonczona i dopisuje krok. */
   advanceToCareer(profession: string, level: number): void {
-    const lvl = Math.max(1, Math.min(4, toInt(level, 1)));
     if (this.careerPath.length) {
       this.careerPath[this.careerPath.length - 1].completed = true;
     }
     const canonical = gameData.resolveProfessionName(profession);
     const name = canonical ?? profession;
     const resolved = Boolean(canonical);
+    const lvl = gameData.clampProfessionLevel(name, toInt(level, 1));
     this.careerPath.push({
       title: name,
       profession: resolved ? name : null,

@@ -94,7 +94,7 @@
       "talents": [
         { "type": "choice", "options": ["Czytanie/Pisanie", "Nieustępliwy"] },
         { "type": "choice", "options": ["Odporność Psychiczna", "Nieugięty"] },
-        { "type": "fixed", "name": "Odporny na Magię" },
+        { "type": "fixed", "name": "Odporność na Magię" },
         { "type": "fixed", "name": "Tragarz" },
         { "type": "fixed", "name": "Widzenie w Ciemności" }
       ]
@@ -127,7 +127,7 @@
       ],
       "talents": [
         { "type": "fixed", "name": "Mały" },
-        { "type": "fixed", "name": "Odporność na Chaos" },
+        { "type": "fixed", "name": "Odporny na (Chaos)" },
         { "type": "fixed", "name": "Widzenie w Ciemności" },
         { "type": "fixed", "name": "Wyczulony Zmysł (Smak)" },
         { "type": "random", "count": 2 }

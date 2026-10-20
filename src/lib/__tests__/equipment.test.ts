@@ -56,6 +56,15 @@ describe("bron i pancerz: obliczenia", () => {
     expect(gd.equipmentQualityDescription("Tarcza 2")).not.toBe("");
     expect(gd.equipmentQualityDescription("Giętka")).not.toBe("");
     expect(gd.equipmentQualityDescription("Sieczna (1P)")).not.toBe("");
+    expect(gd.equipmentQualityDescription("Giętkie")).not.toBe("");
+    expect(gd.equipmentQualityDescription("Ogłuszający albo Przekłuwający")).toMatch(/^Ogłuszający: .+\nPrzekłuwający: /);
+  });
+
+  it("kazda Zaleta i Wada z katalogu ma opis", () => {
+    const c = gd.getWeaponsData();
+    const all = [...Object.values(c.melee), ...Object.values(c.ranged)].flatMap((w) => [...w.qualities, ...w.flaws]);
+    all.push(...Object.values(c.armour).flatMap((a) => a.qualities));
+    expect([...new Set(all)].filter((q) => !gd.equipmentQualityDescription(q))).toEqual([]);
   });
 
   it("zapis w pliku postaci (JSON round-trip)", () => {

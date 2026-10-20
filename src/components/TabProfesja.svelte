@@ -36,6 +36,12 @@
     selLevel = store.dm.currentCareerLevel;
   });
 
+  // Poziomy wybranej profesji (Wysokie Elfy: 1-5 albo od 3. poziomu).
+  let selLevels = $derived(gameData.professionLevels(selProfession));
+  $effect(() => {
+    if (!selLevels.includes(selLevel)) selLevel = selLevels[0];
+  });
+
   let completion = $derived(store.careerCompletion());
   let careerPath = $derived((store.pendingCount, store.dm.careerPath.map((s) => ({ ...s }))));
   let currentCareer = $derived((store.pendingCount, store.dm.currentCareer));
@@ -181,7 +187,7 @@
       <label class="fld">
         <span>Poziom</span>
         <select bind:value={selLevel}>
-          {#each [1, 2, 3, 4] as l (l)}
+          {#each selLevels as l (l)}
             <option value={l}>{l}</option>
           {/each}
         </select>
@@ -298,7 +304,7 @@
           <span class="idx">{i + 1}.</span>
           <Autocomplete bind:value={step.profession} placeholder="Profesja" options={allProfessions} />
           <select bind:value={step.level} aria-label="Poziom">
-            {#each [1, 2, 3, 4] as l (l)}
+            {#each gameData.professionLevels(gameData.resolveProfessionName(step.profession ?? "") ?? "") as l (l)}
               <option value={l}>{l}</option>
             {/each}
           </select>

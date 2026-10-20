@@ -142,7 +142,7 @@
   "blessings": [
     {
       "name": "Błogosławieństwo Bitwy",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "6 Rund",
       "description": "Cel uzyskuje premię +10 do Walki Wręcz.",
@@ -150,7 +150,7 @@
     },
     {
       "name": "Błogosławieństwo Charyzmy",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "6 Rund",
       "description": "Cel uzyskuje premię +10 do Ogłady.",
@@ -158,7 +158,7 @@
     },
     {
       "name": "Błogosławieństwo Dzikości",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "6 Rund",
       "description": "Gdy twój cel zada Ranę Krytyczną, rzuć dwa razy i wybierz lepszy rezultat.",
@@ -166,7 +166,7 @@
     },
     {
       "name": "Błogosławieństwo Finezji",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "6 Rund",
       "description": "Cel uzyskuje premię +10 do Zręczności.",
@@ -174,7 +174,7 @@
     },
     {
       "name": "Błogosławieństwo Łowów",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "6 Rund",
       "description": "Cel uzyskuje premię +10 do Umiejętności Strzeleckich.",
@@ -182,7 +182,7 @@
     },
     {
       "name": "Błogosławieństwo Mądrości",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "6 Rund",
       "description": "Cel uzyskuje premię +10 do Inteligencji.",
@@ -190,7 +190,7 @@
     },
     {
       "name": "Błogosławieństwo Nieustępliwości",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "Natychmiast",
       "description": "Cel może usunąć 1 Stan.",
@@ -198,7 +198,7 @@
     },
     {
       "name": "Błogosławieństwo Ochrony",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "6 Rund",
       "description": "Przeciwnicy muszą wykonać Przeciętny (+20) Test Siły Woli, by zaatakować obrany przez siebie cel, ponieważ zaczyna kąsać ich poczucie wstydu, iż w ogóle zaczęli myśleć o użyciu przemocy. Jeśli Test się nie powiedzie, albo muszą wybrać inny cel ataku, albo inną Akcję.",
@@ -206,7 +206,7 @@
     },
     {
       "name": "Błogosławieństwo Oddechu",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "6 Rund",
       "description": "Cel nie musi oddychać i ignoruje wszelkie konsekwencje duszenia się.",
@@ -214,7 +214,7 @@
     },
     {
       "name": "Błogosławieństwo Odwagi",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "6 Rund",
       "description": "Cel uzyskuje premię +10 do Siły Woli.",
@@ -222,7 +222,7 @@
     },
     {
       "name": "Błogosławieństwo Prawości",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "6 Rund",
       "description": "Broń celu uznawana jest za Magiczną.",
@@ -230,7 +230,7 @@
     },
     {
       "name": "Błogosławieństwo Siły",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "6 Rund",
       "description": "Cel uzyskuje premię +10 do Siły.",
@@ -238,7 +238,7 @@
     },
     {
       "name": "Błogosławieństwo Sprytu",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "6 Rund",
       "description": "Cel uzyskuje premię +10 do Inicjatywy.",
@@ -246,7 +246,7 @@
     },
     {
       "name": "Błogosławieństwo Sumienia",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "6 Rund",
       "description": "Cel musi wykonać Przeciętny (+20) Test Siły Woli, aby wykonać Akcję, która naruszałaby jedno z przykazań twojego bóstwa. Jeśli Test się nie uda, cel ogarnia wstyd i nie podejmuje żadnej Akcji.",
@@ -254,7 +254,7 @@
     },
     {
       "name": "Błogosławieństwo Szczęścia",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "6 Rund",
       "description": "Następny nieudany Test twojego celu może zostać powtórzony. Wiążący jest nowy wynik Testu.",
@@ -264,13 +264,13 @@
       "name": "Błogosławieństwo Uzdrawiania",
       "range": "Dotyk",
       "target": "1",
-      "duration": "Natychmiast 1 Rana twojego celu zostaje uleczona.",
-      "description": "",
+      "duration": "Natychmiast",
+      "description": "1 Rana twojego celu zostaje uleczona.",
       "source": "Podręcznik podstawowy"
     },
     {
       "name": "Błogosławieństwo Wdzięku",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "6 Rund",
       "description": "Cel uzyskuje premię +10 do Zwinności.",
@@ -278,7 +278,7 @@
     },
     {
       "name": "Błogosławieństwo Wytrzymałości",
-      "range": "6 metry",
+      "range": "6 metrów",
       "target": "1",
       "duration": "6 Rund",
       "description": "Cel uzyskuje premię +10 do Wytrzymałości.",
