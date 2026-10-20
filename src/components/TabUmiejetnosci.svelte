@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { store, ATTRIBUTE_FULL_NAMES } from "../lib/store.svelte";
+  import { store, ATTRIBUTE_FULL_NAMES, type PhantomEntry } from "../lib/store.svelte";
+  import type { ChoiceSlot } from "../lib/types";
   import { ATTRIBUTES } from "../lib/rules";
-  import { characteristicToCode } from "../lib/gameData";
+  import { characteristicToCode, specPlaceholderInfo } from "../lib/gameData";
   import Modal from "./Modal.svelte";
   import Autocomplete from "./Autocomplete.svelte";
   import SpecializationModal from "./SpecializationModal.svelte";
@@ -22,8 +23,11 @@
   let newAdv = $state(0);
   let addError = $state("");
 
-  // Modal specjalizacji (pkt 9/10/21)
+  // Modal specjalizacji (pkt 9/10/21). Gdy specSlot ustawiony - wybor jest
+  // zapamietywany jako czesc profesji (slot "(Dowolna)" / "albo").
   let specInfo = $state<SpecInfo | null>(null);
+  let specSlot = $state<ChoiceSlot | null>(null);
+  let specError = $state("");
 
   const norm = (s: string) => s.trim().toLowerCase();
 
@@ -44,7 +48,7 @@
   // Pkt 5/14: umiejętności rozwijalne (jeszcze nieposiadane) pokazujemy ZAWSZE,
   // niezależnie od filtra „tylko rozwijalne", z uwzględnieniem filtra cechy i tekstu.
   let phantoms = $derived(
-    store.phantomSkills().filter((name) => {
+    store.phantomSkills().filter(({ name }) => {
       if (attrFilter && (store.skillBaseAttr(name) ?? "") !== attrFilter) return false;
       if (textFilter.trim()) return norm(name).includes(norm(textFilter));
       return true;
@@ -71,13 +75,15 @@
     if (code) newAttr = code;
   }
 
-  function addPhantom(name: string) {
-    const info = parseSpecialization(name);
-    if (needsSpecialization(info)) {
+  function addPhantom(ph: PhantomEntry) {
+    const info = parseSpecialization(ph.name);
+    if (ph.slot || needsSpecialization(info)) {
       specInfo = info;
+      specSlot = ph.slot ?? null;
+      specError = "";
       return;
     }
-    doAddSkill(name);
+    doAddSkill(ph.name);
   }
 
   function doAddSkill(name: string) {
@@ -85,15 +91,41 @@
     store.addSkill(name, code);
   }
 
-  function onSpecConfirm(fullName: string) {
+  function closeSpec() {
     specInfo = null;
-    doAddSkill(fullName);
+    specSlot = null;
+    specError = "";
+  }
+
+  function onSpecConfirm(fullName: string) {
+    if (specSlot) {
+      let r = store.chooseSkillSlot(specSlot, fullName);
+      if (!r.ok && r.duplicate && confirm(`${r.reason}\n\nWybrać mimo to? To jednorazowa decyzja.`)) {
+        r = store.chooseSkillSlot(specSlot, fullName, true);
+      }
+      if (!r.ok) {
+        specError = r.reason ?? "Nie udało się zapisać wyboru.";
+        return;
+      }
+    } else {
+      doAddSkill(fullName);
+    }
+    closeSpec();
   }
 
   function submitAdd() {
     const name = newName.trim();
     if (!name) {
       addError = "Podaj nazwę umiejętności.";
+      return;
+    }
+    // Szablon "Język (...)" -> okno wyboru specjalizacji z podpowiedziami.
+    const tpl = specPlaceholderInfo(name);
+    if (tpl) {
+      showAdd = false;
+      specInfo = tpl;
+      specSlot = null;
+      specError = "";
       return;
     }
     const ok = store.addSkill(name, newAttr, Math.max(0, Math.trunc(newAdv)));
@@ -182,15 +214,20 @@
         </div>
       </div>
     {/each}
-    {#each phantoms as name (name)}
+    {#each phantoms as ph (ph.slot?.key ?? ph.name)}
       <div class="row panel dev-row phantom">
         <div class="name">
-          <strong class:earning={store.isEarningSkill(name)}>{name}</strong> <span class="text-dim">+</span>
-          {#if store.isEarningSkill(name)}<span class="chip tag earning-tag" title="Umiejętność zarobkowa profesji">zarobkowa</span>{/if}
+          <strong class:earning={store.isEarningSkill(ph.name)}>{ph.name}</strong> <span class="text-dim">+</span>
+          {#if ph.slot}<span class="chip tag" title="Wybór zostanie zapamiętany jako umiejętność profesji">wybór · poz. {ph.slot.level}</span>{/if}
+          {#if store.isEarningSkill(ph.name)}<span class="chip tag earning-tag" title="Umiejętność zarobkowa profesji">zarobkowa</span>{/if}
         </div>
-        <div class="stats text-dim">Umiejętność z profesji – jeszcze nieposiadana.</div>
+        <div class="stats text-dim">
+          {ph.slot
+            ? "Do wyboru z profesji – wybierz specjalizację (możesz przypisać posiadaną)."
+            : "Umiejętność z profesji – jeszcze nieposiadana."}
+        </div>
         <div class="btns">
-          <button class="btn-sm success" onclick={() => addPhantom(name)}>+ Dodaj</button>
+          <button class="btn-sm success" onclick={() => addPhantom(ph)}>{ph.slot ? "Wybierz…" : "+ Dodaj"}</button>
         </div>
       </div>
     {/each}
@@ -237,8 +274,11 @@
 {#if specInfo}
   <SpecializationModal
     info={specInfo}
+    owned={specSlot ? store.slotCandidates(specSlot, "skill") : []}
+    error={specError}
+    note={specSlot ? `Wybór zostanie zapamiętany dla: ${specSlot.profession}, poziom ${specSlot.level}.` : ""}
     onConfirm={onSpecConfirm}
-    onClose={() => (specInfo = null)}
+    onClose={closeSpec}
   />
 {/if}
 

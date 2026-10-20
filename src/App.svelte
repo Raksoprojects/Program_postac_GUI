@@ -7,6 +7,10 @@
   import TabCechy from "./components/TabCechy.svelte";
   import TabUmiejetnosci from "./components/TabUmiejetnosci.svelte";
   import TabTalenty from "./components/TabTalenty.svelte";
+  import TabModyfikatory from "./components/TabModyfikatory.svelte";
+  import TabMagia from "./components/TabMagia.svelte";
+  import TabPrzedmioty from "./components/TabPrzedmioty.svelte";
+  import TabBron from "./components/TabBron.svelte";
   import TabProfesja from "./components/TabProfesja.svelte";
   import TabKoszty from "./components/TabKoszty.svelte";
   import TabDoswiadczenie from "./components/TabDoswiadczenie.svelte";
@@ -17,6 +21,10 @@
     { id: "cechy", label: "Cechy", badge: "cechy" },
     { id: "umiejetnosci", label: "Umiejętności", badge: "umiejetnosci" },
     { id: "talenty", label: "Talenty", badge: "talenty" },
+    { id: "magia", label: "Zaklęcia/Modlitwy", badge: "magia" },
+    { id: "modyfikatory", label: "Modyfikatory", badge: null },
+    { id: "bron", label: "Broń i pancerz", badge: null },
+    { id: "przedmioty", label: "Przedmioty magiczne", badge: null },
     { id: "profesja", label: "Profesja", badge: null },
     { id: "koszty", label: "Koszty", badge: null },
     { id: "doswiadczenie", label: "Doświadczenie", badge: null },
@@ -223,6 +231,14 @@
       <TabUmiejetnosci />
     {:else if activeTab === "talenty"}
       <TabTalenty />
+    {:else if activeTab === "magia"}
+      <TabMagia />
+    {:else if activeTab === "modyfikatory"}
+      <TabModyfikatory />
+    {:else if activeTab === "bron"}
+      <TabBron />
+    {:else if activeTab === "przedmioty"}
+      <TabPrzedmioty />
     {:else if activeTab === "profesja"}
       <TabProfesja />
     {:else if activeTab === "koszty"}

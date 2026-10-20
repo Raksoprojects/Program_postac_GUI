@@ -5,6 +5,28 @@ import {
   buildSpecializedName
 } from "../specialization";
 
+describe("specialization: wybór 'lub' i między całymi pozycjami", () => {
+  it("'A lub B' w nawiasie = wybór", () => {
+    const info = parseSpecialization("Broń Biała (Drzewcowa lub Podstawowa)");
+    expect(info.kind).toBe("choice");
+    expect(info.options).toEqual(["Drzewcowa", "Podstawowa"]);
+  });
+
+  it("'Talent A albo Talent B' = wybór pełnych nazw", () => {
+    const info = parseSpecialization("Sekretna Tożsamość albo Niegodny Uwagi");
+    expect(info.kind).toBe("choice");
+    expect(info.base).toBe("");
+    expect(info.options).toEqual(["Sekretna Tożsamość", "Niegodny Uwagi"]);
+    expect(buildSpecializedName(info.base, info.options[1])).toBe("Niegodny Uwagi");
+  });
+
+  it("'albo' w nawiasie nie dzieli całej nazwy", () => {
+    const info = parseSpecialization("Wyczulony Zmysł (Smak albo Dotyk)");
+    expect(info.base).toBe("Wyczulony Zmysł");
+    expect(info.options).toEqual(["Smak", "Dotyk"]);
+  });
+});
+
 describe("specialization: parsowanie nazw ze schematu (Faza C, pkt 9/10)", () => {
   it("nazwa bez nawiasu = brak specjalizacji", () => {
     const info = parseSpecialization("Leczenie");

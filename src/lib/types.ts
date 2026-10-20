@@ -55,6 +55,8 @@ export interface Profession {
   page?: number | string;
   /** Warianty regul profesji (Pod Bronia / Domowe). Pola nadpisuja baze. */
   variants?: EntryVariants<Profession>;
+  /** "Profesja zla" (Chaos, kultysci) - domyslnie ukryta, pokazywana osobno. */
+  evil?: boolean;
 }
 
 export interface GameClass {
@@ -169,10 +171,199 @@ export interface Origin {
 /** Pochodzenia per rasa (public/data/origins.json). Klucz = nazwa rasy. */
 export type OriginsData = Record<string, Origin[]>;
 
+// --- Magia i modlitwy (spells.json, prayers.json) ---
+
+/** Grupa tradycji wyznaczajaca zasady kosztu (petty/arcane/chaos). */
+export type LoreGroup = "petty" | "arcane" | "chaos";
+
+/** Tradycja magii (np. "Ognia", "Prosta", "Tajemna"). */
+export interface LoreDef {
+  label: string;
+  wind: string | null;
+  rule?: string;
+  group: LoreGroup;
+  /** Nazwy tradycji uzywane w specjalizacjach talentow (np. "Ogień"). */
+  aliases: string[];
+}
+
+/** Zaklecie z bazy. */
+export interface SpellDef {
+  name: string;
+  /** Klucz tradycji (LoreDef). */
+  lore: string;
+  /** Poziom Zaklecia (PZ). */
+  cn: number;
+  range: string;
+  target: string;
+  duration: string;
+  description: string;
+  source?: string;
+  page?: number | string;
+  /** Wymagane tradycje (np. elfie zaklecia laczace dwa Wiatry). */
+  requires?: string[];
+  winds?: string[];
+}
+
+export interface SpellsData {
+  note?: string;
+  lores: Record<string, LoreDef>;
+  spells: SpellDef[];
+}
+
+/** Blogoslawienstwo albo Cud z bazy. */
+export interface PrayerDef {
+  name: string;
+  /** Bostwo (dla cudow); blogoslawienstwa sa wspolne. */
+  deity?: string | null;
+  /** Aspekt bostwa (np. aspekty Ranalda). */
+  aspect?: string;
+  range: string;
+  target: string;
+  duration: string;
+  description: string;
+  source?: string;
+}
+
+export interface PrayersData {
+  note?: string;
+  /** Bostwo -> lista 6 blogoslawienstw i aliasy nazwy (odmiany, aspekty). */
+  deities: Record<string, { blessings: string[]; aliases: string[] }>;
+  blessings: PrayerDef[];
+  miracles: PrayerDef[];
+}
+
+/** Zaklecie znane przez postac. */
+export interface SpellEntry {
+  name: string;
+  lore: string;
+  cn: number;
+  range: string;
+  target: string;
+  duration: string;
+  description: string;
+  source?: string;
+  /** Koszt zaplacony w PD (0 = darmowe). */
+  cost: number;
+  /** Dodane w biezacej sesji (niezatwierdzone - mozna cofnac ze zwrotem PD). */
+  is_new: boolean;
+  /** Wlasne zaklecie (spoza bazy). */
+  is_custom?: boolean;
+}
+
+/** Cud znany przez postac. */
+export interface MiracleEntry {
+  name: string;
+  deity: string;
+  aspect?: string;
+  range: string;
+  target: string;
+  duration: string;
+  description: string;
+  source?: string;
+  cost: number;
+  is_new: boolean;
+  is_custom?: boolean;
+}
+
+// --- Modyfikatory postaci: mutacje, wampiryzm, dary itp. (modifiers.json) ---
+
+/** Wartosc w katalogu modyfikatorow: liczba albo kosci, np. "k10", "-2k10". */
+export type ModifierValue = number | string;
+
+/** Kategoria katalogu modyfikatorow (np. mutacje fizyczne, przemiana w wampira). */
+export interface ModifierCategory {
+  id: string;
+  label: string;
+  source?: string;
+  description?: string;
+}
+
+/** Wpis katalogu modyfikatorow (public/data/modifiers.json). */
+export interface ModifierDef {
+  name: string;
+  /** Id kategorii (ModifierCategory.id). */
+  category: string;
+  /** Opis efektu (tekst z podrecznika). */
+  effect?: string;
+  source?: string;
+  /** Zmiana wartosci cech (kod cechy -> wartosc lub kosci). */
+  characteristics?: Record<string, ModifierValue>;
+  /** Zmiana wartosci umiejetnosci (nazwa -> wartosc lub kosci). */
+  skills?: Record<string, ModifierValue>;
+  /** Gorny limit wartosci cechy (np. Ogłada najwyzej 5). */
+  maxCharacteristics?: Record<string, number>;
+  /** Zmiana Szybkosci / Zywotnosci / Przeznaczenia / Punktow Bohatera. */
+  movement?: number;
+  wounds?: number;
+  fate?: number;
+  resilience?: number;
+  /** Punkty Pancerza (opisowo; wyswietlane w efekcie). */
+  armour?: number;
+  headArmour?: number;
+  /** Zyskiwane Cechy Stworzen / talenty (opisowo). */
+  traits?: string[];
+  /** Czy losowac lokalizacje na ciele (tabela locations). */
+  rollLocation?: boolean;
+  /** Powaga mutacji (Mutant's Handbook): trywialna / pomniejsza / poważna. */
+  severity?: string;
+  /** Limit wykupien (np. Dary Krwi). */
+  limit?: string;
+  /** Zmienia rase postaci (np. przemiana w wampira -> "Wampir (Von Carstein)"). */
+  race?: string;
+}
+
+/** Wiersz tabeli lokalizacji (k100). */
+export interface ModifierLocationRow {
+  min: number;
+  max: number;
+  name: string;
+}
+
+/** Komplet katalogu modyfikatorow (public/data/modifiers.json). */
+export interface ModifiersData {
+  note?: string;
+  categories: ModifierCategory[];
+  locations?: ModifierLocationRow[];
+  entries: ModifierDef[];
+}
+
+/**
+ * Modyfikator przypisany do postaci (mutacja, wampiryzm, klatwa, wlasny...).
+ * Wartosci kosci sa juz rozstrzygniete na liczby. Nieaktywny modyfikator jest
+ * pamietany, ale nie wplywa na wartosci postaci.
+ */
+export interface CharacterModifier {
+  id: string;
+  name: string;
+  /** Etykieta kategorii (czytelna, niezalezna od zmian katalogu). */
+  category: string;
+  description: string;
+  source?: string;
+  active: boolean;
+  /** Zmiana wartosci cech (kod cechy -> liczba). */
+  characteristics: Record<string, number>;
+  /** Zmiana wartosci umiejetnosci (nazwa -> liczba). */
+  skills?: Record<string, number>;
+  /** Gorny limit wartosci cech (kod -> maks.). */
+  maxCharacteristics?: Record<string, number>;
+  movement?: number;
+  wounds?: number;
+  fate?: number;
+  resilience?: number;
+  /** Wylosowana/wybrana lokalizacja na ciele. */
+  location?: string;
+  /** Rasa ustawiana przez aktywny modyfikator (np. "Wampir (Lahmianin)"). */
+  race?: string;
+  /** Rasa sprzed zmiany (przywracana po wylaczeniu/usunieciu modyfikatora). */
+  prevRace?: string;
+}
+
 /** Dane wejsciowe kreatora rasowego (Krok 1 + 3 + rasowe umiej./talenty). */
 export interface RaceCreationInput {
   name: string;
   race: string;
+  /** Plec - forma nazw profesji (opcjonalna). */
+  sex?: Sex;
   /** Finalne wartosci cech (kod cechy -> wartosc). */
   characteristics: Record<string, number>;
   /** Punkty Przeznaczenia po rozdzieleniu. */
@@ -264,12 +455,29 @@ export interface CareerPathStep {
   completed?: boolean;
 }
 
+/**
+ * Nierozstrzygniety wpis schematu profesji wymagajacy wyboru specjalizacji,
+ * np. "Wiedza (Dowolna)" albo "Muzyka (Bęben albo Piszczałka)".
+ */
+export interface ChoiceSlot {
+  /** Klucz zapamietanego wyboru (profesja|poziom|wpis). */
+  key: string;
+  profession: string;
+  level: number;
+  /** Oryginalny wpis ze schematu profesji. */
+  scheme: string;
+}
+
 /** Zbiory elementow rozwijalnych "w profesji". */
 export interface Developable {
   characteristics: Set<string>;
   skills: Set<string>;
   talents: Set<string>;
   resolved: boolean;
+  /** Wpisy umiejetnosci czekajace na wybor specjalizacji. */
+  skillSlots: ChoiceSlot[];
+  /** Wpisy talentow (obecnego poziomu) czekajace na wybor specjalizacji. */
+  talentSlots: ChoiceSlot[];
 }
 
 /** Wynik sprawdzenia kompletowania profesji. */
@@ -281,6 +489,261 @@ export interface CareerCompletion {
   skills_done: number;
   talents_done: number;
   characteristics_pending: boolean;
+}
+
+// ---------------------------------------------------------------------------
+// Generator przedmiotow magicznych (artefacts.json, treasures.json, magic_items.json
+// - dane przeniesione z Generatora BN; tylko pola uzywane przez generator).
+// ---------------------------------------------------------------------------
+
+/** Wiersz tabeli k100 (min-max) z opcjonalnymi zasadami dla generatora. */
+export interface TableRow {
+  min: number;
+  max: number;
+  name: string;
+  text?: string;
+  cursed?: boolean;
+  /** Przeklety wynik: rzuc jeszcze raz w tej tabeli, by ustalic moc. */
+  reroll?: boolean;
+  /** Wyniki, przy ktorych przeklety przedmiot ma tez dobroczynna moc (mikstury 99-100). */
+  rerollOn?: number[];
+  /** Dodatkowe rzuty generatora: species, attack, spell, powerStone... */
+  rolls?: string[];
+  runes?: "weapon" | "armour" | "talisman";
+  noWp?: boolean;
+  wp?: string | number;
+  duration?: string;
+  ingredients?: string;
+  noEffect?: boolean;
+  twice?: boolean;
+  thrice?: boolean;
+  flaw?: boolean;
+  major?: boolean;
+  permanentMinor?: boolean;
+  lores?: string[];
+  count?: number | string;
+  wpDice?: string;
+  ap?: number;
+  qualities?: string[];
+  column?: string;
+  dice?: string;
+  value?: number;
+  /** Podtabela k10 rodzaju broni: [od, do, nazwa]. */
+  d10?: [number, number, string][];
+  ranged?: boolean;
+  special?: "silver" | "runes" | "chaos" | "daemon";
+  klauser?: number;
+  regular?: number;
+  master?: number;
+  death?: boolean;
+  thrown?: boolean;
+}
+
+export interface WeaponAbility {
+  name: string;
+  text: string;
+  melee?: [number, number];
+  ranged?: [number, number];
+  cursed?: boolean;
+  rolls?: string[];
+}
+
+export interface RenownedItem {
+  name: string;
+  wp: number | null;
+  value: string;
+  enc: number;
+  availability: string;
+  text: string;
+}
+
+export interface ArtefactCategory {
+  name: string;
+  wp?: string;
+  limit?: string;
+  intro?: string;
+  /** Rzut w ogolnej tabeli Zalet i Wad przedmiotow magicznych. */
+  itemQualities?: boolean;
+  items?: TableRow[];
+  kinds?: TableRow[];
+  columns?: Record<string, TableRow[]>;
+  powers?: Record<string, { text: string; cursed?: boolean; rolls?: string[] }>;
+  pieces?: TableRow[];
+  enchantmentCount?: TableRow[];
+  protection?: TableRow[];
+  enchantments?: TableRow[];
+  wizardry?: TableRow[];
+  types?: TableRow[];
+  abilityCount?: TableRow[];
+  abilities?: WeaponAbility[];
+  might?: TableRow[];
+  silver?: string;
+  chaos?: string;
+  daemon?: string;
+  renowned?: RenownedItem[];
+}
+
+export interface ArtefactsData {
+  note: string;
+  source: string;
+  categoryTable: TableRow[];
+  categories: Record<string, ArtefactCategory>;
+  tables: {
+    characteristic: string[];
+    species: TableRow[];
+    attackProtection: TableRow[];
+    spellLore: TableRow[];
+    powerStones: TableRow[];
+    blessings: TableRow[];
+    qualities: { qualities: TableRow[]; flaws: TableRow[] };
+    weaponQualities: { qualities: TableRow[]; flaws: TableRow[] };
+    charArmour: TableRow[];
+    charWeapon: TableRow[];
+    minorCurses: TableRow[];
+    majorCurses: TableRow[];
+  };
+  klauser: { intro: string; armour: TableRow[]; weapon: TableRow[]; death: TableRow[] };
+  runeCount: TableRow[];
+}
+
+export interface RuneDef {
+  name: string;
+  sl: number;
+  effect: string;
+  page: number;
+  master?: boolean;
+}
+
+export interface ChaosPropertyDef {
+  name: string;
+  god: string;
+  effect: string;
+  page: number;
+}
+
+/** Szablon przedmiotu magicznego z podrecznikow (treasures.json). */
+export interface TreasureDef {
+  name: string;
+  kind: "weapon" | "armour" | "item" | "potion";
+  description: string;
+  source: string;
+  page?: number;
+  runes?: "weapon" | "armour" | "talisman";
+  chaos?: [number, number];
+  daemon?: boolean;
+  cursed?: boolean;
+}
+
+/** treasures.json - uzywane czesci (runy, Bron Chaosu, demony, szablony). */
+export interface TreasuresData {
+  runes: Record<"weapon" | "armour" | "talisman", RuneDef[]>;
+  chaosProperties: ChaosPropertyDef[];
+  daemons: Record<string, Record<"lesser" | "greater", { name: string; benefit: string }>>;
+  items: TreasureDef[];
+}
+
+/** Przedmiot magiczny z podrecznikow (Wiatry Magii: kostury, szaty, zwoje...). */
+export interface MagicItem {
+  name: string;
+  description: string;
+  scroll?: boolean;
+  source?: string;
+  page?: number;
+}
+
+export interface MagicItemsData {
+  items: MagicItem[];
+}
+
+/** Imiona wg rasy (names.json z Generatora BN). */
+export interface NameTable {
+  male: string[];
+  female: string[];
+  surnames: string[];
+}
+
+export type NamesData = Record<string, NameTable | string[]>;
+
+// ---------------------------------------------------------------------------
+// Bron i pancerz (weapons.json - kopia z Generatora BN)
+// ---------------------------------------------------------------------------
+
+export interface WeaponDef {
+  group: string;
+  hands?: string;
+  damage: number;
+  /** Obrazenia + Bonus z Sily. */
+  sb: boolean;
+  /** Dlugosc broni bialej (np. "Średnia"). */
+  reach?: string;
+  /** Zasieg broni zasiegowej w metrach (tekst). */
+  range?: string;
+  twoHanded?: boolean;
+  qualities: string[];
+  flaws: string[];
+  note?: string;
+  enc?: string;
+  availability?: string;
+  /** Wartosc Tarczy (PP do obrony). */
+  shield?: number;
+  source?: string;
+  page?: number;
+}
+
+export interface ArmourDef {
+  type: string;
+  /** "głowa", "ramiona", "korpus", "nogi". */
+  locations: string[];
+  ap: number;
+  qualities: string[];
+  penalty?: string;
+}
+
+export interface WeaponsData {
+  melee: Record<string, WeaponDef>;
+  ranged: Record<string, WeaponDef>;
+  armour: Record<string, ArmourDef>;
+  /** Opisy Zalet i Wad broni/pancerza. */
+  qualities: Record<string, string>;
+}
+
+/** Bron postaci (kopia z katalogu albo wlasna). */
+export interface CharWeapon {
+  name: string;
+  kind: "melee" | "ranged";
+  group: string;
+  damage: number;
+  sb: boolean;
+  /** Dlugosc (bron biala) albo zasieg (zasiegowa). */
+  reach: string;
+  qualities: string[];
+  flaws: string[];
+  enc: string;
+  shield?: number;
+  /** Przy sobie (karta PDF). */
+  carried: boolean;
+  note?: string;
+}
+
+/** Element pancerza postaci. */
+export interface CharArmour {
+  name: string;
+  locations: string[];
+  ap: number;
+  qualities: string[];
+  enc: string;
+  /** Zalozony - liczy sie do PP. */
+  worn: boolean;
+  penalty?: string;
+}
+
+/** Plec postaci: forma nazw profesji (M = meska, K = zenska). */
+export type Sex = "M" | "K";
+
+/** Formy [meska, zenska] nazw profesji i tytulow poziomow (klucz tytulu "Profesja|poziom"). */
+export interface ProfessionTitlesData {
+  professions: Record<string, [string, string]>;
+  titles: Record<string, [string, string]>;
 }
 
 export type { Attribute };

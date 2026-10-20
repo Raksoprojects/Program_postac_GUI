@@ -2,7 +2,18 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { setGameData } from "../gameData";
-import type { ClassesData, ProfessionsData, RacesData, SkillsData, TalentsData } from "../types";
+import type {
+  ClassesData,
+  NamesData,
+  ProfessionTitlesData,
+  WeaponsData,
+  PrayersData,
+  ProfessionsData,
+  RacesData,
+  SkillsData,
+  SpellsData,
+  TalentsData
+} from "../types";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const dataDir = resolve(here, "../../../public/data");
@@ -18,6 +29,11 @@ export function loadTestGameData(): void {
     classes: readJson<ClassesData>("classes.json"),
     talents: readJson<TalentsData>("talents.json"),
     skills: readJson<SkillsData>("skills.json"),
-    races: readJson<RacesData>("races.json")
+    races: readJson<RacesData>("races.json"),
+    spells: readJson<SpellsData>("spells.json"),
+    prayers: readJson<PrayersData>("prayers.json"),
+    names: readJson<NamesData>("names.json"),
+    professionTitles: readJson<ProfessionTitlesData>("profession_titles.json"),
+    weapons: readJson<WeaponsData>("weapons.json")
   });
 }

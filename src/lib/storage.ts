@@ -21,6 +21,8 @@ export interface AutosaveSnapshot {
 export interface AppSettings {
   ruleset?: string;
   sourceFilter?: string;
+  /** Pokazywac "profesje zla" (Chaos) przy wyborze profesji. */
+  showEvil?: boolean;
 }
 
 /** Odczytuje globalne ustawienia (wariant zasad, filtr zrodel). */

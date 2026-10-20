@@ -6,12 +6,32 @@
  * dane bezposrednio przez setGameData().
  */
 
+import {
+  buildSpecializedName,
+  needsSpecialization,
+  parseSpecialization,
+  type SpecInfo
+} from "./specialization";
 import type {
+  ArtefactsData,
+  MagicItemsData,
+  NamesData,
+  NameTable,
+  ProfessionTitlesData,
+  Sex,
+  WeaponsData,
+  SpellDef,
+  TreasuresData,
   CareerCompletion,
   CareerPathStep,
+  ChoiceSlot,
   ClassesData,
   Developable,
   EntryVariants,
+  ModifierDef,
+  ModifiersData,
+  PrayersData,
+  SpellsData,
   GameClass,
   Origin,
   OriginsData,
@@ -35,6 +55,12 @@ let talents: TalentsData | null = null;
 let skills: SkillsData | null = null;
 let races: RacesData | null = null;
 let origins: OriginsData = {};
+let modifiers: ModifiersData = { categories: [], entries: [] };
+let spellsData: SpellsData = { lores: {}, spells: [] };
+let prayersData: PrayersData = { deities: {}, blessings: [], miracles: [] };
+let namesData: NamesData = {};
+let titlesData: ProfessionTitlesData = { professions: {}, titles: {} };
+let weaponsData: WeaponsData = { melee: {}, ranged: {}, armour: {}, qualities: {} };
 
 // Dane surowe (z wariantami) + nakladka domowa z pliku + aktywny wariant.
 let rawProfessions: ProfessionsData | null = null;
@@ -51,6 +77,12 @@ export function setGameData(data: {
   races?: RacesData;
   professionsDomowe?: ProfessionsData;
   origins?: OriginsData;
+  modifiers?: ModifiersData;
+  spells?: SpellsData;
+  prayers?: PrayersData;
+  names?: NamesData;
+  professionTitles?: ProfessionTitlesData;
+  weapons?: WeaponsData;
   ruleset?: Ruleset;
 }): void {
   rawProfessions = data.professions;
@@ -60,6 +92,12 @@ export function setGameData(data: {
   skills = data.skills ?? [];
   races = data.races ?? null;
   origins = data.origins ?? {};
+  modifiers = data.modifiers ?? { categories: [], entries: [] };
+  spellsData = data.spells ?? { lores: {}, spells: [] };
+  prayersData = data.prayers ?? { deities: {}, blessings: [], miracles: [] };
+  namesData = data.names ?? {};
+  titlesData = data.professionTitles ?? { professions: {}, titles: {} };
+  weaponsData = data.weapons ?? { melee: {}, ranged: {}, armour: {}, qualities: {} };
   activeRuleset = data.ruleset ?? "core";
   applyRuleset();
 }
@@ -75,7 +113,7 @@ export async function loadGameData(
   ruleset: Ruleset = "core"
 ): Promise<void> {
   const prefix = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
-  const [p, c, t, s, r, dom, org] = await Promise.all([
+  const [p, c, t, s, r, dom, org, mods, sp, pr, nm, ti, wp] = await Promise.all([
     fetch(`${prefix}data/professions.json`).then((r) => r.json() as Promise<ProfessionsData>),
     fetch(`${prefix}data/classes.json`).then((r) => r.json() as Promise<ClassesData>),
     fetch(`${prefix}data/talents.json`).then((r) => r.json() as Promise<TalentsData>),
@@ -84,7 +122,18 @@ export async function loadGameData(
     // Nakladka domowa profesji (opcjonalna - moze jeszcze nie istniec).
     fetchOptionalJson<ProfessionsData>(`${prefix}data/professions.domowe.json`),
     // Pochodzenia (opcjonalne - moze jeszcze nie istniec / byc puste).
-    fetchOptionalJson<OriginsData>(`${prefix}data/origins.json`)
+    fetchOptionalJson<OriginsData>(`${prefix}data/origins.json`),
+    // Katalog modyfikatorow (mutacje, wampiryzm, dary...) - opcjonalny.
+    fetchOptionalJson<ModifiersData>(`${prefix}data/modifiers.json`),
+    // Zaklecia i modlitwy - opcjonalne.
+    fetchOptionalJson<SpellsData>(`${prefix}data/spells.json`),
+    fetchOptionalJson<PrayersData>(`${prefix}data/prayers.json`),
+    // Imiona do losowania w kreatorze - opcjonalne.
+    fetchOptionalJson<NamesData>(`${prefix}data/names.json`),
+    // Formy meskie/zenskie nazw profesji i tytulow poziomow - opcjonalne.
+    fetchOptionalJson<ProfessionTitlesData>(`${prefix}data/profession_titles.json`),
+    // Bron i pancerz (katalog) - opcjonalne.
+    fetchOptionalJson<WeaponsData>(`${prefix}data/weapons.json`)
   ]);
   rawProfessions = p;
   rawTalents = t;
@@ -93,6 +142,12 @@ export async function loadGameData(
   skills = s;
   races = r;
   origins = org ?? {};
+  modifiers = mods ?? { categories: [], entries: [] };
+  spellsData = sp ?? { lores: {}, spells: [] };
+  prayersData = pr ?? { deities: {}, blessings: [], miracles: [] };
+  namesData = nm ?? {};
+  titlesData = ti ?? { professions: {}, titles: {} };
+  weaponsData = wp ?? { melee: {}, ranged: {}, armour: {}, qualities: {} };
   activeRuleset = ruleset;
   applyRuleset();
 }
@@ -133,9 +188,15 @@ export function professionSourceGroup(name: string): SourceGroup {
   return sourceGroup(getProfession(name)?.source);
 }
 
+/** Czy profesja nalezy do "profesji zla" (Chaos itp.). */
+export function isEvilProfession(name: string): boolean {
+  return getProfession(name)?.evil === true;
+}
+
 /** Grupa proweniencji talentu (po nazwie). */
 export function talentSourceGroup(name: string): SourceGroup {
-  return sourceGroup(getTalent(name)?.source);
+  // Wariant ze specjalizacja ("Magia Tajemna (Ognia)") - zrodlo szablonu.
+  return sourceGroup((getTalent(name) ?? findTalentDef(name))?.source);
 }
 
 /** Czy grupa proweniencji przechodzi przez wybrany preset filtra. */
@@ -205,6 +266,7 @@ function domoweByNormalized(name: string): Profession | undefined {
  * wariantu. W trybie domowym dokleja tez NOWE profesje z professions.domowe.json.
  */
 function applyRuleset(): void {
+  specCache = null;
   if (rawTalents) {
     const out: TalentsData = {};
     for (const [name, base] of Object.entries(rawTalents)) {
@@ -295,7 +357,26 @@ export function resolveProfessionName(name: string): string | undefined {
   for (const key of Object.keys(profs)) {
     if (normalize(key) === target) return key;
   }
+  // Forma meska/zenska nazwy (profession_titles.json), np. "Kapłan Shallyi".
+  for (const [key, forms] of Object.entries(titlesData.professions)) {
+    if (key in profs && forms.some((f) => normalize(f) === target)) return key;
+  }
   return undefined;
+}
+
+/** Nazwa profesji w formie dla plci (K = zenska); bez danych - nazwa z bazy. */
+export function professionDisplayName(profession: string, sex?: Sex | ""): string {
+  const forms = titlesData.professions[profession];
+  if (!forms || !sex) return profession;
+  return forms[sex === "K" ? 1 : 0] || profession;
+}
+
+/** Tytul poziomu profesji w formie dla plci; bez danych - tytul z bazy. */
+export function levelDisplayTitle(profession: string, level: number, sex?: Sex | ""): string {
+  const base = getProfession(profession)?.levels.find((l) => l.level === level)?.title ?? "";
+  const forms = titlesData.titles[`${profession}|${level}`];
+  if (!forms || !sex) return base;
+  return forms[sex === "K" ? 1 : 0] || base;
 }
 
 export function getClass(name: string): GameClass | undefined {
@@ -304,6 +385,22 @@ export function getClass(name: string): GameClass | undefined {
 
 export function getTalent(name: string): Talent | undefined {
   return requireTalents()[name];
+}
+
+/**
+ * Definicja talentu dla nazwy z wybrana specjalizacja, np. "Etykieta (Szlachta)"
+ * -> wpis "Etykieta (Grupa Społeczna)". Najpierw dokladnie, potem po nazwie bazowej.
+ */
+export function findTalentDef(name: string): Talent | undefined {
+  const direct = getTalent(name);
+  if (direct) return direct;
+  const all = requireTalents();
+  const base = normalize(String(name).split("(")[0]);
+  if (!base) return undefined;
+  for (const key of Object.keys(all)) {
+    if (normalize(key.split("(")[0]) === base) return all[key];
+  }
+  return undefined;
 }
 
 export function allProfessionNames(): string[] {
@@ -321,6 +418,87 @@ export function allTalentNames(): string[] {
 /** Kanoniczne nazwy wszystkich umiejetnosci (skills.json), posortowane. */
 export function allSkillNames(): string[] {
   return (skills ?? []).map((s) => s.name).sort((a, b) => a.localeCompare(b, "pl"));
+}
+
+/**
+ * Specjalizacje spotykane w danych: z umiejetnosci/talentow profesji, ras i
+ * pochodzen (np. "Wiedza (Reikland)"), tradycji magii i bostw. Klucz = baza
+ * w malych literach, wartosc = lista specjalizacji. Liczone raz (cache).
+ */
+let specCache: Map<string, string[]> | null = null;
+
+function buildSpecIndex(): Map<string, string[]> {
+  const idx = new Map<string, Map<string, string>>();
+  const add = (base: string, spec: string) => {
+    const b = base.trim().toLowerCase();
+    const t = spec.trim();
+    const s = t.charAt(0).toUpperCase() + t.slice(1);
+    if (!b || !s || s === "..." || /^dowoln/i.test(s)) return;
+    if (!idx.has(b)) idx.set(b, new Map());
+    const m = idx.get(b)!;
+    const prev = m.get(s.toLowerCase());
+    // Przy roznej wielkosci liter ("bretoński"/"Bretoński") wygrywa wielka.
+    if (!prev || (prev[0] !== prev[0].toUpperCase() && s[0] === s[0].toUpperCase())) m.set(s.toLowerCase(), s);
+  };
+  const addName = (name: string) => {
+    const info = parseSpecialization(name);
+    if (info.kind === "choice" && info.base) for (const o of info.options) add(info.base, o);
+    else if (info.kind === "choice") for (const o of info.options) addName(o);
+    else if (info.base && info.inner) add(info.base, info.inner);
+  };
+  // Tylko pola skills/talents (wyposazenie pomijamy).
+  const walk = (o: unknown, collect = false): void => {
+    if (typeof o === "string") {
+      if (collect) addName(o);
+    } else if (Array.isArray(o)) {
+      for (const x of o) walk(x, collect);
+    } else if (o && typeof o === "object") {
+      for (const [k, v] of Object.entries(o)) walk(v, collect || k === "skills" || k === "talents" || k === "options" || k === "name");
+    }
+  };
+  walk(rawProfessions ?? professions ?? {});
+  walk(professionsDomowe);
+  walk(races?.races ?? {});
+  walk(origins);
+  // Tradycje magii: tylko klucze z spells.json (w danych profesji sa warianty "Ogień/Ognia").
+  idx.delete("magia tajemna");
+  idx.delete("magia chaosu");
+  for (const [key, l] of Object.entries(spellsData.lores)) {
+    if (l.group === "arcane" && key !== "Tajemna") add("Magia Tajemna", key);
+    if (l.group === "chaos") add("Magia Chaosu", key);
+  }
+  for (const d of Object.keys(prayersData.deities)) {
+    add("Błogosławieństwo", d);
+    add("Inwokacja", d);
+  }
+  const out = new Map<string, string[]>();
+  for (const [b, m] of idx) out.set(b, [...m.values()].sort((x, y) => x.localeCompare(y, "pl")));
+  return out;
+}
+
+/** Podpowiedzi specjalizacji dla bazy, np. "Język" -> ["Bretoński", "Khazalid", ...]. */
+export function specializationSuggestions(base: string): string[] {
+  specCache ??= buildSpecIndex();
+  return specCache.get(base.trim().toLowerCase()) ?? [];
+}
+
+/**
+ * Szablon wymagajacy specjalizacji ("Język (...)", "Magia Tajemna (Tradycja)")
+ * - wpis z bazy z nawiasem-kategoria. Zwraca SpecInfo do okna wyboru albo null.
+ */
+export function specPlaceholderInfo(name: string): SpecInfo | null {
+  const info = parseSpecialization(name);
+  if (!info.base || info.inner === null) return null;
+  if (needsSpecialization(info)) return info;
+  const isSkillTpl = (skills ?? []).some((s) => s.grouped && s.name === name);
+  const isTalentTpl = !!talents && name in talents;
+  if (!isSkillTpl && !isTalentTpl) return null;
+  return { ...info, kind: "free", hint: info.inner === "..." ? "" : info.inner };
+}
+
+/** Pelne nazwy z podpowiedzi, np. "Język (Bretoński)". */
+export function specializedVariants(base: string): string[] {
+  return specializationSuggestions(base).map((s) => buildSpecializedName(base, s));
 }
 
 /** Pelna definicja umiejetnosci kanonicznej wg nazwy (dokladne dopasowanie). */
@@ -370,6 +548,129 @@ export function getOrigins(raceName: string): Origin[] {
 /** Pojedyncze pochodzenie rasy wg nazwy (lub undefined). */
 export function getOrigin(raceName: string, originName: string): Origin | undefined {
   return (origins[raceName] ?? []).find((o) => o.name === originName);
+}
+
+// ---------------------------------------------------------------------------
+// Modyfikatory postaci (modifiers.json): mutacje, wampiryzm, dary...
+// ---------------------------------------------------------------------------
+
+/** Kategorie katalogu modyfikatorow w kolejnosci z pliku. */
+export function modifierCategories(): ModifiersData["categories"] {
+  return modifiers.categories ?? [];
+}
+
+/** Wpisy katalogu (opcjonalnie tylko z jednej kategorii). */
+export function modifierEntries(categoryId?: string): ModifierDef[] {
+  const all = modifiers.entries ?? [];
+  return categoryId ? all.filter((e) => e.category === categoryId) : all;
+}
+
+/** Etykieta kategorii po id (lub samo id, gdy nieznana). */
+export function modifierCategoryLabel(categoryId: string): string {
+  return modifierCategories().find((c) => c.id === categoryId)?.label ?? categoryId;
+}
+
+/** Dane zaklec (tradycje + zaklecia). */
+export function getSpellsData(): SpellsData {
+  return spellsData;
+}
+
+/** Dane modlitw (bostwa, blogoslawienstwa, cuda). */
+export function getPrayersData(): PrayersData {
+  return prayersData;
+}
+
+/** Tabela imion rasy (names.json); brak - imiona ludzkie. */
+export function getNames(race: string): NameTable | undefined {
+  const t = namesData[race] ?? namesData["Człowiek"];
+  return t && !Array.isArray(t) ? t : undefined;
+}
+
+/** Losowe "Imie Nazwisko" dla rasy i plci (K = kobieta); undefined bez danych. */
+export function randomName(race: string, sex: "M" | "K", rng: () => number = Math.random): string | undefined {
+  const t = getNames(race);
+  if (!t) return undefined;
+  const pick = (a: string[]) => (a.length ? a[Math.floor(rng() * a.length)] : undefined);
+  const first = pick(sex === "K" ? t.female : t.male);
+  if (!first) return undefined;
+  const last = pick(t.surnames);
+  return last ? `${first} ${last}` : first;
+}
+
+/** Katalog broni i pancerzy (weapons.json). */
+export function getWeaponsData(): WeaponsData {
+  return weaponsData;
+}
+
+/** Opis Zalety/Wady broni lub pancerza ("Tarcza 2" -> "Tarcza"; "Giętka" -> "Giętki"). */
+export function equipmentQualityDescription(q: string): string {
+  const base = q.replace(/\s*\(?\d+\w?\)?$/, "").trim();
+  const d = weaponsData.qualities;
+  if (d[base]) return d[base];
+  // Odmiana rodzaju: "Giętka"/"Giętkie" -> "Giętki", "Nieprzebijalne" -> "Nieprzebijalny".
+  const stem = base.replace(/(a|e|y|i)$/, "");
+  const hit = Object.keys(d).find((k) => k.replace(/(a|e|y|i)$/, "") === stem);
+  return hit ? d[hit] : "";
+}
+
+/** Zaklecie po nazwie (pierwsze trafienie). */
+export function getSpell(name: string): SpellDef | undefined {
+  return spellsData.spells.find((s) => s.name === name);
+}
+
+// ----- Generator przedmiotow magicznych (dane ladowane leniwie) -----------
+
+let artefactsData: ArtefactsData | null = null;
+let treasuresData: TreasuresData | null = null;
+let magicItemsData: MagicItemsData | null = null;
+let artefactLoad: Promise<boolean> | null = null;
+
+/** Wstrzykuje dane generatora przedmiotow (testy). */
+export function setArtefactData(data: { artefacts: ArtefactsData; treasures?: TreasuresData; magicItems?: MagicItemsData }): void {
+  artefactsData = data.artefacts;
+  treasuresData = data.treasures ?? null;
+  magicItemsData = data.magicItems ?? null;
+  artefactLoad = Promise.resolve(true);
+}
+
+/** Laduje dane generatora przedmiotow (raz, przy pierwszym otwarciu zakladki). */
+export function loadArtefactData(baseUrl: string = import.meta.env.BASE_URL): Promise<boolean> {
+  if (artefactLoad) return artefactLoad;
+  const prefix = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+  artefactLoad = Promise.all([
+    fetchOptionalJson<ArtefactsData>(`${prefix}data/artefacts.json`),
+    fetchOptionalJson<TreasuresData>(`${prefix}data/treasures.json`),
+    fetchOptionalJson<MagicItemsData>(`${prefix}data/magic_items.json`)
+  ]).then(([a, t, m]) => {
+    artefactsData = a;
+    treasuresData = t;
+    magicItemsData = m;
+    if (!a) artefactLoad = null;
+    return a !== null;
+  });
+  return artefactLoad;
+}
+
+export function getArtefacts(): ArtefactsData | null {
+  return artefactsData;
+}
+
+export function getTreasures(): TreasuresData | null {
+  return treasuresData;
+}
+
+export function getMagicItems(): MagicItemsData | null {
+  return magicItemsData;
+}
+
+/** Lokalizacja na ciele dla rzutu k100 (tabela locations). */
+export function modifierLocationForRoll(roll: number): string | undefined {
+  return (modifiers.locations ?? []).find((l) => roll >= l.min && roll <= l.max)?.name;
+}
+
+/** Nazwy lokalizacji na ciele (do wyboru recznego). */
+export function modifierLocationNames(): string[] {
+  return (modifiers.locations ?? []).map((l) => l.name);
 }
 
 /** Zwraca rase odpowiadajaca rzutowi k100 (1..100) wg tabeli losowania. */
@@ -516,6 +817,18 @@ export function findCareerByTitle(title: string): CareerMatch[] {
       }
     }
   }
+  // Formy meskie/zenskie (profession_titles.json): nazwa profesji i tytuly poziomow.
+  for (const [name, forms] of Object.entries(titlesData.professions)) {
+    if (!(name in profs) || !forms.some((f) => normalize(f) === target)) continue;
+    const levels = profs[name].levels;
+    matches.push({ profession: name, level: levels?.[0]?.level ?? 1, title });
+  }
+  for (const [key, forms] of Object.entries(titlesData.titles)) {
+    if (!forms.some((f) => normalize(f) === target)) continue;
+    const i = key.lastIndexOf("|");
+    const name = key.slice(0, i);
+    if (name in profs) matches.push({ profession: name, level: Number(key.slice(i + 1)), title });
+  }
   // Usun duplikaty zachowujac kolejnosc
   const seen = new Set<string>();
   const unique: CareerMatch[] = [];
@@ -593,6 +906,82 @@ export function findOwnedSkill<T extends { advanced?: number }>(
   return null;
 }
 
+// ---------------------------------------------------------------------------
+// Wybory specjalizacji w schemacie profesji ("(Dowolna)" / "(A albo B)")
+// ---------------------------------------------------------------------------
+
+/**
+ * Zapamietane wybory postaci dla wpisow schematu wymagajacych specjalizacji.
+ * Klucz = choiceSlotKey(profesja, poziom, wpis), wartosc = pelna wybrana nazwa,
+ * np. "Język (Bretoński)".
+ */
+export type ProfessionChoices = Record<string, string>;
+
+export type { ChoiceSlot };
+
+/** Klucz slotu wyboru: kanoniczna profesja + poziom + oryginalny wpis schematu. */
+export function choiceSlotKey(profession: string, level: number, scheme: string): string {
+  return `${resolveProfessionName(profession) ?? profession}|${level}|${scheme}`;
+}
+
+/** Rozbija klucz slotu na skladowe (do prezentacji w UI). */
+export function parseChoiceSlotKey(
+  key: string
+): { profession: string; level: number; scheme: string } | null {
+  const first = key.indexOf("|");
+  const second = key.indexOf("|", first + 1);
+  if (first < 0 || second < 0) return null;
+  return {
+    profession: key.slice(0, first),
+    level: Number.parseInt(key.slice(first + 1, second), 10) || 1,
+    scheme: key.slice(second + 1)
+  };
+}
+
+/** Czy nazwa znajduje sie w slowniku (dokladnie lub po normalizacji); zwraca klucz. */
+export function findOwnedName(
+  owned: Record<string, unknown> | undefined,
+  name: string
+): string | null {
+  return ownedKey(owned, name);
+}
+
+function ownedKey(owned: Record<string, unknown> | undefined, name: string): string | null {
+  if (!owned) return null;
+  if (name in owned) return name;
+  const target = normalize(name);
+  for (const key of Object.keys(owned)) if (normalize(key) === target) return key;
+  return null;
+}
+
+/**
+ * Rozstrzyga wpis schematu profesji. Wpis bez wyboru -> nazwa wprost. Wpis
+ * wymagajacy specjalizacji -> zapamietany wybor postaci; dla "A albo B" takze
+ * posiadana juz opcja (jednoznaczna). W przeciwnym razie zwraca otwarty slot.
+ */
+export function resolveSchemeEntry(
+  profession: string,
+  level: number,
+  scheme: string,
+  choices: ProfessionChoices = {},
+  owned?: Record<string, unknown>
+): { name: string; slot?: undefined } | { name?: undefined; slot: ChoiceSlot } {
+  const info = parseSpecialization(scheme);
+  if (!needsSpecialization(info)) return { name: scheme };
+  const key = choiceSlotKey(profession, level, scheme);
+  const chosen = choices[key];
+  if (chosen) return { name: chosen };
+  if (info.kind === "choice") {
+    for (const opt of info.options) {
+      const hit = ownedKey(owned, buildSpecializedName(info.base, opt));
+      if (hit) return { name: hit };
+    }
+  }
+  return {
+    slot: { key, profession: resolveProfessionName(profession) ?? profession, level, scheme }
+  };
+}
+
 /** Krok ścieżki kariery na potrzeby agregacji pul (profesja + osiągnięty poziom). */
 export interface CareerPathPoolStep {
   profession?: string | null;
@@ -602,9 +991,15 @@ export interface CareerPathPoolStep {
 /**
  * Agreguje elementy rozwijalne z CAŁEJ ścieżki kariery: cechy (kody), umiejętności
  * i talenty ze wszystkich poziomów wszystkich profesji (poziomy ≤ osiągnięty).
- * Służy do kryteriów ukończenia profesji liczonych przez całą ścieżkę.
+ * Służy do kryteriów ukończenia profesji liczonych przez całą ścieżkę. Wpisy
+ * z wyborem ("(Dowolna)", "albo") zastępuje zapamiętanym wyborem postaci.
  */
-export function careerPathPools(careerPath: CareerPathPoolStep[]): {
+export function careerPathPools(
+  careerPath: CareerPathPoolStep[],
+  choices: ProfessionChoices = {},
+  ownedSkills?: Record<string, unknown>,
+  ownedTalents?: Record<string, unknown>
+): {
   characteristics: Set<string>;
   skills: Set<string>;
   talents: Set<string>;
@@ -627,18 +1022,27 @@ export function careerPathPools(careerPath: CareerPathPoolStep[]): {
         const code = characteristicToCode(charName);
         if (code) pools.characteristics.add(code);
       }
-      for (const skillName of lvl.skills ?? []) pools.skills.add(skillName);
-      for (const talentName of lvl.talents ?? []) pools.talents.add(talentName);
+      // Nierozstrzygniety slot zostaje jako wpis ogolny (dopasowanie grupowe).
+      for (const skillName of lvl.skills ?? []) {
+        const r = resolveSchemeEntry(profName, lvlNum, skillName, choices, ownedSkills);
+        pools.skills.add(r.name ?? skillName);
+      }
+      for (const talentName of lvl.talents ?? []) {
+        const r = resolveSchemeEntry(profName, lvlNum, talentName, choices, ownedTalents);
+        pools.talents.add(r.name ?? talentName);
+      }
     }
   }
   return pools;
 }
 
 /**
- * Sprawdza kompletowanie profesji na danym poziomie (kryteria WFRP 4ed).
- * Pula umiejętności/cech/talentów liczona z CAŁEJ ścieżki kariery (jeśli podana),
- * a rozwinięcia zliczane z istniejących wartości (bez wymuszania zakupu od zera).
- * Próg = 5×poziom dla cech/umiejętności, 1×poziom dla talentów.
+ * Sprawdza kompletowanie profesji na danym poziomie (kryteria WFRP 4ed, s. 48).
+ * Pula = TYLKO biezaca profesja: umiejetnosci i cechy z poziomow ≤ obecny,
+ * talenty z obecnego poziomu. Rozwiniecia zliczane z istniejacych wartosci
+ * (wliczaja sie te zdobyte przed rozpoczeciem profesji). Wpis "(Dowolna)" bez
+ * zapamietanego wyboru nie zalicza przypadkowej umiejetnosci z grupy.
+ * Próg = 5×poziom dla cech/umiejętności; talenty: co najmniej 1 posiadany z obecnego poziomu.
  */
 export function isCareerCompleted(
   professionName: string,
@@ -646,7 +1050,7 @@ export function isCareerCompleted(
   skills: Record<string, { advanced?: number }> = {},
   talents_: Record<string, { advances?: number }> = {},
   attributes: Record<string, { advanced?: number }> = {},
-  careerPath?: CareerPathPoolStep[]
+  choices: ProfessionChoices = {}
 ): CareerCompletion {
   const result: CareerCompletion = {
     completed: false,
@@ -660,28 +1064,48 @@ export function isCareerCompleted(
   const prof = getProfession(professionName);
   if (!prof) return result;
 
-  // Pula elementów: cała ścieżka (jeśli podana) albo poziomy ≤ level bieżącej profesji.
-  const pools =
-    careerPath && careerPath.length > 0
-      ? careerPathPools(careerPath)
-      : careerPathPools([{ profession: professionName, level }]);
+  // Pula elementów: wyłącznie bieżąca profesja.
+  const pools = {
+    characteristics: new Set<string>(),
+    skills: new Set<string>(),
+    talents: new Set<string>()
+  };
+  for (const lvl of prof.levels ?? []) {
+    const lvlNum = lvl.level;
+    if (lvlNum === null || lvlNum === undefined || lvlNum > level) continue;
+    for (const charName of lvl.characteristics ?? []) {
+      const code = characteristicToCode(charName);
+      if (code) pools.characteristics.add(code);
+    }
+    for (const skillName of lvl.skills ?? []) {
+      const r = resolveSchemeEntry(professionName, lvlNum, skillName, choices, skills);
+      if (r.name !== undefined) pools.skills.add(r.name);
+    }
+    if (lvlNum !== level) continue;
+    for (const talentName of lvl.talents ?? []) {
+      const r = resolveSchemeEntry(professionName, lvlNum, talentName, choices, talents_);
+      if (r.name !== undefined) pools.talents.add(r.name);
+    }
+  }
 
   const skillThreshold = 5 * level;
   let skillsDone = 0;
   for (const skillName of pools.skills) {
-    const owned = findOwnedSkill(skills, skillName);
-    if (owned !== null && (owned.advanced ?? 0) >= skillThreshold) {
+    const key = ownedKey(skills, skillName);
+    const owned = key ? skills[key] : null;
+    if (owned && (owned.advanced ?? 0) >= skillThreshold) {
       skillsDone += 1;
     }
   }
   result.skills_done = skillsDone;
   result.skills_ok = skillsDone >= 8;
 
-  const talentThreshold = 1 * level;
+  // Talenty: wystarczy posiadac co najmniej 1 talent z obecnego poziomu (s. 48).
   let talentsDone = 0;
   for (const talentName of pools.talents) {
-    const owned = talents_[talentName];
-    if (owned && (owned.advances ?? 0) >= talentThreshold) {
+    const key = ownedKey(talents_, talentName);
+    const owned = key ? talents_[key] : null;
+    if (owned && (owned.advances ?? 0) >= 1) {
       talentsDone += 1;
     }
   }
@@ -712,20 +1136,31 @@ export function isCareerCompleted(
 // Rozwijalnosc (gating) - co mozna rozwijac w ramach biezacej profesji
 // ---------------------------------------------------------------------------
 
-/** Zbiory elementow rozwijalnych "w profesji" dla danego poziomu. */
+/**
+ * Zbiory elementow rozwijalnych "w profesji" dla danego poziomu.
+ *
+ * Wpisy z wyborem specjalizacji ("Wiedza (Dowolna)", "Muzyka (Bęben albo
+ * Piszczałka)") sa zastepowane zapamietanym wyborem postaci (`choices`). Wpis
+ * jeszcze nierozstrzygniety NIE trafia do zbioru (nie odblokowuje calej grupy) -
+ * zamiast tego jest zwracany jako otwarty slot do wyboru (skillSlots/talentSlots).
+ */
 export function getCareerDevelopable(
   professionName: string | null,
   currentLevel: number,
-  ownedTalents: Record<string, { advances?: number }> = {}
+  ownedTalents: Record<string, { advances?: number }> = {},
+  choices: ProfessionChoices = {},
+  ownedSkills?: Record<string, unknown>
 ): Developable {
   const result: Developable = {
     characteristics: new Set<string>(),
     skills: new Set<string>(),
     talents: new Set<string>(),
-    resolved: false
+    resolved: false,
+    skillSlots: [],
+    talentSlots: []
   };
   const prof = professionName ? getProfession(professionName) : undefined;
-  if (!prof) return result;
+  if (!prof || !professionName) return result;
   result.resolved = true;
   for (const lvl of prof.levels ?? []) {
     const lvlNum = lvl.level;
@@ -734,18 +1169,18 @@ export function getCareerDevelopable(
       const code = characteristicToCode(charCode);
       if (code) result.characteristics.add(code);
     }
+    // Umiejetnosci: obecny poziom i wszystkie nizsze (zasady, str. 47).
     for (const skillName of lvl.skills ?? []) {
-      result.skills.add(skillName);
+      const r = resolveSchemeEntry(professionName, lvlNum, skillName, choices, ownedSkills);
+      if (r.name !== undefined) result.skills.add(r.name);
+      else result.skillSlots.push(r.slot);
     }
+    // Talenty: wylacznie obecny poziom (zasady, s. 48 - nizsze poziomy niedostepne).
+    if (lvlNum !== currentLevel) continue;
     for (const talentName of lvl.talents ?? []) {
-      if (lvlNum === currentLevel) {
-        result.talents.add(talentName);
-      } else {
-        const owned = ownedTalents[talentName];
-        if (owned && (owned.advances ?? 0) >= 1) {
-          result.talents.add(talentName);
-        }
-      }
+      const r = resolveSchemeEntry(professionName, lvlNum, talentName, choices, ownedTalents);
+      if (r.name !== undefined) result.talents.add(r.name);
+      else result.talentSlots.push(r.slot);
     }
   }
   return result;
@@ -787,7 +1222,10 @@ export function isSkillDevelopable(skillName: string, developable: Developable):
 
 /** Czy talent jest rozwijalny w profesji (obecny poziom lub juz wykupiony). */
 export function isTalentDevelopable(talentName: string, developable: Developable): boolean {
-  return developable.talents.has(talentName);
+  if (developable.talents.has(talentName)) return true;
+  const target = normalize(talentName);
+  for (const name of developable.talents) if (normalize(name) === target) return true;
+  return false;
 }
 
 /** Zbior umiejetnosci zarobkowych profesji (nazwy bazowe ze wszystkich poziomow; pkt 19). */

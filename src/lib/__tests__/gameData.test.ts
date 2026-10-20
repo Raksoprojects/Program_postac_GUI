@@ -14,6 +14,7 @@ import {
   getProfession,
   getTalent,
   isCareerCompleted,
+  isEvilProfession,
   isSkillDevelopable,
   isCharacteristicDevelopable,
   normalize,
@@ -122,6 +123,16 @@ describe("gameData: profesje i klasy", () => {
     expect(steps.length).toBe(2);
     expect(steps[0].resolved).toBe(true);
     expect(steps[1].resolved).toBe(false);
+  });
+});
+
+describe("gameData: profesje zla (Warriors of Chaos)", () => {
+  it("oznaczone evil, przypisane do klasy, zwykle profesje nie sa evil", () => {
+    const evil = allProfessionNames().filter(isEvilProfession);
+    expect(evil.length).toBeGreaterThanOrEqual(24);
+    expect(evil).toContain("Rycerz Chaosu");
+    for (const n of evil) expect(classOfCareer(n), n).toBeTruthy();
+    expect(isEvilProfession("Łowca Nagród")).toBe(false);
   });
 });
 
@@ -265,29 +276,34 @@ describe("gameData: pula i ukonczenie przez cala sciezke (Faza B)", () => {
     expect(poolsBoth.skills.size).toBeGreaterThanOrEqual(poolsA.skills.size);
   });
 
-  it("umiejetnosc rozwinieta w poprzedniej profesji liczy sie do ukonczenia", () => {
-    const names = allProfessionNames();
-    const prev = names[0];
-    const curr = names[1];
-    const prof1 = getProfession(prev)!;
-    // 8 umiejetnosci z poziomu 1 poprzedniej profesji, kazda na 5 rozwiniec.
+  it("kompletowanie liczy tylko umiejetnosci biezacej profesji (nie wszystkie posiadane)", () => {
+    // Aptekarka 1 -> Żołnierz 1: rozwiniete umiejetnosci aptekarskie nie zaliczaja Żołnierza.
+    const prof1 = getProfession("Aptekarka")!;
     const skills: Record<string, { advanced: number }> = {};
-    for (const s of prof1.levels[0].skills.slice(0, 8)) {
+    for (const s of prof1.levels[0].skills.slice(0, 8)) skills[s] = { advanced: 5 };
+    const result = isCareerCompleted("Żołnierz", 1, skills, {}, {});
+    expect(result.skills_done).toBeLessThan(8);
+    expect(result.skills_ok).toBe(false);
+    // Ta sama postac w Aptekarce - zalicza.
+    expect(isCareerCompleted("Aptekarka", 1, skills, {}, {}).skills_ok).toBe(true);
+  });
+
+  it("rozwiniecia zdobyte przed profesja licza sie, jesli umiejetnosc jest w jej schemacie", () => {
+    const zol = getProfession("Żołnierz")!;
+    const skills: Record<string, { advanced: number }> = {};
+    for (const s of zol.levels[0].skills.filter((s) => !s.includes("albo")).slice(0, 8)) {
       skills[s] = { advanced: 5 };
     }
-    const talents: Record<string, { advances: number }> = {};
-    const t = prof1.levels[0].talents[0];
-    if (t) talents[t] = { advances: 1 };
+    const n = Object.keys(skills).length;
+    expect(isCareerCompleted("Żołnierz", 1, skills, {}, {}).skills_done).toBe(n);
+  });
 
-    // Bez sciezki (tylko biezaca profesja) - umiejetnosci spoza schematu nie licza.
-    const single = isCareerCompleted(curr, 1, skills, talents, {});
-    // Ze sciezka obejmujaca poprzednia profesje - licza sie istniejace rozwiniecia.
-    const withPath = isCareerCompleted(curr, 1, skills, talents, {}, [
-      { profession: prev, level: 1 },
-      { profession: curr, level: 1 }
-    ]);
-    expect(withPath.skills_done).toBeGreaterThanOrEqual(single.skills_done);
-    expect(withPath.skills_done).toBeGreaterThanOrEqual(8);
-    expect(withPath.skills_ok).toBe(true);
+  it("talenty tylko z obecnego poziomu; wystarczy 1 wykupienie", () => {
+    const zol = getProfession("Żołnierz")!;
+    const talents = { [zol.levels[0].talents[0]]: { advances: 1 } };
+    expect(isCareerCompleted("Żołnierz", 1, {}, talents, {}).talents_ok).toBe(true);
+    expect(isCareerCompleted("Żołnierz", 2, {}, talents, {}).talents_done).toBe(0);
+    const lvl2 = { [zol.levels[1].talents[0]]: { advances: 1 } };
+    expect(isCareerCompleted("Żołnierz", 2, {}, lvl2, {}).talents_ok).toBe(true);
   });
 });

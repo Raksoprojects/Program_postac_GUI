@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { store } from "../lib/store.svelte";
+  import { store, type PhantomEntry } from "../lib/store.svelte";
   import { ATTRIBUTES } from "../lib/rules";
   import { ATTRIBUTE_FULL_NAMES } from "../lib/store.svelte";
-  import { getTalent } from "../lib/gameData";
-  import type { TalentMax, TalentMaxType } from "../lib/types";
+  import { getTalent, findOwnedName, findTalentDef, specPlaceholderInfo } from "../lib/gameData";
+  import type { ChoiceSlot, TalentMax, TalentMaxType } from "../lib/types";
   import Modal from "./Modal.svelte";
   import SpecializationModal from "./SpecializationModal.svelte";
   import CharacteristicBonusModal from "./CharacteristicBonusModal.svelte";
@@ -18,33 +18,81 @@
   let onlyDevelopable = $state(false);
   let expandedDesc = $state<Record<string, boolean>>({});
 
-  // Modal specjalizacji (pkt 9/10/21)
+  // Modal specjalizacji (pkt 9/10/21). Gdy specSlot ustawiony - wybor jest
+  // zapamietywany jako czesc profesji (slot "(Dowolny)" / "albo").
   let specInfo = $state<SpecInfo | null>(null);
+  let specSlot = $state<ChoiceSlot | null>(null);
+  let specError = $state("");
+  let slotError = $state("");
 
   // Modal bonusu do cechy dla talentow +cecha (pkt 22)
-  let charBonus = $state<{ name: string; code: string } | null>(null);
+  let charBonus = $state<{ name: string; code: string; slot?: ChoiceSlot } | null>(null);
 
-  function addTalentPhantom(name: string) {
-    const info = parseSpecialization(name);
-    const db = getTalent(name) ?? getTalent(info.base);
-    if (db?.adds_characteristic) {
-      charBonus = { name, code: db.adds_characteristic };
-      return;
-    }
-    if (needsSpecialization(info)) {
+  function addTalentPhantom(ph: PhantomEntry) {
+    const info = parseSpecialization(ph.name);
+    slotError = "";
+    if (ph.slot || needsSpecialization(info)) {
       specInfo = info;
+      specSlot = ph.slot ?? null;
+      specError = "";
       return;
     }
-    store.addTalentFromList(name);
+    const db = findTalentDef(ph.name);
+    if (db?.adds_characteristic) {
+      charBonus = { name: ph.name, code: db.adds_characteristic };
+      return;
+    }
+    store.addTalentFromList(ph.name);
+  }
+
+  function confirmDuplicate(reason?: string): boolean {
+    return confirm(`${reason ?? ""}\n\nWybrać mimo to? To jednorazowa decyzja.`);
+  }
+
+  function closeSpec() {
+    specInfo = null;
+    specSlot = null;
+    specError = "";
   }
 
   function onSpecConfirm(fullName: string) {
-    specInfo = null;
-    store.addTalentFromList(fullName);
+    const slot = specSlot;
+    const db = findTalentDef(fullName);
+    const owned = findOwnedName(store.dm.talents, fullName);
+    // Nowy talent +cecha: najpierw wybor bonusu (+5 / 1k10), potem zapis wyboru.
+    if (!owned && db?.adds_characteristic) {
+      closeSpec();
+      charBonus = { name: fullName, code: db.adds_characteristic, slot: slot ?? undefined };
+      return;
+    }
+    if (slot) {
+      let r = store.chooseTalentSlot(slot, fullName);
+      if (!r.ok && r.duplicate && confirmDuplicate(r.reason)) {
+        r = store.chooseTalentSlot(slot, fullName, undefined, true);
+      }
+      if (!r.ok) {
+        specError = r.reason ?? "Nie udało się zapisać wyboru.";
+        return;
+      }
+    } else {
+      store.addTalentFromList(fullName);
+    }
+    closeSpec();
   }
 
   function onCharBonusConfirm(value: number) {
-    if (charBonus) store.addCharacteristicTalent(charBonus.name, charBonus.code, value);
+    if (charBonus) {
+      if (charBonus.slot) {
+        const bonus = { code: charBonus.code, value };
+        let r = store.chooseTalentSlot(charBonus.slot, charBonus.name, bonus);
+        if (!r.ok && r.duplicate && confirmDuplicate(r.reason)) {
+          r = store.chooseTalentSlot(charBonus.slot, charBonus.name, bonus, true);
+        }
+        if (!r.ok) slotError = r.reason ?? "";
+      } else {
+        store.addCharacteristicTalent(charBonus.name, charBonus.code, value);
+      }
+    }
     charBonus = null;
   }
 
@@ -69,14 +117,17 @@
 
   // Pkt 5/16: talenty rozwijalne (jeszcze nie wykupione) pokazujemy ZAWSZE,
   // wraz z opisem z bazy, niezależnie od filtra „tylko rozwijalne".
+  const talentDescription = (name: string): string =>
+    findTalentDef(name)?.description ?? "";
+
   let phantoms = $derived(
     store.phantomTalents()
-      .filter((name) => {
+      .filter(({ name }) => {
         if (!textFilter.trim()) return true;
         const q = norm(textFilter);
-        return norm(name).includes(q) || norm(getTalent(name)?.description ?? "").includes(q);
+        return norm(name).includes(q) || norm(talentDescription(name)).includes(q);
       })
-      .map((name) => ({ name, description: getTalent(name)?.description ?? "" }))
+      .map((ph) => ({ ...ph, description: talentDescription(ph.name) }))
   );
 
   // --- Modal: dodaj z listy ---
@@ -98,8 +149,16 @@
   function confirmPicker() {
     if (pickerSel) {
       const db =
-        getTalent(pickerSel) ?? getTalent(parseSpecialization(pickerSel).base);
+        findTalentDef(pickerSel);
       showPicker = false;
+      // Szablon "Magia Tajemna (Tradycja)" -> okno wyboru specjalizacji z podpowiedziami.
+      const tpl = specPlaceholderInfo(pickerSel);
+      if (tpl) {
+        specInfo = tpl;
+        specSlot = null;
+        specError = "";
+        return;
+      }
       if (db?.adds_characteristic) {
         charBonus = { name: pickerSel, code: db.adds_characteristic };
         return;
@@ -265,11 +324,15 @@
       </div>
     {/each}
 
-    {#each phantoms as ph (ph.name)}
+    {#if slotError}<p class="val-danger">{slotError}</p>{/if}
+    {#each phantoms as ph (ph.slot?.key ?? ph.name)}
       <div class="row panel dev-row phantom">
         <div class="top">
-          <div class="name"><strong>{ph.name}</strong> +</div>
-          <button class="btn-sm success" onclick={() => addTalentPhantom(ph.name)}>+ Dodaj</button>
+          <div class="name">
+            <strong>{ph.name}</strong> +
+            {#if ph.slot}<span class="chip tag" title="Wybór zostanie zapamiętany jako talent profesji">wybór</span>{/if}
+          </div>
+          <button class="btn-sm success" onclick={() => addTalentPhantom(ph)}>{ph.slot ? "Wybierz…" : "+ Dodaj"}</button>
         </div>
         {#if ph.description}
           <p class="desc text-dim">ⓘ {ph.description}</p>
@@ -395,8 +458,11 @@
 {#if specInfo}
   <SpecializationModal
     info={specInfo}
+    owned={specSlot ? store.slotCandidates(specSlot, "talent") : []}
+    error={specError}
+    note={specSlot ? `Wybór zostanie zapamiętany dla: ${specSlot.profession}, poziom ${specSlot.level}.` : ""}
     onConfirm={onSpecConfirm}
-    onClose={() => (specInfo = null)}
+    onClose={closeSpec}
   />
 {/if}
 

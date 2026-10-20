@@ -26,6 +26,12 @@
 
   let step = $state(1);
   let name = $state("Nowa Postać");
+  let nameSex = $state<"M" | "K">("M");
+
+  function rollName(): void {
+    const n = gameData.randomName(raceName, nameSex);
+    if (n) name = n;
+  }
 
   // Krok 1 - rasa
   let raceName = $state("");
@@ -65,11 +71,12 @@
 
   // Krok 5 - talenty rasowe
   let talentChoice = $state<Record<number, string>>({});
-  // Losowe talenty rasowe - kazdy losowany OSOBNO, z widocznym rzutem k100 (pkt 3).
-  let randomRolls = $state<{ roll: number; talent: string }[]>([]);
-  let randomTalents = $derived(randomRolls.map((r) => r.talent));
-  // Komunikat przy rzucie na duplikat / puste pole tabeli (trzeba rzucic ponownie).
-  let talentRollMsg = $state<string | null>(null);
+  // Losowe talenty rasowe - kazdy w osobnym slocie z wlasnym rzutem k100,
+  // przerzutem i usunieciem (pkt 3). Klucz = numer slotu (0..liczba-1).
+  let randomRolls = $state<Record<number, { roll: number; talent: string }>>({});
+  let randomTalents = $derived(Object.values(randomRolls).map((r) => r.talent));
+  // Komunikat per slot przy rzucie na duplikat / puste pole tabeli.
+  let talentRollMsg = $state<Record<number, string>>({});
 
   // Kolejka wyboru bonusu dla wylosowanych/wybranych talentow +cecha (pkt 22).
   let charBonusQueue = $state<{ name: string; code: string }[]>([]);
@@ -169,8 +176,8 @@
     skillChoice = {};
     skillSpec = {};
     talentChoice = {};
-    randomRolls = [];
-    talentRollMsg = null;
+    randomRolls = {};
+    talentRollMsg = {};
   }
 
   function rollRace(): void {
@@ -194,8 +201,8 @@
     resilience = def ? def.resilience : 0;
     skillChoice = {};
     talentChoice = {};
-    randomRolls = [];
-    talentRollMsg = null;
+    randomRolls = {};
+    talentRollMsg = {};
     originName = "";
   }
 
@@ -379,32 +386,40 @@
     return out;
   }
 
-  function rollNextTalent(): void {
+  const randomSlots = $derived(Array.from({ length: randomTalentCount }, (_, i) => i));
+
+  /** Rzut k100 na talent w danym slocie (takze przerzut zajetego slotu). */
+  function rollTalentSlot(slot: number): void {
     if (!race) return;
-    if (randomRolls.length >= randomTalentCount) return;
-    const taken = new Set<string>([...fixedAndChosenTalents(), ...randomTalents]);
+    const others = Object.entries(randomRolls)
+      .filter(([k]) => Number(k) !== slot)
+      .map(([, r]) => r.talent);
+    const taken = new Set<string>([...fixedAndChosenTalents(), ...others]);
     const roll = rollK100();
     const t = gameData.randomTalentForRoll(roll);
     if (!t) {
-      talentRollMsg = `Rzut ${roll}: brak talentu w tabeli — rzuć ponownie.`;
+      talentRollMsg = { ...talentRollMsg, [slot]: `Rzut ${roll}: brak talentu w tabeli — rzuć ponownie.` };
       return;
     }
     if (taken.has(t)) {
-      talentRollMsg = `Rzut ${roll}: „${t}" już wylosowany — rzuć ponownie.`;
+      talentRollMsg = { ...talentRollMsg, [slot]: `Rzut ${roll}: „${t}” już posiadany — rzuć ponownie.` };
       return;
     }
-    talentRollMsg = null;
-    randomRolls = [...randomRolls, { roll, talent: t }];
+    const { [slot]: _drop, ...rest } = talentRollMsg;
+    talentRollMsg = rest;
+    randomRolls = { ...randomRolls, [slot]: { roll, talent: t } };
   }
 
-  function undoLastTalent(): void {
-    randomRolls = randomRolls.slice(0, -1);
-    talentRollMsg = null;
+  function clearTalentSlot(slot: number): void {
+    const { [slot]: _r, ...rolls } = randomRolls;
+    randomRolls = rolls;
+    const { [slot]: _m, ...msgs } = talentRollMsg;
+    talentRollMsg = msgs;
   }
 
   function clearRandomTalents(): void {
-    randomRolls = [];
-    talentRollMsg = null;
+    randomRolls = {};
+    talentRollMsg = {};
   }
 
   // --- Walidacja krokow ---
@@ -467,6 +482,7 @@
     const input: RaceCreationInput = {
       name: name.trim() || "Nowa Postać",
       race: raceName,
+      sex: nameSex,
       characteristics: { ...chars },
       fate,
       resilience,
@@ -511,6 +527,20 @@
   }
 </script>
 
+{#snippet nameField()}
+  <div class="fld">
+    <span>Nazwa postaci</span>
+    <div class="name-row">
+      <input type="text" bind:value={name} aria-label="Nazwa postaci" placeholder="Wpisz własne albo wylosuj" />
+      <select bind:value={nameSex} aria-label="Płeć postaci" title="Płeć: losowanie imienia i forma nazw profesji">
+        <option value="M">mężczyzna</option>
+        <option value="K">kobieta</option>
+      </select>
+      <button type="button" onclick={rollName} title="Losuj imię i nazwisko wg rasy">🎲 Losuj imię</button>
+    </div>
+  </div>
+{/snippet}
+
 <Modal title="Kreator postaci — rasa i pochodzenie" {onClose}>
   <ol class="steps">
     {#each ["Rasa", "Cechy", "Punkty", "Umiejętności", "Talenty", "Podsumowanie"] as label, i (label)}
@@ -553,6 +583,7 @@
         <p class="text-dim">{origin.description}</p>
       {/if}
     {/if}
+    {#if raceName}{@render nameField()}{/if}
   {/if}
 
   {#if step === 2}
@@ -761,37 +792,32 @@
     {#if randomTalentCount > 0}
       <div class="random-talents">
         <div class="row">
-          <button
-            class="ghost"
-            onclick={rollNextTalent}
-            disabled={randomRolls.length >= randomTalentCount}
-          >
-            🎲 Rzuć na talent (k100) — {randomRolls.length}/{randomTalentCount}
-          </button>
-          {#if randomRolls.length}
-            <button class="btn-sm ghost" onclick={undoLastTalent}>← Cofnij ostatni</button>
-            <button class="btn-sm ghost" onclick={clearRandomTalents}>Wyczyść</button>
+          <span class="dim">Losowe talenty: {randomTalents.length}/{randomTalentCount}</span>
+          {#if randomTalents.length}
+            <button class="btn-sm ghost" onclick={clearRandomTalents}>Wyczyść wszystkie</button>
           {/if}
         </div>
-        {#if talentRollMsg}
-          <p class="msg text-dim">{talentRollMsg}</p>
-        {/if}
-        {#if randomRolls.length}
-          <ol class="roll-list">
-            {#each randomRolls as r (r.talent)}
-              <li><span class="roll-num">🎲 {r.roll}</span> → <strong>{r.talent}</strong></li>
-            {/each}
-          </ol>
-        {/if}
+        <ol class="roll-list">
+          {#each randomSlots as slot (slot)}
+            {@const r = randomRolls[slot]}
+            <li>
+              {#if r}
+                <span class="roll-num">🎲 {r.roll}</span> → <strong>{r.talent}</strong>
+                <button class="btn-sm ghost" onclick={() => rollTalentSlot(slot)}>🎲 Przerzuć</button>
+                <button class="btn-sm ghost" aria-label="Usuń wynik" onclick={() => clearTalentSlot(slot)}>✕</button>
+              {:else}
+                <button class="ghost" onclick={() => rollTalentSlot(slot)}>🎲 Rzuć na talent {slot + 1} (k100)</button>
+              {/if}
+              {#if talentRollMsg[slot]}<span class="msg text-dim"> {talentRollMsg[slot]}</span>{/if}
+            </li>
+          {/each}
+        </ol>
       </div>
     {/if}
   {/if}
 
   {#if step === 6 && race}
-    <label class="fld">
-      <span>Nazwa postaci</span>
-      <input type="text" bind:value={name} />
-    </label>
+    {@render nameField()}
     <div class="summary">
       <p><strong>Rasa:</strong> {raceName}</p>
       <p><strong>Cechy:</strong>
@@ -1130,5 +1156,14 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+  }
+  .name-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .name-row input {
+    flex: 1;
+    min-width: calc(180px * var(--ui-scale));
   }
 </style>

@@ -27,17 +27,38 @@ import {
   downloadBlob,
   safeFileName
 } from "./storage";
-import { parseSpecialization } from "./specialization";
+import { parseSpecialization, buildSpecializedName } from "./specialization";
+import { modifierEffectLabels } from "./modifiers";
+import type { Artefact } from "./artefacts";
+import { weaponSkill } from "./equipment";
+import {
+  grantedBlessings,
+  magicProfile,
+  miracleAvailability,
+  miracleCost,
+  spellAvailability,
+  spellCost,
+  type MagicProfile
+} from "./magic";
 import type {
   AttributeEntry,
+  CharacterModifier,
+  ChoiceSlot,
   Developable,
+  MiracleEntry,
+  PrayerDef,
+  SpellDef,
+  SpellEntry,
   Ruleset,
   SkillEntry,
   SourceFilter,
   TalentEntry,
   TalentMax,
   CharacterStats,
-  RaceCreationInput
+  RaceCreationInput,
+  Sex,
+  CharArmour,
+  CharWeapon
 } from "./types";
 
 /** Etykiety wariantow zasad do prezentacji w UI/historii. */
@@ -74,6 +95,29 @@ export interface AttributeRow {
   total: number;
   developable: boolean;
   maxBuy: number;
+  /** Staly bonus z talentow +cecha (np. Urodzony Wojownik). */
+  talentBonus: number;
+  /** Suma zmian z aktywnych modyfikatorow (mutacje, wampiryzm...). */
+  modifierBonus: number;
+}
+
+/**
+ * Pozycja "do dodania" ze schematu profesji. Gdy `slot` jest ustawiony, wpis
+ * wymaga wyboru specjalizacji ("(Dowolna)" / "albo"), a wybor zostanie
+ * zapamietany jako czesc profesji.
+ */
+export interface PhantomEntry {
+  name: string;
+  slot?: ChoiceSlot;
+}
+
+/** Zapamietany wybor specjalizacji (do prezentacji i cofania w UI). */
+export interface ChoiceEntry {
+  key: string;
+  profession: string;
+  level: number;
+  scheme: string;
+  value: string;
 }
 
 export interface SkillRow {
@@ -94,6 +138,19 @@ export interface TalentRow {
   max: number | null;
   developable: boolean;
   override: boolean;
+}
+
+/**
+ * Nazwy z bazy + podpowiadane specjalizacje: przy pozycji z nawiasem-szablonem
+ * ("Język (...)", "Magia Tajemna (Tradycja)") dokłada znane warianty, np. "Język (Bretoński)".
+ */
+function withVariants(names: string[]): string[] {
+  const out = new Set(names);
+  for (const n of names) {
+    const info = parseSpecialization(n);
+    if (info.base && info.inner !== null) for (const v of gameData.specializedVariants(info.base)) out.add(v);
+  }
+  return [...out].sort((a, b) => a.localeCompare(b, "pl"));
 }
 
 class CharacterStore {
@@ -166,6 +223,7 @@ class CharacterStore {
       ) {
         this.sourceFilter = sf;
       }
+      this.showEvil = settings.showEvil === true;
       await gameData.loadGameData(import.meta.env.BASE_URL, this.ruleset);
       this.restoreAutosave();
       this.ready = true;
@@ -207,13 +265,39 @@ class CharacterStore {
     this.touch();
   }
 
-  /** Filtruje nazwy profesji wg aktywnego filtra zrodel. */
+  /** Filtruje nazwy profesji wg aktywnego filtra zrodel (bez "profesji zla"). */
   filterProfessionNames(names: string[]): string[] {
     void this.tick;
     const filter = this.sourceFilter;
-    return names.filter((n) =>
-      gameData.matchesSourceFilter(gameData.professionSourceGroup(n), filter)
+    return names.filter(
+      (n) =>
+        !gameData.isEvilProfession(n) &&
+        gameData.matchesSourceFilter(gameData.professionSourceGroup(n), filter)
     );
+  }
+
+  /** Pokazywac "profesje zla" (Chaos) - globalne ustawienie, domyslnie wylaczone. */
+  showEvil = $state(false);
+
+  setShowEvil(on: boolean): void {
+    if (this.showEvil === on) return;
+    this.showEvil = on;
+    saveSettings({ showEvil: on });
+    this.touch();
+  }
+
+  /** "Profesje zla" z listy pogrupowane wg klasy (puste, gdy filtr wylaczony). */
+  evilProfessionGroups(names: string[]): { cls: string; names: string[] }[] {
+    void this.tick;
+    if (!this.showEvil) return [];
+    const groups = new Map<string, string[]>();
+    for (const n of names) {
+      if (!gameData.isEvilProfession(n)) continue;
+      const cls = gameData.classOfCareer(n) ?? "Inne";
+      if (!groups.has(cls)) groups.set(cls, []);
+      groups.get(cls)!.push(n);
+    }
+    return [...groups.entries()].map(([cls, list]) => ({ cls, names: list.sort((a, b) => a.localeCompare(b, "pl")) }));
   }
 
   /** Filtruje nazwy talentow wg aktywnego filtra zrodel. */
@@ -309,7 +393,9 @@ class CharacterStore {
     return gameData.getCareerDevelopable(
       this.dm.currentCareer || null,
       this.dm.currentCareerLevel,
-      this.dm.talents
+      this.dm.talents,
+      this.dm.professionChoices,
+      this.dm.skills
     );
   }
 
@@ -391,7 +477,40 @@ class CharacterStore {
     void this.tick;
     const name = this.dm.currentCareer;
     if (!name) return "";
-    return `${name} (poz. ${this.dm.currentCareerLevel})`;
+    const sex = this.dm.characterSex;
+    const title = gameData.levelDisplayTitle(name, this.dm.currentCareerLevel, sex);
+    const career = gameData.professionDisplayName(name, sex);
+    return `${career} (poz. ${this.dm.currentCareerLevel}${title && title !== career ? ` — ${title}` : ""})`;
+  }
+
+  /** Plec postaci - forma nazw profesji ("" = jak w bazie). */
+  get characterSex(): Sex | "" {
+    void this.tick;
+    return this.dm.characterSex;
+  }
+
+  setCharacterSex(sex: Sex | ""): void {
+    if (this.dm.characterSex === sex) return;
+    this.dm.characterSex = sex;
+    this.touch();
+  }
+
+  /** Nazwa profesji w formie wg plci postaci. */
+  professionLabel(name: string): string {
+    void this.tick;
+    return gameData.professionDisplayName(name, this.dm.characterSex);
+  }
+
+  /** Tytul poziomu w formie wg plci postaci. */
+  levelTitle(name: string, level: number): string {
+    void this.tick;
+    return gameData.levelDisplayTitle(name, level, this.dm.characterSex);
+  }
+
+  /** Klasa postaci (reaktywnie). */
+  get characterClass(): string {
+    void this.tick;
+    return this.dm.characterClass;
   }
 
   get experience() {
@@ -410,7 +529,7 @@ class CharacterStore {
   }
 
   /** Rozbicie liczby oczekujacych zmian na zakladki (do wskaznikow w UI). */
-  get pendingByTab(): { cechy: number; umiejetnosci: number; talenty: number } {
+  get pendingByTab(): { cechy: number; umiejetnosci: number; talenty: number; magia: number } {
     void this.tick;
     const p = this.engine.pending;
     const sum = (o: Record<string, number>) =>
@@ -418,7 +537,8 @@ class CharacterStore {
     return {
       cechy: sum(p.attribute_changes),
       umiejetnosci: sum(p.skill_changes) + p.new_skills.size,
-      talenty: sum(p.talent_changes) + p.new_talents.size
+      talenty: sum(p.talent_changes) + p.new_talents.size,
+      magia: p.new_spells.size + p.new_miracles.size
     };
   }
 
@@ -432,7 +552,9 @@ class CharacterStore {
         entry,
         total: entry?.current ?? (entry?.initial ?? 0) + (entry?.advanced ?? 0),
         developable: this.attrDevelopable(code),
-        maxBuy: this.engine.maxAdvancements("cecha", code)
+        maxBuy: this.engine.maxAdvancements("cecha", code),
+        talentBonus: this.dm.characteristicBonuses[code] ?? 0,
+        modifierBonus: this.dm.modifierBonuses[code] ?? 0
       };
     });
   }
@@ -451,7 +573,10 @@ class CharacterStore {
         name,
         entry,
         attribute: entry.attribute,
-        total: (this.dm.attributes[entry.attribute]?.current ?? entry.initial ?? 0) + (entry.advanced ?? 0),
+        total:
+          (this.dm.attributes[entry.attribute]?.current ?? entry.initial ?? 0) +
+          (entry.advanced ?? 0) +
+          this.dm.skillModifier(name),
         developable: this.skillDevelopable(name),
         override: this.overrideSkills.has(name),
         maxBuy: this.engine.maxAdvancements("umiejetnosc", name),
@@ -500,36 +625,443 @@ class CharacterStore {
       .sort((a, b) => a.name.localeCompare(b.name, "pl"));
   }
 
-  /** Talenty ze schematu profesji jeszcze nie wykupione (phantom). */
-  phantomTalents(): string[] {
+  /**
+   * Talenty ze schematu profesji jeszcze nie wykupione (phantom) oraz wpisy
+   * z wyborem specjalizacji ("(Dowolny)", "albo") czekajace na decyzje.
+   */
+  phantomTalents(): PhantomEntry[] {
     void this.tick;
     const dev = this.developable();
     if (!dev.resolved) return [];
     // Dopasowanie po znormalizowanej nazwie (case/spacje) - talent posiadany pod
     // inną pisownią nie może być pokazany jako nieposiadany (pkt 4).
-    const ownedNorm = new Set(
-      Object.keys(this.dm.talents).map((n) => gameData.normalize(n))
-    );
-    const out: string[] = [];
+    const out: PhantomEntry[] = [];
     for (const name of dev.talents) {
-      if (name in this.dm.talents) continue;
-      if (ownedNorm.has(gameData.normalize(name))) continue;
-      out.push(name);
+      if (gameData.findOwnedName(this.dm.talents, name)) continue;
+      out.push({ name });
     }
-    return out.sort((a, b) => a.localeCompare(b, "pl"));
+    for (const slot of dev.talentSlots) out.push({ name: slot.scheme, slot });
+    return out.sort((a, b) => a.name.localeCompare(b.name, "pl"));
   }
 
-  /** Umiejetnosci ze schematu profesji jeszcze nie posiadane (phantom). */
-  phantomSkills(): string[] {
+  /**
+   * Umiejetnosci ze schematu profesji jeszcze nie posiadane (phantom) oraz wpisy
+   * z wyborem specjalizacji czekajace na decyzje (zawsze widoczne, nawet gdy
+   * postac ma juz inna umiejetnosc z tej grupy - pkt "dowolna").
+   */
+  phantomSkills(): PhantomEntry[] {
     void this.tick;
     const dev = this.developable();
     if (!dev.resolved) return [];
-    const out: string[] = [];
+    const out: PhantomEntry[] = [];
     for (const name of dev.skills) {
       // findOwnedSkill uwzglednia specjalizacje/grupy i roznice pisowni (pkt 4).
-      if (!gameData.findOwnedSkill(this.dm.skills, name)) out.push(name);
+      if (!gameData.findOwnedSkill(this.dm.skills, name)) out.push({ name });
     }
-    return out.sort((a, b) => a.localeCompare(b, "pl"));
+    for (const slot of dev.skillSlots) out.push({ name: slot.scheme, slot });
+    return out.sort((a, b) => a.name.localeCompare(b.name, "pl"));
+  }
+
+  // ----- Wybory specjalizacji ("(Dowolna)" / "albo") ---------------------
+
+  /**
+   * Posiadane pozycje, ktore mozna przypisac do slotu wyboru (ta sama grupa,
+   * jeszcze nie bedace czescia profesji). Dla "A albo B" - tylko opcje z listy.
+   */
+  slotCandidates(slot: ChoiceSlot, kind: "skill" | "talent"): string[] {
+    void this.tick;
+    const owned = kind === "skill" ? this.dm.skills : this.dm.talents;
+    const dev = this.developable();
+    const taken = kind === "skill" ? dev.skills : dev.talents;
+    const info = parseSpecialization(slot.scheme);
+    const allowed =
+      info.kind === "choice"
+        ? new Set(info.options.map((o) => gameData.normalize(buildSpecializedName(info.base, o))))
+        : null;
+    const base = gameData.normalize(info.base);
+    const takenNorm = new Set([...taken].map((n) => gameData.normalize(n)));
+    return Object.keys(owned)
+      .filter((name) => {
+        const norm = gameData.normalize(name);
+        if (takenNorm.has(norm)) return false;
+        if (allowed) return allowed.has(norm);
+        return norm.startsWith(`${base} (`);
+      })
+      .sort((a, b) => a.localeCompare(b, "pl"));
+  }
+
+  /**
+   * Sprawdza, czy wybor nie dubluje pozycji juz nalezacej do profesji. Duplikat
+   * jest dozwolony po potwierdzeniu (allowDuplicate) - slot zostaje wtedy zuzyty.
+   */
+  private validateChoice(
+    fullName: string,
+    kind: "skill" | "talent",
+    allowDuplicate: boolean
+  ): { reason: string; duplicate?: boolean } | null {
+    const name = fullName.trim();
+    if (!name) return { reason: "Podaj specjalizację." };
+    if (allowDuplicate) return null;
+    const dev = this.developable();
+    const taken = kind === "skill" ? dev.skills : dev.talents;
+    const target = gameData.normalize(name);
+    for (const t of taken) {
+      if (gameData.normalize(t) === target) {
+        return {
+          reason: `„${name}” już należy do tej profesji — ten wybór nie da nowej pozycji, a slot zostanie zużyty.`,
+          duplicate: true
+        };
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Rozstrzyga slot umiejetnosci: zapamietuje wybor jako czesc profesji i - gdy
+   * postac jeszcze nie ma tej umiejetnosci - dodaje ja (jak z listy profesji).
+   */
+  chooseSkillSlot(
+    slot: ChoiceSlot,
+    fullName: string,
+    allowDuplicate = false
+  ): { ok: boolean; reason?: string; duplicate?: boolean } {
+    const invalid = this.validateChoice(fullName, "skill", allowDuplicate);
+    if (invalid) return { ok: false, ...invalid };
+    const name = fullName.trim();
+    let owned = gameData.findOwnedName(this.dm.skills, name);
+    if (!owned) {
+      const code = gameData.skillBaseAttr(name) ?? "Int";
+      if (!this.engine.addNewSkill(name, code, this.attributeValue(code), 0)) {
+        return { ok: false, reason: "Nie udało się dodać umiejętności." };
+      }
+      owned = name;
+    }
+    this.dm.professionChoices[slot.key] = owned;
+    this.addHistory("Wybrano specjalizację", `${slot.scheme} → ${owned} (${slot.profession} ${slot.level})`);
+    this.touch();
+    return { ok: true };
+  }
+
+  /**
+   * Rozstrzyga slot talentu: zapamietuje wybor i - gdy talent nie jest jeszcze
+   * wykupiony - kupuje go (opcjonalnie z bonusem cechy dla talentow +cecha).
+   */
+  chooseTalentSlot(
+    slot: ChoiceSlot,
+    fullName: string,
+    charBonus?: { code: string; value: number },
+    allowDuplicate = false
+  ): { ok: boolean; reason?: string; duplicate?: boolean } {
+    const invalid = this.validateChoice(fullName, "talent", allowDuplicate);
+    if (invalid) return { ok: false, ...invalid };
+    const name = fullName.trim();
+    let owned = gameData.findOwnedName(this.dm.talents, name);
+    if (!owned) {
+      const ok = charBonus
+        ? this.addCharacteristicTalent(name, charBonus.code, charBonus.value)
+        : this.addTalentFromList(name);
+      if (!ok) return { ok: false, reason: "Za mało PD na wykupienie talentu." };
+      owned = name;
+    }
+    this.dm.professionChoices[slot.key] = owned;
+    this.addHistory("Wybrano specjalizację", `${slot.scheme} → ${owned} (${slot.profession} ${slot.level})`);
+    this.touch();
+    return { ok: true };
+  }
+
+  /** Lista zapamietanych wyborow specjalizacji (biezaca profesja najpierw). */
+  choiceEntries(): ChoiceEntry[] {
+    void this.tick;
+    const current = gameData.resolveProfessionName(this.dm.currentCareer) ?? this.dm.currentCareer;
+    return Object.entries(this.dm.professionChoices)
+      .map(([key, value]) => {
+        const p = gameData.parseChoiceSlotKey(key);
+        return {
+          key,
+          value,
+          profession: p?.profession ?? key,
+          level: p?.level ?? 1,
+          scheme: p?.scheme ?? key
+        };
+      })
+      .sort((a, b) => {
+        const ac = a.profession === current ? 0 : 1;
+        const bc = b.profession === current ? 0 : 1;
+        return ac - bc || a.profession.localeCompare(b.profession, "pl") || a.level - b.level;
+      });
+  }
+
+  /** Cofa zapamietany wybor (slot znow czeka na decyzje; pozycja zostaje). */
+  clearChoice(key: string): void {
+    const value = this.dm.professionChoices[key];
+    if (value === undefined) return;
+    delete this.dm.professionChoices[key];
+    this.addHistory("Cofnięto wybór specjalizacji", value);
+    this.touch();
+  }
+
+  /** Usuwa wybory wskazujace na pozycje, ktorych postac juz nie ma. */
+  private pruneChoices(): void {
+    for (const [key, value] of Object.entries(this.dm.professionChoices)) {
+      const owned =
+        gameData.findOwnedName(this.dm.skills, value) ||
+        gameData.findOwnedName(this.dm.talents, value);
+      if (!owned) delete this.dm.professionChoices[key];
+    }
+  }
+
+  // ----- Zaklecia i modlitwy ----------------------------------------------
+
+  /** Zgoda MG na zaklecia/cuda spoza zasad (dowolna tradycja/bostwo). */
+  magicGmApproved = $state(false);
+  /** Kolejne poznanie bez kosztu PD (np. nagroda MG, znaleziony grimuar). */
+  magicFree = $state(false);
+
+  /** Profil magiczno-religijny z talentow postaci. */
+  magicProfile(): MagicProfile {
+    void this.tick;
+    return magicProfile(Object.keys(this.dm.talents), gameData.getSpellsData(), gameData.getPrayersData());
+  }
+
+  /** Znane zaklecia posortowane wg tradycji i nazwy. */
+  spellRows(): SpellEntry[] {
+    void this.tick;
+    return Object.values(this.dm.spells)
+      .map((s) => ({ ...s }))
+      .sort((a, b) => a.lore.localeCompare(b.lore, "pl") || a.name.localeCompare(b.name, "pl"));
+  }
+
+  /** Znane cuda posortowane wg bostwa i nazwy. */
+  miracleRows(): MiracleEntry[] {
+    void this.tick;
+    return Object.values(this.dm.miracles)
+      .map((m) => ({ ...m }))
+      .sort((a, b) => a.deity.localeCompare(b.deity, "pl") || a.name.localeCompare(b.name, "pl"));
+  }
+
+  /** Blogoslawienstwa z talentow Blogoslawienstwo (Bostwo). */
+  blessings(): { deity: string; blessing: PrayerDef }[] {
+    void this.tick;
+    return grantedBlessings(this.magicProfile(), gameData.getPrayersData());
+  }
+
+  /** Liczba znanych zaklec wg grup kosztu (Prosta / Tajemna). */
+  private knownSpellCounts(): { petty: number; arcane: number } {
+    const lores = gameData.getSpellsData().lores;
+    let petty = 0;
+    let arcane = 0;
+    for (const s of Object.values(this.dm.spells)) {
+      const g = lores[s.lore]?.group ?? "arcane";
+      if (g === "petty") petty++;
+      else if (g === "arcane") arcane++;
+    }
+    return { petty, arcane };
+  }
+
+  /** Dostepnosc i koszt zaklecia dla postaci (z uwzglednieniem zgody MG / za darmo). */
+  spellOffer(def: SpellDef): { allowed: boolean; reason?: string; cost: number; note: string; known: boolean } {
+    void this.tick;
+    const known = def.name in this.dm.spells;
+    const lore = gameData.getSpellsData().lores[def.lore];
+    const av = spellAvailability(def, this.magicProfile(), gameData.getSpellsData());
+    const bonus = (code: string) => gameData.attributeBonus(this.dm.attributes[code]?.current ?? 0);
+    const c = spellCost(lore?.group ?? "arcane", this.knownSpellCounts(), {
+      willpower: bonus("SW"),
+      intelligence: bonus("Int")
+    });
+    const cost = this.magicFree ? 0 : c.cost;
+    const note = this.magicFree ? "za darmo (decyzja MG)" : c.note;
+    if (known) return { allowed: false, reason: "Już znane.", cost, note, known };
+    if (!av.allowed && !this.magicGmApproved) return { ...av, cost, note, known };
+    return { allowed: true, reason: av.allowed ? undefined : `Zgoda MG: ${av.reason}`, cost, note, known };
+  }
+
+  /** Dostepnosc i koszt cudu. */
+  miracleOffer(def: PrayerDef): { allowed: boolean; reason?: string; cost: number; note: string; known: boolean } {
+    void this.tick;
+    const known = def.name in this.dm.miracles;
+    const av = miracleAvailability(def, this.magicProfile());
+    const c = miracleCost(Object.keys(this.dm.miracles).length);
+    const cost = this.magicFree ? 0 : c.cost;
+    const note = this.magicFree ? "za darmo (decyzja MG)" : c.note;
+    if (known) return { allowed: false, reason: "Już znany.", cost, note, known };
+    if (!av.allowed && !this.magicGmApproved) return { ...av, cost, note, known };
+    return { allowed: true, reason: av.allowed ? undefined : `Zgoda MG: ${av.reason}`, cost, note, known };
+  }
+
+  learnSpell(def: SpellDef): { ok: boolean; reason?: string } {
+    const offer = this.spellOffer(def);
+    if (!offer.allowed) return { ok: false, reason: offer.reason };
+    const entry: SpellEntry = {
+      name: def.name, lore: def.lore, cn: def.cn, range: def.range, target: def.target,
+      duration: def.duration, description: def.description, source: def.source,
+      cost: offer.cost, is_new: true
+    };
+    const r = this.engine.learn("spell", entry);
+    if (!r.ok) return { ok: false, reason: r.reason === "insufficient" ? `Za mało PD (koszt ${offer.cost}).` : "Nie udało się dodać." };
+    this.addHistory("Poznano zaklęcie", `${def.name} (${def.lore}) — ${offer.cost} PD`);
+    this.touch();
+    return { ok: true };
+  }
+
+  learnMiracle(def: PrayerDef): { ok: boolean; reason?: string } {
+    const offer = this.miracleOffer(def);
+    if (!offer.allowed) return { ok: false, reason: offer.reason };
+    const entry: MiracleEntry = {
+      name: def.name, deity: def.deity ?? "", aspect: def.aspect, range: def.range, target: def.target,
+      duration: def.duration, description: def.description, source: def.source,
+      cost: offer.cost, is_new: true
+    };
+    const r = this.engine.learn("miracle", entry);
+    if (!r.ok) return { ok: false, reason: r.reason === "insufficient" ? `Za mało PD (koszt ${offer.cost}).` : "Nie udało się dodać." };
+    this.addHistory("Poznano cud", `${def.name} (${def.deity}) — ${offer.cost} PD`);
+    this.touch();
+    return { ok: true };
+  }
+
+  /** Cofa nowe zaklecie/cud (zwrot PD) albo usuwa zatwierdzone (bez zwrotu). */
+  forget(kind: "spell" | "miracle", name: string): void {
+    const store = kind === "spell" ? this.dm.spells : this.dm.miracles;
+    const entry = store[name];
+    if (!entry) return;
+    if (entry.is_new) this.engine.unlearn(kind, name);
+    else delete store[name];
+    this.addHistory(kind === "spell" ? "Usunięto zaklęcie" : "Usunięto cud", name);
+    this.touch();
+  }
+
+  // ----- Bron i pancerz ----------------------------------------------------
+
+  get weapons(): CharWeapon[] {
+    void this.tick;
+    return this.dm.weapons.map((w) => ({ ...w, qualities: [...w.qualities], flaws: [...w.flaws] }));
+  }
+
+  get armour(): CharArmour[] {
+    void this.tick;
+    return this.dm.armour.map((a) => ({ ...a, locations: [...a.locations], qualities: [...a.qualities] }));
+  }
+
+  addWeapon(w: CharWeapon): void {
+    this.dm.weapons.push(JSON.parse(JSON.stringify(w)) as CharWeapon);
+    this.addHistory("Dodano broń", w.name);
+    this.touch();
+  }
+
+  updateWeapon(index: number, patch: Partial<CharWeapon>): void {
+    const w = this.dm.weapons[index];
+    if (!w) return;
+    Object.assign(w, patch);
+    this.touch();
+  }
+
+  removeWeapon(index: number): void {
+    const [w] = this.dm.weapons.splice(index, 1);
+    if (!w) return;
+    this.addHistory("Usunięto broń", w.name);
+    this.touch();
+  }
+
+  addArmour(a: CharArmour): void {
+    this.dm.armour.push(JSON.parse(JSON.stringify(a)) as CharArmour);
+    this.addHistory("Dodano pancerz", a.name);
+    this.touch();
+  }
+
+  updateArmour(index: number, patch: Partial<CharArmour>): void {
+    const a = this.dm.armour[index];
+    if (!a) return;
+    Object.assign(a, patch);
+    this.touch();
+  }
+
+  removeArmour(index: number): void {
+    const [a] = this.dm.armour.splice(index, 1);
+    if (!a) return;
+    this.addHistory("Usunięto pancerz", a.name);
+    this.touch();
+  }
+
+  /** Wartosc testu ataku bronia: umiejetnosc albo sama cecha (bez umiejetnosci). */
+  weaponTest(w: CharWeapon): { skill: string; value: number; trained: boolean } {
+    void this.tick;
+    const skill = weaponSkill(w);
+    const owned = gameData.findOwnedName(this.dm.skills, skill);
+    if (owned) return { skill: owned, value: this.dm.skills[owned].current, trained: true };
+    const attr = w.kind === "ranged" ? "US" : "WW";
+    return { skill, value: this.dm.attributes[attr]?.current ?? 0, trained: false };
+  }
+
+  /** Bonus z Sily i z Wytrzymalosci (biezace). */
+  get strengthToughness(): { sb: number; tb: number } {
+    void this.tick;
+    return {
+      sb: gameData.attributeBonus(this.dm.attributes.S?.current ?? 0),
+      tb: gameData.attributeBonus(this.dm.attributes.Wt?.current ?? 0)
+    };
+  }
+
+  // ----- Przedmioty magiczne (generator) ---------------------------------
+
+  /** Przedmioty magiczne postaci (kopie). */
+  get magicItems(): Artefact[] {
+    void this.tick;
+    return this.dm.magicItems.map((a) => ({ ...a }));
+  }
+
+  /** Dodaje wygenerowany przedmiot do postaci. */
+  addMagicItem(a: Artefact): void {
+    this.dm.magicItems.push(JSON.parse(JSON.stringify(a)) as Artefact);
+    this.addHistory("Dodano przedmiot magiczny", a.name);
+    this.touch();
+  }
+
+  removeMagicItem(index: number): void {
+    const [a] = this.dm.magicItems.splice(index, 1);
+    if (!a) return;
+    this.addHistory("Usunięto przedmiot magiczny", a.name);
+    this.touch();
+  }
+
+  // ----- Modyfikatory (mutacje, wampiryzm, dary...) ----------------------
+
+  /** Modyfikatory postaci (reaktywnie; kopie - model mutuje tablice w miejscu). */
+  get modifiers(): CharacterModifier[] {
+    void this.tick;
+    return this.dm.modifiers.map((m) => ({ ...m }));
+  }
+
+  /** Suma zmian cech z aktywnych modyfikatorow (kod -> wartosc). */
+  get modifierTotals(): Record<string, number> {
+    void this.tick;
+    return { ...this.dm.modifierBonuses };
+  }
+
+  addModifier(mod: CharacterModifier): void {
+    this.dm.addModifier(mod);
+    const fx = modifierEffectLabels(mod).join(", ");
+    this.addHistory("Dodano modyfikator", fx ? `${mod.name} (${fx})` : mod.name);
+    this.touch();
+  }
+
+  updateModifier(id: string, mod: CharacterModifier): void {
+    if (!this.dm.updateModifier(id, mod)) return;
+    this.addHistory("Zmieniono modyfikator", mod.name);
+    this.touch();
+  }
+
+  removeModifier(id: string): void {
+    const mod = this.dm.modifiers.find((m) => m.id === id);
+    if (!mod || !this.dm.removeModifier(id)) return;
+    this.addHistory("Usunięto modyfikator", mod.name);
+    this.touch();
+  }
+
+  setModifierActive(id: string, active: boolean): void {
+    const mod = this.dm.modifiers.find((m) => m.id === id);
+    if (!mod || !this.dm.setModifierActive(id, active)) return;
+    this.addHistory(active ? "Włączono modyfikator" : "Wyłączono modyfikator", mod.name);
+    this.touch();
   }
 
   careerCompletion() {
@@ -581,6 +1113,7 @@ class CharacterStore {
     delete this.dm.skills[name];
     this.engine.pending.new_skills.delete(name);
     delete this.engine.pending.skill_changes[name];
+    this.pruneChoices();
     this.addHistory("Usunięto umiejętność", name);
     this.touch();
   }
@@ -614,7 +1147,7 @@ class CharacterStore {
   addTalentFromList(name: string): boolean {
     // Dla talentu ze specjalizacją, np. "Wyczulony Zmysł (Wzrok)", opis/limit
     // pobieramy z wpisu bazowego "Wyczulony Zmysł", zachowując pełną nazwę (pkt 21).
-    const db = gameData.getTalent(name) ?? gameData.getTalent(parseSpecialization(name).base);
+    const db = gameData.findTalentDef(name);
     const ok = this.engine.addNewTalent(
       name,
       db?.description ?? "",
@@ -638,7 +1171,7 @@ class CharacterStore {
    */
   addCharacteristicTalent(name: string, code: string, value: number): boolean {
     const db =
-      gameData.getTalent(name) ?? gameData.getTalent(parseSpecialization(name).base);
+      gameData.findTalentDef(name);
     const ok = this.engine.addNewTalent(
       name,
       db?.description ?? "",
@@ -698,6 +1231,7 @@ class CharacterStore {
     delete this.dm.talents[name];
     this.engine.pending.new_talents.delete(name);
     delete this.engine.pending.talent_changes[name];
+    this.pruneChoices();
     // Po usunieciu talentu +cecha/Twardziela przelicz cechy i Zywotnosc.
     this.dm.recompute();
     this.dm.recomputeWounds();
@@ -708,19 +1242,13 @@ class CharacterStore {
   /** Lista talentow mozliwych do dodania (nie posiadane). */
   availableTalentNames(): string[] {
     void this.tick;
-    return gameData
-      .allTalentNames()
-      .filter((n) => !(n in this.dm.talents))
-      .sort((a, b) => a.localeCompare(b, "pl"));
+    return withVariants(gameData.allTalentNames()).filter((n) => !(n in this.dm.talents));
   }
 
   /** Lista kanonicznych umiejetnosci mozliwych do dodania (nie posiadane). */
   availableSkillNames(): string[] {
     void this.tick;
-    return gameData
-      .allSkillNames()
-      .filter((n) => !(n in this.dm.skills))
-      .sort((a, b) => a.localeCompare(b, "pl"));
+    return withVariants(gameData.allSkillNames()).filter((n) => !(n in this.dm.skills));
   }
 
   /** Kod cechy wiodacej dla nazwy umiejetnosci (kanon skills.json). */
@@ -838,6 +1366,10 @@ class CharacterStore {
 
   revertChanges(): number {
     const refund = this.engine.revert();
+    // Cofniete nowe pozycje zwalniaja zapamietane wybory "(Dowolna)".
+    this.pruneChoices();
+    this.dm.recompute();
+    this.dm.recomputeWounds();
     this.addHistory("Cofnięto zmiany", `Przywrócono ${refund} PD`);
     this.touch();
     return refund;

@@ -8,15 +8,39 @@
 
 import * as gameData from "./gameData";
 import { ATTRIBUTES } from "./rules";
+import {
+  characteristicCaps,
+  modifierEffectLabels,
+  normalizeModifier,
+  sumCharacteristicModifiers,
+  sumSkillModifiers,
+  sumWoundModifiers
+} from "./modifiers";
 // UWAGA: pdf-lib jest ciezka (~400 kB) i potrzebna tylko przy imporcie/eksporcie
 // PDF, dlatego modul pdfIo ladujemy dynamicznie (import()) wewnatrz metod.
 // Tutaj importujemy wylacznie typy (kasowane przy kompilacji, brak kosztu).
-import type { PdfMapping, PdfWritePayload } from "./pdfIo";
+import type { PdfMapping, PdfSpellRow, PdfWritePayload } from "./pdfIo";
+import type { Artefact } from "./artefacts";
+import {
+  LOCATIONS,
+  armourPoints,
+  damageValue,
+  locationsLabel,
+  shieldValue,
+  totalEnc
+} from "./equipment";
+import { grantedBlessings, magicProfile } from "./magic";
 import type {
+  Sex,
+  CharArmour,
+  CharWeapon,
   AttributeEntry,
   CareerCompletion,
   CareerPathStep,
+  CharacterModifier,
   CharacterStats,
+  MiracleEntry,
+  SpellEntry,
   ExperienceState,
   RaceCreationInput,
   SkillEntry,
@@ -55,6 +79,8 @@ export interface CharacterDict {
   character_name: string;
   character_class: string;
   character_species: string;
+  /** Plec (forma nazw profesji): "M", "K" albo "" (opcjonalne - starsze pliki). */
+  character_sex?: Sex | "";
   current_career: string;
   current_career_level: number;
   career_path: CareerPathStep[];
@@ -65,6 +91,19 @@ export interface CharacterDict {
   talents: Record<string, TalentEntry>;
   experience: ExperienceState;
   stats: CharacterStats;
+  /** Wybory specjalizacji dla wpisow "(Dowolna)"/"albo" (klucz: profesja|poziom|wpis). */
+  profession_choices?: Record<string, string>;
+  /** Modyfikatory: mutacje, wampiryzm, dary, wlasne (opcjonalne - starsze pliki). */
+  modifiers?: CharacterModifier[];
+  /** Znane zaklecia (klucz = nazwa). */
+  spells?: Record<string, SpellEntry>;
+  /** Znane cuda (klucz = nazwa). */
+  miracles?: Record<string, MiracleEntry>;
+  /** Przedmioty magiczne postaci (z generatora przedmiotow). */
+  magic_items?: Artefact[];
+  /** Bron i pancerz (opcjonalne - starsze pliki). */
+  weapons?: CharWeapon[];
+  armour?: CharArmour[];
 }
 
 function toInt(value: unknown, fallback = 0): number {
@@ -97,6 +136,8 @@ export class DataManager {
   pdfMapping: Record<string, unknown> = {};
   characterClass = "";
   characterSpecies = "";
+  /** Plec: forma nazw profesji i tytulow (""= jak w bazie). */
+  characterSex: Sex | "" = "";
   currentCareer = "";
   currentCareerLevel = 1;
   careerPath: CareerPathStep[] = [];
@@ -107,6 +148,31 @@ export class DataManager {
    * Wojownik). Kod cechy -> bonus. Nie licza sie jako rozwiniecia profesyjne.
    */
   characteristicBonuses: Record<string, number> = {};
+
+  /**
+   * Wybory specjalizacji dla wpisow schematu profesji wymagajacych wyboru
+   * ("Wiedza (Dowolna)", "Muzyka (Bęben albo Piszczałka)"). Klucz =
+   * gameData.choiceSlotKey(profesja, poziom, wpis), wartosc = wybrana nazwa.
+   */
+  professionChoices: Record<string, string> = {};
+
+  /** Modyfikatory postaci (mutacje, wampiryzm, dary, wlasne). */
+  modifiers: CharacterModifier[] = [];
+  /** Suma zmian cech z aktywnych modyfikatorow (kod -> wartosc; pochodna). */
+  modifierBonuses: Record<string, number> = {};
+  /** Suma zmian umiejetnosci z aktywnych modyfikatorow (nazwa -> wartosc; pochodna). */
+  skillModifierBonuses: Record<string, number> = {};
+
+  /** Znane zaklecia (klucz = nazwa zaklecia). */
+  spells: Record<string, SpellEntry> = {};
+  /** Znane cuda (klucz = nazwa cudu). */
+  miracles: Record<string, MiracleEntry> = {};
+  /** Przedmioty magiczne postaci (z generatora przedmiotow). */
+  magicItems: Artefact[] = [];
+  /** Bron postaci. */
+  weapons: CharWeapon[] = [];
+  /** Elementy pancerza postaci. */
+  armour: CharArmour[] = [];
 
   /** Surowe bajty zrodlowego PDF (do ponownego eksportu jako wzorzec). */
   pdfSourceBytes: Uint8Array | null = null;
@@ -287,16 +353,114 @@ export class DataManager {
       if (cb && cb.code) bonuses[cb.code] = (bonuses[cb.code] ?? 0) + cb.value;
     }
     this.characteristicBonuses = bonuses;
+    // Modyfikatory (mutacje, wampiryzm...) - osobna warstwa nad cechami.
+    this.modifierBonuses = sumCharacteristicModifiers(this.modifiers);
+    this.skillModifierBonuses = sumSkillModifiers(this.modifiers);
+    const caps = characteristicCaps(this.modifiers);
     for (const code of ATTRIBUTES) {
       const attr = this.attributes[code];
       if (!attr) continue;
-      attr.current = attr.initial + attr.advanced + (this.characteristicBonuses[code] ?? 0);
+      let value =
+        attr.initial +
+        attr.advanced +
+        (this.characteristicBonuses[code] ?? 0) +
+        (this.modifierBonuses[code] ?? 0);
+      if (code in caps) value = Math.min(value, caps[code]);
+      attr.current = Math.max(0, value);
     }
-    for (const entry of Object.values(this.skills)) {
+    for (const [name, entry] of Object.entries(this.skills)) {
       const attrCurrent = this.attributes[entry.attribute]?.current ?? entry.initial;
       entry.initial = attrCurrent;
-      entry.current = attrCurrent + entry.advanced;
+      entry.current = attrCurrent + entry.advanced + this.skillModifier(name);
     }
+  }
+
+  /** Suma zmian umiejetnosci z modyfikatorow (dopasowanie po normalizacji). */
+  skillModifier(name: string): number {
+    const direct = this.skillModifierBonuses[name];
+    if (direct !== undefined) return direct;
+    const target = gameData.normalize(name);
+    let sum = 0;
+    for (const [k, v] of Object.entries(this.skillModifierBonuses)) {
+      if (gameData.normalize(k) === target) sum += v;
+    }
+    return sum;
+  }
+
+  // ----- Modyfikatory (mutacje, wampiryzm, dary...) ----------------------
+
+  /**
+   * Przenosi zmiany Szybkosci / Przeznaczenia / Punktow Bohatera modyfikatora
+   * na statystyki (sign = +1 przy aktywacji, -1 przy wycofaniu). Szczescie i
+   * Determinacja (pule biezace) zmieniaja sie razem z wartosciami bazowymi.
+   */
+  private applyModifierStats(mod: CharacterModifier, sign: 1 | -1): void {
+    const clamp = (n: number) => Math.max(0, n);
+    // Zmiana rasy (np. przemiana w wampira) - z zapamietaniem poprzedniej.
+    if (mod.race) {
+      if (sign === 1) {
+        if (this.characterSpecies !== mod.race) mod.prevRace = this.characterSpecies;
+        this.characterSpecies = mod.race;
+      } else if (this.characterSpecies === mod.race) {
+        this.characterSpecies = mod.prevRace ?? this.characterSpecies;
+      }
+    }
+    if (mod.movement) this.stats.movement = clamp(this.stats.movement + sign * mod.movement);
+    if (mod.fate) {
+      this.stats.fate = clamp(this.stats.fate + sign * mod.fate);
+      this.stats.fortune = clamp(this.stats.fortune + sign * mod.fate);
+    }
+    if (mod.resilience) {
+      this.stats.resilience = clamp(this.stats.resilience + sign * mod.resilience);
+      this.stats.resolve = clamp(this.stats.resolve + sign * mod.resilience);
+    }
+  }
+
+  /** Przelicza wartosci pochodne po zmianie modyfikatorow. */
+  private afterModifiersChanged(): void {
+    this.recompute();
+    this.recomputeWounds();
+  }
+
+  /** Dodaje modyfikator do postaci (aktywny od razu wplywa na statystyki). */
+  addModifier(mod: CharacterModifier): void {
+    const copy = normalizeModifier(mod, this.modifiers.length);
+    this.modifiers.push(copy);
+    if (copy.active) this.applyModifierStats(copy, 1);
+    this.afterModifiersChanged();
+  }
+
+  /** Podmienia modyfikator (edycja wartosci). Zwraca false, gdy brak id. */
+  updateModifier(id: string, next: CharacterModifier): boolean {
+    const idx = this.modifiers.findIndex((m) => m.id === id);
+    if (idx < 0) return false;
+    const prev = this.modifiers[idx];
+    if (prev.active) this.applyModifierStats(prev, -1);
+    const copy = normalizeModifier({ ...next, id }, idx);
+    this.modifiers[idx] = copy;
+    if (copy.active) this.applyModifierStats(copy, 1);
+    this.afterModifiersChanged();
+    return true;
+  }
+
+  /** Usuwa modyfikator (cofa jego wplyw na statystyki). */
+  removeModifier(id: string): boolean {
+    const idx = this.modifiers.findIndex((m) => m.id === id);
+    if (idx < 0) return false;
+    const [removed] = this.modifiers.splice(idx, 1);
+    if (removed.active) this.applyModifierStats(removed, -1);
+    this.afterModifiersChanged();
+    return true;
+  }
+
+  /** Wlacza/wylacza modyfikator bez usuwania go z postaci. */
+  setModifierActive(id: string, active: boolean): boolean {
+    const mod = this.modifiers.find((m) => m.id === id);
+    if (!mod || mod.active === active) return false;
+    mod.active = active;
+    this.applyModifierStats(mod, active ? 1 : -1);
+    this.afterModifiersChanged();
+    return true;
   }
 
   /**
@@ -327,7 +491,11 @@ export class DataManager {
       }
       if (addsWounds) talentWounds += wtB * Math.max(1, entry.advances || 1);
     }
-    this.stats.wounds = (includeStrength ? sB : 0) + 2 * wtB + swB + talentWounds;
+    const modifierWounds = sumWoundModifiers(this.modifiers);
+    this.stats.wounds = Math.max(
+      0,
+      (includeStrength ? sB : 0) + 2 * wtB + swB + talentWounds + modifierWounds
+    );
   }
 
   // ----- Profesja / klasa / sciezka kariery ------------------------------
@@ -390,21 +558,26 @@ export class DataManager {
   professionPayload(): Record<string, string> {
     // Sciezka kariery z sufiksem poziomu (np. "Piromanta 2"), zeby na karcie
     // bylo widac na jakim poziomie ukonczono/osiagnieto kazda profesje.
+    // Nazwy w formie wg plci postaci (profession_titles.json).
+    const sex = this.characterSex;
     const pathTitles = this.careerPath
       .map((step) => {
-        const title = step.title || step.profession || "";
+        const title = step.profession
+          ? gameData.professionDisplayName(step.profession, sex)
+          : step.title || "";
         if (!title) return "";
         const lvl = step.level || 1;
         return `${title} ${lvl}`;
       })
       .filter((t) => t);
     let levelText = (this.professionRaw.level_text as string) || "";
+    const career = this.currentCareer ? gameData.professionDisplayName(this.currentCareer, sex) : "";
     if (this.currentCareer) {
-      levelText = `${this.currentCareer} (${this.currentCareerLevel})`;
+      levelText = `${career} (${this.currentCareerLevel})`;
     }
     return {
       class: this.characterClass,
-      profession: this.currentCareer,
+      profession: career,
       level_text: levelText,
       path_text: pathTitles.join(", "),
       species: this.characterSpecies
@@ -483,7 +656,7 @@ export class DataManager {
       this.skills,
       this.talents,
       this.attributes,
-      this.careerPath
+      this.professionChoices
     );
     return { ...result, unknown_profession: false };
   }
@@ -521,11 +694,19 @@ export class DataManager {
     this.stats = defaultStats();
     this.characterClass = "";
     this.characterSpecies = "";
+    this.characterSex = "";
     this.currentCareer = "";
     this.currentCareerLevel = 1;
     this.careerPath = [];
     this.professionRaw = {};
     this.characteristicBonuses = {};
+    this.professionChoices = {};
+    this.modifiers = [];
+    this.spells = {};
+    this.miracles = {};
+    this.magicItems = [];
+    this.weapons = [];
+    this.armour = [];
     this.pdfSourceBytes = null;
     this.pdfMappingTyped = null;
     this.recompute();
@@ -539,6 +720,7 @@ export class DataManager {
   createFromRace(input: RaceCreationInput): void {
     this.createNewCharacter(input.name || "Nowa Postać");
     this.characterSpecies = input.race;
+    this.characterSex = input.sex ?? "";
 
     for (const attr of ATTRIBUTES) {
       const val = Math.max(0, Math.trunc(input.characteristics[attr] ?? 0));
@@ -618,6 +800,14 @@ export class DataManager {
       this.pdfMappingTyped = payload.pdf_mapping;
       this.pdfSourceBytes = bytes.slice();
       this.characteristicBonuses = {};
+      // Karta PDF nie przechowuje wyborow ani modyfikatorow (tylko JSON).
+      this.professionChoices = {};
+      this.modifiers = [];
+      this.spells = {};
+      this.miracles = {};
+      this.magicItems = [];
+      this.weapons = [];
+      this.armour = [];
       this.enrichTalents();
       this.loadProfession(payload.profession_info);
       this.recompute();
@@ -642,8 +832,94 @@ export class DataManager {
         ])
       ),
       experience: this.experience,
-      profession: this.professionPayload()
+      profession: this.professionPayload(),
+      spells: this.pdfSpellRows(),
+      extraTalents: this.pdfModifierRows(),
+      mutations: this.modifiers
+        .filter((m) => m.active && /mutac|dar|słabo|wampir/i.test(m.category))
+        .map((m) => (m.location ? `${m.name} (${m.location})` : m.name))
+        .join(", "),
+      ...this.pdfEquipment()
     };
+  }
+
+  /** Bron, pancerz i PP na lokacjach do karty PDF. */
+  pdfEquipment(): Pick<PdfWritePayload, "weapons" | "armour" | "armourPoints" | "shield" | "encWeapons" | "encArmour"> {
+    const sb = gameData.attributeBonus(this.attributes.S?.current ?? 0);
+    const tb = gameData.attributeBonus(this.attributes.Wt?.current ?? 0);
+    const ap = armourPoints(this.armour);
+    return {
+      weapons: this.weapons.map((w) => ({
+        name: w.name,
+        group: w.group,
+        enc: w.enc,
+        reach: w.reach,
+        damage: `+${damageValue(w, sb)}`,
+        qualities: [...w.qualities, ...w.flaws].join(", "),
+        carried: w.carried
+      })),
+      armour: this.armour.map((a) => ({
+        name: a.name,
+        locations: locationsLabel(a),
+        enc: a.enc,
+        ap: String(a.ap),
+        qualities: a.qualities.join(", "),
+        worn: a.worn
+      })),
+      armourPoints: Object.fromEntries(
+        LOCATIONS.map((l) => [l.key, { ap: ap[l.key], total: ap[l.key] + tb }])
+      ),
+      shield: shieldValue(this.weapons),
+      encWeapons: totalEnc(this.weapons, (w) => (w as CharWeapon).carried),
+      encArmour: totalEnc(this.armour)
+    };
+  }
+
+  /** Wiersze tabeli zaklec karty: zaklecia, cuda, potem blogoslawienstwa. */
+  pdfSpellRows(): PdfSpellRow[] {
+    const shorten = (s: string, n = 160) => (s.length > n ? `${s.slice(0, n - 1)}…` : s);
+    const rows: PdfSpellRow[] = [];
+    const spells = Object.values(this.spells).sort((a, b) => a.lore.localeCompare(b.lore, "pl") || a.name.localeCompare(b.name, "pl"));
+    for (const s of spells) {
+      rows.push({ name: s.name, cn: String(s.cn), range: s.range, target: s.target, duration: s.duration, effect: shorten(s.description) });
+    }
+    for (const m of Object.values(this.miracles)) {
+      rows.push({ name: `${m.name} (cud)`, cn: "—", range: m.range, target: m.target, duration: m.duration, effect: shorten(m.description) });
+    }
+    try {
+      const profile = magicProfile(Object.keys(this.talents), gameData.getSpellsData(), gameData.getPrayersData());
+      for (const { blessing } of grantedBlessings(profile, gameData.getPrayersData())) {
+        if (rows.some((r) => r.name === blessing.name)) continue;
+        rows.push({ name: blessing.name, cn: "—", range: blessing.range, target: blessing.target, duration: blessing.duration, effect: shorten(blessing.description) });
+      }
+    } catch {
+      // Brak danych gry (np. testy bez zaladowania) - pomijamy blogoslawienstwa.
+    }
+    return rows;
+  }
+
+  /** Mutacje, dary, slabosci itp. jako wiersze talentow karty (podpisane + opis). */
+  pdfModifierRows(): { name: string; advances?: string; description: string }[] {
+    const tag = (category: string): string => {
+      const c = category.toLowerCase();
+      if (c.includes("mutac")) return "Mutacja";
+      if (c.includes("dary chaosu")) return "Dar Chaosu";
+      if (c.includes("dary krwi")) return "Dar Krwi";
+      if (c.includes("słabo")) return "Słabość";
+      if (c.includes("wampir")) return "Wampiryzm";
+      if (c.includes("profil")) return "Profil";
+      return "Modyfikator";
+    };
+    return this.modifiers
+      .filter((m) => m.active)
+      .map((m) => {
+        const fx = modifierEffectLabels(m).join(", ");
+        const desc = [fx, m.description].filter(Boolean).join(" — ");
+        return {
+          name: `${tag(m.category)}: ${m.name}${m.location ? ` (${m.location})` : ""}`,
+          description: desc.length > 400 ? `${desc.slice(0, 399)}…` : desc
+        };
+      });
   }
 
   /**
@@ -683,6 +959,7 @@ export class DataManager {
       character_name: this.characterName,
       character_class: this.characterClass,
       character_species: this.characterSpecies,
+      character_sex: this.characterSex,
       current_career: this.currentCareer,
       current_career_level: this.currentCareerLevel,
       career_path: this.careerPath.map((step) => ({ ...step })),
@@ -694,7 +971,14 @@ export class DataManager {
       skills: Object.fromEntries(Object.entries(this.skills).map(([k, v]) => [k, { ...v }])),
       talents: Object.fromEntries(Object.entries(this.talents).map(([k, v]) => [k, { ...v }])),
       experience: { ...this.experience },
-      stats: { ...this.stats }
+      stats: { ...this.stats },
+      profession_choices: { ...this.professionChoices },
+      modifiers: this.modifiers.map((m) => JSON.parse(JSON.stringify(m)) as CharacterModifier),
+      spells: Object.fromEntries(Object.entries(this.spells).map(([k, v]) => [k, { ...v }])),
+      miracles: Object.fromEntries(Object.entries(this.miracles).map(([k, v]) => [k, { ...v }])),
+      magic_items: this.magicItems.map((a) => JSON.parse(JSON.stringify(a)) as Artefact),
+      weapons: this.weapons.map((w) => JSON.parse(JSON.stringify(w)) as CharWeapon),
+      armour: this.armour.map((a) => JSON.parse(JSON.stringify(a)) as CharArmour)
     };
   }
 
@@ -704,6 +988,7 @@ export class DataManager {
       this.characterName = data.character_name ?? "Nowa Postać";
       this.characterClass = data.character_class || "";
       this.characterSpecies = data.character_species || "";
+      this.characterSex = data.character_sex === "M" || data.character_sex === "K" ? data.character_sex : "";
       this.currentCareer = data.current_career || "";
       this.currentCareerLevel = toInt(data.current_career_level, 1) || 1;
       this.careerPath = (data.career_path ?? []).map((s) => ({ ...s }));
@@ -736,6 +1021,30 @@ export class DataManager {
             motivation: String(st.motivation ?? "")
           }
         : defaultStats();
+      this.professionChoices = {};
+      for (const [k, v] of Object.entries(data.profession_choices ?? {})) {
+        if (typeof v === "string" && v.trim()) this.professionChoices[k] = v;
+      }
+      // Statystyki w pliku zawieraja juz efekt modyfikatorow - nie nakladamy ich ponownie.
+      this.modifiers = (Array.isArray(data.modifiers) ? data.modifiers : []).map((m, i) =>
+        normalizeModifier(m, i)
+      );
+      // Zaklecia/cuda z pliku sa juz zatwierdzone (is_new=false).
+      this.spells = Object.fromEntries(
+        Object.entries(data.spells ?? {}).map(([k, v]) => [k, { ...v, is_new: false }])
+      );
+      this.miracles = Object.fromEntries(
+        Object.entries(data.miracles ?? {}).map(([k, v]) => [k, { ...v, is_new: false }])
+      );
+      this.magicItems = (Array.isArray(data.magic_items) ? data.magic_items : []).map(
+        (a) => JSON.parse(JSON.stringify(a)) as Artefact
+      );
+      this.weapons = (Array.isArray(data.weapons) ? data.weapons : []).map(
+        (w) => JSON.parse(JSON.stringify(w)) as CharWeapon
+      );
+      this.armour = (Array.isArray(data.armour) ? data.armour : []).map(
+        (a) => JSON.parse(JSON.stringify(a)) as CharArmour
+      );
       this.pdfMapping = {};
       this.pdfSourceBytes = null;
       this.pdfMappingTyped = null;

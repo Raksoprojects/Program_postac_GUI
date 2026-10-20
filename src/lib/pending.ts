@@ -10,7 +10,7 @@
 import { calculateAdvancementCost, calculateTalentCost } from "./rules";
 import type { AdvancementType } from "./rules";
 import type { DataManager } from "./character";
-import type { TalentMax } from "./types";
+import type { MiracleEntry, SpellEntry, TalentMax } from "./types";
 
 export interface PendingChanges {
   attribute_changes: Record<string, number>;
@@ -18,6 +18,9 @@ export interface PendingChanges {
   talent_changes: Record<string, number>;
   new_skills: Set<string>;
   new_talents: Set<string>;
+  /** Zaklecia i cuda poznane w tej sesji (koszt w entry.cost). */
+  new_spells: Set<string>;
+  new_miracles: Set<string>;
   experience_delta: number;
 }
 
@@ -56,6 +59,8 @@ export function createEmptyPending(): PendingChanges {
     talent_changes: {},
     new_skills: new Set<string>(),
     new_talents: new Set<string>(),
+    new_spells: new Set<string>(),
+    new_miracles: new Set<string>(),
     experience_delta: 0
   };
 }
@@ -68,6 +73,8 @@ export function hasPending(p: PendingChanges): boolean {
     Object.keys(p.talent_changes).length > 0 ||
     p.new_skills.size > 0 ||
     p.new_talents.size > 0 ||
+    p.new_spells.size > 0 ||
+    p.new_miracles.size > 0 ||
     p.experience_delta !== 0
   );
 }
@@ -80,6 +87,8 @@ export function pendingCount(p: PendingChanges): number {
   }
   count += p.new_skills.size;
   count += p.new_talents.size;
+  count += p.new_spells.size;
+  count += p.new_miracles.size;
   if (p.experience_delta) count += 1;
   return count;
 }
@@ -332,6 +341,37 @@ export class PendingEngine {
     return true;
   }
 
+  // ----- Zaklecia i cuda ---------------------------------------------------
+
+  /**
+   * Poznaje zaklecie (kind "spell") albo cud ("miracle") za entry.cost PD.
+   * Zwraca false, gdy juz znane albo brakuje PD.
+   */
+  learn(kind: "spell" | "miracle", entry: SpellEntry | MiracleEntry): OpResult {
+    const store = kind === "spell" ? this.dm.spells : this.dm.miracles;
+    if (entry.name in store) return { ok: false, reason: "missing" };
+    if (this.dm.experience.available < entry.cost) {
+      return { ok: false, amount: entry.cost, reason: "insufficient" };
+    }
+    (store as Record<string, SpellEntry | MiracleEntry>)[entry.name] = { ...entry, is_new: true };
+    (kind === "spell" ? this.pending.new_spells : this.pending.new_miracles).add(entry.name);
+    this.dm.experience.available -= entry.cost;
+    this.spentDelta += entry.cost;
+    return { ok: true, amount: entry.cost };
+  }
+
+  /** Cofa poznanie nowego (niezatwierdzonego) zaklecia/cudu ze zwrotem PD. */
+  unlearn(kind: "spell" | "miracle", name: string): OpResult {
+    const store = kind === "spell" ? this.dm.spells : this.dm.miracles;
+    const entry = store[name];
+    if (!entry?.is_new) return { ok: false, reason: "min" };
+    delete store[name];
+    (kind === "spell" ? this.pending.new_spells : this.pending.new_miracles).delete(name);
+    this.dm.experience.available += entry.cost;
+    this.spentDelta -= entry.cost;
+    return { ok: true, amount: entry.cost };
+  }
+
   // ----- Doswiadczenie ---------------------------------------------------
 
   /** Zmienia dostepne PD o delte (np. nagroda od MG). Sledzone jako pending. */
@@ -408,6 +448,17 @@ export class PendingEngine {
       }
     }
 
+    for (const name of this.pending.new_spells) {
+      const cost = this.dm.spells[name]?.cost ?? 0;
+      totalCost += cost;
+      details.push({ text: `Zaklęcie ${name}`, cost });
+    }
+    for (const name of this.pending.new_miracles) {
+      const cost = this.dm.miracles[name]?.cost ?? 0;
+      totalCost += cost;
+      details.push({ text: `Cud ${name}`, cost });
+    }
+
     return { totalCost, details };
   }
 
@@ -444,6 +495,12 @@ export class PendingEngine {
         this.dm.talents[name].is_new = false;
       }
     }
+    for (const name of this.pending.new_spells) {
+      if (this.dm.spells[name]) this.dm.spells[name].is_new = false;
+    }
+    for (const name of this.pending.new_miracles) {
+      if (this.dm.miracles[name]) this.dm.miracles[name].is_new = false;
+    }
 
     this.reset();
     return { totalCost, details };
@@ -477,6 +534,8 @@ export class PendingEngine {
     for (const name of this.pending.new_talents) {
       delete this.dm.talents[name];
     }
+    for (const name of this.pending.new_spells) delete this.dm.spells[name];
+    for (const name of this.pending.new_miracles) delete this.dm.miracles[name];
 
     this.dm.experience.available += totalRefund;
     this.dm.experience.available -= this.pending.experience_delta;

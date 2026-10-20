@@ -46,6 +46,12 @@
         <div class="stats">
           <span><span class="text-dim">Pocz:</span> {row.entry.initial}</span>
           <span><span class="text-dim">Rozw:</span> <b class="val-accent">{row.entry.advanced}</b></span>
+          {#if row.talentBonus}
+            <span title="Stały bonus z talentu (np. Urodzony Wojownik)"><span class="text-dim">Talent:</span> {row.talentBonus > 0 ? "+" : ""}{row.talentBonus}</span>
+          {/if}
+          {#if row.modifierBonus}
+            <span title="Suma aktywnych modyfikatorów (zakładka Modyfikatory)"><span class="text-dim">Mod.:</span> <b class={row.modifierBonus > 0 ? "val-success" : "val-danger"}>{row.modifierBonus > 0 ? "+" : ""}{row.modifierBonus}</b></span>
+          {/if}
           <span><span class="text-dim">Wartość:</span> <b>{row.total}</b></span>
           <span><span class="text-dim">Maks:</span> <b class="val-warning">{row.maxBuy}</b></span>
         </div>

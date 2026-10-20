@@ -485,6 +485,61 @@ export interface PdfWritePayload {
   experience: { available: number; spent: number; total: number };
   stats: CharacterStats;
   profession: Record<string, string>;
+  /** Wiersze tabeli zaklec karty (zaklecia, cuda, blogoslawienstwa). */
+  spells?: PdfSpellRow[];
+  /** Dodatkowe wiersze talentow (mutacje, dary, slabosci) - po talentach. */
+  extraTalents?: { name: string; advances?: string; description: string }[];
+  /** Tekst pola "Mutacje" (krotka lista). */
+  mutations?: string;
+  /** Bron (wiersze NazwaBrońN). */
+  weapons?: PdfWeaponRow[];
+  /** Pancerz (wiersze NazwaRowN). */
+  armour?: PdfArmourRow[];
+  /** PP na lokacjach: klucz equipment.LOCATIONS -> PP pancerza i PP + BWt. */
+  armourPoints?: Record<string, { ap: number; total: number }>;
+  /** Wartosc Tarczy. */
+  shield?: number;
+  encWeapons?: number;
+  encArmour?: number;
+}
+
+export interface PdfWeaponRow {
+  name: string;
+  group: string;
+  enc: string;
+  reach: string;
+  damage: string;
+  qualities: string;
+  carried: boolean;
+}
+
+export interface PdfArmourRow {
+  name: string;
+  locations: string;
+  enc: string;
+  ap: string;
+  qualities: string;
+  worn: boolean;
+}
+
+/** Pola PP karty dla kluczy lokacji (equipment.LOCATIONS). */
+const PDF_AP_FIELDS: Record<string, [string, string]> = {
+  glowa: ["PP_Głowa", "PP_BWt_Głowa"],
+  lreka: ["PP_L_Ręka", "PP_BWt_L_Ręka"],
+  preka: ["PP_P_Ręka", "PP_BWt_P_Ręka"],
+  korpus: ["PP_Korpus", "PP_BWt_Korpus"],
+  lnoga: ["PP_L_Noga", "PP_BWt_L_Noga"],
+  pnoga: ["PP_P_Noga", "PP_BWt_P_Noga"]
+};
+
+/** Wiersz tabeli "Zaklęcia i modlitwy" karty PDF. */
+export interface PdfSpellRow {
+  name: string;
+  cn: string;
+  range: string;
+  target: string;
+  duration: string;
+  effect: string;
 }
 
 function stringify(value: unknown): string {
@@ -561,7 +616,8 @@ export async function writePdfCharacterData(
   for (const [skillName, skillMapping] of Object.entries(mapping.skills)) {
     const skillData = payload.skills[skillName];
     if (!skillData) continue;
-    const currentValue = skillData.initial + skillData.advanced;
+    // current = cecha + rozwiniecia + modyfikatory (mutacje itp.); fallback dla starszych danych.
+    const currentValue = skillData.current || skillData.initial + skillData.advanced;
     setUpdate(skillMapping.advanced_field as string, stringify(skillData.advanced || ""));
 
     if (skillMapping.type === "basic") {
@@ -595,7 +651,7 @@ export async function writePdfCharacterData(
     if (mappedSkills.has(skillName)) continue;
     const row = freeSkillRows.shift();
     if (!row) break;
-    const currentValue = skillData.initial + skillData.advanced;
+    const currentValue = skillData.current || skillData.initial + skillData.advanced;
     setUpdate(row.name_field, stringify(skillName));
     if (row.attribute_field) setUpdate(row.attribute_field, stringify(skillData.attribute));
     setUpdate(row.advanced_field, stringify(skillData.advanced || ""));
@@ -644,6 +700,74 @@ export async function writePdfCharacterData(
     setUpdate(row.advances_field, stringify(talentData.advances ?? ""));
     setUpdate(row.description_field, stringify(talentData.description ?? ""));
   }
+  // Mutacje / dary / slabosci -> kolejne wolne wiersze talentow (podpisane i opisane).
+  for (const extra of payload.extraTalents ?? []) {
+    const row = freeRows.shift();
+    if (!row) break;
+    setUpdate(row.name_field, extra.name);
+    setUpdate(row.advances_field, extra.advances ?? "");
+    setUpdate(row.description_field, extra.description);
+  }
+  if (payload.mutations !== undefined && index.byName["Mutacje"]) {
+    setUpdate("Mutacje", payload.mutations);
+  }
+
+  // Zaklecia i modlitwy -> tabela na stronie zaklec (wiersze NazwCzaruN).
+  if (payload.spells?.length) {
+    const rows = Object.keys(index.byName)
+      .map((n) => n.match(/^NazwCzaru(\d+)$/))
+      .filter((m): m is RegExpMatchArray => Boolean(m))
+      .map((m) => Number(m[1]))
+      .sort((a, b) => a - b);
+    payload.spells.slice(0, rows.length).forEach((s, i) => {
+      const n = rows[i];
+      setUpdate(`NazwCzaru${n}`, s.name);
+      setUpdate(index.byName[`PZ${n}`] ? `PZ${n}` : null, s.cn);
+      setUpdate(index.byName[`ZasiegCzaru${n}`] ? `ZasiegCzaru${n}` : null, s.range);
+      setUpdate(index.byName[`CelCzaru${n}`] ? `CelCzaru${n}` : null, s.target);
+      setUpdate(index.byName[`CzasTrwania${n}`] ? `CzasTrwania${n}` : null, s.duration);
+      setUpdate(index.byName[`EfektCzaru${n}`] ? `EfektCzaru${n}` : null, s.effect);
+    });
+  }
+
+  // Bron i pancerz -> strona 2. Puste listy nie czyszcza karty (np. wpisy reczne w PDF).
+  const has = (name: string) =>
+    index.byName[name] ? name : fieldNameFor(index, normalizePdfFieldName(name));
+  const checks: Record<string, boolean> = {};
+  if (payload.weapons?.length) {
+    for (let i = 1; i <= 7; i++) {
+      const w = payload.weapons[i - 1];
+      setUpdate(has(`NazwaBroń${i}`), w?.name ?? "");
+      setUpdate(has(`KategoriaRow${i}`), w?.group ?? "");
+      setUpdate(has(`ObcBrońRow${i}`), w?.enc ?? "");
+      setUpdate(has(`ObcBroń${i}`), w && w.carried ? w.enc : "");
+      setUpdate(has(`DługZas${i}`), w?.reach ?? "");
+      setUpdate(has(`ObrażBroni${i}`), w?.damage ?? "");
+      setUpdate(has(`CechyBroni${i}`), w?.qualities ?? "");
+      checks[`PrzySobieBroń${i}`] = Boolean(w?.carried);
+    }
+    setUpdate(has("SumaObcBroń"), payload.encWeapons ? String(payload.encWeapons) : "");
+  }
+  if (payload.armour?.length) {
+    for (let i = 1; i <= 6; i++) {
+      const a = payload.armour[i - 1];
+      setUpdate(has(`NazwaRow${i}`), a?.name ?? "");
+      setUpdate(has(`LokacjaRow${i}`), a?.locations ?? "");
+      setUpdate(has(`ObcPancBaza${i}`), a?.enc ?? "");
+      setUpdate(has(`ObcPancerz${i}`), a && a.worn ? a.enc : "");
+      setUpdate(has(`PPRow${i}`), a?.ap ?? "");
+      setUpdate(has(`CechyRow${i}`), a?.qualities ?? "");
+      checks[`NaSobiePanc${i}`] = Boolean(a?.worn);
+      checks[`PrzySobiePanc${i}`] = Boolean(a && !a.worn);
+    }
+    for (const [key, [apField, totalField]] of Object.entries(PDF_AP_FIELDS)) {
+      const v = payload.armourPoints?.[key];
+      setUpdate(has(apField), v ? String(v.ap) : "");
+      setUpdate(has(totalField), v ? String(v.total) : "");
+    }
+    setUpdate(has("SumaObcPancerz"), payload.encArmour ? String(payload.encArmour) : "");
+  }
+  if (payload.shield) setUpdate(has("Tarcza"), String(payload.shield));
 
   // Profesja / klasa / sciezka.
   const professionFieldMap: Record<string, string> = {
@@ -664,6 +788,18 @@ export async function writePdfCharacterData(
   for (const [fieldName, value] of Object.entries(updates)) {
     const field = index.byName[fieldName];
     if (field) setRawFieldValue(field, value);
+  }
+  // Checkboxy broni/pancerza ("przy sobie" / "na sobie").
+  for (const [fieldName, on] of Object.entries(checks)) {
+    const real = has(fieldName);
+    const field = real ? index.byName[real] : undefined;
+    if (!(field instanceof PDFCheckBox)) continue;
+    try {
+      if (on) field.check();
+      else field.uncheck();
+    } catch {
+      // Uszkodzony checkbox w szablonie - pomijamy.
+    }
   }
 
   // Checkboxy "rozwijalne w profesji" (10 cech + 26 podstawowych + 20 zaawansowanych).

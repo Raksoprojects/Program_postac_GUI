@@ -17,15 +17,23 @@
       selClass ? gameData.careersForClass(selClass) : gameData.allProfessionNames()
     )
   );
+  // "Profesje zla" (Chaos) - osobna kategoria, widoczna po zaznaczeniu opcji.
+  let evilGroups = $derived(
+    store.evilProfessionGroups(selClass ? gameData.careersForClass(selClass) : gameData.allProfessionNames())
+  );
 
-  // Synchronizuj edytor z biezaca profesja przy zmianie postaci
+  // Synchronizuj edytor z biezaca profesja TYLKO przy zmianie postaci/kariery.
+  // Efekt nie moze czytac selProfession/selClass - inaczej wyczyszczenie profesji
+  // przy zmianie klasy (onchange) cofaloby wybor klasy do klasy biezacej.
+  let lastSyncedCareer: string | null = null;
   $effect(() => {
-    void store.pendingCount; // dotyk reaktywnosci
-    if (!selProfession && store.dm.currentCareer) {
-      selClass = store.dm.characterClass;
-      selProfession = store.dm.currentCareer;
-      selLevel = store.dm.currentCareerLevel;
-    }
+    const key = `${store.careerLabel}|${store.characterClass}`;
+    if (key === lastSyncedCareer) return;
+    lastSyncedCareer = key;
+    if (!store.dm.currentCareer) return;
+    selClass = store.dm.characterClass;
+    selProfession = store.dm.currentCareer;
+    selLevel = store.dm.currentCareerLevel;
   });
 
   let completion = $derived(store.careerCompletion());
@@ -34,6 +42,7 @@
   let currentLevel = $derived((store.pendingCount, store.dm.currentCareerLevel));
   let charClass = $derived((store.pendingCount, store.dm.characterClass));
   let profSchema = $derived(currentCareer ? gameData.getProfession(currentCareer) : undefined);
+  let choiceEntries = $derived(store.choiceEntries());
 
   function statusBadge() {
     if (completion.unknown_profession) return { text: "SPOZA PODSTAWKI", cls: "" };
@@ -91,7 +100,10 @@
     selClass = store.dm.characterClass;
   }
 
-  let allProfessions = $derived(store.filterProfessionNames(gameData.allProfessionNames()));
+  let allProfessions = $derived([
+    ...store.filterProfessionNames(gameData.allProfessionNames()),
+    ...store.evilProfessionGroups(gameData.allProfessionNames()).flatMap((g) => g.names)
+  ]);
 </script>
 
 <section class="tab">
@@ -157,7 +169,12 @@
         <select bind:value={selProfession}>
           <option value="">— wybierz —</option>
           {#each professionsForClass as p (p)}
-            <option value={p}>{p}</option>
+            <option value={p}>{store.professionLabel(p)}</option>
+          {/each}
+          {#each evilGroups as g (g.cls)}
+            <optgroup label={`Profesje zła — ${g.cls}`}>
+              {#each g.names as p (p)}<option value={p}>{store.professionLabel(p)}</option>{/each}
+            </optgroup>
           {/each}
         </select>
       </label>
@@ -169,7 +186,23 @@
           {/each}
         </select>
       </label>
+      <label class="fld">
+        <span>Forma nazw</span>
+        <select
+          value={store.characterSex}
+          onchange={(e) => store.setCharacterSex(e.currentTarget.value as "" | "M" | "K")}
+          title="Płeć postaci: forma nazw profesji i tytułów poziomów (także na karcie PDF)"
+        >
+          <option value="">jak w podręczniku</option>
+          <option value="M">męska</option>
+          <option value="K">żeńska</option>
+        </select>
+      </label>
       <SourceFilterSelect />
+      <label class="check evil-toggle" title="Profesje Chaosu i kultów (Warriors of Chaos) — osobna kategoria, domyślnie ukryta">
+        <input type="checkbox" checked={store.showEvil} onchange={(e) => store.setShowEvil(e.currentTarget.checked)} />
+        Profesje zła
+      </label>
     </div>
     <div class="ed-actions">
       <button class="ghost" onclick={onSetCareer}>Ustaw / popraw (bez kosztu)</button>
@@ -189,7 +222,7 @@
       {#each careerPath as step, i (i)}
         <span class="chip {i === careerPath.length - 1 ? 'accent' : ''}">
           {step.completed ? "✓" : "•"}
-          {step.title || step.profession} ({step.level})
+          {step.profession ? store.professionLabel(step.profession) : step.title} ({step.level})
           {#if !step.resolved}<span class="text-dim">(spoza podstawki)</span>{/if}
           <button class="rm" aria-label="Usuń krok" onclick={() => store.removeCareerStep(i)}>✕</button>
         </span>
@@ -200,12 +233,30 @@
     </div>
   </div>
 
+  {#if choiceEntries.length}
+    <div class="path panel">
+      <h3 class="section-title">Wybory specjalizacji („Dowolna” / „albo”)</h3>
+      <p class="text-dim">
+        Zapamiętane wybory należą do profesji — wybrana pozycja jest rozwijalna jak każda inna
+        z jej schematu. Cofnięcie wyboru nie usuwa umiejętności ani talentu.
+      </p>
+      <div class="chips">
+        {#each choiceEntries as ch (ch.key)}
+          <span class="chip" class:accent={ch.profession === currentCareer}>
+            {ch.profession} {ch.level}: {ch.scheme} → <b>{ch.value}</b>
+            <button class="rm" aria-label="Cofnij wybór" title="Cofnij wybór" onclick={() => store.clearChoice(ch.key)}>✕</button>
+          </span>
+        {/each}
+      </div>
+    </div>
+  {/if}
+
   {#if profSchema}
     <div class="levels">
       {#each profSchema.levels as lvl (lvl.level)}
         <div class="lvl panel" class:current={lvl.level === currentLevel}>
           <div class="lvl-head">
-            <strong>{lvl.level}. {lvl.title}</strong>
+            <strong>{lvl.level}. {store.levelTitle(currentCareer, lvl.level) || lvl.title}</strong>
             {#if lvl.level === currentLevel}
               <span class="chip accent">OBECNY POZIOM</span>
             {:else if lvl.level < currentLevel}
@@ -321,6 +372,11 @@
   .grow {
     flex: 1;
     min-width: calc(200px * var(--ui-scale));
+  }
+
+  .evil-toggle {
+    align-self: flex-end;
+    color: var(--danger-strong);
   }
 
   .ed-actions {

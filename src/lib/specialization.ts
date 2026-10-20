@@ -29,6 +29,14 @@ export interface SpecInfo {
 /** Rozbija nazwę ze schematu na informację o specjalizacji. */
 export function parseSpecialization(name: string): SpecInfo {
   const raw = name;
+
+  // Wybór między całymi pozycjami: "Sekretna Tożsamość albo Niegodny Uwagi",
+  // "Twardziel lub Traper" ("albo"/"lub" poza nawiasem) → opcje = pełne nazwy.
+  const whole = splitOutsideParens(name);
+  if (whole.length > 1) {
+    return { raw, base: "", inner: null, kind: "choice", options: whole, hint: "" };
+  }
+
   const open = name.indexOf("(");
   const close = name.lastIndexOf(")");
 
@@ -39,10 +47,10 @@ export function parseSpecialization(name: string): SpecInfo {
   const base = name.slice(0, open).trim();
   const inner = name.slice(open + 1, close).trim();
 
-  // Wybór "albo A albo B" → lista opcji.
-  if (/\balbo\b/i.test(inner)) {
+  // Wybór "A albo B" / "A lub B" (także "A, B, C albo D") → lista opcji.
+  if (/(^|\s)(albo|lub)(\s|$)/i.test(inner)) {
     const options = inner
-      .split(/\s+albo\s+/i)
+      .split(/\s*,\s*|\s+(?:albo|lub)\s+/i)
       .map((o) => o.trim())
       .filter(Boolean);
     return { raw, base, inner, kind: "choice", options, hint: "" };
@@ -68,10 +76,30 @@ export function needsSpecialization(info: SpecInfo): boolean {
   return info.kind === "free" || info.kind === "choice";
 }
 
-/** Buduje docelową nazwę "Baza (Wybrana)". */
+/** Buduje docelową nazwę "Baza (Wybrana)"; bez bazy (wybór całej pozycji) — samą opcję. */
 export function buildSpecializedName(base: string, chosen: string): string {
   const b = base.trim();
   const c = chosen.trim();
   if (!c) return b;
+  if (!b) return c;
   return `${b} (${c})`;
+}
+
+/** Dzieli nazwę po " albo " / " lub " leżących poza nawiasami. */
+function splitOutsideParens(name: string): string[] {
+  const out: string[] = [];
+  let depth = 0;
+  let start = 0;
+  const re = /\s+(?:albo|lub)\s+|[()]/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(name))) {
+    if (m[0] === "(") depth++;
+    else if (m[0] === ")") depth--;
+    else if (depth === 0) {
+      out.push(name.slice(start, m.index).trim());
+      start = m.index + m[0].length;
+    }
+  }
+  out.push(name.slice(start).trim());
+  return out.filter(Boolean);
 }
