@@ -1,11 +1,11 @@
-import { describe, it, expect, beforeAll } from "vitest";
+import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { loadTestGameData } from "./loadData";
 import {
   DataManager,
   CHARACTER_JSON_SCHEMA,
   CHARACTER_JSON_VERSION
 } from "../character";
-import { allProfessionNames, getProfession } from "../gameData";
+import { allProfessionNames, getProfession, setRuleset } from "../gameData";
 
 beforeAll(() => {
   loadTestGameData();
@@ -79,6 +79,35 @@ describe("character: createFromRace (kreator rasowy)", () => {
 
     // PD startowe.
     expect(dm.experience).toEqual({ available: 70, spent: 0, total: 70 });
+  });
+
+  it("talent Szczescie podnosi startowe Szczescie i jego maksimum", () => {
+    const dm = new DataManager();
+    dm.createFromRace({
+      name: "Fartowny", race: "Człowiek",
+      characteristics: { WW: 30, US: 30, S: 30, Wt: 30, I: 30, Zw: 30, Zr: 30, Int: 30, SW: 30, Ogd: 30 },
+      fate: 3, resilience: 3, wounds: 10, movement: 4,
+      skillsPlus5: [], skillsPlus3: [], talents: ["Szczęście"], experience: 0
+    });
+    expect(dm.stats.fortune).toBe(4);
+    expect(dm.luckStats()).toEqual({ fate: 3, fortuneMax: 4 });
+  });
+});
+
+describe("character: wspolna pula Przeznaczenia (zasady domowe)", () => {
+  beforeAll(() => setRuleset("domowe"));
+  afterAll(() => setRuleset("core"));
+
+  it("Przeznaczenie = Przeznaczenie + Bohater; Szczescie osobno; PDF bez Bohatera i Determinacji", () => {
+    const dm = new DataManager();
+    dm.createNewCharacter("Domowy");
+    dm.stats = { ...dm.stats, fate: 5, fortune: 5, resilience: 0, resolve: 0 };
+    dm.talents["Szczęście"] = { advances: 2 } as never;
+    expect(dm.luckStats()).toEqual({ fate: 5, fortuneMax: 7 });
+    // Przemiana w wampira: Przeznaczenie -1, Bohater +1 -> pula bez zmian.
+    dm.addModifier({ id: "v", name: "Przemiana", category: "wampiryzm", description: "", active: true, fate: -1, resilience: 1 });
+    expect(dm.luckStats().fate).toBe(5);
+    expect(dm.stats.fortune).toBe(5);
   });
 });
 

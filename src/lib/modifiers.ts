@@ -137,7 +137,7 @@ export function sumWoundModifiers(mods: CharacterModifier[]): number {
 const signed = (n: number): string => (n > 0 ? `+${n}` : `${n}`);
 
 /** Krotkie podsumowanie efektow (np. ["WW +10", "Szybkość +2"]). */
-export function modifierEffectLabels(m: CharacterModifier): string[] {
+export function modifierEffectLabels(m: CharacterModifier, luckMerged = false): string[] {
   const out: string[] = [];
   for (const code of ATTRIBUTES) {
     const v = m.characteristics?.[code];
@@ -149,8 +149,14 @@ export function modifierEffectLabels(m: CharacterModifier): string[] {
   }
   if (m.movement) out.push(`Szybkość ${signed(m.movement)}`);
   if (m.wounds) out.push(`Żywotność ${signed(m.wounds)}`);
-  if (m.fate) out.push(`Przeznaczenie ${signed(m.fate)}`);
-  if (m.resilience) out.push(`Bohater ${signed(m.resilience)}`);
+  if (luckMerged) {
+    // Zasady domowe: jedna pula Przeznaczenia - liczy sie suma zmian Przeznaczenia i Bohatera.
+    const luck = (m.fate ?? 0) + (m.resilience ?? 0);
+    if (luck) out.push(`Przeznaczenie ${signed(luck)}`);
+  } else {
+    if (m.fate) out.push(`Przeznaczenie ${signed(m.fate)}`);
+    if (m.resilience) out.push(`Bohater ${signed(m.resilience)}`);
+  }
   if (m.race) out.push(`Rasa: ${m.race}`);
   return out;
 }

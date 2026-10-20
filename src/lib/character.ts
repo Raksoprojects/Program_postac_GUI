@@ -406,6 +406,15 @@ export class DataManager {
       }
     }
     if (mod.movement) this.stats.movement = clamp(this.stats.movement + sign * mod.movement);
+    if (gameData.isLuckPoolMerged()) {
+      // Zasady domowe: Przeznaczenie = Przeznaczenie + Bohater (jedna pula);
+      // Szczescie idzie za suma zmian, Determinacji nie ma.
+      if (mod.fate) this.stats.fate = clamp(this.stats.fate + sign * mod.fate);
+      if (mod.resilience) this.stats.resilience = clamp(this.stats.resilience + sign * mod.resilience);
+      const luck = (mod.fate ?? 0) + (mod.resilience ?? 0);
+      if (luck) this.stats.fortune = clamp(this.stats.fortune + sign * luck);
+      return;
+    }
     if (mod.fate) {
       this.stats.fate = clamp(this.stats.fate + sign * mod.fate);
       this.stats.fortune = clamp(this.stats.fortune + sign * mod.fate);
@@ -414,6 +423,22 @@ export class DataManager {
       this.stats.resilience = clamp(this.stats.resilience + sign * mod.resilience);
       this.stats.resolve = clamp(this.stats.resolve + sign * mod.resilience);
     }
+  }
+
+  /** Wykupienia talentu Szczescie (podnosi maksimum Punktow Szczescia). */
+  luckTalentAdvances(): number {
+    const owned = gameData.findOwnedName(this.talents, "Szczęście");
+    return owned ? Math.max(0, Math.trunc(Number(this.talents[owned].advances) || 0)) : 0;
+  }
+
+  /**
+   * Punkty Przeznaczenia do wyswietlenia (zasady domowe: wspolna pula
+   * Przeznaczenia i Bohatera) i maksimum Punktow Szczescia
+   * (Przeznaczenie + wykupienia talentu Szczescie).
+   */
+  luckStats(): { fate: number; fortuneMax: number } {
+    const fate = gameData.isLuckPoolMerged() ? this.stats.fate + this.stats.resilience : this.stats.fate;
+    return { fate, fortuneMax: fate + this.luckTalentAdvances() };
   }
 
   /** Przelicza wartosci pochodne po zmianie modyfikatorow. */
@@ -762,12 +787,12 @@ export class DataManager {
     const xp = Math.max(0, Math.trunc(input.experience));
     this.experience = { available: xp, spent: 0, total: xp };
 
-    // Punkty Szczescia = Przeznaczenia, Determinacja = Bohatera (kopie startowe).
+    // Punkty Szczescia = Przeznaczenia (+ talent Szczescie), Determinacja = Bohatera (kopie startowe).
     this.stats = {
       wounds: Math.max(0, Math.trunc(input.wounds)),
       movement: Math.max(0, Math.trunc(input.movement)),
       fate: Math.max(0, Math.trunc(input.fate)),
-      fortune: Math.max(0, Math.trunc(input.fate)),
+      fortune: Math.max(0, Math.trunc(input.fate)) + this.luckTalentAdvances(),
       resilience: Math.max(0, Math.trunc(input.resilience)),
       resolve: Math.max(0, Math.trunc(input.resilience)),
       motivation: ""
@@ -824,7 +849,11 @@ export class DataManager {
       character_name: this.characterName,
       attributes: this.attributes,
       skills: this.skills,
-      stats: { ...this.stats },
+      // Zasady domowe: Przeznaczenie = wspolna pula Przeznaczenia i Bohatera;
+      // Szczescie osobno; pola Bohatera i Determinacji puste.
+      stats: gameData.isLuckPoolMerged()
+        ? { ...this.stats, fate: this.stats.fate + this.stats.resilience, resilience: 0, resolve: 0 }
+        : { ...this.stats },
       talents: Object.fromEntries(
         Object.entries(this.talents).map(([name, t]) => [
           name,
@@ -913,7 +942,7 @@ export class DataManager {
     return this.modifiers
       .filter((m) => m.active)
       .map((m) => {
-        const fx = modifierEffectLabels(m).join(", ");
+        const fx = modifierEffectLabels(m, gameData.isLuckPoolMerged()).join(", ");
         const desc = [fx, m.description].filter(Boolean).join(" — ");
         return {
           name: `${tag(m.category)}: ${m.name}${m.location ? ` (${m.location})` : ""}`,

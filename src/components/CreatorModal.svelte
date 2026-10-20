@@ -147,11 +147,15 @@
   });
   const totalBonusPd = $derived(raceBonusPd + charBonusPd);
 
+  /** Zasady domowe: jedna pula Punktow Przeznaczenia (Przeznaczenie + Bohater). */
+  const luckMerged = $derived(gameData.isLuckPoolMerged(store.ruleset));
+  const luckPool = $derived(race ? gameData.startingLuckPool(race) : 0);
+
   const fatePool = $derived(
     race ? race.fate + race.resilience + race.extraPoints : 0
   );
-  /** Punkty z puli extraPoints jeszcze nierozdzielone. */
-  const fateRemaining = $derived(fatePool - fate - resilience);
+  /** Punkty z puli extraPoints jeszcze nierozdzielone (w trybie domowym zawsze 0). */
+  const fateRemaining = $derived(luckMerged ? 0 : fatePool - fate - resilience);
 
   const plus5Count = $derived(
     Object.values(skillChoice).filter((v) => v === 5).length
@@ -484,8 +488,9 @@
       race: raceName,
       sex: nameSex,
       characteristics: { ...chars },
-      fate,
-      resilience,
+      // Zasady domowe: cala pula w polu Przeznaczenia (Bohater = 0).
+      fate: luckMerged ? luckPool : fate,
+      resilience: luckMerged ? 0 : resilience,
       wounds: derivedStats?.wounds ?? 0,
       movement: race.movement,
       skillsPlus5,
@@ -705,6 +710,15 @@
       <div class="stat"><span>Chód</span><strong>{derivedStats?.move.walk ?? 0}</strong></div>
       <div class="stat"><span>Bieg</span><strong>{derivedStats?.move.run ?? 0}</strong></div>
     </div>
+    {#if luckMerged}
+      <p class="text-dim">Zasady domowe: Przeznaczenie i Bohater tworzą jedną pulę Punktów Przeznaczenia. Punkty Szczęścia = Przeznaczenie (+ talent Szczęście).</p>
+      <div class="distrib">
+        <div class="dpair">
+          <span>Punkty Przeznaczenia</span>
+          <strong>{luckPool}</strong>
+        </div>
+      </div>
+    {:else}
     <p class="text-dim">Rozdaj pulę {fatePool} pkt na Punkty Przeznaczenia
       i Punkty Bohatera. Minimum rasowe: Przeznaczenie {race.fate}, Bohatera
       {race.resilience}. Pozostało do rozdania: <strong>{fateRemaining}</strong>.</p>
@@ -729,6 +743,7 @@
       </div>
     </div>
     <p class="text-dim" class:bonus={fateRemaining === 0}>Rozdysponowano: {fate + resilience} / {fatePool}</p>
+    {/if}
   {/if}
 
   {#if step === 4 && effRace}
@@ -825,8 +840,12 @@
       </p>
       <p><strong>Żywotność:</strong> {derivedStats?.wounds ?? 0} &nbsp;
         <strong>Szybkość:</strong> {race.movement} ({derivedStats?.move.walk}/{derivedStats?.move.run})</p>
-      <p><strong>Punkty Przeznaczenia:</strong> {fate} &nbsp;
-        <strong>Punkty Bohatera:</strong> {resilience}</p>
+      {#if luckMerged}
+        <p><strong>Punkty Przeznaczenia:</strong> {luckPool}</p>
+      {:else}
+        <p><strong>Punkty Przeznaczenia:</strong> {fate} &nbsp;
+          <strong>Punkty Bohatera:</strong> {resilience}</p>
+      {/if}
       <p><strong>Umiejętności +5:</strong>
         {Object.entries(skillChoice).filter(([, v]) => v === 5).map(([k]) => k).join(", ")}</p>
       <p><strong>Umiejętności +3:</strong>

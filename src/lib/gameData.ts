@@ -540,6 +540,20 @@ export function getRace(name: string): RaceDef | undefined {
   return requireRaces().races[name];
 }
 
+/**
+ * Zasady domowe ("Pełne Domowe"): Przeznaczenie i Bohater tworza jedna pule
+ * Punktow Przeznaczenia (wartosc = fate + resilience); Szczescie osobno.
+ */
+export function isLuckPoolMerged(ruleset: Ruleset = activeRuleset): boolean {
+  return ruleset === "domowe";
+}
+
+/** Startowe Punkty Przeznaczenia rasy (zasady domowe): luckPool albo suma puli rasy - 1. */
+export function startingLuckPool(race: RaceDef): number {
+  if (typeof race.luckPool === "number") return race.luckPool;
+  return Math.max(0, race.fate + race.resilience + race.extraPoints - 1);
+}
+
 /** Lista pochodzen (lokacji startowych) danej rasy; pusta gdy brak. */
 export function getOrigins(raceName: string): Origin[] {
   return origins[raceName] ?? [];

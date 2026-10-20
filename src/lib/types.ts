@@ -130,6 +130,11 @@ export interface RaceDef {
   resilience: number;
   /** Dodatkowe punkty do rozdzielenia miedzy Los i Hart. */
   extraPoints: number;
+  /**
+   * Zasady domowe: startowe Punkty Przeznaczenia (wspolna pula Przeznaczenia
+   * i Bohatera). Brak = fate + resilience + extraPoints - 1.
+   */
+  luckPool?: number;
   /** Szybkosc (ruch). */
   movement: number;
   /** Lista 12 umiejetnosci rasowych do wyboru (3x+5, 3x+3). */

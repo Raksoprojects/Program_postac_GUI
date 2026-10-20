@@ -15,6 +15,9 @@ import {
   getTalent,
   isCareerCompleted,
   isEvilProfession,
+  isLuckPoolMerged,
+  startingLuckPool,
+  getRace,
   isSkillDevelopable,
   isCharacteristicDevelopable,
   normalize,
@@ -123,6 +126,18 @@ describe("gameData: profesje i klasy", () => {
     expect(steps.length).toBe(2);
     expect(steps[0].resolved).toBe(true);
     expect(steps[1].resolved).toBe(false);
+  });
+});
+
+describe("gameData: wspolna pula Przeznaczenia (zasady domowe)", () => {
+  it("wspolna pula tylko w wariancie domowym; start = suma puli rasy - 1 albo luckPool", () => {
+    expect(isLuckPoolMerged("domowe")).toBe(true);
+    expect(isLuckPoolMerged("core")).toBe(false);
+    expect(isLuckPoolMerged("pod_bronia")).toBe(false);
+    expect(startingLuckPool(getRace("Człowiek")!)).toBe(5);
+    expect(startingLuckPool(getRace("Krasnolud")!)).toBe(3);
+    expect(startingLuckPool(getRace("Niziołek")!)).toBe(4);
+    expect(startingLuckPool({ ...getRace("Człowiek")!, luckPool: 4 })).toBe(4);
   });
 });
 

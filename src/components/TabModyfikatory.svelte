@@ -39,6 +39,9 @@
     showCatalog = true;
   }
 
+  /** Zasady domowe: Przeznaczenie i Bohater jako jedna pula Punktow Przeznaczenia. */
+  let luckMerged = $derived(gameData.isLuckPoolMerged(store.ruleset));
+
   const signed = (v: ModifierValue): string =>
     typeof v === "number" ? (v > 0 ? `+${v}` : `${v}`) : v.startsWith("-") ? v : `+${v}`;
 
@@ -50,8 +53,14 @@
     for (const [k, v] of Object.entries(def.maxCharacteristics ?? {})) out.push(`${k} maks. ${v}`);
     if (def.movement) out.push(`Szybkość ${signed(def.movement)}`);
     if (def.wounds) out.push(`Żywotność ${signed(def.wounds)}`);
-    if (def.fate) out.push(`Przeznaczenie ${signed(def.fate)}`);
-    if (def.resilience) out.push(`Bohater ${signed(def.resilience)}`);
+    if (luckMerged) {
+      // Zasady domowe: jedna pula Przeznaczenia (suma zmian Przeznaczenia i Bohatera).
+      const luck = (Number(def.fate) || 0) + (Number(def.resilience) || 0);
+      if (luck) out.push(`Przeznaczenie ${signed(luck)}`);
+    } else {
+      if (def.fate) out.push(`Przeznaczenie ${signed(def.fate)}`);
+      if (def.resilience) out.push(`Bohater ${signed(def.resilience)}`);
+    }
     return out;
   }
 
@@ -136,7 +145,7 @@
 
   <div class="rows">
     {#each mods as mod (mod.id)}
-      {@const labels = modifierEffectLabels(mod)}
+      {@const labels = modifierEffectLabels(mod, luckMerged)}
       <div class="row panel" class:inactive={!mod.active}>
         <div class="top">
           <div class="name">

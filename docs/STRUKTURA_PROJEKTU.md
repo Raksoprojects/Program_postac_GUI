@@ -127,12 +127,12 @@ test.
 |---------|----------------|
 | `data/professions.json` | Profesje (kariery) i ich 4 poziomy: cechy, umiejętności, talenty, wyposażenie. |
 | `data/classes.json` | Klasy i przypisane do nich profesje (lista `careers`). Profesje z `evil: true` (Warriors of Chaos) są domyślnie ukryte — przełącznik „Profesje zła” w zakładce Profesja pokazuje je w osobnych grupach wg klas. |
-| `data/races.json` | Rasy: bazowe cechy, ruch, Żywotność, pule Przeznaczenia/Bohatera, tabele losowania. |
+| `data/races.json` | Rasy: bazowe cechy, ruch, Żywotność, pule Przeznaczenia/Bohatera, tabele losowania. W wariancie „Pełne Domowe” Przeznaczenie i Bohater to jedna pula **Punktów Przeznaczenia**: start = `fate + resilience + extraPoints − 1` albo stała wartość z opcjonalnego pola `luckPool` rasy. Punkty Szczęścia są osobne (maks. = Przeznaczenie + wykupienia talentu Szczęście). |
 | `data/skills.json` | Kanoniczna lista umiejętności (nazwa, cecha wiodąca, czy grupowa). |
 | `data/talents.json` | Talenty: limity (maksima), testy, opisy, źródło. |
 | `data/spells.json` | Zaklęcia (594) w 32 tradycjach z metadanymi (`group`: petty/arcane/chaos, `aliases` = nazwy w talentach). Z bazy Generatora BN + Necromancer Career (przekład). |
 | `data/prayers.json` | Błogosławieństwa (19), przydział 6 na bóstwo, cuda (131): podstawka, Zwinne Stopy Lekkie Palce (aspekty Ranalda, Taal), Warriors of Salvation (przekład). |
-| `data/modifiers.json` | Katalog modyfikatorów: mutacje (podręcznik i Mutant's Handbook), Dary Chaosu, przemiana w wampira (oficjalna i domowa), Dary Krwi, Słabości, profile bohatera. Generowany skryptem `tools/import_modifiers.mjs` z danych `Generator_NPC`, potem można edytować ręcznie. |
+| `data/modifiers.json` | Katalog modyfikatorów: mutacje (podręcznik i Mutant's Handbook), Dary Chaosu, przemiana w wampira (tylko zasady domowe), Dary Krwi, Słabości, profile bohatera. Generowany skryptem `tools/import_modifiers.mjs` z danych `Generator_NPC`, potem można edytować ręcznie. |
 | `data/weapons.json` | Katalog broni (białej 58, zasięgowej 37), pancerzy (14) i opisów Zalet/Wad. Kopia z `Generator_NPC`. |
 | `data/profession_titles.json` | Formy [męska, żeńska] nazw profesji i tytułów poziomów. Kopia z `Generator_NPC` uzupełniona skryptem `tools/titles_overlay.mjs` (profesje kapłańskie, krasnoludzkie, Warriors of Chaos + poprawki form żeńskich) — po ponownym skopiowaniu uruchomić skrypt. |
 | `data/names.json` | Imiona i nazwiska wg rasy i płci — przycisk „Losuj imię” w kreatorze. Kopia z `Generator_NPC`. |

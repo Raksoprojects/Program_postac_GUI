@@ -483,6 +483,12 @@ class CharacterStore {
     return `${career} (poz. ${this.dm.currentCareerLevel}${title && title !== career ? ` — ${title}` : ""})`;
   }
 
+  /** Przeznaczenie do wyswietlenia i maksimum Punktow Szczescia (talent Szczescie). */
+  get luckStats(): { fate: number; fortuneMax: number } {
+    void this.tick;
+    return this.dm.luckStats();
+  }
+
   /** Plec postaci - forma nazw profesji ("" = jak w bazie). */
   get characterSex(): Sex | "" {
     void this.tick;
@@ -1039,7 +1045,7 @@ class CharacterStore {
 
   addModifier(mod: CharacterModifier): void {
     this.dm.addModifier(mod);
-    const fx = modifierEffectLabels(mod).join(", ");
+    const fx = modifierEffectLabels(mod, gameData.isLuckPoolMerged(this.ruleset)).join(", ");
     this.addHistory("Dodano modyfikator", fx ? `${mod.name} (${fx})` : mod.name);
     this.touch();
   }
@@ -1399,7 +1405,11 @@ class CharacterStore {
     this.history = [];
     this.addHistory(
       "Utworzono postać (kreator)",
-      `${input.race} — ${input.name || "Nowa Postać"} (Przeznaczenie ${input.fate}, Bohatera ${input.resilience})`
+      `${input.race} — ${input.name || "Nowa Postać"} (${
+        gameData.isLuckPoolMerged(this.ruleset)
+          ? `Przeznaczenie ${input.fate + input.resilience}`
+          : `Przeznaczenie ${input.fate}, Bohatera ${input.resilience}`
+      })`
     );
     this.touch();
   }

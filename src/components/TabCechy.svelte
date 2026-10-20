@@ -1,5 +1,9 @@
 <script lang="ts">
   import { store } from "../lib/store.svelte";
+  import { isLuckPoolMerged } from "../lib/gameData";
+
+  /** Zasady domowe: jedna pula Punktow Przeznaczenia (Przeznaczenie + Bohater). */
+  let luckMerged = $derived(isLuckPoolMerged(store.ruleset));
 
   let onlyDevelopable = $state(false);
 
@@ -88,16 +92,29 @@
         <span>Chód / Bieg</span>
         <output>{store.stats.movement * 2} / {store.stats.movement * 4}</output>
       </div>
+      {#if luckMerged}
+        <!-- Zasady domowe: Przeznaczenie i Bohater jako jedna pula (zapis: fate = pula, resilience = 0). -->
+        <label class="stat-fld" title="Zasady domowe: wspólna pula Przeznaczenia i Bohatera">
+          <span>Punkty Przeznaczenia</span>
+          <input type="number" min="0" value={store.stats.fate + store.stats.resilience}
+            oninput={(e) => {
+              store.setStat("fate", Math.max(0, +(e.currentTarget as HTMLInputElement).value));
+              store.setStat("resilience", 0);
+            }} />
+        </label>
+      {:else}
       <label class="stat-fld">
         <span>Punkty Przeznaczenia</span>
         <input type="number" min="0" value={store.stats.fate}
           oninput={(e) => store.setStat("fate", Math.max(0, +(e.currentTarget as HTMLInputElement).value))} />
       </label>
-      <label class="stat-fld">
-        <span>Punkty Szczęścia</span>
+      {/if}
+      <label class="stat-fld" title="Maksimum = Punkty Przeznaczenia + wykupienia talentu Szczęście">
+        <span>Punkty Szczęścia <span class="text-dim">(maks. {store.luckStats.fortuneMax})</span></span>
         <input type="number" min="0" value={store.stats.fortune}
           oninput={(e) => store.setStat("fortune", Math.max(0, +(e.currentTarget as HTMLInputElement).value))} />
       </label>
+      {#if !luckMerged}
       <label class="stat-fld">
         <span>Punkty Bohatera</span>
         <input type="number" min="0" value={store.stats.resilience}
@@ -108,6 +125,7 @@
         <input type="number" min="0" value={store.stats.resolve}
           oninput={(e) => store.setStat("resolve", Math.max(0, +(e.currentTarget as HTMLInputElement).value))} />
       </label>
+      {/if}
       <label class="stat-fld wide">
         <span>Motywacja</span>
         <input type="text" value={store.stats.motivation}
